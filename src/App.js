@@ -1,16 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// src/App.js
+import React from 'react';
+//import StaffHeader from './components/StaffHeader';
 
-import Login from './screens/Login';
+const HeaderApp = () => {
+    return (
+        <div className="HeaderApp">
+            <HeaderApp />
+            {/* Other components and content */}
+        </div>
+    );
+};
 
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-function App() {
-  return (
-    <Router>
-      <Routes>
-      <Route exact path='/' element={<Login />} />
-      </Routes>
-    </Router>
-  );
-}
-export default App;
+export default HeaderApp;

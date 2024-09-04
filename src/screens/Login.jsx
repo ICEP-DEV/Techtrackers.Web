@@ -2,13 +2,12 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import api from '../APIs/API';
 import '../style/style.css'
 
 import { useNavigate } from "react-router-dom";
 function Login() {
     const navigate = useNavigate();
-   
+
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
 
@@ -30,7 +29,6 @@ function Login() {
             }
         },
             err => {
-
             }
         );
 

@@ -1,0 +1,129 @@
+/* Notifications.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f4f4f4;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.notifications-heading {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notification-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.filter-container .filter-icon {
+    margin-right: 5px;
+}
+
+.filter-container .filter-label {
+    margin-right: 20px;
+}
+
+.offcanvas-navbar {
+    display: flex;
+    align-items: center;
+}
+
+.offcanvas-navbar .sort-label {
+    margin-left: 20px;
+}
+
+.notifications-list {
+    margin-top: 20px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-item .notification-icon {
+    margin-right: 10px;
+}
+
+.notification-item .notification-text {
+    flex: 1;
+}
+
+.notification-item .time-ago {
+    color: #888;
+    font-size: 12px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.pagination .page {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.pagination .page.active {
+    font-weight: bold;
+    color: #007bff;
+}

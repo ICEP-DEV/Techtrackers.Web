@@ -1,0 +1,385 @@
+
+h2{
+    text-align: center;
+}
+.logo{
+    padding: 0px;
+    margin: 0%;
+    
+}
+
+.nav-brand{
+   margin: 0px; 
+}
+.navbar-brand{
+    margin: 0px;
+}
+.nav_button {
+    margin-left: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000; /* Set text color */
+    border-radius: 4px;
+    background-color: #0C3A3A; /* Button background color */
+    color: white; /* Button text color */
+    font-weight: bold;
+
+}
+
+.nav_button:hover {
+    background-color: #45a049; /* Button hover effect */
+}
+#header{
+    text-align: center;
+    background-color:#0C3A3A;
+    height: 100px;
+}
+
+.nav_button{
+    margin: 10px 20px;
+}
+.whole-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+  }
+  
+.container {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+  .picture {
+    flex: 1; /* Allows the picture section to take up available space */
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center; /* Centers the image vertically */
+  }
+  
+  .picture img {
+    max-width: 100%; /* Ensures the image is responsive */
+    height: auto;
+  }
+  
+  .group {
+    flex: 1; /* Allows the form section to take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the form vertically within its container */
+    padding: 20px;
+    align-items:center;
+  }
+  
+  .form-group {
+    margin-bottom: 2px;
+    width: 300px;
+    margin: 20px;
+  }
+  
+  .control-form {
+    width: 100%; /* Makes the input fields fill the container width */
+  }
+  
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100px;
+    border-radius: 6px;
+    background-color:#108484;
+    color: white;
+    
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin: 20px;
+   }
+   .container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+.container2 h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.control-form {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #108484;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border:none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+.forgotbutton{
+    text-decoration: none;  
+}
+.forgotbutton:hover {
+    color:#45a049;
+}
+.home-container {
+    background-image: url('./homeBackGround.jpg');
+    background-size: cover; 
+    background-position: center; 
+    height: 100vh; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white; 
+  }
+  .first-tittle {
+    text-align: left;
+    font-size: 100px;
+    padding-left:200px;
+  }
+  .second-tittle {
+    text-align: left;
+    font-size: 50px;
+    padding-left:200px;
+  }
+  .start-button{
+    width: 150px;
+    border-radius: 8px;
+    border: none;
+  
+  }
+  .home-button{
+    padding-right:1225px;
+  }
+  .underline {
+    text-decoration: underline;
+    padding-bottom: 5px;
+    height:60px;
+    color:#0C3A3A;
+    border-bottom: 2px #83FFFF;
+    align-items: center;
+    text-align: center; /* Centers the text horizontally */
+    display: block; /* Ensures that text-align works correctly */
+    margin: 50px;
+    padding-right:280px;
+    font-weight: bold;
+
+  }
+
+  .about-picture{
+    float: left;
+  }
+  .about-content {
+    float: right;
+  }
+  .whole-about{ 
+     /* Centers the form vertically within its container */
+    padding-left: 400px;
+  
+  }
+  .about-content{
+    padding-right: 450px;
+  }
+  .start-button{
+    width: 150px;
+    border-radius: 8px;
+    border: none;
+  }
+  .about-content1 {
+    font-size: 30px; /* Increase font size as needed */
+    font-weight: bold; /* Optional: make the text bold for emphasis */
+    margin-bottom: 20px; /* Optional: adds some spacing below the content */
+    color:#0C3A3A;
+  }
+  .about-content2{
+    font-size: 16px;
+  }
+  .contact-button{
+    border-radius: 8px;
+    width: 150px;
+  }
+
+  .images-container {
+    display: flex; /* Use Flexbox to align images side by side */
+    justify-content: space-between; /* Space out images evenly */
+    align-items: flex-start; /* Align images vertically centered */
+    margin-top: 20px;
+  }
+  
+  .service-image {
+    width: 15%; /* Set width to make sure images fit side by side */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    margin: 0 5px; /* Add horizontal space between images */
+  }
+  .centered-text {
+    text-align: center; /* Centers the specific paragraph */
+    margin: 10px 0; /* Optional: Adds some space around the paragraph */
+    font-size: 30px;
+    font-style: italic;
+  }
+  .under{
+    text-decoration: underline;
+    padding-bottom: 5px;
+    height:60px;
+    color:#0C3A3A;
+    border-bottom: 2px #83FFFF;
+    align-items: center;
+    text-align: center; /* Centers the text horizontally */
+    display: block; /* Ensures that text-align works correctly */
+    margin: 50px;
+    padding-right:8px;
+    font-weight: bold;
+
+  }
+  .image-item {
+    display: flex;
+    flex-direction: column; /* Stack image and caption vertically */
+    align-items: center; /* Center items horizontally */
+    width: 22%; /* Adjust to control spacing */
+    margin: 0 5px; /* Horizontal spacing between image items */
+  }
+  
+  .service-image {
+    width: 60%; /* Make image take full width of its container */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-caption {
+    margin-top: 10px;
+    font-size: 14px; /* Adjust font size as needed */
+    color: #0C3A3A; /* Optional: Change color for caption text */
+    font-weight: bold
+  }
+  .image-caption{
+    font-size:30px;
+  }
+  .centered-caption{
+    font-size:20px;
+  }
+  /* Contact container styles */
+.contact-container {
+  padding: 20px;
+  background-color: #0C3A3A; /* Light grey background color for the entire contact section */
+  border-radius: 8px; /* Optional: Adds rounded corners */
+  margin: 20px; /* Adds some margin around the container */
+}
+
+/* Flex container for both contact form and contact details */
+.contact-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #ffffff; /* Background color for the content section (optional) */
+  padding: 20px;
+  border-radius: 8px; /* Optional: Adds rounded corners */
+}
+
+/* Contact form styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  margin-right: 2%;
+}
+
+/* Input and textarea styles */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  max-height: 100px;
+}
+
+.contact-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #0056b3;
+}
+
+/* Contact details styles */
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.contact-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.contact-message p {
+  margin: 4px 0;
+}
+
+.color-email {
+  color: #007bff;
+}

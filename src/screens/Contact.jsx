@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import "../style/contact.css";
 import Header from './Header'; // Import the Header component
 
 const Contact = () => {
   return (
-    <div className="header-container">
+    <div>
       <Header />
       <div className="contact-container">
         <h1 className="contact-title">Contact Us</h1>
-        <div className="contact-content">
+        <div className="content">
           <form className="contact-form">
             <div className="form-group">
               <input type="text" placeholder="Enter your name" id="name" name="name" required />
@@ -19,38 +20,36 @@ const Contact = () => {
             <div className="form-group">
               <textarea placeholder="Enter your message" id="message" name="message" rows="4" required></textarea>
             </div>
-            <button type="submit" className="contact-button">Submit</button>
+            {/*<button type="submit" className="contact-button">Submit</button>*/}
           </form>
-          <div className="contact-details">
+        <div className="contact-details">
             <div className="contact-item">
               <img src={require('./message.jpg')} alt="Logo 1" className="contact-image" />
               <div className="contact-message">
-                <p>Chat to us</p>
-                <p>Our friendly team is here to help</p>
-                <p className="color-email">hi@techtrackers.com</p>
+                <p>Chat to us<br/>Our friendly team is here to help<br/><span className="color-email">hi@techtrackers.com</span></p>
               </div>
             </div>
 
             <div className="contact-item">
               <img src={require('./location.jpg')} alt="Logo 2" className="contact-image" />
               <div className="contact-message">
-                <p>Office location</p>
-                <p>Soshanguve Campus, Building 10</p>
+                <p>Office location<br/>Soshanguve Campus, Building 10</p>
               </div>
             </div>
 
             <div className="contact-item">
               <img src={require('./phone.jpg')} alt="Logo 3" className="contact-image" />
               <div className="contact-message">
-                <p>Call us</p>
-                <p>012 985 9636</p>
-                <p>Mon-Fri from 8am-4pm</p>
+                <p>Call us<br/>012 985 9636<br/>Mon-Fri from 8am-4pm</p>
               </div>
             </div>
           </div>
-        </div>
+      </div>
+      <div className="footer">
+            <span>© Copyright Tech Tracker All Rights Reserved</span>
       </div>
     </div>
+  </div>
   );
 };
 

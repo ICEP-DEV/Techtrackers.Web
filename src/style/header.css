@@ -1,0 +1,36 @@
+.logo{
+    padding: 0px;
+    margin: 0%;
+    
+}
+
+.nav-brand{
+   margin: 0px; 
+}
+.navbar-brand{
+    margin: 0px;
+}
+.nav_button {
+    margin-left: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000; /* Set text color */
+    border-radius: 4px;
+    background-color: #0C3A3A; /* Button background color */
+    color: white; /* Button text color */
+    font-weight: bold;
+
+}
+
+.nav_button:hover {
+    background-color: #45a049; /* Button hover effect */
+}
+#header{
+    text-align: center;
+    background-color:#0C3A3A;
+    height: 100px;
+}
+
+.nav_button{
+    margin: 10px 20px;
+}

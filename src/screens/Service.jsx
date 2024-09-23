@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import Header from './Header'; // Import the Header component
+import { Link } from 'react-router-dom'; 
+import Header from './Header'; 
+import "../style/service.css";
 
 
 const Service = () => {
   return (
     
-    <div className="service-container">
-        <Header />
-       
+    <div>
+       <Header />
+       <div className="service-container">
         <h1 className="under">SERVICES</h1>
       <p className="centered-text">FixFlow offers a comprehensive suite of services designed to streamline technical support across your</p>
       <p className="centered-text">organization. From issue logging to resolution tracking, our platform ensures that every technical challage</p>
@@ -46,6 +47,8 @@ const Service = () => {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 };
 

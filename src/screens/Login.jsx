@@ -1,11 +1,65 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import "../style/login.css";
+import Header from './Header';
+
+
+const Login = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  return (
+      <div>
+        <Header />
+          <div className="login-container">
+            <div className="login-content">
+                <h1 className="login-title">LOGIN</h1>
+                <hr className="login-line" />
+                <div className="button-container">
+                <div className="login-card" onClick={() => handleNavigation('/staff')}>Staff</div>
+                <div className="login-card" onClick={() => handleNavigation('/technician')}>Technician</div>
+                <div className="login-card" onClick={() => handleNavigation('/admin')}>Admin</div>
+                <div className="login-card" onClick={() => handleNavigation('/hod')}>HOD</div>
+                </div>
+            </div>
+         </div>
+     </div>
+    
+  );
+};
+
+export default Login;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
 import { Link } from 'react-router-dom';
-
-
-
 function Login() {
     const user = [{ email: "kekana@gmail.com", password: '123zxc@Z' }, { email: 'nkosana@gmail.com', password: '123zxc@Z' }]
 
@@ -64,3 +118,4 @@ function Login() {
 }
 
 export default Login;
+*/

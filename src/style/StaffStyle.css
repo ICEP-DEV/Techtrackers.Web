@@ -7,28 +7,34 @@ body {
 .dashboard-header {
     display: flex;
     justify-content: space-between; 
-    align-items: right; 
-    padding: 5px 5px;
+    align-items: center; 
+    padding: 10px 20px;
     background-color: #0C3A3A;
     color: white;
 }
 
 .header-left {
     display: flex;
-    align-items: left;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     flex: 1;
 }
 
 .logo {
-     height: 65px; 
+    height: 65px; 
     margin-right: 10px;
 }
 
+
+.header-center{
+    flex:1;
+    text-align:center;
+}
 .header-right {
     display: flex;
     align-items: center;  /* Center items vertically */
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
+    position: relative; /* Stack items vertically */
 }
 
 button {
@@ -42,4 +48,32 @@ button {
 
 button:hover {
     opacity: 0.7;
+}
+
+.dropdown-menu{
+    position: absolute;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    z-index: 1;
+    margin-top: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.dropdown-menu p {
+    margin: 0;
+    padding: 10px;
+}
+.dropdown-menu button{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #f44336;
+    color:white;
+    cursor: pointer;
+
+}
+.dropdown-menu butto:hover{
+    background-color: #d32f2f;
 }

@@ -1,16 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Login from './screens/Login';
+import GenerateReport from './screens/adminGenerateReport';
 
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
-    <Router>
-      <Routes>
-      <Route exact path='/' element={<Login />} />
-      </Routes>
-    </Router>
+    <div className="App">
+    <div className="container">
+     <GenerateReport/>
+    </div>
+ </div>
   );
 }
 export default App;

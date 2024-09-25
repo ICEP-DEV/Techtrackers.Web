@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import WelcomeStaff from './components/WelcomeStaff';
+import Logissueform from './components/logissueform';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <WelcomeStaff />
+    <Logissueform />
   </React.StrictMode>
 );
 

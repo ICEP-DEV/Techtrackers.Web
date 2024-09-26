@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import {AiFillEye, AiOutlineRight} from 'react-icons/ai';
 import { TbFileReport } from "react-icons/tb";
 import '../style/generateReport.css'; // CSS file for styling
@@ -64,3 +64,4 @@ const GenerateReport = () => {
 };
 
 export default GenerateReport;
+*/

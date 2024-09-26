@@ -1,39 +1,349 @@
-.form-group{
-    display: flex;
-    flex-direction: column;
-    margin: 20px 50px;
+.attachment-section {
+  display: flex;
+  align-items: center; /* Vertically center the icon */
+  margin-top: 20px; /* Adjust the top margin as needed */
 }
-h2{
-    text-align: center;
-}
-
-#header{
-    text-align: center;
+.attachment-icon {
+  transition: color 0.3s; /* Smooth color transition */
+  
 }
 
-.nav_button{
-    margin: 10px 20px;
+/* Styling for the attachment section */
+.attachment-section {
+  display: flex;
+  align-items: center; /* Align the icon and text vertically */
+  margin-top: 20px;
+  
+}
+/* Optional margin to add space between the icon and the text */
+.attachment-text {
+  margin-left: 10px; /* Adjust the space between icon and text */
+  font-size: 16px;
+  font-weight: bold; /* Same color as the icon */
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-#customers {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
+/* Style for the full-size image in the modal */
+.modal-image {
+  max-width: 90%;
+  max-height: 80%;
+  border: 2px solid #fff;
+  border-radius: 4px;
+}
+/* General container styling for the issue details */
+.issue-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-left: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Set to relative to position the button inside */
+}
+
+/* Styling the Close Button on the bottom-right */
+.close-button-container {
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  right: 20px;  /* Distance from the right */
+}
+
+.close-button {
+  background-color: red; /* Red background color */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 30px; /* Padding inside the button */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.close-button:hover {
+  background-color: #d9534f; /* Darker red on hover */
+}
+
+
+.close-button:hover {
+  background-color: darkred; /* Darker red on hover */
+}
+.department-info
+{
+  font-weight: bolder;
+}
+.issue-details-container {
+  max-width: 10000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 600px;
+}
+
+/* Flex container for department info, priority, and date */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* Align department info on the left */
+.department-info {
+  flex: 1;
+}
+
+/* Center the priority info */
+.priority-info {
+  flex: 1;
+  text-align: center;
+}
+
+/* Align the issue date on the right */
+.issue-date {
+  flex: 1;
+  text-align: right;
+}
+/* Add styles for the buttons container */
+.buttons-container {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Space above buttons */
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  right: 20px;
+}
+
+/* Style for Resolved button */
+.resolved-button {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.submit-button {
+  background-color: #0B5050;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Style for Unresolved button */
+.unresolved-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Style for Close button */
+.close-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+/* Feedback Popup */
+.feedback-popup, .rating-popup,.resolved-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.feedback-popup-content, .resolved-popup-content,.rating-popup-content {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Adjust the width to your desired size */
+  max-width: 80%; /* Ensure it remains responsive */
   
-  #customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
+}
+
+.feedback-popup-close, .rating-popup-close {
+  background-color: #6B6160;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.resolved-popup-icon {
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+  width: 24px; /* Adjust the width as needed */
+  height: 24px; /* Adjust the height as needed */
+}
+.resolved-popup-close {
+  background-color:  #6B6160;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.rating-options {
+  margin: 10px 0;
+}
+
+.rating-options span {
+  cursor: pointer;
+  font-size: 24px;
+  color: gold; /* Star color */
+}
+
+/* Textarea Styles */
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; /* Prevent resizing */
+}
+
+.attachment-box
+{
+  width: 30%;
+  height: 50px;
+  background-Color: #f0f0f0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-Items: center;
+  cursor: pointer;
+  position: absolute;
+  bottom: 150px; /* Distance from the bottom */
+  left: 20px;
+}
+.content-container {
+  display: flex;
+  flex-direction: row;
+}
+.main-content {
+  flex: 1;
+  padding: 20px;
   
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #customers tr:hover {background-color: #ddd;}
-  
-  #customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04AA6D;
-    color: white;
-  }
+}
+.app-container {
+  display: flex;
+  flex-direction: row; /* Sidebar and main content are in rows */
+  height: 100vh; /* Full viewport height */
+}
+.buttons
+{
+  background-color: #046363;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.app-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+/*for chats*/
+.chat-icon {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.chat-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  resize: none;
+}
+
+.send-button, .close-chat-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.close-chat-button {
+  background-color: #dc3545;
+}
+
+.close-button-container {
+  text-align: right;
+}
+
+.attachment-box {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}

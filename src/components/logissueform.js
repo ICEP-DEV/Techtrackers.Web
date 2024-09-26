@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './logissue.css';
 
 const Logissueform = () => {
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
   };
 
+  const handleCancel = () => {
+    navigate('/dashboard'); // Navigate to DashboardPage when cancel is clicked
+  };
+
+  const handleView = () => {
+    navigate('/all-issues'); // Navigate to AllIssuePage when View is clicked
+  };
+
   return (
     <div className="main-content">
       {submitted && (
         <div className="success-message">
-          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#">View</a> it in your logged issues.
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
         </div>
       )}
       <form className="log-issue-form" onSubmit={handleSubmit}>
@@ -72,17 +82,18 @@ const Logissueform = () => {
             </select>
           </div>
         </div>
+
         <div className="file-input-wrapper">
           <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
-        <div>
-          <input type="file" />
-          <p className="file-format-hint">(JPEG,PNG,PDF)</p> 
-        </div>
+          <div>
+            <input type="file" />
+            <p className="file-format-hint">(JPEG,PNG,PDF)</p> 
+          </div>
         </div>
 
         <div className="form-buttons">
           <button type="submit">Submit</button>
-          <button type="button" className="cancel-button">Cancel</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

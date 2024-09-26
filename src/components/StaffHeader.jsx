@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../style/StaffStyle.css'; // Import the CSS file for styling
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons'; // Import the user icon
+import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; // Import the user icon
 import logo from '../images/tut.png';
 
 const StaffHeader = ({ onLogout }) => {
@@ -36,25 +36,29 @@ const StaffHeader = ({ onLogout }) => {
             <div className="header-left">
                 <img src={logo} alt="Logo" className="logo" />
             </div>
-            {/* <div className="header-center">
-                <h1>Staff</h1>
-            </div> */}
             <div className="header-right" ref={dropdownRef}>
                 <button 
                     id="profile-button" 
                     onClick={toggleDropdown}
+                    className="profile-button"
                 >
                     <FontAwesomeIcon icon={faUser} />
                     {user ? `${user.name} ${user.surname}` : 'Staff Name'}
                 </button>
                 {isDropdownOpen && (
-                    <div className="dropdown-menu">
-                        <p>{user ? user.name : 'Staff Name'}</p>
-                        <p>{user ? user.surname : 'Surname'}</p>
-                        <p>{user ? user.department : 'Department'}</p>
-                        <button onClick={() => { closeDropdown(); /* Navigate to staff */ }}>Staff</button>
+                    <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
+                        <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
+                        <p className="sub-text">{user ? user.email : 'Joestaff.com'}</p>
+                        <p className="sub-text">{user ? user.department : 'HR'}</p>
+                        <p className="sub-text">{user ? `Human Resources(${user.department})` : 'Human Resources(HR)'}</p>
+                        <button onClick={() => { closeDropdown(); /* Navigate to profile */ }}>Profile</button>
                         <button onClick={() => { closeDropdown(); /* Navigate to settings */ }}>Settings</button>
-                        <button onClick={() => { closeDropdown(); onLogout(); }}>Logout</button>
+                        <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); }}>
+                            <span className="signout-icon">
+                                <FontAwesomeIcon icon={faSignOutAlt} /> {/* Add signout icon here */}
+                            </span>
+                            <span>Sign out</span>
+                        </button>
                     </div>
                 )}
             </div>

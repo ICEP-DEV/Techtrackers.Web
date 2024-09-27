@@ -18,15 +18,11 @@
 }
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: rgba(0, 0, 0, 0.7);
+   z-index: 1000;
 }
 
 /* Style for the full-size image in the modal */
@@ -78,13 +74,11 @@
   font-weight: bolder;
 }
 .issue-details-container {
-  max-width: 10000px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 600px;
+  max-width: 800px;
+   margin: 0 auto;
+   background-color: white;
+   border-radius: 8px;
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Flex container for department info, priority, and date */
@@ -239,17 +233,14 @@ textarea {
 
 .attachment-box
 {
+  position: absolute;
+  bottom: 150px;
+  left: 20px;
   width: 30%;
-  height: 50px;
-  background-Color: #f0f0f0;
-  margin-top: 10px;
+  background-color: #f0f0f0;
   display: flex;
   justify-content: center;
-  align-Items: center;
-  cursor: pointer;
-  position: absolute;
-  bottom: 150px; /* Distance from the bottom */
-  left: 20px;
+  align-items: center;
 }
 .content-container {
   display: flex;
@@ -258,6 +249,7 @@ textarea {
 .main-content {
   flex: 1;
   padding: 20px;
+  overflow-y: auto; /* For scrolling */
   
 }
 .app-container {
@@ -274,7 +266,6 @@ textarea {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
 }
 .app-layout {
   display: flex;
@@ -289,15 +280,14 @@ textarea {
 
 .chat-modal {
   position: fixed;
-  top: 20%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -20%);
-  background-color: white;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
   border: 1px solid #ccc;
   padding: 20px;
-  z-index: 1000;
   width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .chat-modal-content {
@@ -314,10 +304,10 @@ textarea {
 }
 
 .chat-input {
-  padding: 10px;
-  margin-bottom: 10px;
   width: 100%;
-  resize: none;
+   border-radius: 4px;
+   padding: 10px;
+   margin-bottom: 10px;
 }
 
 .send-button, .close-chat-button {
@@ -343,3 +333,60 @@ textarea {
   text-decoration: underline;
 }
 
+/**/
+sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px; /* Default width when expanded */
+  background-color: #333;
+  transition: width 0.3s ease; /* Smooth transition when expanding/collapsing */
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.sidebar.closed {
+  width: 60px; /* Reduced width when collapsed */
+}
+
+.menu-icon {
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+li img {
+  margin-right: 15px;
+}
+
+.sidebar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+li span {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.closed li span {
+  opacity: 0; /* Hide text when collapsed */
+  width: 0; /* Remove width when sidebar is collapsed */
+  transition: opacity 0.3s ease, width 0.3s ease; /* Smooth transition */
+}

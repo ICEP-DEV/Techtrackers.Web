@@ -7,9 +7,8 @@ import notifications from './IconsForStaff/notifications.png';
 import logIssueIcon from './IconsForStaff/logIssueIcon.png';
 
 const Sidebar = ({ onSelect, isMenuOpen, toggleMenu }) => {
-    
     return (
-        <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
+        <div className={`sidebar ${isMenuOpen ? 'open' : 'closed'}`}>
             <div className="menu-icon" onClick={toggleMenu}>
                 <FaBars />
             </div>

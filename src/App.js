@@ -1,42 +1,63 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import MainContent from './screens/MainContent';
+import IssueDetails from './screens/IssueDetails';
+import LiveChat from './screens/LiveChat';
 import Sidebar from './components/Sidebar';
 import DashboardPage from './pages/DashboardPage';
-import AllIssuePage from './pages/AllIssuePage';
+//import AllIssuePage from './pages/AllIssuePage';
 import NotificationsPage from './pages/NotificationsPage';
 import LogIssuePage from './pages/LogIssuePage';
 import InternalIssuePage from './pages/InternalIssuePage';
-import NetworkIssue from './pages/NetworkIssue'; // Import Network Issue Page
-import PrinterNotWorking from './pages/PrinterNotWorking'; // Import Printer Not Working Page
-import './style/style.css'; // Main app styling
+import NetworkIssue from './pages/NetworkIssue';
+import PrinterNotWorking from './pages/PrinterNotWorking';
 import StaffHeader from './components/StaffHeader';
+import './style/style.css';
+import './App.css';
 
 const AppContent = () => {
     const navigate = useNavigate();
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const location = useLocation(); // Get the current path
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [selectedIssue, setSelectedIssue] = useState(null);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    // Handlers for navigation
     const handleSelect = (page) => {
         navigate(`/${page}`);
     };
 
     const handleViewClick = () => {
-        navigate('/issue-details'); // For InternalIssuePage
+        navigate('/issue-details');
     };
 
     const handleView1Click = () => {
-        navigate('/network-issue'); // For NetworkIssuePage
+        navigate('/network-issue');
     };
 
     const handleView2Click = () => {
-        navigate('/printer-not-working'); // For PrinterNotWorkingPage
+        navigate('/printer-not-working');
     };
 
     const handleClose = () => {
         navigate('/all-issues');
+    };
+
+    // Open and close chat functions
+    const handleOpenChat = () => {
+        setIsChatOpen(true);
+    };
+
+    const handleCloseChat = () => {
+        setIsChatOpen(false);
+    };
+
+    const handleSelectIssue = (issue) => {
+        setSelectedIssue(issue);
     };
 
     return (
@@ -47,23 +68,34 @@ const AppContent = () => {
                 <Routes>
                     <Route path="/dashboard" element={<DashboardPage />} />
                     <Route path="/log-issue" element={<LogIssuePage />} />
-                    <Route
-                        path="/all-issues"
-                        element={
-                            <AllIssuePage
-                                onViewClick={handleViewClick}
-                                onView1Click={handleView1Click}
-                                onView2Click={handleView2Click}
-                            />
-                        }
-                    />
+                    <Route/>
                     <Route path="/notifications" element={<NotificationsPage />} />
                     <Route path="/internal-issue" element={<InternalIssuePage onClose={handleClose} />} />
-                    <Route path="/network-issue" element={<NetworkIssue />} /> {/* Network Issue Route */}
-                    <Route path="/printer-not-working" element={<PrinterNotWorking />} /> {/* Printer Not Working Route */}
+                    <Route path="/network-issue" element={<NetworkIssue />} />
+                    <Route path="/printer-not-working" element={<PrinterNotWorking />} />
                     <Route path="/" element={<DashboardPage />} />
                 </Routes>
+
+                {/* Conditional rendering for MainContent and IssueDetails */}
+                <div className="main-container">
+                    {/* Only show MainContent if we are on the /all-issues route */}
+                    {location.pathname === '/all-issues' && !selectedIssue && (
+                        <MainContent onSelectIssue={handleSelectIssue} onOpenChat={handleOpenChat} />
+                    )}
+
+                    {/* Show IssueDetails when an issue is selected */}
+                    {selectedIssue && (
+                        <IssueDetails
+                            issue={selectedIssue}
+                            onClose={() => setSelectedIssue(null)}
+                            onOpenChat={handleOpenChat}
+                        />
+                    )}
+                </div>
             </div>
+
+            {/* Render LiveChat if chat is open */}
+            {isChatOpen && <LiveChat onClose={handleCloseChat} />}
         </div>
     );
 };
@@ -80,55 +112,3 @@ const App = () => (
 );
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import GenerateReport from './screens/adminGenerateReport';
-
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-function App() {
-  return (
-    <div className="App">
-    <div className="container">
-     <GenerateReport/>
-    </div>
- </div>
-  );
-}
-export default App;*/

@@ -1,11 +1,12 @@
 // src/pages/NotificationsPage.jsx
 import React from 'react';
+import IssueTracker from '../components/IssueTracker';
 
 const NotificationsPage = () => {
     return (
-        <div className='main-content'>
-            <h1>NOTIFICATIONS </h1>
-        </div>
+        
+           <IssueTracker/>
+        
     );
 };
 

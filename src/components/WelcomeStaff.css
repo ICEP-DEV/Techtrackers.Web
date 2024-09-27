@@ -35,7 +35,7 @@
 
 /* Individual cards styling */
 .card {
-    background: linear-gradient(135deg, #29b6f6, #0288d1);
+    background: linear-gradient(135deg, #108484, #0C3A3A);
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -74,9 +74,6 @@
     background: linear-gradient(135deg, #0C3A3A, #108484); /* Blue */
 }
 
-.status {
-    background: linear-gradient(135deg, #108484, #0C3A3A); /* Green */
-}
 
 .notifications {
     background: linear-gradient(135deg, #0C3A3A, #108484); 

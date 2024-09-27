@@ -1,24 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../style/StaffStyle.css'; // Import the CSS file for styling
+import '../style/StaffHeaderStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons'; // Import the user icon
-import logo from './IconsForStaff/Fix_flow.jpg';
-import '../style/StaffStyle.css';
+import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import SettingsModal from './SettingsModal'; // Import the modal
+import logo from './IconsForStaff/tut.png';
 
-
-const Header = ({ onLogout }) => {
+const StaffHeader = ({ onLogout }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [user, setUser] = useState(null); // Simulating user data
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false); // State to handle settings modal
+    const [user, setUser] = useState(null);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
-        // Replace with actual user data fetching logic
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
         setUser(userInfo);
     }, []);
 
     useEffect(() => {
-        // Close dropdown when clicking outside of it
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
@@ -35,41 +33,39 @@ const Header = ({ onLogout }) => {
 
     return (
         <header className="dashboard-header">
-              <div className="header-right">
-                <h1>Staff</h1>
+            <div className="header-left">
+                <img src={logo} alt="Logo" className="logo" />
             </div>
-            <div className="header-center">
-                 <img src={logo} alt="Logo" className="logo" />
-                {/* <h1>Staff</h1> */}
+            <div className="header-right" ref={dropdownRef}>
+                <button 
+                    id="profile-button" 
+                    onClick={toggleDropdown}
+                    className="profile-button"
+                >
+                    <FontAwesomeIcon icon={faUser} />
+                    {user ? `${user.name} ${user.surname}` : 'Staff Name'}
+                </button>
+                {isDropdownOpen && (
+                    <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
+                        <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
+                        <p className="sub-text">{user ? user.email : 'Joestaff.com'}</p>
+                        <p className="sub-text">{user ? user.department : 'HR'}</p>
+                        <button onClick={() => { closeDropdown(); /* Navigate to profile */ }}>Profile</button>
+                        <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }}>Settings</button> {/* Open Settings */}
+                        <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); }}>
+                            <span className="signout-icon">
+                                <FontAwesomeIcon icon={faSignOutAlt} />
+                            </span>
+                            <span>Sign out</span>
+                        </button>
+                    </div>
+                )}
             </div>
-          
-            <div className="header-right">
-                {/* <input
-                    type="text"
-                    id="search-bar"
-                    placeholder="Search..."
-                    onChange={(event) => console.log("Search query:", event.target.value)}
-                /> */}
-                {/* <button id="notifications-button">🔔</button> */}
-                <div className="dashboard-header" ref={dropdownRef}>
-                    <button 
-                        id="profile-button" 
-                        onClick={toggleDropdown}
-                    >
-                        <FontAwesomeIcon icon={faUser} />
-                        {user ? user.email : 'Staff Name'}
-                    </button>
-                    {isDropdownOpen && (
-                        <div className="dropdown-menu">
-                            <button onClick={() => { closeDropdown(); /* Navigate to staff */ }}>Staff</button>
-                            <button onClick={() => { closeDropdown(); /* Navigate to settings */ }}>Settings</button>
-                            <button onClick={() => { closeDropdown(); onLogout(); }}>Logout</button>
-                        </div>
-                    )}
-                </div>
-            </div>
+
+            {/* Render the Settings Modal */}
+            <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         </header>
     );
 };
 
-export default Header;
+export default StaffHeader;

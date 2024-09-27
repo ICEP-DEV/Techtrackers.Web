@@ -9,12 +9,7 @@
 }
 
 /* Styling for the attachment section */
-.attachment-section {
-  display: flex;
-  align-items: center; /* Align the icon and text vertically */
-  margin-top: 20px;
-  
-}
+
 /* Optional margin to add space between the icon and the text */
 .attachment-text {
   margin-left: 10px; /* Adjust the space between icon and text */
@@ -347,3 +342,4 @@ textarea {
   color: blue;
   text-decoration: underline;
 }
+

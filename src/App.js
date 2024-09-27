@@ -14,6 +14,7 @@ import PrinterNotWorking from './pages/PrinterNotWorking';
 import StaffHeader from './components/StaffHeader';
 import './style/style.css';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AppContent = () => {
     const navigate = useNavigate();
@@ -112,3 +113,6 @@ const App = () => (
 );
 
 export default App;
+
+
+

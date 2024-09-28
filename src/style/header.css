@@ -1,0 +1,99 @@
+/* Style for the logo */
+.logo {
+    padding: 0px;
+    margin: 0%;
+}
+
+/* Navbar brand adjustments */
+.nav-brand, .navbar-brand {
+    margin: 0px;
+}
+
+/* Navbar button styles */
+.nav_button {
+    margin-left: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white; /* Button text color */
+    border-radius: 4px;
+    background-color: #0C3A3A; /* Button background color */
+    font-weight: bold;
+}
+
+.nav_button:hover {
+    background-color: #45a049; /* Button hover effect */
+}
+
+/* Header container */
+#header {
+    text-align: center;
+    background-color: #0C3A3A;
+    height: 100px;
+    position: relative;
+    z-index: 999;
+    transition: background-color 0.3s ease;
+}
+
+/* Sticky header when scrolled */
+.header-scrolled {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #0C3A3A; /* Retain background color on scroll */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hamburger menu icon */
+.hamburger-menu {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Navbar links container */
+.nav-links {
+    display: flex;
+}
+
+.nav-links.open {
+    display: block;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    /* Show the hamburger menu on small screens */
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Hide nav links initially on smaller screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #0C3A3A;
+        width: 100%;
+        text-align: right;
+    }
+
+    /* Show nav links when the menu is open */
+    .nav-links.open {
+        display: block;
+    }
+
+    /* Style individual buttons inside the nav links */
+    .nav_button {
+        padding: 1rem;
+        margin: 0;
+        display: block;
+        color: white;
+    }
+
+    .nav_button:hover {
+        background-color: #45a049;
+    }
+}

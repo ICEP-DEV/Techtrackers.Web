@@ -6,7 +6,7 @@ body, html {
   }
   
   .login-container {
-    background-image: url('../screens/homeBackGround.jpg');
+    background-image: url('../Images/homeBackGround.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;

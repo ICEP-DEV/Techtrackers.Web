@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import "../style/contact.css";
+import "../../LoginsStyle/contact.css";
 import Header from './Header'; // Import the Header component
 
 const Contact = () => {
@@ -24,21 +24,21 @@ const Contact = () => {
           </form>
         <div className="contact-details">
             <div className="contact-item">
-              <img src={require('./message.jpg')} alt="Logo 1" className="contact-image" />
+              <img src={require('../../Images/message.jpg')} alt="Logo 1" className="contact-image" />
               <div className="contact-message">
                 <p>Chat to us<br/>Our friendly team is here to help<br/><span className="color-email">hi@techtrackers.com</span></p>
               </div>
             </div>
 
             <div className="contact-item">
-              <img src={require('./location.jpg')} alt="Logo 2" className="contact-image" />
+              <img src={require('../../Images/location.jpg')} alt="Logo 2" className="contact-image" />
               <div className="contact-message">
                 <p>Office location<br/>Soshanguve Campus, Building 10</p>
               </div>
             </div>
 
             <div className="contact-item">
-              <img src={require('./phone.jpg')} alt="Logo 3" className="contact-image" />
+              <img src={require('../../Images/phone.jpg')} alt="Logo 3" className="contact-image" />
               <div className="contact-message">
                 <p>Call us<br/>012 985 9636<br/>Mon-Fri from 8am-4pm</p>
               </div>

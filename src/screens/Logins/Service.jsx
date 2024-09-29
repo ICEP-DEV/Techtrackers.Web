@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import Header from './Header'; 
-import "../style/service.css";
+import "../../LoginsStyle/service.css";
 
 
 const Service = () => {
@@ -17,21 +17,21 @@ const Service = () => {
 
       <div className="images-container">
       <div className="image-item">
-          <img src={require('./service1.jpg')} alt="Service 1" className="service-image" />
+          <img src={require('../../Images/service1.jpg')} alt="Service 1" className="service-image" />
           <p className="image-caption">Issue Logging and Reporting</p>
           <p className="centered-caption">Easily log and report technical issues</p>
           <p className="centered-caption">through a user-friendly form.</p>
          
         </div>
         <div className="image-item">
-          <img src={require('./service2.jpg')} alt="Service 2" className="service-image" />
+          <img src={require('../../Images/service2.jpg')} alt="Service 2" className="service-image" />
           <p className="image-caption">Technician Assignment</p>
           <p className="centered-caption">Get the right technicians based on their</p>
           <p className="centered-caption">expertise.</p>
           
         </div>
         <div className="image-item">
-          <img src={require('./service3.jpg')} alt="Service 3" className="service-image" />
+          <img src={require('../../Images/service3.jpg')} alt="Service 3" className="service-image" />
           <p className="image-caption">Real-Time Issue Tracking</p>
           <p className="centered-caption">Track the status of reported</p>
           <p className="centered-caption">issue in real-time, with updates</p>
@@ -39,7 +39,7 @@ const Service = () => {
           <p className="centered-caption">resolution process.</p>
         </div>
         <div className="image-item">
-          <img src={require('./service4.jpg')} alt="Service 4" className="service-image" />
+          <img src={require('../../Images/service4.jpg')} alt="Service 4" className="service-image" />
           <p className="image-caption">Collaborations</p>
           <p className="centered-caption">collaborate in real-time, sharing insights and</p>
           <p className="centered-caption">working together to resolve issues more</p>

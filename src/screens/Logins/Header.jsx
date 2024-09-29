@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../style/header.css";
+import "../..//LoginsStyle/header.css";
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +29,7 @@ function Header() {
       <nav className="navbar">
         <div className="navbar-brand">
           <img
-            src={require("./logo-removebg.jpg")}
+            src={require("../../Images/logo-removebg.jpg")}
             alt="logo"
             className="logo"
             height={100}

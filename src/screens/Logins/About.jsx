@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import '../style/about.css'; // Add a CSS file for styling
+import '../../LoginsStyle/about.css'; // Add a CSS file for styling
 
 const About = () => {
   return (
@@ -17,7 +17,7 @@ const About = () => {
         <div className="about-content-wrapper">
           <div className="about-picture">
             <img
-              src={require('./aboutPicture.jpg')}
+              src={require('../../Images/aboutPicture.jpg')}
               alt="Welcome"
               className="about-img"
             />

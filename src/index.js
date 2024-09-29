@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import StaffPageDisplay from './screens/StaffPageDisplay';
+import App from './App'
+import IssueTracker from './components/IssueTracker';
+//import StaffPageDisplay from './screens/StaffPageDisplay';
 import reportWebVitals from './reportWebVitals';
-import { Sidebar } from 'lucide-react';
+//import { Sidebar } from 'lucide-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <StaffPageDisplay />
+    <App />
   </React.StrictMode>
 );
 
@@ -16,34 +18,6 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

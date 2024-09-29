@@ -339,54 +339,10 @@ sidebar {
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px; /* Default width when expanded */
+  width: 250px;
   background-color: #333;
-  transition: width 0.3s ease; /* Smooth transition when expanding/collapsing */
+  transition: width 0.3s ease; 
   overflow: hidden;
   z-index: 9999;
 }
 
-.sidebar.closed {
-  width: 60px; /* Reduced width when collapsed */
-}
-
-.menu-icon {
-  padding: 10px;
-  cursor: pointer;
-  color: white;
-  text-align: center;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  color: white;
-  cursor: pointer;
-}
-
-li img {
-  margin-right: 15px;
-}
-
-.sidebar-icon {
-  width: 24px;
-  height: 24px;
-}
-
-li span {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.sidebar.closed li span {
-  opacity: 0; /* Hide text when collapsed */
-  width: 0; /* Remove width when sidebar is collapsed */
-  transition: opacity 0.3s ease, width 0.3s ease; /* Smooth transition */
-}

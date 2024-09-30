@@ -22,7 +22,7 @@ const HomePage = () => {
           </p>
         </div>
         <div className="home-button">
-          <Link to="/">
+          <Link to="/login">
             <button className="start-button">Get Started</button>
           </Link>
         </div>

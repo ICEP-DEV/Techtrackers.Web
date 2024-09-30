@@ -2,14 +2,14 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
-import { Link, useLocation } from 'react-router-dom';
-import StaffPageDisplay from '../StaffPageDisplay';
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../../LoginsStyle/SignIn.css';
 
 function SignIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const location = useLocation(); // Get the role from the state
-    const role = location.state?.role || 'User'; // Default to 'User' if no role is provided
+    const location = useLocation();
+    const navigate = useNavigate(); // Initialize useNavigate hook
+    const role = location.state?.role || 'User';
 
     const user = [
         { email: "kekana@gmail.com", password: '123zxc@Z', role: 'Staff' },
@@ -33,20 +33,17 @@ function SignIn() {
         if (isFound) {
             toast.success(`Login successful as ${role}`);
             setIsLoggedIn(true);
+            navigate('/staffpagedisplay'); // Navigate to StaffPageDisplay after login
         } else {
             toast.warn("User not found or incorrect role");
         }
     };
 
-    if(isLoggedIn){
-        return <StaffPageDisplay />
-    }
-
     return (
         <div>
             <ToastContainer />
             <Header />
-            <div className="container">
+            <div className="contain">
                 <div className="whole-form">
                     <div className="picture">
                         <img src={require('../../Images/background.jpg')} alt="welcome picture" height={150} />

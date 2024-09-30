@@ -34,7 +34,7 @@ const About = () => {
               It is a long established fact that a reader will be distracted.
             </p>
             
-            <Link to="/">
+            <Link to="/contact">
               <button className="contact-button">Contact us</button>
             </Link>
           </div>

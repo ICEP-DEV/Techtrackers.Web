@@ -31,7 +31,7 @@ function Header() {
           <img
             src={require("../../Images/logo-removebg.jpg")}
             alt="logo"
-            className="logo"
+            className="logos"
             height={100}
           />
         </div>

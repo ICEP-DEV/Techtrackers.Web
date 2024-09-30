@@ -1,19 +1,19 @@
 /* Ensure container styles for alignment */
-.containers {
-  max-width: 100%;
+.container {
+  max-width: 50%;
   padding: 0 15px;
 }
 
 /* Header styles */
-.d-flexs {
+.d-flex {
   display: flex;
 }
 
-.justify-contents-between {
+.justify-content-between {
   justify-content: space-between;
 }
 
-.aligns-items-center {
+.align-items-center {
   align-items: center;
 }
 
@@ -49,17 +49,17 @@
 }
 
 /* Filter and sort styles */
-.filter-sort-containers {
+.filter-sorts-containers {
   display: flex;
   align-items: center;
 }
 
-.btn-lights {
+.btn-light {
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
 }
 
-.btn-lights:hover {
+.btn-light:hover {
   background-color: #97978F;
 }
 
@@ -72,24 +72,24 @@
 }
 
 /* Tabs styles */
-.navs-tabs {
+.nav-tabs {
   border-bottom: none;
 }
 
-.navs-tabs .navs-link {
+.nav-tabs .nav-link {
   border:none;
 }
 
-.navs-tabs .navs-link.active {
+.nav-tabs .nav-link.active {
   box-shadow:none;
 }
 
 /* Notification list styles */
-.list-groups {
+.list-group {
   margin-top: 1rem;
 }
 
-.list-groups-items {
+.list-group-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,12 +110,12 @@
   font-size: 0.9rem;
   color:#495057 /* Smaller font for timestamps */
 }
-.indents{
+.indent{
   display: inline-block;
   margin-left: 1.5rem;
 }
 
-.list-groups-items p {
+.list-group-item p {
   margin: 0;
 }
 
@@ -131,7 +131,7 @@
   cursor: pointer; /* Changes cursor to pointer for better UX */
 }
 
-.tables-borderless {
+.table-borderless {
   border: none;
 }
 

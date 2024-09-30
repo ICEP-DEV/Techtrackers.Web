@@ -113,26 +113,26 @@ const NotificationContainer = () => {
   const noNotificationsMessage = activeTab === 'unread' ? "No notifications available." : "No read notifications available.";
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div className="d-flex align-items-center">
-          <FaBell className="notification-icon me-2" />
+    <div className="containers mt-4">
+      <div className="d-flexs justify-contents-between aligns-items-center mb-3">
+        <div className="d-flexs aligns-items-center">
+          <FaBell className="notification-icons me-2" />
           <h2>Notifications</h2>
         </div>
-        <div className="search-bar-container w-10">
+        <div className="search-bar-containers w-10">
           <input 
             type="text" 
-            className="form-control search-input" 
+            className="form-controler search-inputs" 
             placeholder="Search" 
             value={searchQuery} 
             onChange={handleSearchChange} 
           />
-          <FaSearch className="search-icon" />
+          <FaSearch className="search-icons" />
         </div>
       </div>
 
-      <div className="d-flex justify-content-end mb-3">
-        <div className="filter-sort-container">
+      <div className="d-flexs justify-contents-end mb-3">
+        <div className="filter-sort-containers">
           <Dropdown drop="up">
             <Dropdown.Toggle variant="light" id="dropdown-filter">
               <FaFilter /> Filter
@@ -160,18 +160,18 @@ const NotificationContainer = () => {
         </div>
       </div>
 
-      <ul className="nav nav-tabs mb-3">
-        <li className="nav-item">
+      <ul className="navs navs-tabs mb-3">
+        <li className="navs-items">
           <button
-            className={`nav-link ${activeTab === 'allRead' ? 'active' : ''}`}
+            className={`navs-links ${activeTab === 'allRead' ? 'active' : ''}`}
             onClick={() => handleTabClick('allRead')}
           >
             All read issues
           </button>
         </li>
-        <li className="nav-item">
+        <li className="navs-items">
           <button
-            className={`nav-link ${activeTab === 'unread' ? 'active' : ''}`}
+            className={`navs-links ${activeTab === 'unread' ? 'active' : ''}`}
             onClick={() => handleTabClick('unread')}
           >
             Unread issues
@@ -179,12 +179,12 @@ const NotificationContainer = () => {
         </li>
       </ul>
 
-      <table className="table table-borderless">
+      <table className="tables tables-borderless">
         <tbody>
           {filteredNotifications.length > 0 ? (
             filteredNotifications.map(notification => (
-              <tr key={notification.id} className="notification-row">
-                <td className="d-flex align-items-center">
+              <tr key={notification.id} className="notification-rows">
+                <td className="d-flexs aligns-items-center">
                   <FaBell className="notification-icon me-2" />
                   <div>
                     {formatMessage(notification.message)}
@@ -192,13 +192,13 @@ const NotificationContainer = () => {
                   </div>
                 </td>
                 <td>
-                  <small className="notification-timestamp">{notification.timestamp}</small>
+                  <small className="notification-timestamps">{notification.timestamp}</small>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="2" className="text-center">
+              <td colSpan="2" className="texts-center">
                 <p>{noNotificationsMessage}</p>
               </td>
             </tr>

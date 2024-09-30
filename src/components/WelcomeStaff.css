@@ -9,7 +9,7 @@
     justify-content: center;
     width: 80%; /* Set width to crop the content */
     max-width: 900px; /* Maximum width */
-    height: 70vh; /* Set height to auto */
+    height: 50vh; /* Set height to auto */
     margin: 0 auto; /* Center the container horizontally */
     position: absolute;
     top: 50%;
@@ -18,14 +18,14 @@
 }
 
 /* Welcome Title */
-.title {
+.titles {
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
 }
 
 /* Card container to align cards in a grid */
-.card-container {
+.cards-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -34,8 +34,8 @@
 }
 
 /* Individual cards styling */
-.card {
-    background: linear-gradient(135deg, #108484, #0C3A3A);
+.cards {
+    background: linear-gradient(135deg, #29b6f6, #0288d1);
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -47,23 +47,23 @@
 }
 
 /* Hover effect for cards */
-.card:hover {
+.cards:hover {
     transform: translateY(-5px);
 }
 
 /* Card icon styling */
-.card-icon {
+.cards-icon {
     font-size: 3rem;
     margin-right: 20px;
 }
 
 /* Card content */
-.card-content h2 {
+.cards-content h2 {
     font-size: 1.5rem;
     margin: 0;
 }
 
-.card-content p {
+.cards-content p {
     font-size: 1rem;
     margin: 0;
     margin-top: 5px;
@@ -74,9 +74,12 @@
     background: linear-gradient(135deg, #0C3A3A, #108484); /* Blue */
 }
 
+.cards {
+    background: linear-gradient(135deg, #108484, #0C3A3A); /* Green */
+}
 
-.notifications {
+.cardn {
     background: linear-gradient(135deg, #0C3A3A, #108484); 
     grid-column: span 2; 
-    width: 96%; 
+    
 }

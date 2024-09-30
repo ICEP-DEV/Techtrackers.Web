@@ -1,19 +1,19 @@
 /* Ensure container styles for alignment */
-.container {
-  max-width: 50%;
+.containers {
+  max-width: 100%;
   padding: 0 15px;
 }
 
 /* Header styles */
-.d-flex {
+.d-flexs {
   display: flex;
 }
 
-.justify-content-between {
+.justify-contents-between {
   justify-content: space-between;
 }
 
-.align-items-center {
+.aligns-items-center {
   align-items: center;
 }
 
@@ -26,22 +26,22 @@
 }
 
 /* Notification icon styles */
-.notification-icon {
+.notification-icons {
   font-size: 1.5rem;
   margin-right:10px;
   color: #767d85; /* Adjust color if needed */
 }
 
 /* Search bar styles */
-.search-bar-container {
+.search-bar-containers {
   position: relative;
 }
 
-.search-input {
+.search-inputs {
   padding-left: 2rem; /* Space for the search icon */
 }
 
-.search-icon {
+.search-icons {
   position: absolute;
   right: 0.5rem;
   top: 50%;
@@ -49,17 +49,17 @@
 }
 
 /* Filter and sort styles */
-.filter-sort-container {
+.filter-sort-containers {
   display: flex;
   align-items: center;
 }
 
-.btn-light {
+.btn-lights {
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
 }
 
-.btn-light:hover {
+.btn-lights:hover {
   background-color: #97978F;
 }
 
@@ -72,24 +72,24 @@
 }
 
 /* Tabs styles */
-.nav-tabs {
+.navs-tabs {
   border-bottom: none;
 }
 
-.nav-tabs .nav-link {
+.navs-tabs .navs-link {
   border:none;
 }
 
-.nav-tabs .nav-link.active {
+.navs-tabs .navs-link.active {
   box-shadow:none;
 }
 
 /* Notification list styles */
-.list-group {
+.list-groups {
   margin-top: 1rem;
 }
 
-.list-group-item {
+.list-groups-items {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,22 +100,22 @@
   font-weight: normal; /* Ensure font is not bold */
 }
 
-.notification-content {
+.notification-contents {
   flex: 1;
   margin-left: 1rem; /* Space between icon and text */
 }
 
-.notification-timestamp {
+.notification-timestamps {
   text-align: right; /* Right align the timestamp */
   font-size: 0.9rem;
   color:#495057 /* Smaller font for timestamps */
 }
-.indent{
+.indents{
   display: inline-block;
   margin-left: 1.5rem;
 }
 
-.list-group-item p {
+.list-groups-items p {
   margin: 0;
 }
 
@@ -124,14 +124,14 @@
   width: 300px; /* Adjust width if necessary */
 }
 
-.notification-row:hover {
+.notification-rows:hover {
   background-color: #f8f9fa; /* Light background on hover */
 }
-.notification-row {
+.notification-rows {
   cursor: pointer; /* Changes cursor to pointer for better UX */
 }
 
-.table-borderless {
+.tables-borderless {
   border: none;
 }
 

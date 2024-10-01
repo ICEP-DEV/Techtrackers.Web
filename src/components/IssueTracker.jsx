@@ -85,17 +85,17 @@ const NotificationContainer = () => {
       switch (filterOption) {
         case '1min':
           return now - 1 * 60 * 1000;
-        case '1h':
+        case '1hour':
           return now - 1 * 60 * 60 * 1000;
-        case '1d':
+        case '1day':
           return now - 1 * 24 * 60 * 60 * 1000;
-        case '2d':
+        case '2day':
           return now - 2 * 24 * 60 * 60 * 1000;
-        case '1w':
+        case '1week':
           return now - 7 * 24 * 60 * 60 * 1000;
-        case '2w':
+        case '2week':
           return now - 14 * 24 * 60 * 60 * 1000;
-        case '1m':
+        case '1mon':
           return now - 30 * 24 * 60 * 60 * 1000;
         default:
           return 0;
@@ -104,10 +104,11 @@ const NotificationContainer = () => {
 
     const isInTimeFrame = notificationDate >= filterDateThreshold();
 
+    // Only include notifications that match the current active tab
     if (activeTab === 'allRead' && notification.status === 'read') {
       return matchesSearchQuery && isInTimeFrame;
     }
-    return false;
+    return activeTab === 'unread' && notification.status === 'unread' && matchesSearchQuery && isInTimeFrame;
   });
 
   const noNotificationsMessage = activeTab === 'unread' ? "No notifications available." : "No read notifications available.";
@@ -140,11 +141,11 @@ const NotificationContainer = () => {
             <Dropdown.Menu>
               <Dropdown.Item as="button" onClick={() => handleFilterChange('all')}>All</Dropdown.Item>
               <Dropdown.Item as="button" onClick={() => handleFilterChange('1min')}>Last 1 Minute</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleFilterChange('1d')}>Last 1 Day</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleFilterChange('2d')}>Last 2 Days</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleFilterChange('1w')}>Last 1 Week</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleFilterChange('2w')}>Last 2 Weeks</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleFilterChange('1m')}>Last 1 Month</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={() => handleFilterChange('1day')}>Last 1 Day</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={() => handleFilterChange('2day')}>Last 2 Days</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={() => handleFilterChange('1week')}>Last 1 Week</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={() => handleFilterChange('2week')}>Last 2 Weeks</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={() => handleFilterChange('1month')}>Last 1 Month</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 

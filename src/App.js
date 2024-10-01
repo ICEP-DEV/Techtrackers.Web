@@ -1,7 +1,10 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
+// import './Technician.css';
 import StaffHeader from './components/StaffHeader';
-import IssueTracker from './components/IssueTracker'; // Adjust the path as needed
+// import TechnicianDashboard from './components/TechDashboard';
+// import IssueTracker from './components/IssueTracker'; // Adjust the path as needed
+import AssignTech from './components/AssignTech';
 
 
 function App() {
@@ -9,30 +12,28 @@ function App() {
     const handleLogout = () => {
         localStorage.removeItem('user_info');
         console.log('User logged out');
-        // Optionally, you might want to refresh the page or update the state here
-        window.location.reload(); // Reload to clear user data from the header
     };
 
-    // Function to simulate login
+    // Function to simulate login (you can replace this with actual logic)
     const handleLogin = (userData) => {
         const userInfo = {
-            name: userData.firstName,
-            surname: userData.lastName,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
             email: userData.email,
             department: userData.department,
         };
         localStorage.setItem('user_info', JSON.stringify(userInfo));
         console.log('User logged in:', userInfo);
-        // Optionally, refresh the page or update the state here
-        window.location.reload(); // Reload to update header with user data
     };
 
     return (
         <div className="App">
             <StaffHeader onLogout={handleLogout} />
-            <IssueTracker />
+            {/* <TechnicianDashboard/>  */}
+            {/* <IssueTracker /> */}
+            <AssignTech/>
             {/* Simulate user login (replace this with your actual login logic) */}
-            <button onClick={() => handleLogin({ firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', department: 'Human Resource (HR)' })}>
+            <button onClick={() => handleLogin({ firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' , department: 'Human Resource(HR)'})}>
                 Login as John Doe
             </button>
         </div>

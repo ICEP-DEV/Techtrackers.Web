@@ -1,186 +1,98 @@
-import React, { useState } from 'react';
-import { Form, Button, Table, Container, Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap';
+// src/TechnicianDashboard.js
+import React from 'react';
+import logo from '../images/user.png'; // Use the same logo for all users
 
-const TechDashboard = () => {
-  const [issue, setIssue] = useState({
-    name: '',
-    title: '',
-    dateReported: '',
-    department: '',
-    priorityLevel: '',
-    
-  });
 
-  const [issues, setIssues] = useState([]);
-  const [filter, setFilter] = useState('All'); // Add state for filtering
-
-  const handleChange = (e) => {
-    setIssue({ ...issue, [e.target.name]: e.target.value });
+const TechnicianDashboard = () => {
+  const technician = {
+    name: 'John Doe',
+    reviewPeriod: '2024-01-01 to 2024-09-30',
+    totalReviews: 19,
+    ratingsDistribution: [
+      { rating: 5, percentage: 15 },
+      { rating: 4, percentage: 25 },
+      { rating: 3, percentage: 30 },
+      { rating: 2, percentage: 20 },
+      { rating: 1, percentage: 10 },
+    ],
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIssues([...issues, issue]);
-    setIssue({
-      name: '',
-      title: '',
-      dateReported: '',
-      department: '',
-      priorityLevel: '',
-    });
-  };
-
-  const handleDeleteIssue = (index) => {
-    setIssues(issues.filter((_, i) => i !== index));
-  };
-
-  const handleViewIssue = (index) => {
-    alert(`Viewing issue at index ${index}`);
-  };
-
-  const handleStatusIssue = (index) => {
-    alert(`Updating status of issue at index ${index}`);
-  };
-
-  const filteredIssues = issues.filter(issue => 
-    filter === 'All' || issue.priorityLevel === filter
-  );
+  const users = [
+    { name: 'Amogelang', surname: 'Ntia', rating: 3, feedback: 'Satisfied with the work done' },
+    { name: 'Angela', surname: 'Monyebudi', rating: 2, feedback: 'Took a bit longer than expected' },
+    { name: 'Mamello', surname: 'Molepo', rating: 4, feedback: 'Job well done' },
+  ];
 
   return (
-    <Container>
-      <Navbar bg="light" expand="lg" className="mb-4">
-        <Navbar.Brand href="#">ALL ISSUES</Navbar.Brand>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <NavDropdown title="Filters" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => setFilter('All')}>All</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => setFilter('High')}>High</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => setFilter('Medium')}>Medium</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => setFilter('Low')}>Low</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+    <div className="dashboard-container">
+      <div className="dashboard">
+        <div className="main-container">
+          <header>
+            <h1>Reviews</h1>
+            <h2>{technician.name}</h2>
+          </header>
 
-      {/* Issue Form */}
-      <Form onSubmit={handleSubmit} className="mb-4">
-        <Row className="align-items-end">
-          <Col md={2}>
-            <Form.Group controlId="formName">
-              <Form.Control
-                type="text"
-                name="name"
-                value={issue.name}
-                onChange={handleChange}
-                placeholder="Name"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={2}>
-            <Form.Group controlId="formTitle">
-              <Form.Control
-                type="text"
-                name="title"
-                value={issue.title}
-                onChange={handleChange}
-                placeholder="Issue Title"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={2}>
-            <Form.Group controlId="formDateReported">
-              <Form.Control
-                type="date"
-                name="dateReported"
-                value={issue.dateReported}
-                onChange={handleChange}
-                placeholder="Date Reported"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={2}>
-            <Form.Group controlId="formDepartment">
-              <Form.Control
-                type="text"
-                name="department"
-                value={issue.department}
-                onChange={handleChange}
-                placeholder="Department"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={2}>
-            <Form.Group controlId="formPriorityLevel">
-              <Form.Control
-                type="text"
-                name="priorityLevel"
-                value={issue.priorityLevel}
-                onChange={handleChange}
-                placeholder="Priority Level"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={2} className="d-flex align-items-end">
-            <Button variant="primary" type="submit" className="w-100">
-              Add Issue
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+          <section className="review-section">
+            <p><strong>Review Period:</strong> {technician.reviewPeriod}</p>
+            <h4>Ratings Distribution</h4>
+            <table>
+              <tbody>
+                {technician.ratingsDistribution.map((item) => (
+                  <tr key={item.rating}>
+                    <td>{item.rating} - {item.percentage}%</td>
+                    <td style={{ width: '70%' }}>
+                      <div className="progress-bar">
+                        <div className="progress" style={{ width: `${item.percentage}%` }}>
+                          <span className="percentage-text">{item.percentage}%</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span style={{ color: 'gold' }}>
+                        {'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p>Total Reviews: {technician.totalReviews}</p>
+          </section>
 
-      {/* Issue Table */}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Issue Title</th>
-            <th>Date Reported</th>
-            <th>Department</th>
-            <th>Priority Level</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredIssues.map((issue, index) => (
-            <tr key={index}>
-              <td>{issue.name}</td>
-              <td>{issue.title}</td>
-              <td>{new Date(issue.dateReported).toLocaleDateString()}</td>
-              <td>{issue.department}</td>
-              <td>{issue.priorityLevel}</td>
-              <td>
-                <Button
-                  variant="info"
-                  onClick={() => handleViewIssue(index)}
-                  className="me-2"
-                >
-                  View
-                </Button>
-                <Button
-                  variant="warning"
-                  onClick={() => handleStatusIssue(index)}
-                  className="me-2"
-                >
-                  Status
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDeleteIssue(index)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+          <section className="user-reviews">
+            <h4>User Feedback</h4>
+            <div className="user-container">
+              <div className="grid-container">
+                <div className="user-grid">
+                  {users.map((user, index) => (
+                    <div className="user-details" key={index}>
+                      <img src={logo} alt={`User ${index + 1}`} className="user-image" />
+                      <p>{user.name} {user.surname}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="divider"></div> {/* Divider line */}
+
+                <div className="review-grid">
+                  {users.map((user, index) => (
+                    <div className="user-review" key={index}>
+                      <div className="user-rating">
+                        <span style={{ color: 'green' }}>
+                          {'★'.repeat(user.rating)}{'☆'.repeat(5 - user.rating)}
+                        </span>
+                      </div>
+                      <p>{user.feedback}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default TechDashboard;
+export default TechnicianDashboard;

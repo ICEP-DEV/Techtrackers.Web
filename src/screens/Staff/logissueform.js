@@ -13,7 +13,7 @@ const Logissueform = () => {
   };
 
   const handleCancel = () => {
-    navigate('/dashboard'); // Navigate to DashboardPage when cancel is clicked
+    navigate('/staffdashboard/*'); // Navigate to DashboardPage when cancel is clicked
   };
 
   const handleView = () => {

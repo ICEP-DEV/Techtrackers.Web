@@ -33,6 +33,7 @@ const Sidebar = ({children}) => {
             name:"NOTIFICATIONS",
             icon:<FaCommentAlt/>
         },
+        
     ]
     return (
         <div className="container">

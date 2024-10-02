@@ -17,7 +17,7 @@ const Logissueform = () => {
   };
 
   const handleView = () => {
-    navigate('/all-issues'); // Navigate to AllIssuePage when View is clicked
+    navigate('/allissues'); // Navigate to AllIssuePage when View is clicked
   };
 
   return (

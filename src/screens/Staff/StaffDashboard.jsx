@@ -3,21 +3,24 @@ import LogIssue from './logissueform';
 import AllIssue from './IssueDetails';
 import Notification from './IssueTracker';
 import SideBar from './Navigation/Sidebar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import '../../App.css';
+import StaffHear from './Navigation/StaffHeader';
+import {BrowserRouter, Routes, Route } from 'react-router-dom';
+import './StaffStyle/staffdashboard.css';
+import StaffHeader from './Navigation/StaffHeader';
 
 const StaffDashboard = () => {
-    return (
-        <BrowserRouter>
-        <SideBar />
-   
-        <Routes>
-            <Route path="/WelcomeStaff" element={<Dashboard />} /> 
-            <Route path="/logissueform" element={<LogIssue />}/>
-            <Route path="/issueDetails" element={<AllIssue />}/>
-            <Route path="/issueTracker" element={<Notification />}/>
-       </Routes>
-       </BrowserRouter>
+    return (  
+        <div>
+         <StaffHeader /> 
+         <SideBar>
+            <Routes>
+                <Route path="WelcomeStaff" element={<Dashboard />} /> 
+                <Route path="logissueform" element={<LogIssue />}/>
+                <Route path="IssueDisplay" element={<AllIssue />}/>
+                <Route path="issueTracker" element={<Notification />}/>
+            </Routes>
+        </SideBar>
+        </div> 
     );
 };
 

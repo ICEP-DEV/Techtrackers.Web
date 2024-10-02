@@ -14,28 +14,28 @@ const SideBar = ({children}) => {
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
         {
-            path:"/WelcomeStaff",
+            path:"/staffdashboard/WelcomeStaff",
             name:"DASHBOARD",
             icon:<FaTh/>
         },
         {
-            path:"/logissueform",
+            path:"/staffdashboard/logissueform",
             name:"LOG ISSUE",
             icon:<FaUserAlt/>
         },
         {
-            path:"/IssueDisplay",
+            path:"/staffdashboard/IssueDisplay",
             name:"ALL ISSUE",
             icon:<FaRegChartBar/>
         },
         {
-            path:"/issueTracker",
+            path:"/staffdashboard/issueTracker",
             name:"NOTIFICATIONS",
             icon:<FaCommentAlt/>
         },
     ]
     return (
-        <div className="container">
+        <div className="cup">
            <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
                <div className="top_section">
                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>

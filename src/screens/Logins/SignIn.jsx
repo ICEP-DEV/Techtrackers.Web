@@ -33,7 +33,7 @@ function SignIn() {
         if (isFound) {
             toast.success(`Login successful as ${role}`);
             setIsLoggedIn(true);
-            navigate('/staff-dashboard/dashboard'); // Navigate to StaffPageDisplay after login
+            navigate('/staffdashboard'); // Navigate to StaffPageDisplay after login
         } else {
             toast.warn("User not found or incorrect role");
         }

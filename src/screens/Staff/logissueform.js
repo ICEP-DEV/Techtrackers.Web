@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './logissue.css';
+import '../Staff/StaffStyle/logissue.css';
 
 const Logissueform = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -22,6 +22,7 @@ const Logissueform = () => {
 
   return (
     <div className="main-content">
+      
       {submitted && (
         <div className="success-message">
           Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.

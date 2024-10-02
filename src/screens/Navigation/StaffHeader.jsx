@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../style/StaffHeaderStyle.css';
+import '../Staff/StaffStyle/StaffHeaderStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import SettingsModal from './SettingsModal'; // Import the modal
-import logo from './IconsForStaff/tut.png';
+import SettingsModal from '../Staff/SettingsModal'; // Import the modal
+import logo from '../Staff/IconsForStaff/tut.png';
 
 const StaffHeader = ({ onLogout }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

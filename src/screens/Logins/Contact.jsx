@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import "../../LoginsStyle/contact.css";
+import "../Logins/LoginsStyle/contact.css";
 import Header from './Header'; // Import the Header component
 
 const Contact = () => {

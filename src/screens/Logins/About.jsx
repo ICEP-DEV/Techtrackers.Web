@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import '../../LoginsStyle/about.css'; // Add a CSS file for styling
+import '../Logins/LoginsStyle/about.css'; // Add a CSS file for styling
 
 const About = () => {
   return (

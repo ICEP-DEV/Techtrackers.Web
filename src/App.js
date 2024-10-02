@@ -1,31 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignIn from './screens/Logins/SignIn';
-import HomePage from './screens/Logins/HomePage';
-import ForgotPassword from './screens/Logins/ForgotPassword';
-import Login from './screens/Logins/Login'; // Keep one of the Login imports
-import About from './screens/Logins/About';
-import Service from './screens/Logins/Service';
-import Contact from './screens/Logins/Contact';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Use this instead of '../node_modules'
-import StaffPageDisplay from './screens/StaffPageDisplay';
+import Dashboard from './screens/Staff/WelcomeStaff';
+import LogIssue from './screens/Staff/logissueform';
+import AllIssue from './screens/Staff/IssueDisplay';
+import Notification from './screens/Staff/IssueTracker';
+import SideBar from './screens/Navigation/Sidebar';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
 
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/service" element={<Service />} />
-        <Route path='/about' element={<About />} />
-        <Route  path='/' element={<HomePage />} />
-        <Route  path='/forgotPassword' element={<ForgotPassword />} />
-        <Route  path='/signIn' element={<SignIn />} />
-        <Route  path='/login' element={<Login />} />
-        <Route  path='/contact' element={<Contact />} />
-        <Route path="/staffpagedisplay" element={<StaffPageDisplay />} />
-      </Routes>
-    </Router>
-  );
-}
+const App = () => {
+    return (
+        <BrowserRouter>
+        <SideBar>
+   
+        <Routes>
+            <Route path="/WelcomeStaff" element={<Dashboard />} /> 
+            <Route path="/logissueform" element={<LogIssue />}/>
+            <Route path="/IssueDisplay" element={<AllIssue />}/>
+            <Route path="/issueTracker" element={<Notification />}/>
+       </Routes>
+       </SideBar>
+       </BrowserRouter>
+    );
+};
 
 export default App;

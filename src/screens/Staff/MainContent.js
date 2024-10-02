@@ -1,6 +1,6 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
-import '../style/AllIssuesPage.css';
+import './StaffStyle/AllIssuesPage.css';
 
 export default function MainContent({ onSelectIssue, onOpenChat }) {
   const issues = [
@@ -76,3 +76,4 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
     </main>
   );
 }
+

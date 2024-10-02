@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
-import '../../LoginsStyle/SignIn.css';
+import './LoginsStyle/SignIn.css';
 
 function SignIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,7 +33,7 @@ function SignIn() {
         if (isFound) {
             toast.success(`Login successful as ${role}`);
             setIsLoggedIn(true);
-            navigate('/staffpagedisplay'); // Navigate to StaffPageDisplay after login
+            navigate('/staff-dashboard/dashboard'); // Navigate to StaffPageDisplay after login
         } else {
             toast.warn("User not found or incorrect role");
         }

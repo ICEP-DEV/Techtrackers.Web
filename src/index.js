@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App'
-import IssueTracker from './components/IssueTracker';
-import StaffPageDisplay from './screens/StaffPageDisplay';
 import reportWebVitals from './reportWebVitals';
-
+import StaffDashboard from './screens/Staff/StaffDashboard';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

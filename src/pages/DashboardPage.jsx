@@ -1,4 +1,4 @@
-import WelcomeStaff from '../components/WelcomeStaff';
+import WelcomeStaff from '../screens/Staff/WelcomeStaff';
 import React from 'react';
 
 const DashboardPage = () => {

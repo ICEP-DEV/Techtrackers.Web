@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../..//LoginsStyle/header.css";
+import "../Logins/LoginsStyle/header.css";
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +41,7 @@ function Header() {
         </div>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/homePage" className="nav_button">
+          <Link to="/" className="nav_button">
             Home
           </Link>
           <Link to="/About" className="nav_button">
@@ -50,7 +50,7 @@ function Header() {
           <Link to="/service" className="nav_button">
             Service
           </Link>
-          <Link to="/" className="nav_button">
+          <Link to="/login" className="nav_button">
             Login
           </Link>
           <Link to="/contact" className="nav_button">

@@ -1,0 +1,106 @@
+/* Sidebar container */
+.sidebarWrapper {
+  width: 300px;
+  background-color: #003E3E; /* Dark green background */
+  height: 100vh;
+  padding-top: 20px;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.sidebarWrapper.collapsed {
+  width: 70px;
+}
+
+.topSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.menuIcon {
+  font-size: 1.8rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.staffTitle {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navItem:hover {
+  background-color: #006060; /* Lighter shade of green */
+}
+
+.sidebarIcon {
+  width: 25px;
+  margin-right: 20px;
+}
+
+.navItem span {
+  font-size: 1.2rem;
+}
+
+.notifications {
+  position: relative;
+}
+
+.notificationBadge {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: red;
+  color: white;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* When collapsed */
+.sidebarWrapper.collapsed .navItem span {
+  display: none;
+}
+
+.sidebarWrapper.collapsed .navItem {
+  justify-content: center;
+}
+
+.sidebarWrapper.collapsed .topSection {
+  justify-content: center;
+}
+
+.sidebarWrapper.collapsed .notificationBadge {
+  right: 10px;
+  top: 15px;
+}
+
+/* Adjust for mobile responsiveness */
+@media (max-width: 768px) {
+  .sidebarWrapper {
+      width: 70px;
+  }
+
+  .sidebarWrapper .staffTitle {
+      display: none;
+  }
+}

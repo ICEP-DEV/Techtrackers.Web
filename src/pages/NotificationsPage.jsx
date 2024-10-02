@@ -1,6 +1,6 @@
 // src/pages/NotificationsPage.jsx
 import React from 'react';
-import IssueTracker from '../components/IssueTracker';
+import IssueTracker from '../screens/Staff/IssueTracker';
 
 const NotificationsPage = () => {
     return (

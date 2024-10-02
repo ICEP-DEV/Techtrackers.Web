@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SettingsModal.css'; // Create this CSS file for styling the modal
+import '../Staff/StaffStyle/SettingsModal.css'; // Create this CSS file for styling the modal
 
 const SettingsModal = ({ isOpen, onClose }) => {
     const [isDarkMode, setIsDarkMode] = useState(false);

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import '../style/NotificationIssue.css';
+import './StaffStyle/NotificationIssue.css';
 import { FaBell, FaSearch, FaFilter, FaBars } from 'react-icons/fa';
 import { Dropdown } from 'react-bootstrap';
-
 const NotificationContainer = () => {
   const [activeTab, setActiveTab] = useState('allRead');
   const [sortOrder, setSortOrder] = useState('desc');

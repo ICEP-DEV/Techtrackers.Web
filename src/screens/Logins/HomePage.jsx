@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import "../../LoginsStyle/homepage.css";
+import "../Logins/LoginsStyle/homepage.css";
 //import './HomePage.css'; // Make sure to import the CSS file
 
 const HomePage = () => {

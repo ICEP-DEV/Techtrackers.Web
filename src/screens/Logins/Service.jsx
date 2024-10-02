@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import Header from './Header'; 
-import "../../LoginsStyle/service.css";
+import "../Logins/LoginsStyle/service.css";
 
 
 const Service = () => {

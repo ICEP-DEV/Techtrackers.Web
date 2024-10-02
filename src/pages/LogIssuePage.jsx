@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Logissueform from '../components/logissueform';
+import Logissueform from '../screens/Staff/logissueform';
 
 const LogIssuePage = () => {
     return (

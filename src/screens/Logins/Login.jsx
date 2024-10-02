@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../LoginsStyle/login.css";
+import "../Logins/LoginsStyle/login.css";
 import Header from './Header';
 
 const Login = () => {

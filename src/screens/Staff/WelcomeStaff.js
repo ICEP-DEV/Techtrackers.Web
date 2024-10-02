@@ -1,5 +1,5 @@
 import React from 'react';
-import './WelcomeStaff.css'; // Import the CSS file
+import '../Staff/StaffStyle/WelcomeStaff.css'; // Import the CSS file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleCheck, faBell } from '@fortawesome/free-solid-svg-icons';
 

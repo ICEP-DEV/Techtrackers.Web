@@ -1,0 +1,217 @@
+.main-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 900px;
+  margin:0 auto;
+}
+
+.table th, .table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.btn-assign {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-assign1 {
+  background-color: #00ff62;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 80px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+.btn-assign:hover {
+  background-color: #0056b3;
+}
+.btn-assign1:hover {
+  background-color: #00ff62;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: flex-end; /* Vertically align to the bottom */
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  width: 80%; /* Width of the modal */
+  max-width: 350px; /* Maximum width */
+  background: white; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  margin-bottom: 20px; /* Space from the bottom */
+  padding: 20px;
+  text-align: center;
+}
+
+/* Technician Details Modal Overlay */
+.tech-details-modal-overlay {
+  position:relative;
+  top: 0;
+  right: 0; /* Aligns to the right */
+  width: 20%; /* Width of the tech details modal */
+  height: 100%; /* Full height */
+  display: flex;
+  justify-content:center;
+  align-items:flex-start;/* Vertically align to the bottom */
+  z-index: 1000;
+  background-color: rgba(255,255,255,0.95);
+  margin-left: 850px;
+}
+
+/* Technician Details Modal */
+.tech-details-modal {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack children vertically */
+  background: white; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding for content */
+  width: 90%; /* Full width for details modal */
+  max-width: 250px; /* Maximum width */
+  margin: 35px; /* Margin for spacing */
+  text-align:left; /* Center the text */
+}
+
+/* Technician information details */
+.technician-details {
+  margin-top: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.detail-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* Technician List and Chevron */
+.technician-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: #EEF9F9;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+
+.user-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  align-items: center;
+}
+.user-icon1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  align-items: center;
+}
+
+.technician-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.technician-checkbox {
+  margin-right: 15px;
+}
+
+.chevron-right {
+  cursor: pointer;
+  font-size: 30px;
+  color: #000000;
+  margin-left: 10px;
+}
+
+.chevron-right:hover {
+  color: #000000;
+}
+
+/* Close Button */
+.btn-close {
+  background-color: #f44336; /* Red background for close button */
+  color: white; /* White text color */
+  padding: 8px 16px; /* Adjusted padding for visibility */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Cursor changes to pointer on hover */
+  margin-top: 20px; /* Space above the button */
+  align-self: flex-start; /* Align button to the left */
+  font-size: 15px; /* Button text size */
+  display: flex; /* Flex display */
+  justify-content: center; /* Center the text horizontally */
+  width: 100px; /* Fixed width */
+  
+}
+.btn-close:hover {
+  background-color: #d32f2f;
+}
+
+.button-container{
+  display:flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  gap:10px;
+}
+
+.btn-close1 {
+  background-color: #f44336; /* Red background for close button */
+  color: white; /* White text color */
+  padding: 8px 16px; /* Adjusted padding for visibility */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Cursor changes to pointer on hover */
+  font-size: 15px; /* Button text size */
+}

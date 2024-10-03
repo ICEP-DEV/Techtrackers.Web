@@ -1,6 +1,6 @@
 
 //import GenerateReport from './screens/adminGenerateReport';
-import IssueByStatusReport from './screens/issue_by_status_report';
+import IssueByStatusReport from './components/AdminGenerateReport/issue_by_status_report';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function App() {

@@ -24,7 +24,7 @@ const SideBar = ({children}) => {
             icon:<FaUserAlt/>
         },
         {
-            path:"/staffdashboard/IssueDisplay",
+            path:"/staffdashboard/mainContent",
             name:"ALL ISSUE",
             icon:<FaRegChartBar/>
         },

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
 import './StaffStyle/AllIssuesPage.css';
+import { useNavigate } from 'react-router-dom';
+import StaffHeader from './Navigation/StaffHeader';
 
 export default function MainContent({ onSelectIssue, onOpenChat }) {
-  const issues = [
+  const navigate = useNavigate();
+  const issue = [
     { id: 1, issueID: 'IT-P2-1234', title: 'Internal Issue: Server Downtime in Data Center', date: '19/08/2024', department: 'IT Support', priority: 'Medium', status: 'Pending' },
     { id: 2, issueID: 'HR-P3-12345', title: 'Network Issue', date: '15/08/2024', department: 'Human Resources (HR)', priority: 'High', status: 'Ongoing' },
     { id: 3, issueID: 'HR-P1-1236', title: 'Printer not working', date: '22/07/2024', department: 'Human Resources (HR)', priority: 'Low', status: 'Resolved' },
@@ -40,6 +43,13 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
     }
   };
 
+  const handleViewClick = (issue) => {
+    navigate(`/issue_details`, { state: { issue } }); // Navigate to IssueDetails with the issue data
+  };
+
+
+
+
   return (
     <main className="main-content">
       <div className="status-header">
@@ -59,7 +69,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
           </tr>
         </thead>
         <tbody>
-          {issues.map((issue) => (
+          {issue.map((issue) => (
             <tr key={issue.id}>
               <td>{issue.issueID}</td>
               <td>{issue.title}</td>
@@ -67,7 +77,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
               <td>{issue.department}</td>
               <td><span className={getPriorityClass(issue.priority)}>{issue.priority}</span></td>
               <td><span className={getStatusClass(issue.status)}>{issue.status}</span></td>
-              <td><button className="view-button" onClick={() => onSelectIssue(issue)}>View</button></td>
+              <td><button className="view-button" onClick={() => handleViewClick(issue)}>View</button></td>
             </tr>
           ))}
         </tbody>
@@ -76,4 +86,3 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
     </main>
   );
 }
-

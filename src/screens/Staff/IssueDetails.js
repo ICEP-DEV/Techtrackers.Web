@@ -3,6 +3,7 @@ import { FileText } from 'lucide-react';
 import './StaffStyle/AllIssuesPage.css';
 import { FaPaperclip } from 'react-icons/fa';
 import brokenPrinter from '../Staff/IconsForStaff/brokenPrinter.jpg';
+import { useLocation } from 'react-router-dom';
 
 const Popup = ({ title, message, onConfirm, onCancel, confirmText = "OK", cancelText = "Cancel" }) => (
   <div className="popup">
@@ -62,6 +63,7 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
 
   return (
     <main className="issue-details">
+      
       <h2>{issue.title}</h2>
       <div className="issue-info">
         <div className="info-group">

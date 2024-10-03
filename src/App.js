@@ -7,6 +7,10 @@ import Login from './screens/Logins/Login'; // Keep one of the Login imports
 import About from './screens/Logins/About';
 import Service from './screens/Logins/Service';
 import Contact from './screens/Logins/Contact';
+import IssueDisplay from './screens/Staff/IssueDisplay';
+import IssueDetails from './screens/Staff/IssueDetails';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css'; // Use this instead of '../node_modules'
 
 import StaffDashboard from './screens/Staff/StaffDashboard';
@@ -23,6 +27,10 @@ function App() {
         <Route  path='/login' element={<Login />} />
         <Route  path='/contact' element={<Contact />} />
         <Route path="/staffdashboard/*" element={<StaffDashboard />} />
+        
+        <Route path="/IssueDisplay" element={<IssueDisplay />} />
+        <Route path="/issue_details" element={<IssueDetails />} />
+
       </Routes>
     </Router>
   );

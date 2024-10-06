@@ -1,11 +1,11 @@
-// IssueDetails.jsx
-import React, { useState } from 'react'
-import { FileText } from 'lucide-react'
-import './StaffStyle/AllIssuesPage.css'
-import { FaPaperclip } from 'react-icons/fa'
-import brokenPrinter from '../Staff/IconsForStaff/brokenPrinter.jpg'
-import StaffHeader from './Navigation/StaffHeader'
-import Sidebar from './Navigation/Sidebar'
+import React, { useState } from 'react';
+import { FileText } from 'lucide-react';
+import './StaffStyle/AllIssuesPage.css';
+import { FaPaperclip } from 'react-icons/fa';
+import brokenPrinter from '../Staff/IconsForStaff/brokenPrinter.jpg';
+import StaffHeader from './Navigation/StaffHeader';
+import Sidebar from './Navigation/Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 const Popup = ({ title, message, onConfirm, onCancel, confirmText = "OK", cancelText = "Cancel" }) => (
   <div className="popup">
@@ -18,33 +18,34 @@ const Popup = ({ title, message, onConfirm, onCancel, confirmText = "OK", cancel
       )}
     </div>
   </div>
-)
+);
 
 export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false)
-  const [isResolvedPopupOpen, setIsResolvedPopupOpen] = useState(false)
-  const [isRatingPopupOpen, setIsRatingPopupOpen] = useState(false)
-  const [rating, setRating] = useState(0)
-  const [feedback, setFeedback] = useState('')
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false);
+  const [isResolvedPopupOpen, setIsResolvedPopupOpen] = useState(false);
+  const [isRatingPopupOpen, setIsRatingPopupOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [feedback, setFeedback] = useState('');
 
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  const handleResolved = () => setIsResolvedPopupOpen(true)
-  const handleUnresolved = () => setIsFeedbackPopupOpen(true)
+  const handleResolved = () => setIsResolvedPopupOpen(true);
+  const handleUnresolved = () => setIsFeedbackPopupOpen(true);
   const handleResolvedPopupClose = () => {
-    setIsResolvedPopupOpen(false)
-    setIsRatingPopupOpen(true)
-  }
-  const handleUnresolvedPopupClose = () => setIsFeedbackPopupOpen(false)
+    setIsResolvedPopupOpen(false);
+    setIsRatingPopupOpen(true);
+  };
+  const handleUnresolvedPopupClose = () => setIsFeedbackPopupOpen(false);
 
   const handleSubmitRating = () => {
-    console.log(`Rating: ${rating}, Feedback: ${feedback}`)
-    setIsRatingPopupOpen(false)
-    setRating(0)
-    setFeedback('')
-  }
+    console.log(`Rating: ${rating}, Feedback: ${feedback}`);
+    setIsRatingPopupOpen(false);
+    setRating(0);
+    setFeedback('');
+  };
 
   return (
     <div>
@@ -90,7 +91,7 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
           </div>
 
           <div className="close-button-container">
-            <button className="c-button" onClick={onClose}>Close</button>
+            <button className="c-button" onClick={() => navigate('/staffdashboard/MainContent')}>Close</button>
             {issue.status === 'resolved' ? (
               <>
                 <button className="Unresolved-button" onClick={handleUnresolved}>Unresolved</button>
@@ -151,5 +152,5 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
         </main>
       </div>
     </div>
-  )
+  );
 }

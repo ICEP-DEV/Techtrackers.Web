@@ -34,14 +34,13 @@
 }
 /* General container styling for the issue details */
 .issue-details-container {
-  max-width: 800px;
+  max-width: 10000px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
-  margin-left: 150px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative; /* Set to relative to position the button inside */
+  height: 600px;
 }
 
 /* Styling the Close Button on the bottom-right */
@@ -73,13 +72,7 @@
 {
   font-weight: bolder;
 }
-.issue-details-container {
-  max-width: 800px;
-   margin: 0 auto;
-   background-color: white;
-   border-radius: 8px;
-   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
+
 
 /* Flex container for department info, priority, and date */
 .details-header {

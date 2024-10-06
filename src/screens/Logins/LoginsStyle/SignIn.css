@@ -1,108 +1,169 @@
-/* General container styling */
-.contain {
+/* Container for the whole page */
+.signin-cup {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #F5F5F5;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    overflow-y: auto; /* Make page scrollable */
+    padding: 20px; /* Added padding for spacing */
 }
 
-/* Styling the form area */
-.whole-form {
+/* Main container for the login section */
+.signin-cover {
     display: flex;
-    flex-direction: row; /* Keep the form on the left and picture on the right */
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    width: 100%;
+    background-color: #fff;
+    width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     overflow: hidden;
 }
 
-/* Left side with form content */
-.group {
+/* Left section (form content) */
+.signin-cot {
+    padding: 40px;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 350px;
-    margin-right: 30px;
 }
 
-/* User icon */
-.user img {
-    margin-bottom: 10px;
-    width: 100px;
-    height: 100px;
+.signin-content {
+    padding: 40px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-iconic {
+    width: 60px;
+    height: 60px;
+    background-color: #d0d0d0;
     border-radius: 50%;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Input fields */
-.control-form {
-    width: 100%;
-    padding: 10px 15px;
-    margin: 15px 0;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
-.control-form:focus {
-    border-color: #0275d8;
-    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.2);
-}
-
-/* Button styling */
-.button-group {
-    margin-top: 20px;
-}
-
-.button {
-    background-color: #2B7A78;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.button:hover {
-    background-color: #3A506B;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
-}
-
-/* Forgot password link */
-.forgot-group {
-    margin-top: 20px;
-}
-
-.forgotbutton {
-    color: #0275d8;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.forgotbutton:hover {
-    text-decoration: underline;
-}
-
-/* Right side background picture */
-.picture {
-    width: 500px;
-    height: auto;
-    border-radius: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-.picture img {
+.user-iconic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.welcome {
+    font-size: 16px; /* Reduced font size */
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.words {
+    margin-top: 10px;
+    color: #666;
+}
+
+.form-grp {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-ctrl {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 30px; /* Increased border-radius */
+    outline: none;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* Reflection-like shadow for the input fields */
+    position: relative; /* Needed for the shadow effect */
+}
+
+.form-ctrl::placeholder {
+    color: #999;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the placeholder text */
+}
+
+.password-group {
+    position: relative;
+}
+
+
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+}
+
+.signin-btn {
+    width: 40%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px; /* Increased border-radius */
+    background-color: #004b43;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Reflection-like shadow for the button */
+}
+
+.forgot-pwd {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forg-link {
+    color: #004b43;
+    text-decoration: none;
+}
+
+.forg-link a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.forg-link:hover a {
+    color: #0056b3;
+}
+
+/* Right section (image) */
+.image-section {
+    width: 50%;
+    display: flex; /* Flexbox to center the image horizontally */
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    position: relative; /* Needed for the shadow effect */
+    padding: 20px; /* Add padding to control the space around the image */
+}
+
+.image-section img {
+    width: 100%;
+    height: 90%; 
+    border-radius: 23px;
+    object-fit: cover;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4); /* Main drop shadow */
+}
+
+/* Reflection shadow */
+.image-section::after {
+    content: '';
+    position: absolute;
+    bottom: -15px; /* Adjust based on desired reflection position */
+    left: 10%;
+    width: 80%;
+    height: 30px; /* Height of the shadow reflection */
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2), transparent);
+    filter: blur(10px); /* Blurs to give a soft reflection effect */
+    z-index: -1; /* Puts the shadow behind the image */
+    opacity: 0.7; /* Adjust opacity for a more subtle effect */
 }

@@ -6,7 +6,6 @@ import '../Logins/LoginsStyle/about.css'; // Add a CSS file for styling
 const About = () => {
   return (
     <div>
-      <Header />
       <div className="about-container">
       <div className="about-section">
         <div className="about-header">

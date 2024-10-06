@@ -1,0 +1,95 @@
+.issue-deta {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  position: relative;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.issue-in-fo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.in-fo-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.prioritx {
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.prioritx.high {
+  color: red;
+}
+
+.descrip-section, .attach-section {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.descrip-section h3, .attach-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.attach {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-chat-btn {
+  background-color: #1a3c40;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.close-btn {
+  display: flex;
+  gap: 10px;
+  justify-content: right;
+  padding-top: 10px;
+}
+
+.c-btn, .Unresolved-btn, .Resolved-btn {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 100px;
+}
+
+.c-btn {
+  background-color: #ee0606;
+}
+
+.Unresolved-btn {
+  background-color: #e48c08;
+}
+
+.Resolved-btn {
+  background-color: #06ee67;
+}

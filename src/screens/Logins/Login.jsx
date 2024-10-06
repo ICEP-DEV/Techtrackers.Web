@@ -13,7 +13,6 @@ const Login = () => {
 
   return (
     <div>
-      <Header />
       <div className="login-container">
         <div className="login-content">
           <h1 className="login-title">LOGIN</h1>

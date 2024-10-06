@@ -6,7 +6,6 @@ import Header from './Header'; // Import the Header component
 const Contact = () => {
   return (
     <div>
-      <Header />
       <div className="contact-container">
         <h1 className="contact-title">Contact Us</h1>
         <div className="content">

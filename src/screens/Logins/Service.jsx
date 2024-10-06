@@ -8,7 +8,6 @@ const Service = () => {
   return (
     
     <div>
-       <Header />
        <div className="service-container">
         <h1 className="under">SERVICES</h1>
       <p className="centered-text">FixFlow offers a comprehensive suite of services designed to streamline technical support across your</p>

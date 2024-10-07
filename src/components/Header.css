@@ -40,4 +40,13 @@
   border-radius: 50%; /* Optional, for circular icon */
   cursor: pointer;
 }
+
+.TUTlogo{
+  flex:1;
+  display:flex;
+  justify-content: center;
+  height: 50px;
+  margin-right: 600px; /* Adjust this value to move the logo left */
+  
+}
   

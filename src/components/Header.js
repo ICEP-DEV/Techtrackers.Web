@@ -9,16 +9,18 @@ export default function Header() {
   return (
     <header className="header">
       
-      
-      <div className="header-user">
-        {/*<i className="fas fa-user-circle"></i>  User profile icon */}
-        <img src={logo} alt="Logo" className="TUTlogo" />
-        <img src={profileIcon} alt="Profile Icon" className="profile-icon" />
-        
+      <div className="header-logo">
+        <img src={logo} alt="Logo"  className="TUTlogo"/>
+      </div>
 
+      <div className="header-user">
+    
+        {/*<i className="fas fa-user-circle"></i>  User profile icon */}
+        <img src={profileIcon} alt="Profile Icon" className="profile-icon" />
         <span className="user-name">HOD</span>
         <i className="fas fa-chevron-down"></i> {/* Dropdown arrow */}
       </div>
+      
     </header>
   );
 }

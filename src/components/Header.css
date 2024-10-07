@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     font-size: 16px;
-    margin-left: auto;
+    margin-left: 70em;
   }
   
   .header-user .user-name {
@@ -41,12 +41,18 @@
   cursor: pointer;
 }
 
-.TUTlogo{
-  flex:1;
-  display:flex;
-  justify-content: center;
-  height: 50px;
-  margin-right: 600px; /* Adjust this value to move the logo left */
-  
+.header-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center the logo horizontally */
 }
-  
+
+.TUTlogo {
+  height: 50px; /* Adjust logo size */
+}
+
+/* Ensure the header items (left, middle, right) are properly spaced */
+.header-title,
+.header-user {
+  flex: 1;
+}

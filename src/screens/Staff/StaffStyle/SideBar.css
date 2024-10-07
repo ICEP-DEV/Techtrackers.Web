@@ -1,4 +1,7 @@
 /* Sidebar container */
+.cup{
+  display: flex;
+}
 .sidebarWrapper {
   width: 300px;
   background-color: #003E3E; /* Dark green background */
@@ -34,10 +37,6 @@
   font-weight: bold;
 }
 
-.navLinks {
-  display: flex;
-  flex-direction: column;
-}
 
 .navItem {
   display: flex;
@@ -52,8 +51,7 @@
   background-color: #006060; /* Lighter shade of green */
 }
 
-.sidebarIcon {
-  width: 25px;
+.ItemIcon {
   margin-right: 20px;
 }
 
@@ -85,7 +83,7 @@
   justify-content: center;
 }
 
-.sidebarWrapper.collapsed .topSection {
+.sidebarWrapper.collapsed .top_Section {
   justify-content: center;
 }
 

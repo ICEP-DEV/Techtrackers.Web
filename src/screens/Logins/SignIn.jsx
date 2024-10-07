@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
+import { api } from "../../APIs/API";
 import { Link, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 import './LoginsStyle/SignIn.css';
+import axios from "axios";
 
 function SignIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,22 +23,25 @@ function SignIn() {
     const [Password, setPassword] = useState('');
 
     const login = () => {
-        var isFound = false;
-        for (var k = 0; k < user.length; k++) {
-            if (user[k].email === Email && user[k].role === role) {
-                if(user[k].password === Password){ 
-                    isFound = true;
+        var data={Email,Password} //define an object
+        axios.post(api+'TechTrackers/UserLogin',data).then(respond=>{
+            console.log(respond.data)
+            if(respond.data.success){
+                if(respond.data.result.role==='staff'){
+                    navigate('/staffdashboard'); // Navigate to StaffPageDisplay after login
                 }
+            }else{
+                toast.warn("User not found or incorrect role");
             }
-        }
+        },error=>{console.log(error)}) //pass an object
 
-        if (isFound) {
-            toast.success(`Login successful as ${role}`);
-            setIsLoggedIn(true);
-            navigate('/staffdashboard'); // Navigate to StaffPageDisplay after login
-        } else {
-            toast.warn("User not found or incorrect role");
-        }
+        // if (isFound) {
+        //     toast.success(`Login successful as ${role}`);
+        //     setIsLoggedIn(true);
+        //     navigate('/staffdashboard'); // Navigate to StaffPageDisplay after login
+        // } else {
+        //     toast.warn("User not found or incorrect role");
+        // }
     };
 
     return (

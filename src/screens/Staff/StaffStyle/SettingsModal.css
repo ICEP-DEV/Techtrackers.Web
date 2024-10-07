@@ -14,7 +14,7 @@
 
 /* Modal content box */
 .settings-modal {
-    background: #fff;
+    background: #185336;
     padding: 20px;
     border-radius: 8px;
     max-width: 400px;
@@ -29,6 +29,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 
 .close-button {
     background: transparent;
@@ -46,12 +47,12 @@
     margin-right: 10px;
     padding: 5px 10px;
     border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    background-color: #17a6d6;
     cursor: pointer;
 }
 
 .settings-option button:hover {
-    background-color: #ddd;
+    background-color: #a69090;
 }
 
 .close-modal-button {
@@ -66,4 +67,23 @@
 
 .close-modal-button:hover {
     background-color: #0056b3;
+}
+
+.dark-mode .settings-modal {
+    background: #333;
+    color: white;
+}
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+body {
+    background-color: white;
+    color: rgb(49, 48, 48);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #454444; /* Dark background */
+    color: white; /* Light text color */
 }

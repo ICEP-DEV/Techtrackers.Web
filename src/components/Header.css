@@ -1,0 +1,43 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0C3A3A; /* Dark greenish color */
+    color: white;
+    height: 60px;
+  }
+  
+  .menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .header-user {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-left: auto;
+  }
+  
+  .header-user .user-name {
+    margin-left: 10px;
+  }
+  
+  .header-user i {
+    margin-left: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .profile-icon {
+  width: 40px; /* Adjust size */
+  height: 40px; /* Adjust size */
+  border-radius: 50%; /* Optional, for circular icon */
+  cursor: pointer;
+}
+  

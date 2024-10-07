@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Paperclip, Send } from 'lucide-react';
-import './StaffStyle/AllIssuesPage.css';
+import './StaffStyle/LiveChat.css';
 
 export default function LiveChat({ onClose }) {
   const [messages, setMessages] = useState([

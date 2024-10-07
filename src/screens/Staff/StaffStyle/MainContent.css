@@ -34,6 +34,7 @@
   .pending { background-color: red; }
   .ongoing { background-color: #ffa500; }
   .resolved { background-color: green; }
+  .on-hold {background-color: gray;}
   
   .view-button {
     background-color: #1a3c40;

@@ -37,6 +37,14 @@ h2 {
   color: red;
 }
 
+.prioritx.medium {
+  color: orange;
+}
+
+.prioritx.low {
+  color: green;
+}
+
 .descrip-section, .attach-section {
   background-color: #f9f9f9;
   padding: 15px;

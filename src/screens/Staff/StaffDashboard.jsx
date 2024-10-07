@@ -1,9 +1,8 @@
 import Dashboard from './WelcomeStaff';
 import LogIssue from './logissueform';
-import AllIssue from './IssueDetails';
+import AllIssue from './IssueDisplay';
 import Notification from './IssueTracker';
 import SideBar from './Navigation/Sidebar';
-import StaffHear from './Navigation/StaffHeader';
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
 import './StaffStyle/staffdashboard.css';
 import StaffHeader from './Navigation/StaffHeader';

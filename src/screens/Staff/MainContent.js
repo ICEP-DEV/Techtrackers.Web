@@ -1,6 +1,6 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
-import './StaffStyle/AllIssuesPage.css';
+import './StaffStyle/MainContent.css';
 
 export default function MainContent({ onSelectIssue, onOpenChat }) {
   const issues = [
@@ -9,36 +9,6 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
     { id: 3, issueID: 'HR-P1-1236', title: 'Printer not working', date: '22/07/2024', department: 'Human Resources (HR)', priority: 'Low', status: 'Resolved' },
     { id: 4, issueID: 'HR-P1-1237', title: 'Forgot password', date: '15/07/2024', department: 'Human Resources (HR)', priority: 'High', status: 'On-Hold' },
   ];
-
-  // Function to get the status class based on the status value
-  const getStatusClass = (status) => {
-    switch (status.toLowerCase()) {
-      case 'ongoing':
-        return 'status ongoing'; // Orange
-      case 'resolved':
-        return 'status resolved'; // Green
-      case 'pending':
-        return 'status pending'; // Red
-      case 'on-hold':
-        return 'status on-hold'; // Light blue or custom color
-      default:
-        return 'status'; // Default class
-    }
-  };
-
-  // Function to get the priority class based on the priority level
-  const getPriorityClass = (priority) => {
-    switch (priority.toLowerCase()) {
-      case 'high':
-        return 'priority high'; // Red
-      case 'medium':
-        return 'priority medium'; // Orange
-      case 'low':
-        return 'priority low'; // Green
-      default:
-        return 'priority'; // Default class
-    }
-  };
 
   return (
     <main className="main-content">
@@ -65,14 +35,15 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
               <td>{issue.title}</td>
               <td>{issue.date}</td>
               <td>{issue.department}</td>
-              <td><span className={getPriorityClass(issue.priority)}>{issue.priority}</span></td>
-              <td><span className={getStatusClass(issue.status)}>{issue.status}</span></td>
+              <td>{issue.priority}</td>
+              <td><span className={`status ${issue.status.toLowerCase()}`}>{issue.status}</span></td>
               <td><button className="view-button" onClick={() => onSelectIssue(issue)}>View</button></td>
             </tr>
           ))}
         </tbody>
       </table>
       {/* Attach the onOpenChat function to the Live Chat button */}
+    
     </main>
   );
 }

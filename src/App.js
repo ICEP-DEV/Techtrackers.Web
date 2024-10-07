@@ -4,14 +4,12 @@ import React from 'react';
 import StaffHeader from './components/StaffHeader';
 // import TechnicianDashboard from './components/TechDashboard';
 // import IssueTracker from './components/IssueTracker'; // Adjust the path as needed
-import AssignTech from './components/AssignTech';
 
 
 function App() {
     // Function to handle logout
     const handleLogout = () => {
-        localStorage.removeItem('user_info');
-        console.log('User logged out');
+        localStorage.removeItem('user_info'); 
     };
 
     // Function to simulate login (you can replace this with actual logic)
@@ -31,7 +29,6 @@ function App() {
             <StaffHeader onLogout={handleLogout} />
             {/* <TechnicianDashboard/>  */}
             {/* <IssueTracker /> */}
-            <AssignTech/>
             {/* Simulate user login (replace this with your actual login logic) */}
             <button onClick={() => handleLogin({ firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' , department: 'Human Resource(HR)'})}>
                 Login as John Doe

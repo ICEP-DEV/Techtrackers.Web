@@ -154,4 +154,8 @@
   .log-issue-form .form-buttons button:hover {
     background-color: #003c3d;
   }
-  
+  .error-message {
+    color: red; /* Set the text color to red */
+    font-size: 0.875rem; /* Optional: Adjust the font size */
+    margin-top: 0.25rem; /* Optional: Add some space above the message */
+}

@@ -5,7 +5,7 @@ import { faCirclePlus, faCircleCheck, faBell } from '@fortawesome/free-solid-svg
 
 const WelcomeStaff = () => {
     return (
-     <div className="mains-content">
+     <div className="main-content">
         
             <h1 className="titles">WELCOME, Staff!</h1> {/* Title inside the container */}
 

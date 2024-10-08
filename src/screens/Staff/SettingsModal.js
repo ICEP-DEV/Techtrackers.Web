@@ -8,18 +8,20 @@ const SettingsModal = ({ isOpen, onClose }) => {
     // Load saved theme and font size from localStorage
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
-        const savedFontSize = localStorage.getItem('fontSize');
-
-        if (savedTheme === 'dark') setIsDarkMode(true);
-        if (savedFontSize) setFontSize(parseInt(savedFontSize));
+        if (savedTheme === 'dark') {
+            setIsDarkMode(true);
+            document.body.classList.add('dark-mode');
+        }
     }, []);
-
+    
     // Toggle between Dark Mode and Light Mode
     const toggleTheme = () => {
         const newTheme = isDarkMode ? 'light' : 'dark';
         setIsDarkMode(!isDarkMode);
         document.body.classList.toggle('dark-mode', !isDarkMode); // Applies 'dark-mode' class to body
         localStorage.setItem('theme', newTheme); // Save the theme preference
+        console.log('Dark mode active:', !isDarkMode); // Check if it toggles correctly
+        
     };
 
     // Handle font size changes and save to localStorage

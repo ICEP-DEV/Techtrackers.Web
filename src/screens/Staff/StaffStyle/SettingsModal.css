@@ -14,7 +14,7 @@
 
 /* Modal content box */
 .settings-modal {
-    background: #fff;
+    background: #123d5a;
     padding: 20px;
     border-radius: 8px;
     max-width: 400px;
@@ -46,7 +46,7 @@
     margin-right: 10px;
     padding: 5px 10px;
     border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    background-color: #28c0db;
     cursor: pointer;
 }
 
@@ -66,4 +66,14 @@
 
 .close-modal-button:hover {
     background-color: #0056b3;
+}
+body {
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #3f3131; /* Dark background */
+    color: rgb(16, 16, 17); /* Light text color */
 }

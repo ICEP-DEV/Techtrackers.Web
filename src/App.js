@@ -1,10 +1,10 @@
 import React from 'react';
 // import './App.css';
-// import './Technician.css';
-import StaffHeader from './components/StaffHeader';
+import './TechRatings.css';
+// import StaffHeader from './components/StaffHeader';
 // import TechnicianDashboard from './components/TechDashboard';
 // import IssueTracker from './components/IssueTracker'; // Adjust the path as needed
-import AssignTech from './components/AssignTech';
+// import Ratings from './components/Ratings';
 
 
 function App() {
@@ -31,7 +31,6 @@ function App() {
             <StaffHeader onLogout={handleLogout} />
             {/* <TechnicianDashboard/>  */}
             {/* <IssueTracker /> */}
-            <AssignTech/>
             {/* Simulate user login (replace this with your actual login logic) */}
             <button onClick={() => handleLogin({ firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' , department: 'Human Resource(HR)'})}>
                 Login as John Doe

@@ -10,8 +10,7 @@ import './TechRatings.css';
 function App() {
     // Function to handle logout
     const handleLogout = () => {
-        localStorage.removeItem('user_info');
-        console.log('User logged out');
+        localStorage.removeItem('user_info'); 
     };
 
     // Function to simulate login (you can replace this with actual logic)

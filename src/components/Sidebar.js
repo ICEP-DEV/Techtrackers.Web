@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Sidebar.css"; // Import your CSS file for styling
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true); // Sidebar starts open
-
-  // Function to toggle sidebar visibility
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
+export default function Sidebar({ isOpen, toggleSidebar }) {
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <div className="menu-icon" onClick={toggleSidebar}>
@@ -46,6 +39,9 @@ export default function Sidebar() {
           </li>
         </ul>
       </nav>
+     
+
+      
     </div>
   );
 }

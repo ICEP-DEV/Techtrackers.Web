@@ -1,62 +1,72 @@
-/* App.css */
-
-/* Layout adjustments based on sidebar state */
-.main-content {
-  transition: margin-left 0.3s ease;
-  padding: 20px;
-}
-
-.main-content.shifted {
-  margin-left: 250px; /* Sidebar open */
-}
-
-.main-content.full {
-  margin-left: 60px; /* Sidebar closed */
-}
-
-header {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  font-size: 1.5em;
-  color: #034d4d;
-}
-
-.dashboard-section {
+/* The outer container with background */
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #def7f7; /* Background color */
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+/* Main content and layout adjustments based on sidebar state */
+.main-content {
+  transition: margin-left 0.3s ease; /* Smooth transition */
+  padding: 20px;
+}
+
+/* Sidebar is open */
+.main-content.sidebar-open {
+  margin-left: 210px; /* Same width as the open sidebar */
+}
+
+/* Sidebar is closed */
+.main-content.sidebar-closed {
+  margin-left: 60px; /* Same width as the closed sidebar */
+}
+
+/* Sidebar styling */
+.sidebar {
+  height: 100vh;
+  background-color: #0C3A3A;
+  color: white;
+  position: fixed;
+  top: 80px; /* Assuming there's a header, adjust if needed */
+  left: 0;
+  width: 210px;
+  transition: width 0.3s ease;
+  z-index: 1000; /* Make sure sidebar is above other elements */
+}
+
+/* When the sidebar is closed, reduce its width */
+.sidebar.closed {
+  width: 60px;
+}
+
+/* Sidebar navigation */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  padding: 15px;
+  display: flex;
   align-items: center;
-  gap: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.dashboard-cards {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 20px;
+.sidebar-nav li:hover {
+  background-color: #108484;
 }
 
-.card {
-  background-color: #026666;
-  color: white;
+/* When the sidebar is closed, hide the text */
+.sidebar.closed .menu-text {
+  display: none;
+}
+
+/* Hamburger menu styling */
+.menu-icon {
   padding: 20px;
-  flex: 1;
-  text-align: center;
-  border-radius: 5px;
-}
-
-.charts-section {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 20px;
-}
-
-.chart {
-  background-color: #034d4d;
-  color: white;
-  padding: 20px;
-  flex: 1;
-  text-align: center;
-  border-radius: 5px;
+  cursor: pointer;
 }

@@ -1,0 +1,58 @@
+/* Styling for HODDashboard */
+.dashboard-container {
+    padding: 20px;
+    background-color: #f2f7f7;
+    min-height: auto;
+   
+  }
+  
+  .welcome-message {
+    font-size: 3rem;
+    color: #5a5a5a;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .stat-card {
+    background: linear-gradient(180deg, #0C3A3A, #21A0A0);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    flex: 1;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+  
+  .stat-card h2 {
+    font-size: 2,5rem;
+    margin: 0;
+  }
+  
+  .stat-card p {
+    font-size: 1.2rem;
+  }
+  
+  .charts-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .chart {
+    background: linear-gradient(180deg, #0C3A3A, #21A0A0);
+    color: white;
+    padding: 20px;
+    flex: 1;
+    margin: 0 10px;
+    border-radius: 8px;
+  }
+  

@@ -24,9 +24,6 @@
     background-color: #45a049; /* Button hover effect */
 }
 
-body {
-    padding-top: 70px; /* Adjust based on your header's height to avoid content being hidden behind it */
-  }
 /* Header container */
 #header {
     background-color: #0C3A3A;

@@ -11,7 +11,7 @@ const Logissueform = () => {
     department: '',
     priority: '',
     description: '',
-    date: '',
+    date: new Date().toISOString().split('T')[0],
     location: '',
   });
   const [errors, setErrors] = useState({});
@@ -70,6 +70,7 @@ const Logissueform = () => {
           <div className='box'>
             <label>Issue title<span className="required">*</span></label>
             <input
+              id='issue-title'
               type="text"
               name="title"
               placeholder="Internal Issue"
@@ -107,8 +108,9 @@ const Logissueform = () => {
               placeholder="Human Resource (HR)"
               value={formValues.department}
               onChange={handleChange}
+              readOnly
             />
-            {errors.department && <p className="error-message">{errors.department}</p>}
+            {/* {errors.department && <p className="error-message">{errors.department}</p>} */}
           </div>
 
           <div className='box'>
@@ -143,10 +145,11 @@ const Logissueform = () => {
             <input
               type="date"
               name="date"
+              readOnly
               value={formValues.date}
               onChange={handleChange}
             />
-            {errors.date && <p className="error-message">{errors.date}</p>}
+            {/* {errors.date && <p className="error-message">{errors.date}</p>} */}
           </div>
           
           <div className='box'>

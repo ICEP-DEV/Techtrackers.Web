@@ -3,7 +3,7 @@
   }
   
   .sidebar {
-    background-color: #004d4d;
+    background-color: #0C3A3A;
     color: white;
     height: 100vh;
     transition: width 0.3s ease;
@@ -48,9 +48,9 @@
     white-space: nowrap;
   }
   
-  .link:nth-child(2) {
+  /* .link:nth-child(2) {
     background-color: #00b3b3;
-  }
+  } */
   
   main {
     flex: 1;

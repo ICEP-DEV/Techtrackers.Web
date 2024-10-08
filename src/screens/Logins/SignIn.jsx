@@ -14,7 +14,11 @@ function SignIn() {
     const role = location.state?.role || 'User';
 
     const user = [
+
         { email: "kekana@gmail.com", password: '123zxc@Z', role: 'Staff' },
+
+        { email: "kekana@gmail.com", password: '123zxc@Z', role: 'User' },
+
         { email: 'nkosana@gmail.com', password: '123zxc@Z', role: 'Technician' },
     ];
 

@@ -33,6 +33,7 @@ const StaffHeader = ({ onLogout }) => {
 
     return (
         <header className="dashboard-header">
+            <div className='header'>
             <div className="header-left">
                 <img src={logo} alt="Logo" className="logo" />
             </div>
@@ -60,6 +61,7 @@ const StaffHeader = ({ onLogout }) => {
                         </button>
                     </div>
                 )}
+                </div>
             </div>
 
             {/* Render the Settings Modal */}

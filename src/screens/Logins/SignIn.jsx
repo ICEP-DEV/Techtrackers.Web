@@ -5,13 +5,17 @@ import Header from './Header';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginsStyle/SignIn.css';
+import axios from "axios";
+import { api } from "../../APIs/API";
 
 function SignIn() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Keep only one instance of isLoggedIn state
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
-    const role = location.state?.role || 'User';
+
+    // Temporarily hardcoded role for testing purposes
+    const role = location.state?.role || 'Staff';
 
     const user = [
 
@@ -26,22 +30,33 @@ function SignIn() {
     const [Password, setPassword] = useState('');
 
     const login = () => {
-        let isFound = false;
-        for (let k = 0; k < user.length; k++) {
-            if (user[k].email === Email && user[k].role === role) {
-                if (user[k].password === Password) {
-                    isFound = true;
-                }
-            }
-        }
+        var data ={Email,Password}
+        axios.post(api+'TechTrackers/UserLogin',data).then(respond=>{
+            console.log(respond.data)
+            if(respond.data.success){
+                console.log(respond.data);
 
-        if (isFound) {
-            toast.success(`Login successful as ${role}`);
-            setIsLoggedIn(true);
-            navigate('/staffdashboard/WelcomeStaff');
-        } else {
-            toast.warn("User not found or incorrect role");
-        }
+                if(respond.data.result.role==='staff'){
+                    navigate('/staffdashboard');
+                }
+
+                if(respond.data.result.role==='technician'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+                if(respond.data.result.role==='admin'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+                if(respond.data.result.role==='hod'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+            }else{
+                toast.warn("User not found or incorrect role");
+            }
+        },error=>{console.log(error)})
+        
     };
 
     return (
@@ -61,7 +76,7 @@ function SignIn() {
                             placeholder="Email"
                             onChange={(event) => setEmail(event.target.value)}
                             className="form-ctrl"
-                            style={{ backgroundColor: 'white' }} 
+                            style={{ backgroundColor: 'white' }}
                         />
                     </div>
                     <div className="form-grp password-grp">

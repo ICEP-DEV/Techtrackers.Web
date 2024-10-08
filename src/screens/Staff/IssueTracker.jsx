@@ -112,6 +112,7 @@ const NotificationContainer = () => {
   const noNotificationsMessage = activeTab === 'unread' ? "No notifications available." : "No read notifications available.";
 
   return (
+    <div className="main-content">
     <div className="containers mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div className="d-flex align-items-center">
@@ -204,6 +205,7 @@ const NotificationContainer = () => {
           )}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

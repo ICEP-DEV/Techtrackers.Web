@@ -7,9 +7,13 @@
   background-color: #003E3E; /* Dark green background */
   height: 100vh;
   padding-top: 20px;
-  position: relative;
+  position: fixed; /* Change to fixed */
+  top: 0;          /* Aligns it to the top of the viewport */
+  left: 0;         /* Aligns it to the left side */
   transition: width 0.3s ease;
+  z-index: 1000;   /* Ensures it sits above other content */
 }
+
 
 .sidebarWrapper.collapsed {
   width: 70px;
@@ -101,4 +105,12 @@
   .sidebarWrapper .staffTitle {
       display: none;
   }
+}
+.main-content {
+  margin-left: 300px; /* Match the sidebar width */
+}
+
+/* Adjust for collapsed sidebar */
+.sidebarWrapper.collapsed + .main-content {
+  margin-left: 70px;
 }

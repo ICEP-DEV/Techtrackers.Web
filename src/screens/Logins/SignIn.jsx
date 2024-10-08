@@ -2,61 +2,44 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginsStyle/SignIn.css';
-import axios from "axios";
-import { api } from "../../APIs/API";
 
 function SignIn() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const location = useLocation();
     const navigate = useNavigate();
-
-    // Temporarily hardcoded role for testing purposes
-    const role = location.state?.role || 'Staff';
-
-    const user = [
-
-        { email: "kekana@gmail.com", password: '123zxc@Z', role: 'Staff' },
-
-        { email: "kekana@gmail.com", password: '123zxc@Z', role: 'User' },
-
-        { email: 'nkosana@gmail.com', password: '123zxc@Z', role: 'Technician' },
-    ];
 
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
 
+    // Hardcoded users
+    const users = [
+        { email: "kekana@gmail.com", password: '123zxc@Z', role: 'staff' },
+        { email: 'nkosana@gmail.com', password: '123zxc@Z', role: 'technician' },
+        { email: 'admin@example.com', password: '123Admin!', role: 'admin' },
+        { email: 'hod@example.com', password: 'hodPass@123', role: 'hod' },
+    ];
+
     const login = () => {
-        var data ={Email,Password}
-        axios.post(api+'TechTrackers/UserLogin',data).then(respond=>{
-            console.log(respond.data)
-            if(respond.data.success){
-                console.log(respond.data);
+        // Find the user with matching email and password
+        const user = users.find(u => u.email === Email && u.password === Password);
 
-                if(respond.data.result.role==='staff'){
-                    navigate('/staffdashboard');
-                }
-
-                if(respond.data.result.role==='technician'){
-                    toast('you are now logged as '+respond.data.result.role)
-                }
-
-                if(respond.data.result.role==='admin'){
-                    toast('you are now logged as '+respond.data.result.role)
-                }
-
-                if(respond.data.result.role==='hod'){
-                    toast('you are now logged as '+respond.data.result.role)
-                }
-
-            }else{
-                toast.warn("User not found or incorrect role");
+        if (user) {
+            // Role-based navigation
+            if (user.role === 'staff') {
+                navigate('/staffdashboard/WelcomeStaff');
+            } else if (user.role === 'technician') {
+                navigate('/techniciandashboard');
+            } else if (user.role === 'admin') {
+                navigate('/admindashboard');
+            } else if (user.role === 'hod') {
+                navigate('/hoddashboard');
             }
-        },error=>{console.log(error)})
-        
+            toast.success(`You are now logged in as ${user.role}`);
+        } else {
+            toast.error("Invalid email or password");
+        }
     };
 
     return (
@@ -96,7 +79,7 @@ function SignIn() {
                     </div>
                     <button className="signin-btn" onClick={login}>Sign In</button>
                     <div className="forgot-pwd">
-                        <Link to="/ForgotPassword" className="forg-link">Forgot Password? <a href="#">Click here</a></Link>
+                        <Link to="/ForgotPassword" className="forg-link">Forgot Password? Click here</Link>
                     </div>
                 </div>
                 <div className="image-section">

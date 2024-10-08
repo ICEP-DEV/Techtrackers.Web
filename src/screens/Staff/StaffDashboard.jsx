@@ -3,14 +3,19 @@ import LogIssue from './logissueform';
 import AllIssue from './IssueDisplay';
 import Notification from './IssueTracker';
 import SideBar from './Navigation/Sidebar';
-import {BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import './StaffStyle/staffdashboard.css';
 import StaffHeader from './Navigation/StaffHeader';
 
 const StaffDashboard = () => {
+    const navigate =useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem('user_info');
+        navigate('/login');
+    }
     return (  
         <div>
-         <StaffHeader /> 
+         <StaffHeader onLogout={handleLogout}/> 
          <SideBar>
             <Routes>
                 <Route path="WelcomeStaff" element={<Dashboard />} /> 

@@ -29,10 +29,10 @@ function Header() {
       <nav className="navbar">
         <div className="navbar-brand">
           <img
-            src={require("../../Images/logo-removebg.jpg")}
+            src={require("../../Images/tut.png")}
             alt="logo"
             className="logos"
-            height={100}
+            height={70}
           />
         </div>
 

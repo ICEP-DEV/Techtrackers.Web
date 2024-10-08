@@ -4,12 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import SettingsModal from '../Staff/SettingsModal'; // Import the modal
 import logo from '../Staff/IconsForStaff/tut.png';
+import { useNavigate } from 'react-router-dom';
 
 const StaffHeader = ({ onLogout }) => {
+
+    const navigate = useNavigate();
+
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false); // State to handle settings modal
     const [user, setUser] = useState(null);
     const dropdownRef = useRef(null);
+
+    // const handleLogout = ()=>{
+    //     navigate('');
+    // }
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
@@ -53,7 +61,7 @@ const StaffHeader = ({ onLogout }) => {
                         <p className="sub-text">{user ? user.department : 'HR'}</p>
                         <button onClick={() => { closeDropdown(); /* Navigate to profile */ }}>Profile</button>
                         <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }}>Settings</button> {/* Open Settings */}
-                        <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); }}>
+                        <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); navigate('/login');}}>
                             <span className="signout-icon">
                                 <FontAwesomeIcon icon={faSignOutAlt} />
                             </span>

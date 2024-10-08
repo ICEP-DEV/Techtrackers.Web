@@ -5,6 +5,8 @@ import Header from './Header';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginsStyle/SignIn.css';
+import axios from "axios";
+import { api } from "../../APIs/API";
 
 function SignIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,29 +26,33 @@ function SignIn() {
     const [Password, setPassword] = useState('');
 
     const login = () => {
-        console.log("Attempting login with:", { Email, Password, role });
+        var data ={Email,Password}
+        axios.post(api+'TechTrackers/UserLogin',data).then(respond=>{
+            console.log(respond.data)
+            if(respond.data.success){
+                console.log(respond.data);
 
-        // Find user based on email, password, and role
-        const foundUser = user.find(
-            (u) => {
-                console.log(`Checking user: ${u.email} with role: ${u.role}`);
-                return u.email === Email && u.password === Password && u.role === role;
+                if(respond.data.result.role==='staff'){
+                    navigate('/staffdashboard');
+                }
+
+                if(respond.data.result.role==='technician'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+                if(respond.data.result.role==='admin'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+                if(respond.data.result.role==='hod'){
+                    toast('you are now logged as '+respond.data.result.role)
+                }
+
+            }else{
+                toast.warn("User not found or incorrect role");
             }
-        );
-
-        if (foundUser) {
-            toast.success(`Login successful as ${foundUser.role}`);
-            setIsLoggedIn(true);
-
-            if (foundUser.role === 'Staff') {
-                navigate('/staffdashboard/WelcomeStaff');
-            } else if (foundUser.role === 'Technician') {
-                navigate('/techniciandashboard/WelcomeTechnician');
-            }
-        } else {
-            toast.warn("User not found or incorrect credentials");
-            console.log("User not found or incorrect credentials"); // Debug log
-        }
+        },error=>{console.log(error)})
+        
     };
 
     return (

@@ -7,11 +7,13 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginsStyle/SignIn.css';
 
 function SignIn() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Keep only one instance of isLoggedIn state
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
-    const role = location.state?.role || 'User';
+
+    // Temporarily hardcoded role for testing purposes
+    const role = location.state?.role || 'Staff';
 
     const user = [
         { email: "kekana@gmail.com", password: '123zxc@Z', role: 'Staff' },
@@ -22,21 +24,28 @@ function SignIn() {
     const [Password, setPassword] = useState('');
 
     const login = () => {
-        let isFound = false;
-        for (let k = 0; k < user.length; k++) {
-            if (user[k].email === Email && user[k].role === role) {
-                if (user[k].password === Password) {
-                    isFound = true;
-                }
-            }
-        }
+        console.log("Attempting login with:", { Email, Password, role });
 
-        if (isFound) {
-            toast.success(`Login successful as ${role}`);
+        // Find user based on email, password, and role
+        const foundUser = user.find(
+            (u) => {
+                console.log(`Checking user: ${u.email} with role: ${u.role}`);
+                return u.email === Email && u.password === Password && u.role === role;
+            }
+        );
+
+        if (foundUser) {
+            toast.success(`Login successful as ${foundUser.role}`);
             setIsLoggedIn(true);
-            navigate('/staffdashboard/WelcomeStaff');
+
+            if (foundUser.role === 'Staff') {
+                navigate('/staffdashboard/WelcomeStaff');
+            } else if (foundUser.role === 'Technician') {
+                navigate('/techniciandashboard/WelcomeTechnician');
+            }
         } else {
-            toast.warn("User not found or incorrect role");
+            toast.warn("User not found or incorrect credentials");
+            console.log("User not found or incorrect credentials"); // Debug log
         }
     };
 
@@ -57,7 +66,7 @@ function SignIn() {
                             placeholder="Email"
                             onChange={(event) => setEmail(event.target.value)}
                             className="form-ctrl"
-                            style={{ backgroundColor: 'white' }} 
+                            style={{ backgroundColor: 'white' }}
                         />
                     </div>
                     <div className="form-grp password-grp">

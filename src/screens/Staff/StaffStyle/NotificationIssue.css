@@ -8,6 +8,11 @@
 .d-flex {
   display: flex;
 }
+.d-flex.justify-content-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem; /* Space below the search bar */
+}
 
 .justify-content-between {
   justify-content: space-between;
@@ -28,17 +33,23 @@
 /* Notification icon styles */
 .notification-icons {
   font-size: 1.5rem;
-  margin-right:10px;
+  margin-right: 5px;
   color: #767d85; /* Adjust color if needed */
 }
-
+.text-success{
+ color:#15959D;
+}
 /* Search bar styles */
 .search-bar-containers {
   position: relative;
+  width: 100%; /* Full width for centering */
+  max-width: 400px; /* Set a max width for the search bar */
 }
 
 .search-inputs {
   padding-left: 2rem; /* Space for the search icon */
+  border-radius: 30px;
+  width:100%;
 }
 
 .search-icons {
@@ -46,6 +57,7 @@
   right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
+  color:#15959D;
 }
 
 /* Filter and sort styles */
@@ -134,4 +146,68 @@
 .table-borderless {
   border: none;
 }
+.dropdown-toggle::after{
+  display: none;
+}
+/* Hide the default dropdown caret (arrow) for Filter and Sort buttons */
+#dropdown-filter .dropdown-toggle::after,
+#dropdown-sort .dropdown-toggle::after {
+  display: none; /* Hides the default dropdown arrow */
+}
 
+/* Styling for the Filter and Sort dropdown buttons */
+#dropdown-filter .dropdown-toggle,
+#dropdown-sort .dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-size: 0.9rem; /* Decreased font size */
+  padding-right: 0; /* Remove extra padding */
+  width: auto; /* Adjust to the content width */
+  min-width: 100px; /* Minimum width to ensure text fits */
+}
+#dropdown-filter .dropdown-toggle:hover,
+#dropdown-sort .dropdown-toggle:hover {
+  color: #007bff; /* Changes color on hover to indicate interactivity */
+}
+.dropdown-menu{
+  min-width:160px;
+}
+
+/* Make the buttons and icons align better */
+.filter-sorts-containers .dropdown-toggle {
+  display: flex;
+  align-items: center;
+}
+.filter-sorts-containers .dropdown-toggle .fa-filter,
+.filter-sorts-containers .dropdown-toggle .fa-bars {
+  margin-right: 5px; /* Space between the icon and text */
+}
+/* Reduce the size of the dropdown button */
+#dropdown-filter,
+#dropdown-sort {
+  max-width: 120px; /* Adjust maximum width */
+  min-width: 100px; /* Ensure it doesn’t shrink too much */
+  margin-right: 5px; /* Adds a small margin between the buttons */
+}
+.filter-sorts-containers {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds space between Filter and Sort buttons */
+  flex-wrap: wrap; /* Ensure it doesn't overflow the container */
+}
+.filter-sort-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #000;
+}
+.filter-sort-toggle:hover {
+  color: #007bff;
+}
+.filter-sort-icon {
+  margin-right: 0.3rem;
+}

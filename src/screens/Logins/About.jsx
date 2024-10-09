@@ -26,11 +26,13 @@ const About = () => {
             <h2>We Are All About Smarter And
               <br/>Faster Solutions.
             </h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              It is a long established fact that a reader will be distracted. 
-              Lorem ipsum dolor sit amet consectetur. 
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              It is a long established fact that a reader will be distracted.
+            <p>Welcome to TechTrackers Support, your dedicated partner in ensuring the smooth and efficient operation of your technology infrastructure. We specialize in providing expert technical assistance to businesses and institutions, addressing technical challenges swiftly and effectively.
+
+Our team consists of highly trained professionals,  all working collaboratively to provide top-tier support. We understand the critical role that technology plays in your daily operations, and our mission is to deliver solutions that minimize downtime and maximize system performance.
+
+With a focus on reliability, responsiveness, and innovation, TechTrackers Support is here to keep your systems running seamlessly, so you can focus on what you do best.
+
+We are here to help you every step of the way.
             </p>
             
             <Link to="/contact">

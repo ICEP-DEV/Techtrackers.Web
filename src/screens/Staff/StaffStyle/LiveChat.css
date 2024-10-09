@@ -76,4 +76,10 @@
     cursor: pointer;
     color: white;
   }
+  .attachment-preview {
+    max-width: 100%; /* Ensure it doesn't exceed the chat width */
+    max-height: 150px; /* Limit the height */
+    margin-top: 5px; /* Space between message and preview */
+    border-radius: 5px; /* Optional: round corners */
+  }
   

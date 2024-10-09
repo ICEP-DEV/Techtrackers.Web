@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Paperclip, Send } from 'lucide-react';
 import './StaffStyle/LiveChat.css';
 
@@ -8,11 +8,21 @@ export default function LiveChat({ onClose }) {
     { type: 'sent', text: 'I need assistance with an issue.' }
   ]);
   const [newMessage, setNewMessage] = useState('');
+  const [attachment, setAttachment] = useState(null); // State for attachment
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      setMessages([...messages, { type: 'sent', text: newMessage }]);
+    if (newMessage.trim() || attachment) {
+      const message = { type: 'sent', text: newMessage };
+
+      // If there's an attachment, simulate uploading and store the URL
+      if (attachment) {
+        const attachmentUrl = URL.createObjectURL(attachment); // Simulate file upload
+        message.attachment = attachmentUrl; // Store the URL
+      }
+
+      setMessages([...messages, message]);
       setNewMessage('');
+      setAttachment(null); // Clear attachment after sending
     }
   };
 
@@ -23,6 +33,13 @@ export default function LiveChat({ onClose }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
+    }
+  };
+
+  const handleAttachmentChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAttachment(file); // Store the file
     }
   };
 
@@ -40,13 +57,25 @@ export default function LiveChat({ onClose }) {
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`}>
               {msg.text}
+              {msg.attachment && (
+                <div className="attachment">
+                  <a href={msg.attachment} target="_blank" rel="noopener noreferrer">
+                    View Attachment
+                  </a>
+                </div>
+              )}
             </div>
           ))}
         </div>
         <div className="chat-footer">
-          <button type="button" className="attach-button">
+          <label className="attach-button">
             <Paperclip size={20} />
-          </button>
+            <input
+              type="file"
+              onChange={handleAttachmentChange}
+              style={{ display: 'none' }} // Hide the file input
+            />
+          </label>
           <input
             type="text"
             placeholder="Type your message..."

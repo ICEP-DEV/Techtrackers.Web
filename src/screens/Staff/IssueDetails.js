@@ -76,9 +76,10 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 </div>
             </div>
             <div className="descrip-section">
-                <h3><FileText /> Description</h3>
-                <p>My printer is not printing what I want.</p>
-            </div>
+    <h3><FileText /> Description</h3>
+    <p>{issue.description}</p>
+</div>
+
             <div className="attach-section">
                 <h3><FaPaperclip /> Attachments</h3>
                 <div className="attach">

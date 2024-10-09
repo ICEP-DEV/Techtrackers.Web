@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../Staff/StaffStyle/logissue.css';
 
 const Logissueform = () => {
@@ -8,14 +8,14 @@ const Logissueform = () => {
   const [formValues, setFormValues] = useState({
     title: '',
     category: '',
-    department: '',
+    department: 'Human Resource (HR)', // default value
     priority: '',
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
   });
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,42 +25,42 @@ const Logissueform = () => {
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: '', // Clear error message on change
+      [name]: '',
     }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    // Validation
+    // Validation (excluding department, date, and attachments)
     const newErrors = {};
     Object.keys(formValues).forEach((key) => {
-      if (!formValues[key]) {
+      if (!formValues[key] && key !== 'department' && key !== 'date') {
         newErrors[key] = 'This field is required.';
       }
     });
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      return; // Prevent submission if there are errors
+      return;
     }
 
     setSubmitted(true);
   };
 
   const handleCancel = () => {
-    navigate('/staffdashboard/WelcomeStaff'); // Navigate to DashboardPage when cancel is clicked
+    navigate('/staffdashboard/WelcomeStaff');
   };
 
   const handleView = () => {
-    navigate('/staffdashboard/IssueDisplay'); // Navigate to AllIssuePage when View is clicked
+    navigate('/staffdashboard/IssueDisplay');
   };
 
   return (
     <div className="main-content">
       {submitted && (
         <div className="success-message">
-          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={() => handleView()}>View</a> it in your logged issues.
         </div>
       )}
       <form className="log-issue-form" onSubmit={handleSubmit}>
@@ -101,16 +101,13 @@ const Logissueform = () => {
 
         <div className="form-row">
           <div className='box'>
-            <label>Department<span className="required">*</span></label>
+            <label>Department</label>
             <input
               type="text"
               name="department"
-              placeholder="Human Resource (HR)"
               value={formValues.department}
-              onChange={handleChange}
               readOnly
             />
-            {/* {errors.department && <p className="error-message">{errors.department}</p>} */}
           </div>
 
           <div className='box'>
@@ -141,7 +138,7 @@ const Logissueform = () => {
 
         <div className="form-row">
           <div className='box'>
-            <label>Date<span className="required">*</span></label>
+            <label>Date</label>
             <input
               type="date"
               name="date"
@@ -149,7 +146,6 @@ const Logissueform = () => {
               value={formValues.date}
               onChange={handleChange}
             />
-            {/* {errors.date && <p className="error-message">{errors.date}</p>} */}
           </div>
           
           <div className='box'>

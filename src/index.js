@@ -6,11 +6,12 @@ import Ratings from './components/Ratings';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TechRatings.css';
+import WelcomeTechnician from './screens/TechDashBoard1/WelcomeTechnician';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Ratings/>
+    <WelcomeTechnician/>
   </React.StrictMode>
 );
 

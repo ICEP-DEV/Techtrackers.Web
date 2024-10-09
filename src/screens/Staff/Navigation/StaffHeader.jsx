@@ -50,8 +50,7 @@ const StaffHeader = ({ onLogout }) => {
                         <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
                         <p className="sub-text">{user ? user.email : 'Joestaff.com'}</p>
                         <p className="sub-text">{user ? user.department : 'HR'}</p>
-                        <button onClick={() => { closeDropdown(); /* Navigate to profile */ }}>Profile</button>
-                        <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }}>Settings</button> {/* Open Settings */}
+                        <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }} className='btn1'>Settings</button> {/* Open Settings */}
                         <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); }}>
                             <span className="signout-icon">
                                 <FontAwesomeIcon icon={faSignOutAlt} />

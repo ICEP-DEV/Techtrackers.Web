@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import Ratings from './components/Ratings';
+import TechnicianNotifications from './components/Notifications/TechnicianNotifications';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TechRatings.css';

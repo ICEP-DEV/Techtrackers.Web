@@ -39,9 +39,12 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
           </li>
         </ul>
       </nav>
-     
 
-      
+      {/* Logout section with only the icon */}
+      <div className="logout-section">
+        <i className="fas fa-sign-out-alt logout-icon"></i>
+      </div>
+     
     </div>
   );
 }

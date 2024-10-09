@@ -22,6 +22,11 @@
     padding: 20px;
     cursor: pointer;
   }
+  .menu-icon:hover{
+    color: #6ff1f1; /* Change color on hover */
+    cursor: pointer; /* Pointer cursor for hover */
+
+  }
   
   .sidebar-nav ul {
     list-style: none;
@@ -62,4 +67,24 @@
   .sidebar.closed .notification-count {
     display: none;
   }
+
+  /* Logout section at the bottom */
+.logout-section {
+  padding: 15px; /* Adjust padding as needed */
+  display: flex;
+  cursor: pointer; /* Pointer cursor for hover */
+  margin-bottom: 20px; /* Space from bottom */
+}
+
+.logout-icon {
+  font-size: 24px; /* Adjust size as needed */
+  transition: color 0.3s; /* Transition for hover effect */
+  display: block; /* Ensure the icon is block-level */
+}
+/* Hover effect only for logout icon */
+.logout-icon:hover {
+  color: #4ed6ff; /* Change color on hover */
+  cursor: pointer; /* Pointer cursor for hover */
+}
+  
   

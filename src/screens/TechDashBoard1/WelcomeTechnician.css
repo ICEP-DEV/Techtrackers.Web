@@ -1,68 +1,120 @@
-.mains-content {
+.main-content {
     padding: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
-    margin: auto;
-}
-
-.titles {
-    font-size: 3.5rem;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.cards-container {
-    float: left;
+  }
+  
+  .top-container {
+    margin-bottom: 20px;
+  }
+  
+  .status-cards {
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping the cards */
-    justify-content: flex-start; /* Aligns cards to the left */
-    max-width: 650px; /* Constrain width to prevent stretching */
-}
-
-.cards {
-    width: 300px; /* Set a fixed width for each card */
-    background: linear-gradient(#0B3434,#108484) ;
-    border-radius: 10px;
+    gap: 20px;
+  }
+  
+  .card {
+    background: #2a9d8f;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: #fff;
     text-align: center;
-    margin: 10px;
-}
-
-.cards-content h2 {
-    margin-bottom: px;
-    color: white;
-}
-.cards-content p {
-    color:white;
-}
-
-.cards-container2 {
+    flex: 1;
+  }
+  
+  .card.completed {
+    background: #264653;
+  }
+  
+  .card.in-progress {
+    background: #e9c46a;
+  }
+  
+  .card.on-hold {
+    background: #f4a261;
+  }
+  
+  .card.pending {
+    background: #e76f51;
+  }
+  
+  .card a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .bottom-container {
     display: flex;
-}
-
-#card-priority, #card-urgent {
-    height: 20vh;
-    width: 100%;
-}
-.card-image {
-    width: 40px; /* Adjust the size as needed */
-    height: 40px; /* Maintain aspect ratio by setting height */
-}
-.cards-container3 {
+    gap: 20px;
+  }
+  
+  .active-tasks, .my-reviews {
+    flex: 1;
+  }
+  
+  .task-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .task-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-card.high {
+    border-left: 5px solid #e63946;
+  }
+  
+  .task-card.medium {
+    border-left: 5px solid #f4a261;
+  }
+  
+  .task-card.low {
+    border-left: 5px solid #2a9d8f;
+  }
+  
+  .my-reviews {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rating {
+    text-align: center;
+  }
+  
+  .stars {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .rating-breakdown {
+    margin-top: 20px;
+  }
+  
+  .rating-item {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* Space between cards */
-    margin-top: 60px; /* Add margin for spacing above the container */
-    background-color: #EDF1F8;
-    height: 600px;
-    max-width: 50%;
-    flex-direction: vertical;
-}
-.subtitle {
-    font-size: 1.5rem; /* Adjust font size as needed */
-    text-align: left; /* Align text to the left */
-    color: #333; /* Change text color as needed */
-}
-
-
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .rating-item span {
+    width: 20px;
+  }
+  
+  .bar {
+    flex: 1;
+    height: 10px;
+    background: #e0e0e0;
+    margin: 0 10px;
+    border-radius: 5px;
+  }
+  
+  .bar .filled {
+    height: 100%;
+    background: #2a9d8f;
+    border-radius: 5px;
+  }

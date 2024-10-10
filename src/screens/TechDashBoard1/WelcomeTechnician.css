@@ -21,19 +21,19 @@
   }
   
   .card.completed {
-    background: #264653;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .card.in-progress {
-    background: #e9c46a;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .card.on-hold {
-    background: #f4a261;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .card.pending {
-    background: #e76f51;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .card a {
@@ -64,15 +64,15 @@
   }
   
   .task-card.high {
-    border-left: 5px solid #e63946;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .task-card.medium {
-    border-left: 5px solid #f4a261;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .task-card.low {
-    border-left: 5px solid #2a9d8f;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
   }
   
   .my-reviews {
@@ -108,7 +108,7 @@
   .bar {
     flex: 1;
     height: 10px;
-    background: #e0e0e0;
+    background: linear-gradient(135deg, #108484, #0C3A3A);
     margin: 0 10px;
     border-radius: 5px;
   }

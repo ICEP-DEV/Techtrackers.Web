@@ -29,7 +29,8 @@ const Logissueform = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  // Submit the form data to the API
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     // Validation (excluding department, date, and attachments)
@@ -45,7 +46,35 @@ const Logissueform = () => {
       return;
     }
 
-    setSubmitted(true);
+    // Send data to the API
+    try {
+      const response = await fetch('https://localhost:44328/api/Log', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formValues),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        // Optionally, reset form after submission
+        setFormValues({
+          title: '',
+          category: '',
+          department: '',
+          priority: '',
+          description: '',
+          date: new Date().toISOString().split('T')[0],
+          location: '',
+        });
+      } else {
+        const errorData = await response.json();
+        console.error("Error submitting log:", errorData.message);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const handleCancel = () => {
@@ -60,7 +89,7 @@ const Logissueform = () => {
     <div className="main-content">
       {submitted && (
         <div className="success-message">
-          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={() => handleView()}>View</a> it in your logged issues.
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
         </div>
       )}
       <form className="log-issue-form" onSubmit={handleSubmit}>
@@ -144,7 +173,6 @@ const Logissueform = () => {
               name="date"
               readOnly
               value={formValues.date}
-              onChange={handleChange}
             />
           </div>
           

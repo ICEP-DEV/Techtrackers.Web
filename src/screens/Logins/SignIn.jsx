@@ -13,32 +13,52 @@ function SignIn() {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
 
-    // Hardcoded users
-    const users = [
-        { email: "kekana@gmail.com", password: '123zxc@Z', role: 'staff' },
-        { email: 'nkosana@gmail.com', password: '123zxc@Z', role: 'technician' },
-        { email: 'admin@example.com', password: '123Admin!', role: 'admin' },
-        { email: 'hod@example.com', password: 'hodPass@123', role: 'hod' },
-    ];
+    // Function to handle the login process by calling the API
+    const login = async () => {
+        try {
+            const response = await fetch('https://localhost:44328/api/User/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: Email,
+                    password: Password,
+                }),
+            });
 
-    const login = () => {
-        // Find the user with matching email and password
-        const user = users.find(u => u.email === Email && u.password === Password);
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Check if roles are returned as an array
+                const roles = data.user.roles;
 
-        if (user) {
-            // Role-based navigation
-            if (user.role === 'staff') {
-                navigate('/staffdashboard/WelcomeStaff');
-            } else if (user.role === 'technician') {
-                navigate('/techniciandashboard');
-            } else if (user.role === 'admin') {
-                navigate('/admindashboard');
-            } else if (user.role === 'hod') {
-                navigate('/hoddashboard');
+                if (roles && roles.length > 0) {
+                    const userRole = roles[0].toLowerCase();  // Get the first role and convert it to lowercase
+
+                    // Role-based navigation based on the first role
+                    if (userRole === 'staff') {
+                        navigate('/staffdashboard/WelcomeStaff');
+                    } else if (userRole === 'technician') {
+                        navigate('/techniciandashboard');
+                    } else if (userRole === 'admin') {
+                        navigate('/admindashboard');
+                    } else if (userRole === 'hod') {
+                        navigate('/hoddashboard');
+                    }
+
+                    // Display success message
+                    toast.success(`You are now logged in as ${userRole}`);
+                } else {
+                    toast.error("Unable to determine user role.");
+                }
+            } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || "Invalid email or password");
             }
-            toast.success(`You are now logged in as ${user.role}`);
-        } else {
-            toast.error("Invalid email or password");
+        } catch (error) {
+            console.error("Error logging in:", error);
+            toast.error("An error occurred while trying to log in.");
         }
     };
 

@@ -61,15 +61,17 @@ input,
 }
 
 .contact-button {
-  width: 30%;
+  width: 100px;
   padding: 12px;
   font-size: 18px;
+  font-weight: bold;
   background-color: #00695c;
   color: #ffffff;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 
 .contact-button:hover {

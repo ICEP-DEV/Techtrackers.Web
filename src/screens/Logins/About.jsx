@@ -36,7 +36,7 @@ We are here to help you every step of the way.
             </p>
             
             <Link to="/contact">
-              <button className="contact-button">Contact us</button>
+              <button className="contact-Us">Contact us</button>
             </Link>
           </div>
         </div>

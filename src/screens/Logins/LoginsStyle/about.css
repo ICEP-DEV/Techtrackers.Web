@@ -61,12 +61,12 @@
     line-height: 1.6;
   }
   
-  .contact-button {
+  .contact-Us {
     padding: 10px 20px;
     background-color: #003d33;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     margin-top: 20px;
   }

@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';//kushoda faTools
 import './AdminStyle/adminStyles.css'; // Import your styles
 
-import totalIssuesIcon from '../Images/totalIssuesIcon.png';
-import openIssuesIcon from '../Images/openIssuesIcon.png';
+import totalIssuesIcon from './Images/totalIssuesIcon.png';
+import openIssuesIcon from './Images/openIssuesIcon.png';
 
 const AdminDashboard = () => {
     return (

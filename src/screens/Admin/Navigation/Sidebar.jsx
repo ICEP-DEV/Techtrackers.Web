@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Dashboard from './Icons/dashboard.png';
-import ViewAllLogs from './Icons/allIssuesIcon.png'
-import AsignTechnician from './Icons/notifications.png'
+import ViewAllLogs from './Icons/allIssuesIcon.png';
+import AsignTechnician from './Icons/notifications.png';
 import AddTechnician from './Icons/addtechnician.png';
+//import ReportIcon from './Icons/report.png';  // New report icon
+import styles from '../AdminStyle/SideBar.module.css'; // Import the CSS module
 
 const Sidebar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isIssuesOpen, setIsIssuesOpen] = useState(false); // State to manage dropdown
+
     const toggle = () => setIsOpen(!isOpen);
+    const toggleIssuesDropdown = () => setIsIssuesOpen(!isIssuesOpen); // Toggle dropdown
+
     const menuItem = [
         {
             path: "/AdminWelcome",
@@ -16,42 +22,72 @@ const Sidebar = ({ children }) => {
             icon: <img src={Dashboard} alt="Dashboard Icon" />,
         },
         {
+            path: "/notifications",
+            name: "NOTIFICATIONS",
+            icon: <img src={AsignTechnician} alt="Notifications Icon" />,  
+        },
+        {
+            path: "#",  // Placeholder path for the dropdown toggle
+            name: "ISSUES",
+            icon: <img src={ViewAllLogs} alt="Generate Report Icon" />, 
+            dropdown: true,  // Flag for dropdown items
+        },
+        {
             path: "/AddTechnician",
             name: "ADD TECHNICIAN",
-            icon: <img src={AddTechnician} alt="Add Technician Icon" />,
+            icon: <img src={AddTechnician} alt="Add Technician Icon" />,  
         },
         {
-            path: "/issueDisplay",
-            name: "ALL ISSUE",
-            icon: <img src={ViewAllLogs} alt="Dashboard Icon" />,
-        },
-        {
-            path: "/issueTracker",
-            name: "NOTIFICATIONS",
-            icon: <img src={AsignTechnician} alt="Dashboard Icon" />,
+            path: "/generateReport",
+            name: "GENERATE REPORT",
+            icon: <img src={ViewAllLogs} alt="Generate Report Icon" />,  
         },
     ];
 
+    const issueItems = [
+        { path: "/issueDisplay", name: "View All Issues" },
+        { path: "/openIssues", name: "Open Issues" },
+        { path: "/closedIssues", name: "Closed Issues" },
+        { path: "/assignedIssues", name: "Assigned Issues" },
+    ];
+
     return (
-        <div className="container">
-            <div style={{ width: isOpen ? '200px' : '50px' }} className="sidebar">
-                <div className="top_section">
-                    <h1 style={{ display: isOpen ? 'block' : 'none' }} className="logo">Admin</h1>
-                    <div style={{ marginLeft: isOpen ? '50px' : '0px' }} className="bars">
-                        <FaBars onClick={toggle} />
+        <div className={styles.sidebarContainer}>
+            <div className={isOpen ? styles.sidebarWrapper : `${styles.sidebarWrapper} ${styles.collapsed}`}>
+                <div className={styles.topSection}>
+                    <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.staffTitle}>Admin</h1>
+                    <div className={styles.menuIcon} onClick={toggle}>
+                        <FaBars />
                     </div>
                 </div>
                 {menuItem.map((item, index) => (
-                    <NavLink
-                        to={item.path}
-                        key={index}
-                        className={({ isActive }) => (isActive ? 'link active' : 'link')} // Updated to use className as a function
-                    >
-                        <div className="icon">{item.icon}</div>
-                        <div style={{ display: isOpen ? 'block' : 'none' }} className="link_text">
-                            {item.name}
-                        </div>
-                    </NavLink>
+                    <div key={index}>
+                        <NavLink
+                            to={item.path}
+                            onClick={item.dropdown ? toggleIssuesDropdown : undefined} // Toggle dropdown on "ISSUES" click
+                            className={({ isActive }) => (isActive ? `${styles.navItem} ${styles.active}` : styles.navItem)}
+                        >
+                            <div className={styles.sidebarIcon}>{item.icon}</div>
+                            <div style={{ display: isOpen ? 'block' : 'none' }}>
+                                {item.name}
+                            </div>
+                            {item.dropdown && (isIssuesOpen ? <FaChevronUp /> : <FaChevronDown />)}
+                        </NavLink>
+                        {/* Render dropdown items when "ISSUES" is clicked */}
+                        {item.dropdown && isIssuesOpen && (
+                            <div className={styles.dropdownContainer}>
+                                {issueItems.map((issueItem, issueIndex) => (
+                                    <NavLink
+                                        to={issueItem.path}
+                                        key={issueIndex}
+                                        className={({ isActive }) => (isActive ? `${styles.dropdownItem} ${styles.active}` : styles.dropdownItem)}
+                                    >
+                                        {issueItem.name}
+                                    </NavLink>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 ))}
             </div>
             <main>{children}</main>

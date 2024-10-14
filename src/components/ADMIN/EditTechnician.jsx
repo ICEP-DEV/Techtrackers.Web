@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles/addTechnicianStyles.css';
+//import './styles/addTechnicianStyles.css';
 import './styles/editTechnician.css';
 import manageTechnicians from './images/manageTechnicians.png';
 import { useNavigate, useParams } from 'react-router-dom';

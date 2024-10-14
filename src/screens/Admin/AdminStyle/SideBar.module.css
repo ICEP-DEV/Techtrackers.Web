@@ -1,4 +1,26 @@
 /* Sidebar Container */
+.dropdownContainer {
+  padding-left: 20px;  /* Indentation for the dropdown items */
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #006060;  /* Lighter shade of green */
+}
+
+.dropdownItem.active {
+  background-color: #004d4d;  /* Active state background color */
+}
+
 .sidebarWrapper {
   width: 300px;
   background-color: #003E3E; /* Dark green background */
@@ -8,7 +30,7 @@
   transition: width 0.3s ease;
 }
 
-.sidebarWrapper.collapsed {
+.collapsed {
   width: 70px;
 }
 
@@ -37,17 +59,12 @@
 }
 
 /* Navigation Links */
-.navLinks {
-  display: flex;
-  flex-direction: column;
-}
-
 .navItem {
   display: flex;
   align-items: center;
   padding: 15px 20px;
   color: #fff;
-  cursor: pointer;
+  text-decoration: none; /* Fix for buttons turning into links */
   transition: background-color 0.3s ease;
 }
 
@@ -63,6 +80,10 @@
 
 .navItem span {
   font-size: 1.2rem;
+}
+
+.active {
+  background-color: #006060; /* Active state background color */
 }
 
 /* Notifications Badge */
@@ -82,19 +103,19 @@
 }
 
 /* Collapsed State */
-.sidebarWrapper.collapsed .navItem span {
+.collapsed .navItem span {
   display: none;
 }
 
-.sidebarWrapper.collapsed .navItem {
+.collapsed .navItem {
   justify-content: center;
 }
 
-.sidebarWrapper.collapsed .topSection {
+.collapsed .topSection {
   justify-content: center;
 }
 
-.sidebarWrapper.collapsed .notificationBadge {
+.collapsed .notificationBadge {
   right: 10px;
   top: 15px;
 }
@@ -102,10 +123,10 @@
 /* Adjust for Mobile Responsiveness */
 @media (max-width: 768px) {
   .sidebarWrapper {
-      width: 70px;
+    width: 70px;
   }
 
-  .sidebarWrapper .staffTitle {
-      display: none;
+  .staffTitle {
+    display: none;
   }
 }

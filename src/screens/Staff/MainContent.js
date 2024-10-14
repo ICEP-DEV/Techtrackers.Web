@@ -45,13 +45,13 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.logId}>
-              <td>{issue.issueID}</td>
-              <td>{issue.title}</td>
-              <td>{new Date(issue.dateReported).toLocaleDateString()}</td>
-              <td>{issue.department}</td>
+              <td>{issue.assigned_By}</td>
+              <td>{issue.description}</td>
+              <td>{new Date(issue.assigned_At).toLocaleDateString()}</td>
+              <td>{issue.category_ID}</td>
               <td>{issue.priority}</td>
               {/* Check if issue.status exists before calling toLowerCase() */}
-              <td><span className={`status ${issue.status ? issue.status.toLowerCase() : ''}`}>{issue.status || 'Unknown'}</span></td>
+              <td><span className={`status ${issue.log_Status ? issue.Log_Status.toLowerCase() : ''}`}>{issue.log_Status || 'Unknown'}</span></td>
               <td><button className="view-button" onClick={() => onSelectIssue(issue)}>View</button></td>
             </tr>
           ))}

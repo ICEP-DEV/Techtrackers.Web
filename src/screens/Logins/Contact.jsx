@@ -19,7 +19,7 @@ const Contact = () => {
             <div className="form-group">
               <textarea className="textareas" placeholder="Enter your message" id="message" name="message" rows="4" required></textarea>
             </div>
-            {/*<button type="submit" className="contact-button">Submit</button>*/}
+            <button type="submit" className="contact-button">Submit</button>
           </form>
         <div className="contact-details">
             <div className="contact-item">

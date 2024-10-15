@@ -37,7 +37,7 @@ const SideBar = ({ children }) => {
 
     return (
         <div className="cup">
-            <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+            <div style={{ width: isOpen ? "225px" : "60px" }} className="sidebar">
                 <div className="top_section">
                     <h1 style={{ display: isOpen ? "block" : "none" }} className="staffTitle">Staff</h1>
                     <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="menuIcon">

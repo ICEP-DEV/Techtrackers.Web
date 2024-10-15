@@ -9,6 +9,7 @@ import Contact from './screens/Logins/Contact';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Use this instead of '../node_modules'
 import LandingPage from './screens/Logins/LandingPage';
 import StaffDashboard from './screens/Staff/StaffDashboard';
+import AccountRecovery from './screens/Logins/AccountRecovery';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/staffdashboard/*" element={<StaffDashboard />} />
+        <Route path="/accountRecovery" element={<AccountRecovery />} />
       </Routes>
     </Router>
   );

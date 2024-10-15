@@ -1,0 +1,238 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8f8; /* Light page background */
+}
+
+.table-containerer {
+  width: 60%;
+  margin: 50px auto;
+}
+
+.Table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.header-title .icon {
+  margin-right: 10px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.archived {
+  font-weight: bold;
+  color: gray;
+}
+
+.header-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.table-container {
+  border-collapse: separate;
+  border-spacing: 0 15px; /* Adds space between rows */
+  background-color: #f0f8f8;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f8f8; /* Match the row background with the page */
+  border-radius: 10px; /* Rounded corners */
+  position: relative;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.row::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #f0f8f8;/* Light gray line between rows */
+}
+
+.profile{
+  background-color: #f0f8f8;
+}
+.profile-info {
+  display: flex;
+  align-items: center;
+  position: relative; /* Position relative for pseudo-elements */
+}
+
+.vertical-line {
+  width: 2px; /* Width of the line */
+  height: 50px; /* Adjust based on the height of the content */
+  background-color: rgb(143, 143, 190); /* Color of the vertical line */
+  margin-left: 10px; 
+  margin-top: -5px;
+}
+
+.profile-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #d8e8e8;
+  margin-right: 20px;
+}
+
+.details-info {
+  margin-right: auto;
+  background-color: #f0f8f8;
+}
+
+.name {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: bold;
+  gap: 18px;
+  row-gap: 1px;
+  color: black;
+}
+
+.title {
+  color: gray;
+  font-size: 0.9em;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.btn-accept {
+  background-color: #2d8d91;
+  color: white;
+}
+
+.btn-decline {
+  background-color: #c23838;
+  color: white;
+}
+
+.issue-title {
+  font-size: 0.85em;
+  margin-top: -45px;
+  color: #555;
+  margin-left: 30px;
+}
+
+.issue-details {
+  font-size: 0.8em;
+  color: #777;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+.time {
+  margin-right: 20px;
+  color: gray;
+}
+
+.sort-button{
+  border: none;
+  background-color: #f0f8f8;
+  font-size: 17px;
+}
+.sort-dropdown-container {
+  position: relative;
+}
+
+.sort-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #f0f8f8;
+  border: 1px solid #ccc;
+  z-index: 1;
+  width: 150px;
+  border-radius: 12px;
+}
+
+.sort-option:hover{
+  background-color: #ddd;
+}
+.sort-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sort-option:hover {
+  background-color: #f0f0f0;
+}
+
+.filter-container {
+  position: relative;
+}
+
+.filter-dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  width: 170px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f0f8f8;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.filter-option:hover {
+  background: #f0f0f0; /* Highlight on hover */
+}
+
+.filter-input {
+  margin: 5px;
+  padding: 5px;
+  width: calc(100% - 50px);
+  margin-left: 15px;
+  border-radius: 10px;
+}
+
+.archived {
+  background-color: #f0f8f8;
+  border: none;
+  cursor: pointer;
+}
+
+.archived h2{
+  color: black;
+  font-size: 22px;
+}

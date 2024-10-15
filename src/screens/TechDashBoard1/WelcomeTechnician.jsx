@@ -75,6 +75,7 @@ const WelcomeTechnician = () => {
     
             {/* Reviews Section */}
             <div className="my-reviews">
+              <div className="review-box">
               <h3>My Reviews</h3>
               <div className="rating">
                 <h4>3.0 Rating</h4>
@@ -106,6 +107,7 @@ const WelcomeTechnician = () => {
                     <span>1</span>
                     <div className="bar"><div className="filled" style={{ width: '10%' }}></div></div>
                     <span>2</span>
+                  </div>
                   </div>
                 </div>
               </div>

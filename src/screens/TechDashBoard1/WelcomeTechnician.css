@@ -52,14 +52,20 @@
   
   .task-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 400px 400px;
+    gap: 30px;
+    background-color: #EDF1F8;
+    padding: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .task-card p, h4 {
+    color: #fff;
   }
   
   .task-card {
     background: #fff;
     padding: 15px;
-    border-radius: 8px;
+    height: 220px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
@@ -76,12 +82,18 @@
   }
   
   .my-reviews {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #EDF1F8;
+    padding: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);margin-top: 2.5%;
   }
   
+.review-box {
+  background: linear-gradient(135deg, #108484, #0C3A3A);
+  border-radius: 4px;
+  padding: 50px;
+  color: #fff;
+}
+
   .rating {
     text-align: center;
   }
@@ -107,14 +119,15 @@
   
   .bar {
     flex: 1;
-    height: 10px;
-    background: linear-gradient(135deg, #108484, #0C3A3A);
+    background: linear-gradient( #108484, #0C3A3A);
     margin: 0 10px;
     border-radius: 5px;
+    height: 30px;
+    margin: 8px;
   }
   
   .bar .filled {
     height: 100%;
-    background: #2a9d8f;
+    background: #2FB00F;
     border-radius: 5px;
   }

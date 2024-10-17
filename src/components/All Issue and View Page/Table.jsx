@@ -139,7 +139,7 @@ const Table = ({ issues, setIssues }) => {
         </tbody>
       </table>
       <div className="end-message">
-        <span>You have reached the end</span>
+        <span id="table-span">You have reached the end</span>
       </div>
       <button className="close-button">CLOSE</button>
     </div>

@@ -1,0 +1,149 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+
+label {
+    color: black;
+}
+
+
+.left-edit {
+    float: left;
+    text-align: left;
+    justify-content: center;
+    color: #000;
+    padding: 20px;
+    width: 30%;
+}
+
+.right-edit {
+    float: right;
+    width:60%;
+    padding-top: 8%;
+}
+
+.title {
+    color: #0B5353;
+    font-weight: 700;
+}
+
+#user-role {
+    font-weight: 500;
+}
+
+.modal-content {
+    background-color: #F5F5F5;
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+.form-group label {
+    margin-bottom: 10px;
+}
+
+/* .form-group1{
+    border: none;
+    padding: 20px;
+} */
+
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.image-upload {
+    margin-top: 20px;
+}
+
+.profile-picture-container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 150px;
+    width: 150px; 
+    border: 5px solid #ccc;
+    border-radius: 50%;
+    overflow: hidden; 
+    background-color: #f0f0f0;
+}
+
+.profile-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-profile-picture {
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+.button-group {
+    clear: both;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.close-button, .save-button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.close-button {
+    background-color: #BA0909;
+    color: white;
+    margin-left: 200px;
+}
+
+.save-button {
+    background-color: #1B78CE;
+    color: white;
+    margin-right: 200px;
+}
+
+.remove-button {
+    color: #000000;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 2px;
+    width: 210px;
+}

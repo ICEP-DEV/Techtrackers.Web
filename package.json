@@ -3,17 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/material": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.4",
-    "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.4",
-    "jspdf": "^2.5.2",
-    "jspdf-autotable": "^3.8.3",
+    "bootstrap": "^5.3.1",
+    "lucide-react": "^0.446.0",
     "mdb-react-ui-kit": "^8.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.4",
@@ -22,10 +21,9 @@
     "react-hook-form": "^7.46.1",
     "react-icons": "^4.12.0",
     "react-loader-spinner": "^5.4.5",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.27.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.5",
-    "techtrackers.web": "file:",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
@@ -52,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

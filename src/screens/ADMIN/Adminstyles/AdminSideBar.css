@@ -1,0 +1,169 @@
+.sidebar {
+    width: 80px; /* Increased the closed width of the sidebar */
+    height: calc(100vh - 60px); /* Subtract the header height from the viewport height */
+    background: #072020;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 0; /* Adjust padding as necessary */
+    transition: width 0.3s ease;
+    overflow: hidden;
+    position: fixed; /* Keep the sidebar fixed to the left of the viewport */
+    top: 10px; /* Start the sidebar below the header */
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar.open {
+    width: 340px; /* Increased the open width of the sidebar */
+}
+
+.menu-icon {
+    font-size: 40px; /* Increased the size of the menu icon */
+    cursor: pointer;
+    margin-bottom: 30px; /* Adjusted margin for spacing */
+    margin-left: 5px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 80px;
+    margin-top: -20px;
+}
+
+.sidebar .list {
+    padding: 25px 0; /* Increased padding for larger click area */
+    cursor: pointer;
+    width: 100%;
+    display: flex; /* Ensure icon and text are aligned horizontally */
+    align-items: center;
+    padding-left: 30px; /* Adjust padding for better alignment */
+    background-color: #124646;
+    border-top: 3px solid #072020;
+    margin-top: -1px;
+}
+
+.sidebar li:hover {
+    background-color: #108484;
+}
+
+.sidebar-icon {
+    width: 25px; /* Increased icon size */
+    height: 25px;
+    margin-right: 25px; /* Increased space between icon and text */
+    font-size: 40px; /* Make icons larger */
+}
+
+.sidebar li span {
+    font-size: 20px; /* Increased the font size of the labels */
+    display: none;
+}
+
+.sidebar.open li span {
+    display: inline-block; /* Show the label text only when the sidebar is open */
+    font-size: 22px; /* Further increase label size when the sidebar is open */
+}
+
+.drop-icon {
+    transition: transform 0.3s ease; /* Smooth transition */
+    width: 15px; /* Adjust as per your icon size */
+    height: 10px;
+    margin-left: 120px; /* Adjust spacing next to the label */
+}
+
+.rotate {
+    transform: rotate(180deg); /* Rotate the icon 180 degrees */
+}
+
+.dropdown-toggle {
+    padding-right: 0px; /* Adjust to align the arrow with the text */
+}
+
+.dropdown {
+    padding-left: 20px; /* Adjust the indentation */
+}
+
+.dropdown li {
+    padding: 20px 80px; /* Adjust padding for better spacing */
+    cursor: pointer;
+    background-color: #177272; /* Keep the background consistent */
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #072020;
+    width: 1000px;
+}
+.dropdown li span{
+    text-decoration: none;
+    font-weight: 500;
+}
+.dropdown li:hover {
+    background-color: #108484;
+}
+
+.app-container {
+    display: flex;
+    flex-grow: 1; /* Take up the remaining space */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    margin-top: 100px;
+    margin-left: 100px; /* Main content shifts to the right when sidebar is open */
+}
+.main-content {
+    flex-grow: 1; /* Take up the remaining space */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    margin-left: 300px; /* Main content shifts to the right when sidebar is open */
+}
+
+.sidebar:not(.open) + .main-content {
+    margin-left: 60px; /* When sidebar is closed, reduce the space */
+}
+.log-out{
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 80px;
+    margin-top: 60px;
+    margin-left: 50px;
+}
+
+.log-out li{
+    background-color: #072020;
+    width: 50px;
+}
+
+.log-out li:hover{
+    background-color: #072020;
+}
+.log-out li img{
+    width: 30px;
+    height: 30px;
+}
+.log-out li img:hover{
+    width: 40px;
+    height: 40px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px; /* Collapsed width for smaller screens */
+    }
+
+    .main-content {
+        margin-left: 160px; /* Main content margin adjusts for smaller sidebar */
+    }
+
+    .sidebar.open {
+        width: 250px;
+    }
+    .sidebar.open + .main-content {
+        margin-left: 200px; /* Main content adjusts for expanded sidebar */
+    }
+}
+

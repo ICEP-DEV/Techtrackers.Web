@@ -1,0 +1,210 @@
+/* General Styles */
+body {
+    background-color: rgba(217, 217, 217, 0.27);
+    font-family: 'Istok Web', sans-serif;
+}
+
+.container-fluid {
+    padding: 0 5%;
+}
+
+h1,
+h2,
+h4 {
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 700;
+}
+
+hr {
+    border-top: 10px solid #108181;
+    margin: 20px 0;
+}
+
+.card {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+/* Issue Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 20px;
+}
+
+.header h1 {
+    font-size: 36px;
+    color: #0C3A3A;
+    margin: 0;
+}
+
+.issue-info {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 16px;
+}
+
+.issue-info p {
+    margin-left: 40px;
+    font-size: 14px;
+    color: #6A6A6A;
+}
+
+/* Status Section */
+.status-section {
+    display: flex;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.status-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.status-steps {
+    display: flex;
+    align-items: center;
+}
+
+.step {
+    text-align: center;
+    margin-right: 30px;
+}
+
+.step h5 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.step img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Tabs Section */
+.tabs {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 3px solid #108181;
+    margin-bottom: 30px;
+}
+
+.tabs a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #108181;
+    padding-bottom: 10px;
+    border-bottom: 3px solid transparent;
+}
+
+.tabs a.active {
+    border-bottom: 3px solid #108181;
+}
+
+/* Case Details */
+.case-details {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.case-details .card {
+    width: 48%;
+    padding: 20px;
+}
+
+.card h4 {
+    color: #108181;
+    font-size: 20px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table td {
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+.empty-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 18px;
+    color: #A1A1A1;
+}
+
+/* First Response */
+.response-time {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.response-time img {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.response-time h2 {
+    margin-left: 10px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.tabs .tab {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #108181;
+    margin-right: 30px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: border-bottom 0.3s ease;
+}
+
+.tabs .tab.active {
+    border-bottom: 3px solid #108181;
+    /* Green line under active tab */
+}
+
+.tabs .tab:hover {
+    color: #0c5a5a;
+}
+
+/* progress bar */
+.status-steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}
+
+.progress-bar-between {
+    width: 100px;
+    height: 5px;
+    background-color: #e0e0e0;
+    margin: 0 10px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #0C3A3A;
+}

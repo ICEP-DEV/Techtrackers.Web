@@ -1,0 +1,54 @@
+.attachment-section {
+  display: flex;
+  align-items: center; /* Vertically center the icon */
+  margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.attachment-icon {
+  cursor: pointer;
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.attachment-icon:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Style for the full-size image in the modal */
+.modal-image {
+  max-width: 90%;
+  max-height: 80%;
+  border: 2px solid #fff;
+  border-radius: 4px;
+}
+.close-button-container {
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
+}
+
+.close-button {
+  background-color: red; /* Red background color */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Padding inside the button */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.close-button:hover {
+  background-color: darkred; /* Darker red on hover */
+}

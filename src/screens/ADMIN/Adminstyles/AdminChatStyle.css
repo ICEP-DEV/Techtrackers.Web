@@ -1,0 +1,92 @@
+.main-container{
+    background-color: #EEF9F9;
+}
+
+.chat-container {
+    background-color: #AFAFAF;
+    padding: 20px;
+    width: 65%;
+    margin: auto;
+    height: 100vh;
+}
+
+.technician-name {
+    color: white;
+}
+
+.chat-box {
+    display: flex; 
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 4px;
+    height: 75vh;
+    padding: 10px; 
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-grow: 1; 
+}
+
+.user-message {
+    background-color: #15959D;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    max-width: 70%;
+    min-width: 20%;
+    margin: 10px 0; 
+    word-wrap: break-word;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.tech-message {
+    background-color: #d8dbdb8e; 
+    display: inline-block;
+    color: black;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0; 
+    min-width: 20%;
+    word-wrap: break-word;
+    align-self: flex-start; 
+    max-width: 70%; 
+    /* border: 1px solid #c0b6b6; */
+}
+
+.message-field {
+    margin-top: 30px;
+    display: flex;
+    background-color: #AFAFAF;
+}
+
+input {
+    margin-top: 20px;
+    padding: 10px;
+    border: none; 
+    border-radius: 6px;
+    width: 85%;
+}
+
+
+.send-button {
+    background-color: #15959D;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.attachment-icon {
+    padding: 8px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+button:hover {
+    background-color: #0C3A3A; 
+}

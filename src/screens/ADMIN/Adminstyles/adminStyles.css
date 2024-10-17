@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+  }
+  
+  .dashboard-container {
+    background-color: #f5f5f5; /* light grey background */
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start */
+    justify-content: center;
+    width: 80%; /* Set width to crop the content */
+    max-width: 900px; /* Maximum width */
+    height: 50vh; /* Full height */
+    margin: 0 auto; /* Center the container horizontally */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: auto; /* Centers content */
+    margin-right: auto; /* Centers content */
+    text-align: center; /* Center text inside the container */
+  }
+  
+  /* Welcome Message */
+  .welcome-message {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 36px;
+    color: #5C5C5C;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-card {
+    background-color: #0C3A3A;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+    height: 175px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    gap: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Card hover effect */
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Card Icon */
+  .card-icon {
+    flex: 0 0 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Icon styling */
+  .icon {
+    font-size: 64px;
+    color: white;
+  }
+  
+  /* Card content */
+  .card-content {
+    flex-grow: 1;
+  }
+  
+  /* Card title */
+  .card-title {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  /* Card description */
+  .card-description {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 20px;
+    color: white;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-card {
+      flex-direction: column;
+      height: auto;
+      padding: 20px;
+      gap: 15px;
+    }
+  
+    .card-icon {
+      flex: none;
+      font-size: 48px;
+    }
+  
+    .icon {
+      font-size: 48px;
+    }
+  
+    .card-title {
+      font-size: 28px;
+    }
+  
+    .card-description {
+      font-size: 18px;
+    }
+  
+    .welcome-message {
+      font-size: 28px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-card {
+      width: 100%;
+      padding: 15px;
+      gap: 5px;
+    }
+  
+    .card-title {
+      font-size: 24px;
+    }
+  
+    .card-description {
+      font-size: 16px;
+    }
+  
+    .welcome-message {
+      font-size: 24px;
+    }
+  }
+  

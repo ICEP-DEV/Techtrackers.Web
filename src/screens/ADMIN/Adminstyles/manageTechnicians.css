@@ -1,0 +1,154 @@
+/* Main container */
+.manage-technicians-container {
+    margin: 50px auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #DDE4E4;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Header with icon and heading */
+.header-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ManageTechnicians Icon */
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    /* Add spacing between icon and heading */
+}
+
+/* Heading for Manage Technicians */
+.heading {
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #333333;
+    margin: 0;
+}
+
+/* Table structure */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #bce7e7;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.table th {
+    background-color: #F3F3F3;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000000;
+}
+
+.table td {
+    font-size: 16px;
+    color: #555555;
+}
+
+/* Technician details */
+.technician-info {
+    display: flex;
+    align-items: center;
+
+}
+
+.technician-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.technician-name {
+    font-weight: 600;
+    color: #333333;
+}
+
+.technician-email {
+    color: #666666;
+    font-size: 14px;
+}
+
+/* Specialization and Contact */
+.specialization,
+.contact,
+.active-issues {
+    font-weight: 500;
+    font-size: 14px;
+    color: #444444;
+}
+
+/* Action button */
+.manage-button {
+    background-color: #108181;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.manage-button:hover {
+    background-color: #0D6666;
+}
+
+/* Add Technician Button */
+.add-technician {
+    background-color: #108181;
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    float: right;
+    cursor: pointer;
+}
+
+.add-technician:hover {
+    background-color: #0D6666;
+}
+
+.add-technician-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+
+    .table th,
+    .table td {
+        padding: 10px;
+    }
+
+    .technician-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .manage-button {
+        padding: 8px 16px;
+    }
+}
+

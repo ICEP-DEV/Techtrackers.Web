@@ -1,0 +1,126 @@
+.cup {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 80px; /* Increased the closed width of the sidebar */
+    height: calc(100vh - 60px);
+    background-color: #004d4d;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 0; /* Adjust padding as necessary */
+    transition: width 0.3s ease;
+    overflow: hidden;
+    position: fixed; /* Keep the sidebar fixed to the left of the viewport */
+    top: 10px; /* Start the sidebar below the header */
+    left: 0;
+    overflow-y: auto;
+  }
+  
+  .top_section {
+    display: flex;
+    align-items: center;
+    padding: 20px 15px;
+    background-color: #0C3A3A;
+  }
+  
+  .logo {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .bars {
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .link:hover, .link.active {
+    background-color: #00b3b3;
+  }
+  
+  .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .link_text {
+    white-space: nowrap;
+  }
+  
+  .link:nth-child(2) {
+    background-color: #00b3b3;
+  }
+  
+  main {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  /* Responsive design for mobile */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      z-index: 999;
+    }
+    
+    main {
+      margin-left: 50px;
+    }
+  }
+/*.container{
+    display:flex;
+}
+main{
+    width: 100%;
+    padding: 20px;
+}
+.sidebar{
+    background: #000;
+    color: #fff;
+    height: 100vh;
+    width: 200px;
+    transition: all 0.5s;
+}
+.top_section{
+    display: flex;
+    align-items:center;
+    padding:20px 15px;
+}
+.logo{
+    font-size: 30px;
+}
+.bars{
+    display: flex;
+    font-size: 25px;
+    margin-left: 50px;
+}
+.link{
+    display: flex;
+    color: #fff;
+    padding: 10px 15px;
+    gap: 15px;
+    transition: all 0.5s;
+}
+.link:hover{
+    background:lightskyblue;
+    color: #000;
+    transition: all 0.5s;
+}
+.active{
+    background: lightskyblue;
+    color: #000;
+}
+.icon, .link_text{
+    font-size: 20px;
+}*/

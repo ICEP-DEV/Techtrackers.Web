@@ -1,0 +1,152 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+}
+
+/* Main Layout */
+.container {
+  display: flex;
+  min-height: 100vh; /* Ensure the layout covers the full viewport height */
+}
+
+
+.main-content {
+  margin-left: 250px; /* Margin-left should match the sidebar width */
+  padding: 20px 40px; /* Adjust padding for content */
+  background-color: #EEF9F9; /* Background color of the main content */
+  min-height: 100vh; /* Background color of the main content */
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  background-color: #EEF9F9;
+  width: 100%; /* Take full available width inside the main content */
+  height: auto;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Welcome Message */
+.welcome-message {
+  font-family: 'Istok Web', sans-serif;
+  font-size: 36px;
+  color: #5C5C5C;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+  background-color: #0C3A3A;
+  border-radius: 5px;
+  width: 80%; /* Adjust card width */
+  max-width: 800px;
+  height: 175px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  gap: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Card hover effect */
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Card Icon */
+.card-icon {
+  flex: 0 0 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Icon styling */
+.icon {
+  font-size: 64px;
+  color: white;
+}
+
+/* Card Content */
+.card-content {
+  flex-grow: 1;
+}
+
+/* Card Title */
+.card-title {
+  font-family: 'Istok Web', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+}
+
+/* Card Description */
+.card-description {
+  font-family: 'Istok Web', sans-serif;
+  font-size: 20px;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-card {
+      flex-direction: column;
+      height: auto;
+      padding: 20px;
+      gap: 15px;
+  }
+
+  .card-icon {
+      flex: none;
+      font-size: 48px;
+  }
+
+  .icon {
+      font-size: 48px;
+  }
+
+  .card-title {
+      font-size: 28px;
+  }
+
+  .card-description {
+      font-size: 18px;
+  }
+
+  .welcome-message {
+      font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-card {
+      width: 100%;
+      padding: 15px;
+      gap: 5px;
+  }
+
+  .card-title {
+      font-size: 24px;
+  }
+
+  .card-description {
+      font-size: 16px;
+  }
+
+  .welcome-message {
+      font-size: 24px;
+  }
+}

@@ -1,0 +1,123 @@
+.about-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .about-section {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .about-header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #003d33; /* Adjusted text color */
+  }
+  
+  .underline {
+    width: 80px;
+    height: 8px;
+    background-color: #83FFFF; /* Color for the underline */
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  
+  .about-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 0 50px;
+  }
+  
+  .about-picture {
+    flex: 1;
+  }
+  
+  .about-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .about-content {
+    flex: 1;
+    padding-left: 30px;
+    text-align: left;
+  }
+  
+  .about-content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #003d33;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  .about-content p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .contact-button {
+    padding: 10px 20px;
+    background-color: #003d33;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .contact-button:hover {
+    background-color: #00d8c0; /* Hover color for the button */
+  }
+  
+  @media (max-width: 768px) {
+    .about-content-wrapper {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .about-content {
+      padding-left: 0;
+    }
+  
+    .about-picture, .about-content {
+      margin-bottom: 20px;
+    }
+  }
+/*.about-picture{
+    float: left;
+  }
+  .about-content {
+    float: right;
+  }
+  .whole-about{ 
+  
+     padding-left: 400px;
+  
+    }
+    .about-content{
+      padding-right: 450px;
+    }
+    .start-button{
+      width: 150px;
+      border-radius: 8px;
+      border: none;
+    }
+    .about-content1 {
+      font-size: 30px; 
+      font-weight: bold; 
+      margin-bottom: 20px; 
+      color:#0C3A3A;
+    }
+    .about-content2{
+      font-size: 16px;
+    }
+    .contact-button{
+      border-radius: 8px;
+      width: 150px;
+    }*/  

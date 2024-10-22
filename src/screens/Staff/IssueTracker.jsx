@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StaffStyle/NotificationIssue.css';
 import { FaBell, FaSearch, FaFilter, FaBars } from 'react-icons/fa';
 import { Dropdown } from 'react-bootstrap';
@@ -8,19 +8,32 @@ const NotificationContainer = () => {
   const [sortOrder, setSortOrder] = useState('desc');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterOption, setFilterOption] = useState('all');
+  const [notificationsState, setNotificationsState] = useState([]);
 
-  const notifications = [
-    { id: 1, message: "Issue: Internal Issue has been assigned to a technician, please keep track of the status.", timestamp: "1 min ago", status: 'read' },
-    { id: 2, message: "Issue: Printer not working has been re-opened for further investigation. You will receive updates as we progress.", timestamp: "1 week ago", status: 'read' },
-    { id: 3, message: "Issue: Printer not working has been Resolved. Make sure you confirm status.", timestamp: "1 month ago", status: 'read'},
-    { id: 4, message: "Issue: Printer not working has been resolved. Make sure you confirm status.", timestamp: "1 week ago", status: 'read'},
-    { id: 5, message: "Issue: Network is not responsive at the moment. Keep track of the status.", timestamp: "2 month ago", status: 'unread'},
-    { id: 6, message: "Issue: I can't login to the portal. The matter will be sorted in a moment.", timestamp: "1 week ago", status: 'read'},
-    { id: 7, message: "Issue: Printer not working has been resolved. Make sure you confirm status.", timestamp: "1 month ago", status: 'read'},
-    
-  ];
+  // Fetch notifications from the API when the component mounts
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch('https://localhost:44328/api/Notification/ReceiveNotification');
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      const data = await response.json(); // Parse JSON from the response
+      if (data.isSuccess) {
+        setNotificationsState(data.result); // Update state with the 'result' array from the API
+      } else {
+        console.error('Failed to fetch notifications:', data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
 
-  const [notificationsState, setNotificationsState] = useState(notifications);
+  // Use useEffect to fetch notifications on mount
+  useEffect(() => {
+    fetchNotifications();
+  }, []); // Empty dependency array means this runs once on component mount
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -41,7 +54,7 @@ const NotificationContainer = () => {
   const markAsRead = (id) => {
     setNotificationsState(prevState =>
       prevState.map(notification =>
-        notification.id === id ? { ...notification, status: 'read' } : notification
+        notification.notification_ID === id ? { ...notification, read_Status: true } : notification
       )
     );
   };
@@ -75,47 +88,47 @@ const NotificationContainer = () => {
     return Date.now();
   };
 
-  const sortedNotifications = [...notificationsState].sort((a, b) => {
-    const dateA = parseTimestamp(a.timestamp);
-    const dateB = parseTimestamp(b.timestamp);
-    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-  });
-
-  const filteredNotifications = sortedNotifications.filter(notification => {
-    const matchesSearchQuery = notification.message.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredNotifications = notificationsState.filter(notification => {
+    const matchesSearchQuery = notification.notification_Message.toLowerCase().includes(searchQuery.toLowerCase());
 
     const filterDateThreshold = () => {
       const now = Date.now();
 
       switch (filterOption) {
         case 'all':
-          return 0; // Show all notifications
+          return 0;
         case '1min':
-          return now - 1 * 60 * 1000; // 1 minute ago
+          return now - 1 * 60 * 1000;
         case '1h':
-          return now - 1 * 60 * 60 * 1000; // 1 hour ago
+          return now - 1 * 60 * 60 * 1000;
         case '1d':
-          return now - 1 * 24 * 60 * 60 * 1000; // 1 day ago
+          return now - 1 * 24 * 60 * 60 * 1000;
         case '2d':
-          return now - 2 * 24 * 60 * 60 * 1000; // 2 days ago
+          return now - 2 * 24 * 60 * 60 * 1000;
         case '1w':
-          return now - 7 * 24 * 60 * 60 * 1000; // 1 week ago
+          return now - 7 * 24 * 60 * 60 * 1000;
         case '2w':
-          return now - 14 * 24 * 60 * 60 * 1000; // 2 weeks ago
+          return now - 14 * 24 * 60 * 60 * 1000;
         case '1m':
-          return now - 30 * 24 * 60 * 60 * 1000; // 1 month ago
+          return now - 30 * 24 * 60 * 60 * 1000;
         default:
-          return 0; // Default case, shows all notifications
+          return 0;
       }
     };
 
-    const notificationDate = parseTimestamp(notification.timestamp);
-    const isInTimeFrame = notificationDate >= filterDateThreshold(); // Check if the notification is within the selected time frame
+    const notificationDate = new Date(notification.timestamp).getTime(); // Use the timestamp from the API
+    const isInTimeFrame = notificationDate >= filterDateThreshold();
 
-    if (activeTab === 'allRead' && notification.status === 'read') {
+    if (activeTab === 'allRead' && notification.read_Status === true) {
       return matchesSearchQuery && isInTimeFrame;
     }
     return false;
+  });
+
+  const sortedNotifications = [...filteredNotifications].sort((a, b) => {
+    const dateA = new Date(a.timestamp).getTime();
+    const dateB = new Date(b.timestamp).getTime();
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
   const noNotificationsMessage = activeTab === 'unread' ? "No notifications available." : "No read notifications available.";
@@ -128,17 +141,17 @@ const NotificationContainer = () => {
             <FaBell className="notification-icons me-2 text-success" />
             <h2>Notifications</h2>
           </div>
-          <div className="d-flex justify-content-center mb-3"> {/* Center the search bar */}
-          <div className="search-bar-containers">
-            <input 
-              type="text" 
-              className="form-control search-inputs" 
-              placeholder="Search" 
-              value={searchQuery} 
-              onChange={handleSearchChange} 
-            />
-            <FaSearch className="search-icons" />
-          </div>
+          <div className="d-flex justify-content-center mb-3">
+            <div className="search-bar-containers">
+              <input 
+                type="text" 
+                className="form-control search-inputs" 
+                placeholder="Search" 
+                value={searchQuery} 
+                onChange={handleSearchChange} 
+              />
+              <FaSearch className="search-icons" />
+            </div>
           </div>
         </div>
 
@@ -193,14 +206,14 @@ const NotificationContainer = () => {
 
         <table className="table table-borderless">
           <tbody>
-            {filteredNotifications.length > 0 ? (
-              filteredNotifications.map(notification => (
-                <tr key={notification.id} className="notification-rows">
+            {sortedNotifications.length > 0 ? (
+              sortedNotifications.map(notification => (
+                <tr key={notification.notification_ID} className="notification-rows">
                   <td className="d-flex align-items-center">
                     <FaBell className="notification-icons me-2" />
                     <div>
-                      {formatMessage(notification.message)}
-                      <button onClick={() => markAsRead(notification.id)}>Mark as Read</button>
+                      {formatMessage(notification.notification_Message)}
+                      <button onClick={() => markAsRead(notification.notification_ID)}>Mark as Read</button>
                     </div>
                   </td>
                   <td>

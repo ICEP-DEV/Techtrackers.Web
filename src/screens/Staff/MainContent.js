@@ -20,7 +20,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         console.error('Error fetching issues:', error);
       }
     };
-  
+
     fetchIssues();
   }, []);
 
@@ -35,23 +35,28 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
           <tr>
             <th>Issue ID</th>
             <th>Issue title</th>
+            <th>Assigned to</th>
             <th>Date reported</th>
             <th>Department</th>
             <th>Priority level</th>
             <th>Status</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.logId}>
-              <td>{issue.assigned_By}</td>
-              <td>{issue.description}</td>
-              <td>{new Date(issue.assigned_At).toLocaleDateString()}</td>
-              <td>{issue.category_ID}</td>
+              <td>{issue.issueId}</td>
+              <td>{issue.categoryName}</td>
+              <td>{issue.assignedTo}</td>
+              <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
+              <td>{issue.department}</td>
               <td>{issue.priority}</td>
-              {/* Check if issue.status exists before calling toLowerCase() */}
-              <td><span className={`status ${issue.log_Status ? issue.Log_Status.toLowerCase() : ''}`}>{issue.log_Status || 'Unknown'}</span></td>
+              {/* Check if issue.log_Status exists before calling toLowerCase() */}
+              <td>
+                <span className={`status ${issue.status ? issue.status.toLowerCase() : 'unknown'}`}>
+                  {issue.status || 'Unknown'}
+                </span>
+              </td>
               <td><button className="view-button" onClick={() => onSelectIssue(issue)}>View</button></td>
             </tr>
           ))}

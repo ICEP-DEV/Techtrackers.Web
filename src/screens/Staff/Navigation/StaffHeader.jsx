@@ -43,15 +43,15 @@ const StaffHeader = ({ onLogout }) => {
                     className="profile-button"
                 >
                     <FontAwesomeIcon icon={faUser} />
-                    {user ? `${user.name} ${user.surname}` : 'Staff Name'}
+                    {user ? `${user.name}` : 'Staff Name'}
                 </button>
                 {isDropdownOpen && (
                     <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
-                        <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
+                        <p>{user ? `${user.name}` : 'Name Surname'}</p>
                         <p className="sub-text">{user ? user.email : 'Joestaff.com'}</p>
                         <p className="sub-text">{user ? user.department : 'HR'}</p>
                         <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }} className='btn1'>Settings</button> {/* Open Settings */}
-                        <button className="signout-button" onClick={() => { closeDropdown(); onLogout(); }}>
+                        <button className="signout-button" onClick={() => { closeDropdown(); localStorage.removeItem('user_info'); onLogout(); }}>
                             <span className="signout-icon">
                                 <FontAwesomeIcon icon={faSignOutAlt} />
                             </span>

@@ -26,31 +26,36 @@ function SignIn() {
                     password: Password,
                 }),
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
                 
-                // Check if roles are returned as an array
+                // Save the user details in localStorage
+                localStorage.setItem('user_info', JSON.stringify(data.user));
+    
+                // Check roles and navigate to respective dashboards
                 const roles = data.user.roles;
-
                 if (roles && roles.length > 0) {
-                    const userRole = roles[0].toLowerCase();  // Get the first role and convert it to lowercase
-
-                    // Role-based navigation based on the first role
-                    if (userRole === 'staff') {
-                        navigate('/staffdashboard/WelcomeStaff');
-                    } else if (userRole === 'technician') {
-                        navigate('/techniciandashboard');
-                    } else if (userRole === 'admin') {
-                        navigate('/admindashboard');
-                    } else if (userRole === 'hod') {
-                        navigate('/hoddashboard');
+                    const userRole = roles.find(role => ['staff', 'technician', 'admin', 'hod'].includes(role.toLowerCase()));
+                    switch (userRole.toLowerCase()) {
+                        case 'staff':
+                            navigate('/staffdashboard/WelcomeStaff');
+                            break;
+                        case 'technician':
+                            navigate('/techniciandashboard');
+                            break;
+                        case 'admin':
+                            navigate('/admindashboard');
+                            break;
+                        case 'hod':
+                            navigate('/hoddashboard');
+                            break;
+                        default:
+                            toast.error("Unknown role.");
                     }
-
-                    // Display success message
                     toast.success(`You are now logged in as ${userRole}`);
                 } else {
-                    toast.error("Unable to determine user role.");
+                    toast.error("No roles found.");
                 }
             } else {
                 const errorData = await response.json();
@@ -61,6 +66,7 @@ function SignIn() {
             toast.error("An error occurred while trying to log in.");
         }
     };
+    
 
     return (
         <div className="signin-cup">

@@ -46,14 +46,24 @@ const Logissueform = () => {
       return;
     }
 
+    // Create logDto to map the fields as expected by backend
+    const logDto = {
+      description: formValues.description,  // Assuming "description" is mapped to the title
+      category_ID: formValues.category,     // Map the category to category_ID expected by backend
+      department: formValues.department,    // Map department if necessary
+      priority: formValues.priority,        // Pass priority
+      due_date: formValues.date,            // Ensure the date is in the expected format
+      location: formValues.location         // Map location
+    };
+
     // Send data to the API
     try {
-      const response = await fetch('https://localhost:44328/api/Log', {
+      const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formValues),
+        body: JSON.stringify(logDto), // Send logDto instead of formValues
       });
 
       if (response.ok) {
@@ -62,10 +72,10 @@ const Logissueform = () => {
         setFormValues({
           title: '',
           category: '',
-          department: '',
+          department: 'Human Resource (HR)', // Reset department to default
           priority: '',
           description: '',
-          date: new Date().toISOString().split('T')[0],
+          date: new Date().toISOString().split('T')[0], // Reset date to current
           location: '',
         });
       } else {
@@ -135,7 +145,7 @@ const Logissueform = () => {
               type="text"
               name="department"
               value={formValues.department}
-              readOnly
+              onChange={handleChange}
             />
           </div>
 

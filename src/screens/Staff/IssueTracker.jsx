@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './StaffStyle/NotificationIssue.css';
 import { FaBell, FaSearch, FaFilter, FaBars } from 'react-icons/fa';
-import { Dropdown } from 'react-bootstrap';
 
 const NotificationContainer = () => {
   const [activeTab, setActiveTab] = useState('allRead');
@@ -45,10 +44,12 @@ const NotificationContainer = () => {
 
   const handleFilterChange = (option) => {
     setFilterOption(option);
+    setFilterOpen(false); // Close filter dropdown after selection
   };
 
   const handleSortChange = (order) => {
     setSortOrder(order);
+    setSortOpen(false); // Close sort dropdown after selection
   };
 
   const markAsRead = (id) => {
@@ -68,24 +69,31 @@ const NotificationContainer = () => {
     ));
   };
 
-  const parseTimestamp = (timestamp) => {
-    const timeUnits = {
-      'min': 1 * 60 * 1000,
-      'hour': 1 * 60 * 60 * 1000,
-      'day': 1 * 24 * 60 * 60 * 1000,
-      'week': 7 * 24 * 60 * 60 * 1000,
-      'month': 30 * 24 * 60 * 60 * 1000,
-    };
+  // Helper function to format the timestamp
+  const formatTimestamp = (timestamp) => {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    
+    let formattedTime;
 
-    const regex = /(\d+)\s*(min|hour|day|week|month)\s+ago/;
-    const match = timestamp.match(regex);
-
-    if (match) {
-      const value = parseInt(match[1], 10);
-      const unit = match[2];
-      return Date.now() - (value * timeUnits[unit]);
+    if (diffInSeconds < 60) {
+      formattedTime = `${diffInSeconds} seconds ago`;
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      formattedTime = `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      formattedTime = `${hours} hour${hours === 1 ? '' : 's'} ago`;
+    } else if (diffInSeconds < 604800) {
+      const days = Math.floor(diffInSeconds / 86400);
+      formattedTime = `${days} day${days === 1 ? '' : 's'} ago`;
+    } else {
+      const weeks = Math.floor(diffInSeconds / 604800);
+      formattedTime = `${weeks} week${weeks === 1 ? '' : 's'} ago`;
     }
-    return Date.now();
+
+    return formattedTime;
   };
 
   const filteredNotifications = notificationsState.filter(notification => {
@@ -96,30 +104,30 @@ const NotificationContainer = () => {
 
       switch (filterOption) {
         case 'all':
-          return 0;
+          return 0; // Show all notifications
         case '1min':
-          return now - 1 * 60 * 1000;
+          return now - 1 * 60 * 1000; // 1 minute ago
         case '1h':
-          return now - 1 * 60 * 60 * 1000;
+          return now - 1 * 60 * 60 * 1000; // 1 hour ago
         case '1d':
-          return now - 1 * 24 * 60 * 60 * 1000;
+          return now - 1 * 24 * 60 * 60 * 1000; // 1 day ago
         case '2d':
-          return now - 2 * 24 * 60 * 60 * 1000;
+          return now - 2 * 24 * 60 * 60 * 1000; // 2 days ago
         case '1w':
-          return now - 7 * 24 * 60 * 60 * 1000;
+          return now - 7 * 24 * 60 * 60 * 1000; // 1 week ago
         case '2w':
-          return now - 14 * 24 * 60 * 60 * 1000;
+          return now - 14 * 24 * 60 * 60 * 1000; // 2 weeks ago
         case '1m':
-          return now - 30 * 24 * 60 * 60 * 1000;
+          return now - 30 * 24 * 60 * 60 * 1000; // 1 month ago
         default:
-          return 0;
+          return 0; // Default case, shows all notifications
       }
     };
 
-    const notificationDate = new Date(notification.timestamp).getTime(); // Use the timestamp from the API
-    const isInTimeFrame = notificationDate >= filterDateThreshold();
+    const notificationDate = parseTimestamp(notification.timestamp);
+    const isInTimeFrame = notificationDate >= filterDateThreshold(); // Check if the notification is within the selected time frame
 
-    if (activeTab === 'allRead' && notification.read_Status === true) {
+    if (activeTab === 'allRead' && notification.status === 'read') {
       return matchesSearchQuery && isInTimeFrame;
     }
     return false;
@@ -131,7 +139,7 @@ const NotificationContainer = () => {
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
-  const noNotificationsMessage = activeTab === 'unread' ? "No notifications available." : "No read notifications available.";
+  const noNotificationsMessage = activeTab === 'unread' ? "No unread notifications available." : "No read notifications available.";
 
   return (
     <div className="main-content">
@@ -155,33 +163,40 @@ const NotificationContainer = () => {
           </div>
         </div>
 
-        <div className="d-flex justify-content-end mb-3">
-          <div className="filter-sorts-containers">
-            <Dropdown drop="down">
-              <Dropdown.Toggle variant="light" id="dropdown-filter">
-                <FaFilter /> Filter
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('all')}>All</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('1min')}>Last 1 Minute</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('1h')}>Last 1 Hour</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('1d')}>Last 1 Day</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('2d')}>Last 2 Days</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('1w')}>Last 1 Week</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('2w')}>Last 2 Weeks</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleFilterChange('1m')}>Last 1 Month</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+        <div className="d-flex justify-content-end mb-3 align-items-center">
+          <div className="filter-sorts-containers d-flex align-items-center">
+            <div className="filter-container">
+              <div
+                className="filter-sort-toggle text-center"
+                onClick={() => setFilterOpen(!filterOpen)}
+              >
+                <FaFilter className="filter-sort-icon" /> Filter
+              </div>
+              {filterOpen && (
+                <div className="dropdown-menu show">
+                  {Object.entries(filterOptions).map(([key, option]) => (
+                    <button key={key} className="dropdown-item" onClick={() => handleFilterChange(key)}>
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
-            <Dropdown drop="down" className="ms-2">
-              <Dropdown.Toggle variant="light" id="dropdown-sort">
-                <FaBars /> Sort
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item as="button" onClick={() => handleSortChange('asc')}>Sort(Oldest First)</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => handleSortChange('desc')}>Sort(Newest First)</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <div className="filter-container ms-2">
+              <div
+                className="filter-sort-toggle text-center"
+                onClick={() => setSortOpen(!sortOpen)}
+              >
+                <FaBars className="filter-sort-icon" /> Sort
+              </div>
+              {sortOpen && (
+                <div className="dropdown-menu show">
+                  <button className="dropdown-item" onClick={() => handleSortChange('asc')}>Sort (Oldest First)</button>
+                  <button className="dropdown-item" onClick={() => handleSortChange('desc')}>Sort (Newest First)</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -217,7 +232,7 @@ const NotificationContainer = () => {
                     </div>
                   </td>
                   <td>
-                    <small className="notification-timestamps">{notification.timestamp}</small>
+                    <small className="notification-timestamps">{formatTimestamp(notification.timestamp)}</small>
                   </td>
                 </tr>
               ))

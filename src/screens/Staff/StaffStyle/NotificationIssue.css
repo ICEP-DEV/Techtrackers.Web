@@ -1,213 +1,172 @@
-/* Ensure container styles for alignment */
-.container {
-  max-width: 50%;
-  padding: 0 15px;
+/* Main container styles */
+.main-content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow: hidden; /* Ensure content does not overflow outside the container */
 }
 
-/* Header styles */
-.d-flex {
-  display: flex;
-}
-.d-flex.justify-content-center {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem; /* Space below the search bar */
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-
-.mt-4 {
-  margin-top: 1.5rem;
+.containers {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden; /* Prevent child elements from overflowing */
 }
 
 /* Notification icon styles */
 .notification-icons {
-  font-size: 1.5rem;
-  margin-right: 5px;
-  color: #767d85; /* Adjust color if needed */
+  font-size: 20px;
+  color: #495057; /* Updated color for the notification icon */
 }
-.text-success{
- color:#15959D;
-}
+
 /* Search bar styles */
 .search-bar-containers {
   position: relative;
-  width: 100%; /* Full width for centering */
-  max-width: 400px; /* Set a max width for the search bar */
+  width: 200px;
 }
 
 .search-inputs {
-  padding-left: 2rem; /* Space for the search icon */
-  border-radius: 30px;
-  width:100%;
+  padding-right: 30px;
 }
 
 .search-icons {
   position: absolute;
-  right: 0.5rem;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
-  color:#15959D;
+  font-size: 14px;
+  color: #17a2b8; /* Updated color for the search icon */
 }
-
-/* Filter and sort styles */
+/* Filter and sort styles aligned with tabs */
+.filter-sorts-tabs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align filters/sorts with tabs on the same line */
+  margin-bottom: 15px; /* Add spacing between the container and the content below */
+}
 .filter-sorts-containers {
   display: flex;
   align-items: center;
+  gap: 2px; /* Space between filter and sort items */
 }
-
-.btn-light {
+.filter-container {
+  position: relative;
+  display: inline-block;
+  min-width: 140px; /* Ensure enough room for filter items */
+  max-width: 200px; /* Constrain the width to avoid overflow */
+}
+.filter-sort-toggle {
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: contents;
+  margin:0;
+  align-items: center;
+  font-size: 0.75rem;
+  width: 100%; /* Ensure the toggle takes the full width */
 }
 
-.btn-light:hover {
-  background-color: #97978F;
+.filter-sort-icon {
+  margin-right: 5px;
 }
 
-.ms-2 {
-  margin-left: 0.5rem;
+/* Dropdown menu styles */
+.dropdown-menu.show {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 10; /* Ensure dropdown appears above content */
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  max-width: 100%; /* Limit dropdown width */
+  width: 100%; /* Ensure dropdown takes up full width of the filter container */
+  overflow: auto; /* Ensure the dropdown content doesn't overflow */
 }
 
-.me-2 {
-  margin-right: 0.5rem;
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background-color: #e9ecef;
 }
 
 /* Tabs styles */
 .nav-tabs {
-  border-bottom: none;
+  display: flex;
+  align-items: center; /* Ensure tabs align with filters */
 }
 
 .nav-tabs .nav-link {
-  border:none;
+  color: #495057;
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer; /* Add cursor pointer for tabs */
 }
 
 .nav-tabs .nav-link.active {
-  box-shadow:none;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 5px;
 }
 
 /* Notification list styles */
-.list-group {
-  margin-top: 1rem;
+.notification-rows {
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 0;
 }
 
-.list-group-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.25rem;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-  font-family: Arial, sans-serif; /* Set font to Arial */
-  font-weight: normal; /* Ensure font is not bold */
-}
-
-.notification-contents {
-  flex: 1;
-  margin-left: 1rem; /* Space between icon and text */
+.notification-rows:last-child {
+  border-bottom: none;
 }
 
 .notification-timestamps {
-  text-align: right; /* Right align the timestamp */
-  font-size: 0.9rem;
-  color:#495057 /* Smaller font for timestamps */
-}
-.indent{
-  display: inline-block;
-  margin-left: 1.5rem;
+  font-size: 12px;
+  color: #6c757d;
 }
 
-.list-group-item p {
-  margin: 0;
+.indent {
+  margin-left: 10px;
+  color: #212529;
 }
 
-/* Offcanvas styles */
-.offcanvas {
-  width: 300px; /* Adjust width if necessary */
-}
-
-.notification-rows:hover {
-  background-color: #f8f9fa; /* Light background on hover */
-}
-.notification-rows {
-  cursor: pointer; /* Changes cursor to pointer for better UX */
-}
-
-.table-borderless {
-  border: none;
-}
-.dropdown-toggle::after{
-  display: none;
-}
-/* Hide the default dropdown caret (arrow) for Filter and Sort buttons */
-#dropdown-filter .dropdown-toggle::after,
-#dropdown-sort .dropdown-toggle::after {
-  display: none; /* Hides the default dropdown arrow */
-}
-
-/* Styling for the Filter and Sort dropdown buttons */
-#dropdown-filter .dropdown-toggle,
-#dropdown-sort .dropdown-toggle {
-  background-color: transparent;
-  border: none;
-  color: #000;
-  font-size: 0.9rem; /* Decreased font size */
-  padding-right: 0; /* Remove extra padding */
-  width: auto; /* Adjust to the content width */
-  min-width: 100px; /* Minimum width to ensure text fits */
-}
-#dropdown-filter .dropdown-toggle:hover,
-#dropdown-sort .dropdown-toggle:hover {
-  color: #007bff; /* Changes color on hover to indicate interactivity */
-}
-.dropdown-menu{
-  min-width:160px;
-}
-
-/* Make the buttons and icons align better */
-.filter-sorts-containers .dropdown-toggle {
-  display: flex;
-  align-items: center;
-}
-.filter-sorts-containers .dropdown-toggle .fa-filter,
-.filter-sorts-containers .dropdown-toggle .fa-bars {
-  margin-right: 5px; /* Space between the icon and text */
-}
-/* Reduce the size of the dropdown button */
-#dropdown-filter,
-#dropdown-sort {
-  max-width: 120px; /* Adjust maximum width */
-  min-width: 100px; /* Ensure it doesn’t shrink too much */
-  margin-right: 5px; /* Adds a small margin between the buttons */
-}
-.filter-sorts-containers {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Adds space between Filter and Sort buttons */
-  flex-wrap: wrap; /* Ensure it doesn't overflow the container */
-}
-.filter-sort-toggle {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  background-color: transparent;
-  border: none;
-  font-size: 1rem;
-  color: #000;
-}
-.filter-sort-toggle:hover {
+.text-primary {
   color: #007bff;
+  cursor: pointer; /* Pointer cursor for "Mark as Read" */
 }
-.filter-sort-icon {
-  margin-right: 0.3rem;
+
+.text-primary:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-bar-containers {
+    width: 100%;
+  }
+
+  .filter-sorts-tabs-container {
+    flex-direction: column;
+    align-items: flex-start; /* Stack tabs and filters on smaller screens */
+  }
+
+  .filter-sorts-containers {
+    width: 100%;
+    margin-top: 10px; /* Add margin between stacked filters and tabs */
+  }
+
+  .filter-sort-toggle {
+    width: 100%;
+  }
+
+  .nav-tabs {
+    margin-bottom: 10px;
+  }
 }

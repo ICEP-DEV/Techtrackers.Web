@@ -105,7 +105,7 @@ function SignIn() {
                     </div>
                     <button className="signin-btn" onClick={login}>Sign In</button>
                     <div className="forgot-pwd">
-                        <Link to="/ForgotPassword" className="forg-link">Forgot Password? Click here</Link>
+                        <Link to="/accountRecovery" className="forg-link">Forgot Password? Click here</Link>
                     </div>
                 </div>
                 <div className="image-section">

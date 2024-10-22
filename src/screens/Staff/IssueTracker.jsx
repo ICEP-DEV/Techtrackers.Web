@@ -227,6 +227,7 @@ const NotificationContainer = () => {
                   </td>
                   <td>
                     <small className="notification-timestamps">{formatTimestamp(notification.timestamp)}</small>
+                    <small className="notification-timestamps">{formatTimestamp(notification.timestamp)}</small>
                   </td>
                 </tr>
               ))

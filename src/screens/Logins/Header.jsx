@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link as ScrollLink } from 'react-scroll'; // Correct import for react-scroll
 import "../Logins/LoginsStyle/header.css";
 
 function Header() {
@@ -41,21 +41,62 @@ function Header() {
         </div>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/" className="nav_button">
+          <ScrollLink
+            to="home"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={200}
+            activeClass="active"
+            className="nav_button"
+          >
             Home
-          </Link>
-          <Link to="/About" className="nav_button">
+          </ScrollLink>
+          <ScrollLink
+            to="about"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={200}
+            activeClass="active"
+            className="nav_button"
+          >
             About
-          </Link>
-          <Link to="/service" className="nav_button">
+          </ScrollLink>
+          <ScrollLink
+            to="services"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={200}
+            activeClass="active"
+            className="nav_button"
+          >
             Service
-          </Link>
-          <Link to="/login" className="nav_button">
+          </ScrollLink>
+          <ScrollLink
+            to="login"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={200}
+            activeClass="active"
+            className="nav_button"
+          >
             Login
-          </Link>
-          <Link to="/contact" className="nav_button">
+          </ScrollLink>
+          <ScrollLink
+            to="contact"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={200}
+            activeClass="active"
+            className="nav_button"
+            onSetActive={() => console.log("Contact is active!")}
+          >
             Contact
-          </Link>
+          </ScrollLink>
         </div>
       </nav>
     </div>

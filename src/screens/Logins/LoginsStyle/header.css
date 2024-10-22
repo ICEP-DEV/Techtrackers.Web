@@ -9,6 +9,12 @@
 .nav-brand, .navbar-brand {
     margin: 0px;
 }
+  /* Active button style for mobile view */
+  .nav_button.active {
+    color: #ffffff; /* Highlight active link */
+    background-color: #45a049; /* Background color for active button */
+    transition: background-color 0.3s ease;
+}
 
 /* Navbar button styles */
 .nav_button {
@@ -57,7 +63,7 @@
 
 /* Navbar links container */
 .nav-links {
-    display: flex;
+    display: flex;  
 }
 
 .nav-links.open {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import '../Staff/StaffStyle/logissue.css';
 
@@ -32,21 +34,20 @@ const Logissueform = () => {
   // Submit the form data to the API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    // Validation (excluding department, date, and attachments)
+
     const newErrors = {};
     Object.keys(formValues).forEach((key) => {
       if (!formValues[key] && key !== 'department' && key !== 'date') {
         newErrors[key] = 'This field is required.';
       }
     });
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // Create logDto to map the fields as expected by backend
+    // Created logDto to map the fields as expected by backend || Please check the logDto evn on the Database for errors
     const logDto = {
       description: formValues.description,  // Assuming "description" is mapped to the title
       category_ID: formValues.category,     // Map the category to category_ID expected by backend
@@ -63,27 +64,31 @@ const Logissueform = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(logDto), // Send logDto instead of formValues
+        body: JSON.stringify(logDto),
       });
-
+  
       if (response.ok) {
         setSubmitted(true);
-        // Optionally, reset form after submission
+        // Optionally, reset form
         setFormValues({
           title: '',
           category: '',
-          department: 'Human Resource (HR)', // Reset department to default
+          department: '',
           priority: '',
           description: '',
-          date: new Date().toISOString().split('T')[0], // Reset date to current
+          date: new Date().toISOString().split('T')[0],
           location: '',
         });
+        // Show success toast
+        toast.success("Log submitted successfully!");
       } else {
         const errorData = await response.json();
         console.error("Error submitting log:", errorData.message);
+        toast.error("Failed to submit the log.");
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.error("An error occurred while submitting the log.");
     }
   };
 

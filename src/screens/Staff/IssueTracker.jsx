@@ -7,20 +7,31 @@ const NotificationContainer = () => {
   const [sortOrder, setSortOrder] = useState('desc');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterOption, setFilterOption] = useState('all');
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
   const [notificationsState, setNotificationsState] = useState([]);
+
+  const filterOptions = {
+    all: { label: 'All' },
+    '1min': { label: 'Last 1 minute' },
+    '1h': { label: 'Last 1 hour' },
+    '1d': { label: 'Last 1 day' },
+    '2d': { label: 'Last 2 days' },
+    '1w': { label: 'Last 1 week' },
+    '2w': { label: 'Last 2 weeks' },
+    '1m': { label: 'Last 1 month' },
+  };
 
   // Fetch notifications from the API when the component mounts
   const fetchNotifications = async () => {
     try {
       const response = await fetch('https://localhost:44328/api/Notification/ReceiveNotification');
-      
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      
-      const data = await response.json(); // Parse JSON from the response
+      const data = await response.json();
       if (data.isSuccess) {
-        setNotificationsState(data.result); // Update state with the 'result' array from the API
+        setNotificationsState(data.result);
       } else {
         console.error('Failed to fetch notifications:', data.message);
       }
@@ -32,7 +43,7 @@ const NotificationContainer = () => {
   // Use useEffect to fetch notifications on mount
   useEffect(() => {
     fetchNotifications();
-  }, []); // Empty dependency array means this runs once on component mount
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -44,17 +55,17 @@ const NotificationContainer = () => {
 
   const handleFilterChange = (option) => {
     setFilterOption(option);
-    setFilterOpen(false); // Close filter dropdown after selection
+    setFilterOpen(false);
   };
 
   const handleSortChange = (order) => {
     setSortOrder(order);
-    setSortOpen(false); // Close sort dropdown after selection
+    setSortOpen(false);
   };
 
   const markAsRead = (id) => {
-    setNotificationsState(prevState =>
-      prevState.map(notification =>
+    setNotificationsState((prevState) =>
+      prevState.map((notification) =>
         notification.notification_ID === id ? { ...notification, read_Status: true } : notification
       )
     );
@@ -69,68 +80,63 @@ const NotificationContainer = () => {
     ));
   };
 
-  // Helper function to format the timestamp
   const formatTimestamp = (timestamp) => {
     const now = new Date();
     const date = new Date(timestamp);
     const diffInSeconds = Math.floor((now - date) / 1000);
-    
-    let formattedTime;
 
     if (diffInSeconds < 60) {
-      formattedTime = `${diffInSeconds} seconds ago`;
+      return `${diffInSeconds} seconds ago`;
     } else if (diffInSeconds < 3600) {
       const minutes = Math.floor(diffInSeconds / 60);
-      formattedTime = `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+      return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
     } else if (diffInSeconds < 86400) {
       const hours = Math.floor(diffInSeconds / 3600);
-      formattedTime = `${hours} hour${hours === 1 ? '' : 's'} ago`;
+      return `${hours} hour${hours === 1 ? '' : 's'} ago`;
     } else if (diffInSeconds < 604800) {
       const days = Math.floor(diffInSeconds / 86400);
-      formattedTime = `${days} day${days === 1 ? '' : 's'} ago`;
+      return `${days} day${days === 1 ? '' : 's'} ago`;
     } else {
-      const weeks = Math.floor(diffInSeconds / 604800);
-      formattedTime = `${weeks} week${weeks === 1 ? '' : 's'} ago`;
+      return new Date(timestamp).toLocaleString(); // Show full date for older notifications
     }
-
-    return formattedTime;
   };
 
-  const filteredNotifications = notificationsState.filter(notification => {
+  const filteredNotifications = notificationsState.filter((notification) => {
     const matchesSearchQuery = notification.notification_Message.toLowerCase().includes(searchQuery.toLowerCase());
+    const isActiveTab = activeTab === 'unread' ? notification.read_Status === false : notification.read_Status === true;
 
-    const filterDateThreshold = () => {
-      const now = Date.now();
+    const now = new Date().getTime();
+    const notificationDate = new Date(notification.timestamp).getTime();
+    let filterThreshold;
 
-      switch (filterOption) {
-        case 'all':
-          return 0; // Show all notifications
-        case '1min':
-          return now - 1 * 60 * 1000; // 1 minute ago
-        case '1h':
-          return now - 1 * 60 * 60 * 1000; // 1 hour ago
-        case '1d':
-          return now - 1 * 24 * 60 * 60 * 1000; // 1 day ago
-        case '2d':
-          return now - 2 * 24 * 60 * 60 * 1000; // 2 days ago
-        case '1w':
-          return now - 7 * 24 * 60 * 60 * 1000; // 1 week ago
-        case '2w':
-          return now - 14 * 24 * 60 * 60 * 1000; // 2 weeks ago
-        case '1m':
-          return now - 30 * 24 * 60 * 60 * 1000; // 1 month ago
-        default:
-          return 0; // Default case, shows all notifications
-      }
-    };
-
-    const notificationDate = parseTimestamp(notification.timestamp);
-    const isInTimeFrame = notificationDate >= filterDateThreshold(); // Check if the notification is within the selected time frame
-
-    if (activeTab === 'allRead' && notification.status === 'read') {
-      return matchesSearchQuery && isInTimeFrame;
+    switch (filterOption) {
+      case '1min':
+        filterThreshold = now - 1 * 60 * 1000;
+        break;
+      case '1h':
+        filterThreshold = now - 1 * 60 * 60 * 1000;
+        break;
+      case '1d':
+        filterThreshold = now - 1 * 24 * 60 * 60 * 1000;
+        break;
+      case '2d':
+        filterThreshold = now - 2 * 24 * 60 * 60 * 1000;
+        break;
+      case '1w':
+        filterThreshold = now - 7 * 24 * 60 * 60 * 1000;
+        break;
+      case '2w':
+        filterThreshold = now - 14 * 24 * 60 * 60 * 1000;
+        break;
+      case '1m':
+        filterThreshold = now - 30 * 24 * 60 * 60 * 1000;
+        break;
+      default:
+        filterThreshold = 0; // No filtering
     }
-    return false;
+
+    const isInTimeFrame = notificationDate >= filterThreshold;
+    return matchesSearchQuery && isActiveTab && isInTimeFrame;
   });
 
   const sortedNotifications = [...filteredNotifications].sort((a, b) => {
@@ -139,7 +145,7 @@ const NotificationContainer = () => {
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
-  const noNotificationsMessage = activeTab === 'unread' ? "No unread notifications available." : "No read notifications available.";
+  const noNotificationsMessage = activeTab === 'unread' ? 'No unread notifications available.' : 'No read notifications available.';
 
   return (
     <div className="main-content">
@@ -151,12 +157,12 @@ const NotificationContainer = () => {
           </div>
           <div className="d-flex justify-content-center mb-3">
             <div className="search-bar-containers">
-              <input 
-                type="text" 
-                className="form-control search-inputs" 
-                placeholder="Search" 
-                value={searchQuery} 
-                onChange={handleSearchChange} 
+              <input
+                type="text"
+                className="form-control search-inputs"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
               <FaSearch className="search-icons" />
             </div>
@@ -166,10 +172,7 @@ const NotificationContainer = () => {
         <div className="d-flex justify-content-end mb-3 align-items-center">
           <div className="filter-sorts-containers d-flex align-items-center">
             <div className="filter-container">
-              <div
-                className="filter-sort-toggle text-center"
-                onClick={() => setFilterOpen(!filterOpen)}
-              >
+              <div className="filter-sort-toggle text-center" onClick={() => setFilterOpen(!filterOpen)}>
                 <FaFilter className="filter-sort-icon" /> Filter
               </div>
               {filterOpen && (
@@ -184,10 +187,7 @@ const NotificationContainer = () => {
             </div>
 
             <div className="filter-container ms-2">
-              <div
-                className="filter-sort-toggle text-center"
-                onClick={() => setSortOpen(!sortOpen)}
-              >
+              <div className="filter-sort-toggle text-center" onClick={() => setSortOpen(!sortOpen)}>
                 <FaBars className="filter-sort-icon" /> Sort
               </div>
               {sortOpen && (
@@ -202,18 +202,12 @@ const NotificationContainer = () => {
 
         <ul className="nav nav-tabs mb-3">
           <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === 'allRead' ? 'active' : ''}`}
-              onClick={() => handleTabClick('allRead')}
-            >
+            <button className={`nav-link ${activeTab === 'allRead' ? 'active' : ''}`} onClick={() => handleTabClick('allRead')}>
               All read issues
             </button>
           </li>
           <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === 'unread' ? 'active' : ''}`}
-              onClick={() => handleTabClick('unread')}
-            >
+            <button className={`nav-link ${activeTab === 'unread' ? 'active' : ''}`} onClick={() => handleTabClick('unread')}>
               Unread issues
             </button>
           </li>
@@ -222,7 +216,7 @@ const NotificationContainer = () => {
         <table className="table table-borderless">
           <tbody>
             {sortedNotifications.length > 0 ? (
-              sortedNotifications.map(notification => (
+              sortedNotifications.map((notification) => (
                 <tr key={notification.notification_ID} className="notification-rows">
                   <td className="d-flex align-items-center">
                     <FaBell className="notification-icons me-2" />

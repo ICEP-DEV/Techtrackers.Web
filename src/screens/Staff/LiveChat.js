@@ -1,93 +1,136 @@
-import React, { useState } from 'react';
+
 import { Paperclip, Send } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeftIcon, ArrowLeft  } from '@heroicons/react/24/outline';// Adjust if using a different icon library
+import PropTypes from 'prop-types';
 import './StaffStyle/LiveChat.css';
 
-export default function LiveChat({ onClose }) {
-  const [messages, setMessages] = useState([
-    { type: 'received', text: 'Hello, how can I help you?' },
-    { type: 'sent', text: 'I need assistance with an issue.' }
-  ]);
-  const [newMessage, setNewMessage] = useState('');
-  const [attachment, setAttachment] = useState(null); // State for attachment
+const initialMessages = [
+  {
+    id: 1,
+    sender: 'Lunga Ntshingila',
+    content: "Hello, I've received your issue about the printer in Building 18. The picture you attached is not clear enough, could you please send the clear screenshot of the error message displayed on the screen ?",
+    timestamp: '12:34',
+    attachment: null
+  },
+  {
+    id: 2,
+    sender: 'User',
+    content: 'Here is an error code displayed on the screen.',
+    timestamp: '12:36',
+    attachment: {
+      name: 'error_screenshot.png',
+      url: '/placeholder.svg?height=100&width=100'
+    }
+  },
+  {
+    id: 3,
+    sender: 'Lunga Ntshingila',
+    content: "It looks like a driver issue based on the error code. I'll reset the drivers remotely and let you know once it's done. Thank You",
+    timestamp: '12:37',
+    attachment: null
+  }
+]
+
+function LiveChat({ onClose }) {
+  const [messages, setMessages] = useState(initialMessages)
+  const [newMessage, setNewMessage] = useState('')
+  const [attachment, setAttachment] = useState(null)
+  const chatEndRef = useRef(null)
+  const fileInputRef = useRef(null)
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   const handleSendMessage = () => {
-    if (newMessage.trim() || attachment) {
-      const message = { type: 'sent', text: newMessage };
-
-      // If there's an attachment, simulate uploading and store the URL
-      if (attachment) {
-        const attachmentUrl = URL.createObjectURL(attachment); // Simulate file upload
-        message.attachment = attachmentUrl; // Store the URL
+    if (newMessage.trim() !== '' || attachment) {
+      const newMsg = {
+        id: messages.length + 1,
+        sender: 'User',
+        content: newMessage,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        attachment: attachment
       }
-
-      setMessages([...messages, message]);
-      setNewMessage('');
-      setAttachment(null); // Clear attachment after sending
+      setMessages([...messages, newMsg])
+      setNewMessage('')
+      setAttachment(null)
     }
-  };
+  }
 
-  const handleInputChange = (e) => {
-    setNewMessage(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
-
-  const handleAttachmentChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
     if (file) {
-      setAttachment(file); // Store the file
+      setAttachment({
+        name: file.name,
+        url: URL.createObjectURL(file)
+      })
     }
-  };
+  }
+
+  const handleAttachmentClick = () => {
+    fileInputRef.current.click()
+  }
 
   return (
-    <div className="live-chat-overlay">
-      <div className="live-chat-window">
-        <div className="chat-header">
-          <img src="/placeholder.svg?height=40&width=40" alt="User Avatar" className="user-avatar" />
-          <span className="live-chat-name">John Doe</span>
-          <button className="close-chat-button" onClick={onClose}>
-            ✖
-          </button>
-        </div>
-        <div className="chat-body">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.type}`}>
-              {msg.text}
-              {msg.attachment && (
-                <div className="attachment">
-                  <a href={msg.attachment} target="_blank" rel="noopener noreferrer">
-                    View Attachment
-                  </a>
+    <div className="live-chat-fullscreen">
+      <div className="chat-header">
+        <button className="back-button" onClick={onClose}>
+          <ArrowLeftIcon  size={20} />
+        </button>
+        <h3>Lunga Ntshingila</h3>
+      </div>
+      <div className="chat-messages">
+        {messages.map((message) => (
+          <div key={message.id} className={`message ${message.sender === 'User' ? 'user' : 'staff'}`}>
+            <div className="message-content">
+              {message.content}
+              {message.attachment && (
+                <div className="attachment-preview">
+                  <img src={message.attachment.url} alt={message.attachment.name} />
+                  <span>{message.attachment.name}</span>
                 </div>
               )}
             </div>
-          ))}
-        </div>
-        <div className="chat-footer">
-          <label className="attach-button">
-            <Paperclip size={20} />
-            <input
-              type="file"
-              onChange={handleAttachmentChange}
-              style={{ display: 'none' }} // Hide the file input
-            />
-          </label>
-          <input
-            type="text"
-            placeholder="Type your message..."
-            value={newMessage}
-            onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
-          />
-          <button type="button" className="send-button" onClick={handleSendMessage}>
-            <Send size={20} />
-          </button>
-        </div>
+            <div className="message-timestamp">{message.timestamp}</div>
+          </div>
+        ))}
+        <div ref={chatEndRef} />
       </div>
+      <div className="chat-input">
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type your message..."
+          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+        />
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        <button className="attachment-button" onClick={handleAttachmentClick}>
+          <Paperclip size={20} />
+        </button>
+        <button onClick={handleSendMessage}>
+          <Send size={20} />
+        </button>
+      </div>
+      {attachment && (
+        <div className="attachment-preview">
+          <img src={attachment.url} alt={attachment.name} />
+          <span>{attachment.name}</span>
+          <button onClick={() => setAttachment(null)}>Remove</button>
+        </div>
+      )}
     </div>
-  );
+  )
 }
+
+LiveChat.propTypes = {
+  onClose: PropTypes.func.isRequired,
+}
+
+export default LiveChat

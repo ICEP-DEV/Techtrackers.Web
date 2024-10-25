@@ -6,6 +6,7 @@
     background-color: #0C3A3A; /* Dark greenish color */
     color: white;
     height: 60px;
+    z-index: 1000;   /* Ensures it sits above other content */
   }
   
   .menu-icon {

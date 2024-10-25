@@ -6,7 +6,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
-const HODDashboard = () => {
+const HODDashboard = ({ isSidebarOpen }) => {
   // Data for bar chart (Average Resolution Time)
   const barData = {
     labels: ['Week 1', 'Week 2', 'Week 3'],
@@ -80,7 +80,7 @@ const HODDashboard = () => {
   };
 
   return (
-    <div className="dashboard-content">
+    <div className={`dashboard-content ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <h1>Welcome, HOD!</h1>
 
       <div className="overview">

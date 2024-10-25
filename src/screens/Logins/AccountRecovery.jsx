@@ -7,6 +7,7 @@ import './LoginsStyle/otpStyle.css';
 import './LoginsStyle/ForgotPassword.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 function AccountRecovery() {
     const navigate = useNavigate();
@@ -29,7 +30,8 @@ function AccountRecovery() {
 
     // Email Verification Step
     function submitEmail() {
-        const engravedEmail = "kaykgaba7@gmail.com";
+        /*
+        const engravedEmail = "ezramagagane@gmail.com";
         if (Email.trim() === '') {
             toast.error('Enter your email');
             return;
@@ -46,7 +48,26 @@ function AccountRecovery() {
 
         generateOtp();
         toast.success('OTP was sent to the provided email');
-        setTimeout(() => setStep('otp'), 2000);
+        setTimeout(() => setStep('otp'), 2000);*/
+        if(Email.trim() === '') {
+            toast.error('Enter your email');
+            return;
+        }
+
+        const emailValidation = /\S+@\S+\.\S+/;
+        if (!Email.match(emailValidation)) {
+            toast.error('Enter a valid email address');
+            return;
+        }
+
+        axios.post('http://localhost:44328/api/request-otp', {Email})
+             .then((response) => {
+                toast.success('OTP was sent to the provided email');
+                setTimeout(() => setStep('opt'), 2000);
+             })
+             .catch((error) => {
+                toast.error(error.response?.data || 'An error occured while requesting OTP')
+             });
     }
 
     // OTP Verification Step
@@ -61,13 +82,34 @@ function AccountRecovery() {
     };
 
     const verifyOtp = () => {
+        /*
         const enteredOtp = otp.join('');
         if (enteredOtp === generatedOtp) {
             toast.success("OTP verified successfully!");
             setTimeout(() => setStep('resetPassword'), 2000);
         } else {
             toast.error("OTP does not match. Please try again.");
-        }
+        }*/
+            // This is to verify OTP and reset Password Step
+            const enteredOtp = otp.join('');
+            if(enteredOtp === ''){
+                toast.error('Please enter the OTP.');
+                return;
+            }
+
+            // I call the back-end API to verify OTP and reset the password
+            axios.post('http://localhost:44328/api/reset-password', {
+                Email,
+                Otp: enteredOtp,
+                NewPassword: Password
+            })
+            .then((response) => {
+                toast.success('Password reset successful!');
+                setTimeout(() => navigate('/login'), 2000);
+            })
+            .catch((error) => {
+                toast.error(error.response?.data || 'Invalid OTP or other error.');
+            });
     };
 
     // Function to check password strength dynamically
@@ -81,11 +123,30 @@ function AccountRecovery() {
         setStrength(strengthScore);  // Set strength dynamically as the user types
     };
 
-    // Password Reset Step
-    const validPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+    // Password Reset Step - and validate password and submit
     const submitPassword = () => {
-        
+        const validPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+
         if (Password === '') {
+            toast.error('Enter a new password');
+            return;
+        }
+        if (ConfirmPassword === '') {
+            toast.error('Confirm your new password');
+            return;
+        }
+        if (!validPassword.test(Password)) {
+            toast.error('Password does not meet the required criteria.');
+            return;
+        }
+        if (Password !== ConfirmPassword) {
+            toast.error('Passwords do not match');
+            return;
+        }
+
+        verifyOtp(); // Proceed to verify OTP and reset password
+        
+        /*if (Password === '') {
             toast.error('Enter a new password');
             return;
         }
@@ -126,7 +187,7 @@ function AccountRecovery() {
             return;
         }
         toast.success('Password reset successful');
-        setTimeout(() => navigate('/login'), 2000);
+        setTimeout(() => navigate('/login'), 2000);*/
     };
 
     const handlePasswordChange = (e) => {

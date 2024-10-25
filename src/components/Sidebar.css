@@ -1,90 +1,102 @@
-/* Sidebar.css */
-
 .sidebar {
-    height: 100vh;
-    width: 210px;
-    background-color: #0C3A3A;
-    color: white;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    transition: width 0.3s;
-
-  }
-  
-  .sidebar.closed {
-    width: 60px;
-  }
-  
-  .menu-icon {
-    padding: 20px;
-    cursor: pointer;
-  }
-  .menu-icon:hover{
-    color: #6ff1f1; /* Change color on hover */
-    cursor: pointer; /* Pointer cursor for hover */
-
-  }
-  
-  .sidebar-nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar-nav li {
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .sidebar-nav li:hover {
-    background-color: #108484;
-  }
-  
-  .menu-text {
-    margin-left: 10px;
-    display: inline-block;
-    transition: opacity 0.3s;
-  }
-  
-  .sidebar.closed .menu-text {
-    opacity: 0;
-    visibility: hidden;
-  }
-  
-  .notification-count {
-    background-color: red;
-    padding: 5px 10px;
-    border-radius: 50%;
-    font-size: 12px;
-    margin-left: auto;
-  }
-  
-  .sidebar.closed .notification-count {
-    display: none;
-  }
-
-  /* Logout section at the bottom */
-.logout-section {
-  padding: 15px; /* Adjust padding as needed */
+  height: 100vh;
+  width: 210px;
+  background-color: #0C3A3A;
+  color: white;
+  position: fixed;
+  top: 80px;
+  left: 0;
   display: flex;
-  cursor: pointer; /* Pointer cursor for hover */
-  margin-bottom: 20px; /* Space from bottom */
+  flex-direction: column;
+  transition: width 0.3s;
+  
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.menu-icon {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.menu-icon:hover {
+  color: #6ff1f1;
+  cursor: pointer;
+}
+
+/* Links for the navigation */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px; /* Add space from the top */
+}
+
+.sidebar-nav li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav li:hover {
+  background-color: #108484;
+}
+
+/* Menu links styling */
+.menu-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+}
+
+.menu-link i {
+  font-size: 18px;
+}
+
+.menu-text {
+  margin-left: 10px;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+
+.sidebar.closed .menu-text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.notification-count {
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.sidebar.closed .notification-count {
+  display: none;
+}
+
+/* Logout section at the bottom */
+.logout-section {
+  padding: 15px;
+  display: flex;
+  cursor: pointer;
+  margin-top: auto; /* Push logout to the bottom */
+  margin-bottom: 20px;
 }
 
 .logout-icon {
-  font-size: 24px; /* Adjust size as needed */
-  transition: color 0.3s; /* Transition for hover effect */
-  display: block; /* Ensure the icon is block-level */
+  font-size: 24px;
+  transition: color 0.3s;
+  display: block;
 }
-/* Hover effect only for logout icon */
+
 .logout-icon:hover {
-  color: #4ed6ff; /* Change color on hover */
-  cursor: pointer; /* Pointer cursor for hover */
+  color: #4ed6ff;
+  cursor: pointer;
 }
-  
-  

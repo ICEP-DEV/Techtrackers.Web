@@ -42,7 +42,7 @@ position: absolute;
 }
 
 .sidebar-nav li:hover {
-  background-color: #108484;
+  background-color: #195353;
 }
 
 /* Menu links styling */
@@ -99,4 +99,13 @@ position: absolute;
 .logout-icon:hover {
   color: #4ed6ff;
   cursor: pointer;
+}
+/* Style for the active menu item */
+.sidebar-nav li.active {
+  background-color: #108484; /* Highlight color */
+}
+
+.sidebar-nav li.active .menu-link {
+  color: #ffffff;
+  font-weight: bold;
 }

@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Table from "./Table";
 import IssueDetails from "./IssueDetails";
 import useIssues from "./useIssues";
+import TechnicianLiveChat from "../TechnicianLiveChat/TechnicianLiveChat";
 
 const RoutesComponent = () => {
   const { issues, setIssues } = useIssues();
@@ -12,6 +13,7 @@ const RoutesComponent = () => {
     <Routes>
       <Route path="/" element={<Table issues={issues} setIssues={setIssues} />} />
       <Route path="/issues/:issueId" element={<IssueDetails issues={issues} />} />
+      <Route path="/liveChat" element={<TechnicianLiveChat/>} />
     </Routes>
   );
 };

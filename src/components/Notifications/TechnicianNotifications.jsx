@@ -44,7 +44,7 @@ const NotificationsPage = () => {
       content: 'has assigned you to a new logged issue',
       subject: 'Andile Zondo',
       issue: 'Connectivity Issue',
-      time: '18/08/2024',
+      time: '2024-08-18',
     },
     {
       id: 5,
@@ -53,9 +53,31 @@ const NotificationsPage = () => {
       content: 'invited you to collaborate with them',
       issue: 'Log Details: Maintenance Request',
       action: 'View Collaboration Requests',
-      time: '14/08/2024',
+      time: '2024-08-14',
     },
   ];
+
+  const formatDate = (timeString) => {
+    // Handle "Yesterday" explicitly
+    if (timeString.toLowerCase() === "yesterday") {
+      const date = new Date();
+      date.setDate(date.getDate() - 1);
+      return date;
+    }
+    
+    // Handle time-only formats by assuming today's date
+    const timeOnlyPattern = /^\d{2}:\d{2}$/;
+    if (timeOnlyPattern.test(timeString)) {
+      const today = new Date();
+      const [hours, minutes] = timeString.split(":").map(Number);
+      today.setHours(hours, minutes, 0, 0);
+      return today;
+    }
+  
+    // Handle full date strings in standard formats
+    return new Date(timeString);
+  };
+  
 
   const filteredNotifications = notifications.filter(notification => {
     const fullContent = `${notification.sender} ${notification.content} ${notification.subject || ''} ${notification.issue || ''}`.toLowerCase();
@@ -64,15 +86,15 @@ const NotificationsPage = () => {
   });
 
   const sortedNotifications = filteredNotifications.sort((a, b) => {
-    const dateA = new Date(a.time);
-    const dateB = new Date(b.time);
+    const dateA = formatDate(a.time);
+    const dateB = formatDate(b.time);
     
     if (sortOrder === 'newest') {
-      return dateB - dateA; // Newest to oldest
+      return dateB - dateA;
     } else if (sortOrder === 'oldest') {
-      return dateA - dateB; // Oldest to newest
+      return dateA - dateB;
     }
-    return 0; // Default to no sorting
+    return 0;
   });
 
   return (
@@ -82,31 +104,31 @@ const NotificationsPage = () => {
           <img src={bell} alt="Bell" /> NOTIFICATIONS
         </h1>
         <div className="filter-container">
-          <div className="search-container">
+          <div className="the-search-container">
             <input 
               type="text" 
               placeholder="Search" 
-              className="search-input" 
+              className="the-search-input" 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} 
             />
-            <img src={search} className="search-icon" alt="Search" />
+            <img src={search} className="the-search-icon" alt="Search" />
           </div>
-          <div className="dropdown">
-            <button className="filter-button">Filter <img src={filter} alt="Filter" /></button>
-            <div className="dropdown-content">
-              <div className="dropdown-item" onClick={() => setFilterType('assignment')}>Assignment</div>
-              <div className="dropdown-item" onClick={() => setFilterType('resolution')}>Resolution</div>
-              <div className="dropdown-item" onClick={() => setFilterType('collaboration')}>Collaboration</div>
-              <div className="dropdown-item" onClick={() => setFilterType('')}>All</div>
+          <div className="notification-dropdown">
+            <button className="the-filter-button">Filter <img src={filter} alt="Filter" /></button>
+            <div className="notification-dropdown-content">
+              <div className="notification-dropdown-item" onClick={() => setFilterType('assignment')}>Assignment</div>
+              <div className="notification-dropdown-item" onClick={() => setFilterType('resolution')}>Resolution</div>
+              <div className="notification-dropdown-item" onClick={() => setFilterType('collaboration')}>Collaboration</div>
+              <div className="notification-dropdown-item" onClick={() => setFilterType('')}>All</div>
             </div>
           </div>
-          <div className="dropdown">
-            <button className="sort-button">Sort <img src={list} alt="Sort" /></button>
-            <div className="dropdown-content">
-              <div className="dropdown-item" onClick={() => setSortOrder('newest')}>Newest First</div>
-              <div className="dropdown-item" onClick={() => setSortOrder('oldest')}>Oldest First</div>
-              <div className="dropdown-item" onClick={() => setSortOrder('')}>Default</div>
+          <div className="notification-dropdown">
+            <button className="the-sort-button">Sort <img src={list} alt="Sort" /></button>
+            <div className="notification-dropdown-content">
+              <div className="notification-dropdown-item" onClick={() => setSortOrder('newest')}>Newest First</div>
+              <div className="notification-dropdown-item" onClick={() => setSortOrder('oldest')}>Oldest First</div>
+              <div className="notification-dropdown-item" onClick={() => setSortOrder('')}>Default</div>
             </div>
           </div>
         </div>
@@ -136,7 +158,7 @@ const NotificationsPage = () => {
             <div className="notification-meta">
               <span className="notification-time">{notification.time}</span>
               {notification.type !== 'resolution' && (
-                <button className="view-button"> View</button>
+                <button className="notification-view-button"> View</button>
               )}
             </div>
           </div>

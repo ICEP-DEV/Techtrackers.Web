@@ -13,12 +13,13 @@ import RoutesComponent from "./components/All Issue and View Page/RoutesComponen
 import CollabMain from './components/CollaborationRequest/CollabMain';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import IssueDetails from './components/All Issue and View Page/IssueDetails';
+import TechncianAdminChat from './components/TechnicianLiveChat/TechnicianLiveChat';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <WelcomeTechnician />
+      <RoutesComponent />
     </Router>
   </React.StrictMode>
 );

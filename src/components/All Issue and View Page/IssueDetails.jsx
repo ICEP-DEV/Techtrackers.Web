@@ -22,13 +22,17 @@ const IssueDetails = ({ issues }) => {
     navigate("/"); // Navigate to the table route
   };
 
+  const handleChat = () => {
+    navigate("/liveChat");
+  };
+
   return (
     <div className="issue-details-container">
       {/* Issue Title */}
       <div className="issue">
         <h2>Internal Issue: {issue.title}</h2>
         <a href="">
-          <img src={chat} width="40" height="40" alt="Chat Icon" />
+          <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat}/>
         </a>
       </div>
 

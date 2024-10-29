@@ -47,10 +47,11 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
             <tr key={issue.logId}>
               <td>{issue.issueId}</td>
               <td>{issue.categoryName}</td>
-              <td>{issue.assignedTo}</td>
+              <td>{issue.assignedTo || "Unassigned"}</td>
               <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
+              <td>{issue.status}</td>
               {/* Check if issue.log_Status exists before calling toLowerCase() */}
               <td>
                 <span className={`status ${issue.status ? issue.status.toLowerCase() : 'unknown'}`}>

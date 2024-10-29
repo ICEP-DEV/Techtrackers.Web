@@ -15,6 +15,7 @@ const Logissueform = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
+    attachmentUrl: null,
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Logissueform = () => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: name === "category" ? parseInt(value) : value, // Convert category to integer
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -31,33 +32,37 @@ const Logissueform = () => {
     }));
   };
 
-  // Submit the form data to the API
+  const handleFileChange = (event) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      attachmentUrl: event.target.files[0],
+    }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newErrors = {};
-    Object.keys(formValues).forEach((key) => {
-      if (!formValues[key] && key !== 'department' && key !== 'date') {
-        newErrors[key] = 'This field is required.';
-      }
-    });
-  
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    const staffId = userInfo?.userId;
+
+    if(!staffId) {
+      toast.error("User ID is missing. Please log in again.");
       return;
     }
 
-    // Created logDto to map the fields as expected by backend || Please check the logDto evn on the Database for errors
+    // Constraction of LogDto
     const logDto = {
-      description: formValues.description,  // Assuming "description" is mapped to the title
-      category_ID: formValues.category,     // Map the category to category_ID expected by backend
-      department: formValues.department,    // Map department if necessary
-      priority: formValues.priority,        // Pass priority
-      due_date: formValues.date,            // Ensure the date is in the expected format
-      location: formValues.location         // Map location
+      Issue_Title: formValues.title,
+      Category_ID: formValues.category,
+      Department: formValues.department,
+      Description: formValues.description,
+      Priority: formValues.priority,
+      Created_at: formValues.date,
+      Location: formValues.location,
+      AttachmentUrl: formValues.attachmentUrl ? formValues.attachmentUrl.name : null,
+      Staff_ID: staffId, // I'll be passing staff ID from logged-in user(Staff)
     };
 
-    // Send data to the API
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
         method: 'POST',
@@ -66,10 +71,9 @@ const Logissueform = () => {
         },
         body: JSON.stringify(logDto),
       });
-  
+
       if (response.ok) {
         setSubmitted(true);
-        // Optionally, reset form
         setFormValues({
           title: '',
           category: '',
@@ -78,16 +82,16 @@ const Logissueform = () => {
           description: '',
           date: new Date().toISOString().split('T')[0],
           location: '',
+          attachmentUrl: null,
         });
-        // Show success toast
         toast.success("Log submitted successfully!");
       } else {
         const errorData = await response.json();
-        console.error("Error submitting log:", errorData.message);
-        toast.error("Failed to submit the log.");
+        console.error("Error details from server:", errorData);
+        toast.error(`Failed to submit the log: ${errorData.title || "Validation error"}`);
       }
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error("Network or server error:", error);
       toast.error("An error occurred while submitting the log.");
     }
   };
@@ -102,6 +106,7 @@ const Logissueform = () => {
 
   return (
     <div className="main-content">
+      <ToastContainer />
       {submitted && (
         <div className="success-message">
           Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
@@ -132,12 +137,12 @@ const Logissueform = () => {
               onChange={handleChange}
             >
               <option value="">Select Category</option>
-              <option>Network Issue</option>
-              <option>Software Issue</option>
-              <option>Hardware Issue</option>
-              <option>Infrastructure Issue</option>
-              <option>Security Issue</option>
-              <option>Facilities Management</option>
+              <option value={1}>Network Issue</option>
+              <option value={2}>Software Issue</option>
+              <option value={3}>Hardware Issue</option>
+              <option value={4}>Infrastructure Issue</option>
+              <option value={5}>Security Issue</option>
+              <option value={6}>Facilities Management</option>
             </select>
             {errors.category && <p className="error-message">{errors.category}</p>}
           </div>
@@ -210,7 +215,7 @@ const Logissueform = () => {
         <div className="file-input-wrapper">
           <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
           <div>
-            <input type="file" />
+            <input type="file" name="attachmentUrl" onChange={handleFileChange} />
             <p className="file-format-hint">(JPEG,PNG,PDF)</p> 
           </div>
         </div>

@@ -49,25 +49,28 @@ function AccountRecovery() {
         generateOtp();
         toast.success('OTP was sent to the provided email');
         setTimeout(() => setStep('otp'), 2000);*/
-        if(Email.trim() === '') {
+        if (Email.trim() === '') {
             toast.error('Enter your email');
             return;
         }
-
+    
         const emailValidation = /\S+@\S+\.\S+/;
         if (!Email.match(emailValidation)) {
             toast.error('Enter a valid email address');
             return;
         }
-
-        axios.post('http://localhost:44328/api/request-otp', {Email})
-             .then((response) => {
+    
+        axios.post('https://localhost:44328/api/Account/RequestOtp/request-otp', { Email })
+            .then((response) => {
                 toast.success('OTP was sent to the provided email');
-                setTimeout(() => setStep('opt'), 2000);
-             })
-             .catch((error) => {
-                toast.error(error.response?.data || 'An error occured while requesting OTP')
-             });
+                console.log('OTP request successful:', response.data); // Log success response
+                setTimeout(() => setStep('otp'), 2000);
+            })
+            .catch((error) => {
+                const errorMessage = error.response?.data || 'An error occurred while requesting OTP';
+                toast.error(errorMessage);
+                console.log('OTP request failed:', errorMessage); // Log error response
+            });
     }
 
     // OTP Verification Step
@@ -92,23 +95,30 @@ function AccountRecovery() {
         }*/
             // This is to verify OTP and reset Password Step
             const enteredOtp = otp.join('');
-            if(enteredOtp === ''){
+
+            if (enteredOtp === '') {
                 toast.error('Please enter the OTP.');
                 return;
             }
 
-            // I call the back-end API to verify OTP and reset the password
-            axios.post('http://localhost:44328/api/reset-password', {
+            console.log('Verifying OTP:', enteredOtp);
+            console.log('Email:', Email);
+
+            axios.post('https://localhost:44328/api/Account/ResetPassword/reset-password', {
                 Email,
                 Otp: enteredOtp,
-                NewPassword: Password
+                NewPassword: Password // You can include a placeholder if the backend expects this now
             })
             .then((response) => {
-                toast.success('Password reset successful!');
-                setTimeout(() => navigate('/login'), 2000);
+                toast.success('OTP verified successfully!');
+                console.log('OTP verification successful:', response.data);
+
+                // Move to the password reset step after successful OTP verification
+                setStep('resetPassword');
             })
             .catch((error) => {
                 toast.error(error.response?.data || 'Invalid OTP or other error.');
+                console.log('Error response:', error.response?.data);
             });
     };
 

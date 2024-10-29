@@ -46,13 +46,37 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
         setComment(e.target.value);
     };
 
-    const handleSubmitRating = () => {
+    const handleSubmitRating = async() => {
         if (rating === 0) {
-            setIsErrorPopupOpen(true); // Open error popup
-            return; // Prevent submission
+            setIsErrorPopupOpen(true);
+            return;
         }
-        console.log("Rating submitted:", rating, "Comment:", comment);
-        setIsRatingPopupOpen(false);
+    
+        const feedbackData = {
+            Log_ID: issue.logId,
+            User_ID: issue.userId,
+            Rating: rating,
+            Comment: comment
+        };
+    
+        try {
+            const response = await fetch('https://localhost:44328/api/Feedback/SubmitFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData),
+            });
+    
+            if (response.ok) {
+                console.log("Feedback submitted successfully");
+                setIsRatingPopupOpen(false);
+            } else {
+                console.error("Failed to submit feedback");
+            }
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+        }
     };
 
     const closeErrorPopup = () => {

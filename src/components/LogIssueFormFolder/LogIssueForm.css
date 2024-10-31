@@ -1,0 +1,161 @@
+
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #004d4e;
+    color: white;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  
+  /* Main Content */
+  .container {
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Add margin-top to account for header height */
+    overflow: hidden;
+  }
+  
+  .main-content {
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+
+  }
+  
+  /* Success Message */
+  .success-message {
+    background-color: #e6f7e6;
+    border: 1px solid #b2d8b2;
+    color: #2e7d32;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  .required {
+    color: red;
+    margin-left: 5px; /* Add some space between label and asterisk */
+    font-weight: bold;
+  }
+  /* Form Styles */
+  .log-issue-form {
+    display: block;
+    background-color: #B3B3B3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .log-issue-form h2 {
+    margin-bottom: 20px;
+    color: black; /* Set both the heading and the icon color to black */
+    font-size: 18px; /* Reduced font size */
+    display: flex;
+    align-items: center;
+  }
+  
+  .log-issue-form h2 svg {
+    margin-right: 10px; /* Optional: Adds some space between the icon and text */
+    color: #108484; /* Ensure the icon color is black */
+    font-size: 35px;
+  }
+  
+  .log-issue-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .log-issue-form input,
+  .log-issue-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .log-issue-form .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .log-issue-form .box {
+    width: 45%;
+  }
+  
+  .log-issue-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .log-issue-form input[type="file"] {
+    width: 45%; 
+    padding: 10px; 
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    font-size: 14px;
+  }
+  .file-input-wrapper {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 20px; 
+  }
+  
+  .file-input-wrapper input {
+    margin-bottom: 5px; 
+  }
+  
+  .file-input-wrapper .file-format-hint {
+    font-size: 12px;
+    color: #666; 
+    margin-left: 2px; 
+  }
+  .log-issue-form .form-buttons {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 15px; 
+  }
+  .log-issue-form .form-buttons button {
+    padding: 10px 15px;
+    background-color: #004d4e;
+    color: rgb(241, 241, 241);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #issue-title {
+    background-color: #fff;
+  }
+  
+  .log-issue-form .form-buttons button:hover {
+    background-color: #003c3d;
+  }
+  .error-message {
+    color: red; /* Set the text color to red */
+    font-size: 0.875rem; /* Optional: Adjust the font size */
+    margin-top: 0.25rem; /* Optional: Add some space above the message */
+}

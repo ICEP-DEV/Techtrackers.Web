@@ -12,14 +12,13 @@ import './TechRatings.css';
 //import RoutesComponent from "./components/All Issue and View Page/RoutesComponent";
 //import CollabMain from './components/CollaborationRequest/CollabMain';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-//import IssueDetails from './components/All Issue and View Page/IssueDetails';
-import SideBarNav from './screens/Navigation/SideBarNavigation'; 
+import IssueDetails from './components/All Issue and View Page/IssueDetails';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <SideBarNav/>
+      <CollabMain />
     </Router>
   </React.StrictMode>
 );

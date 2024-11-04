@@ -57,8 +57,8 @@ const Sidebar = () => {
                     {isMenuOpen && <span>NOTIFICATIONS</span>}
                 </li>
 
-                <li onClick={() => handleOptionClick('myIssues')} className={`list ${selectedOption === 'myIssues' ? 'selected' : ''}`}>
-                    <img src={allIssue} alt="myIssues" className="sidebar-container-icon" />
+                <li onClick={() => handleOptionClick('tbl')} className={`list ${selectedOption === 'tbl' ? 'selected' : ''}`}>
+                    <img src={allIssue} alt="tbl" className="sidebar-container-icon" />
                     {isMenuOpen && <span>ALL ISSUES</span>}
                 </li>
 

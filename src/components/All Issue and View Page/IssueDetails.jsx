@@ -19,7 +19,7 @@ const IssueDetails = ({ issues }) => {
 
   // Handle the Close button click
   const handleClose = () => {
-    navigate("/"); // Navigate to the table route
+    navigate("/tbl"); // Navigate to the table route
   };
 
   const handleChat = () => {

@@ -15,12 +15,16 @@ import WelcomTechnician from '../TechDashBoard1/WelcomeTechnician';
 import RoutesComponent from '../../components/All Issue and View Page/RoutesComponent';
 import CollabMain from '../../components/CollaborationRequest/CollabMain';
 import Ratings from '../../components/Ratings';
-import IssueDetails from '../../components/All Issue and View Page/IssueDetails';
-import useIssues from "../../components/All Issue and View Page/useIssues";
 import "./SidebarCSS/SidebarNavStyle.css";
+import TechnicianLiveChat from '../../components/TechnicianLiveChat/TechnicianLiveChat';
+import Table from "../../components/All Issue and View Page/Table";
+import IssueDetails from "../../components/All Issue and View Page/IssueDetails";
+import useIssues from "../../components/All Issue and View Page/useIssues";
+
+
 
 const TechnicianDashboard = () => {
-  // const { issues, setIssues } = useIssues();
+  const { issues, setIssues } = useIssues();
   
   const handleLogout = ()=> {
       localStorage.removeItem('user_info');
@@ -35,9 +39,12 @@ const TechnicianDashboard = () => {
 
           <Route path="/dashboard" element={<WelcomTechnician/>} />
           <Route path="/notifications" element={<TechnicianNotifications />} />
-          <Route path="/myIssues/*" element={<RoutesComponent />}/>
+          <Route path="/tbl" element={<Table issues={issues} setIssues={setIssues} />} />
+          <Route path="/issues/:issueId" element={<IssueDetails issues={issues} />} />
+          <Route path="/liveChat" element={<TechnicianLiveChat/>} />
           <Route path="/collaboration" element={<CollabMain />} />
           <Route path="/reviews" element={<Ratings />} />
+          
           
         </Routes>
       </div>

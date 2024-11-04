@@ -1,0 +1,204 @@
+/* Apply the same background color to the entire page */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eaf5f5; /* Same background color as the rows */
+  font-family: Arial, sans-serif;
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 20px auto;
+  background-color: #eaf5f5; /* Match the page background color */
+  padding: 20px; /* Add padding for spacing */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
+  border-radius: 10px; /* Optional: Add rounded corners for a smoother look */
+  margin-top: -55px;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #eaf5f5; /* Match the full-page background */
+  margin-bottom: 20px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.notificationIcon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.headerLeft h2 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 29px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  outline: none;
+  background-color: white;
+}
+
+.archivedBtn,
+.filterBtn,
+.sortBtn {
+  background-color: transparent;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.archivedBtn:hover,
+.filterBtn:hover,
+.sortBtn:hover {
+  color: #333;
+}
+
+/* Sort dropdown */
+.sortContainer,
+.filterContainer {
+  position: relative;
+  margin-left: 10px; /* Add space between buttons */
+}
+
+.sortDropdown,
+.filterDropdown {
+  position: absolute;
+  top: 40px; /* Adjust based on your header height */
+  left: 0;
+  background-color: white; /* Background color for dropdown */
+  border: 1px solid #ccc; /* Border for dropdown */
+  border-radius: 5px; /* Rounded corners */
+  z-index: 1000; /* Ensure dropdown is above other elements */
+  list-style: none; /* Remove default list styles */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  width: 130px;
+}
+
+.sortDropdown li,
+.filterDropdown li {
+  padding: 10px; /* Spacing for dropdown items */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.sortDropdown li:hover,
+.filterDropdown li:hover {
+  background-color: #f0f0f0; /* Change background on hover */
+}
+
+/* Row (notification) styles */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaf5f5; /* Same background color as the body */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc; /* Add bottom border */
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.userText {
+  font-size: 14px;
+}
+
+.userText span {
+  display: grid;
+}
+
+.statusResolved {
+  color: green;
+  font-weight: bold;
+}
+
+.statusInProgress {
+  color: goldenrod;
+  font-weight: bold;
+}
+
+.rowFooter {
+  display: flex;
+  align-items: center;
+}
+
+.time {
+  margin-right: 60px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #666666;
+}
+
+.viewBtn {
+  background-color: #06312e;
+  color: #ffffff;
+  padding: 8px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.viewBtn:hover {
+  background-color: #005f8c;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+}
+
+.searchInput {
+  width: 120px; /* Adjust as needed */
+  padding: 2px 30px 2px 10px; /* Add padding on the right for the icon */
+  border: 1px solid #2bd5ff; /* Adjust styles as needed */
+  border-radius: 15px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 20px; /* Space from the right edge */
+  top: 50%; /* Center the icon vertically */
+  transform: translateY(-50%); /* Adjust vertical alignment */
+  pointer-events: none; /* Prevent the icon from blocking input clicks */
+}

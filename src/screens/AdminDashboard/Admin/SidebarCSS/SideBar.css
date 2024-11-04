@@ -1,0 +1,220 @@
+.sidebar-container {
+  width: 100px; /* Increased the closed width of the sidebar */
+  height: calc(
+    100vh - 10px
+  ); /* Subtract the header height from the viewport height */
+  background: #0c3a3a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0; /* Adjust padding as necessary */
+  transition: width 0.3s ease;
+  overflow: hidden;
+  position: fixed; /* Keep the sidebar fixed to the left of the viewport */
+  top: 65px; /* Start the sidebar below the header */
+  left: 0;
+  overflow-y: auto;
+}
+
+.sidebar-container.open {
+  width: 340px; /* Increased the open width of the sidebar */
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+  margin-right: 10px;
+  color: white;
+  transition: opacity 0.3s ease;
+  font-size: 30px;
+}
+
+.sidebar-container:not(.open) .menu-icon {
+  margin-left: 15px;
+}
+
+.admin-name {
+  margin-right: 10px; /* Spacing between text and icon */
+  font-size: 30px; /* Adjust font size as necessary */
+  font-weight: bold;
+}
+
+.sidebar-container.open .admin-name {
+  opacity: 1; /* Fully visible when sidebar is open */
+  margin-right: 150px;
+}
+
+.sidebar-container:not(.open) .admin-name {
+  opacity: 0; /* Hidden when sidebar is closed */
+  transition: opacity 0.3s ease; /* Smooth transition for hiding */
+}
+.sidebar-container ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  font-size: 80px;
+  margin-top: -20px;
+  margin-left: -10px;
+}
+
+.sidebar-container .list {
+  padding: 25px 0; /* Increased padding for larger click area */
+  cursor: pointer;
+  width: 100%;
+  display: flex; /* Ensure icon and text are aligned horizontally */
+  align-items: center;
+  padding-left: 30px; /* Adjust padding for better alignment */
+  background-color: #0c3a3a;
+  margin-top: -1px;
+  border-radius: 30px;
+  border: 10px solid #0c3a3a;
+}
+
+.sidebar-container .list.selected {
+  background-color: #108484;
+  width: 95px;
+}
+.sidebar-container.open .list.selected {
+  background-color: #108484;
+  width: 330px;
+}
+.sidebar-container li:hover {
+  background-color: #094d4d;
+}
+
+.sidebar-container-icon {
+  width: 25px; /* Increased icon size */
+  height: 25px;
+  margin-right: 25px; /* Increased space between icon and text */
+  font-size: 40px; /* Make icons larger */
+}
+
+.sidebar-container li span {
+  font-size: 20px; /* Increased the font size of the labels */
+  display: none;
+}
+
+.sidebar-container.open li span {
+  display: inline-block; /* Show the label text only when the sidebar is open */
+  font-size: 22px; /* Further increase label size when the sidebar is open */
+}
+
+.drop-icon {
+  transition: transform 0.3s ease; /* Smooth transition */
+  width: 15px; /* Adjust as per your icon size */
+  height: 10px;
+  margin-left: 120px; /* Adjust spacing next to the label */
+}
+
+.rotate {
+  transform: rotate(180deg); /* Rotate the icon 180 degrees */
+}
+
+.dropdown-toggle {
+  padding-right: 0px; /* Adjust to align the arrow with the text */
+}
+
+.dropdown {
+  padding-left: 20px; /* Adjust the indentation */
+}
+
+.dropdown li {
+  padding: 20px 80px; /* Adjust padding for better spacing */
+  cursor: pointer;
+  background-color: #0c3a3a; /* Keep the background consistent */
+  display: flex;
+  align-items: center;
+  width: 95%;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  max-height: 100%;
+  border-radius: 30px;
+}
+
+.dropdown-item.selected {
+  background-color: #108484; /* Highlight color for the selected dropdown item */
+  color: white; /* Change text color if needed */
+  padding-left: 70px;
+  margin-left: 30px;
+}
+
+.dropdown li span {
+  text-decoration: none;
+  font-weight: 500;
+}
+.dropdown li:hover {
+  background-color: #094d4d;
+  padding-left: 70px;
+  margin-left: 30px;
+}
+
+.app-container {
+  display: flex;
+  flex-grow: 1; /* Take up the remaining space */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  margin-top: 100px;
+  margin-left: 300px; /* Main content shifts to the right when sidebar is open */
+}
+.main-content {
+  flex-grow: 1; /* Take up the remaining space */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  margin-top: 180px;
+  margin-left: 370px; /* Main content shifts to the right when sidebar is open */
+}
+
+.sidebar-container:not(.open) + .main-content {
+  margin-left: 100px; /* When sidebar is closed, reduce the space */
+}
+
+.log-out {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  font-weight: bolder;
+  font-size: 80px;
+  margin-top: 60px;
+  margin-left: -10px;
+}
+
+.sidebar-container.open .log-out {
+  margin-left: 10px;
+}
+.log-out li {
+  background-color: #0c3a3a;
+  width: 50px;
+}
+
+.log-out li:hover {
+  background-color: #0c3a3a;
+}
+.log-out li img {
+  width: 30px;
+  height: 30px;
+}
+.log-out li img:hover {
+  width: 40px;
+  height: 40px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 100px; /* Collapsed width for smaller screens */
+  }
+
+  .main-content {
+    margin-left: 160px; /* Main content margin adjusts for smaller sidebar */
+  }
+
+  .sidebar-container.open {
+    width: 350px;
+  }
+  .sidebar-container.open + .main-content {
+    margin-left: 400px; /* Main content adjusts for expanded sidebar */
+  }
+}

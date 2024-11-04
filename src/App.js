@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Use this instead of '../node_m
 import LandingPage from './screens/Logins/LandingPage';
 import StaffDashboard from './screens/Staff/StaffDashboard';
 import AccountRecovery from './screens/Logins/AccountRecovery';
+import AdminDashboard from './screens/AdminDashboard/Admin/SideBarNavigation';
 
 function App() {
   return (
@@ -23,12 +24,13 @@ function App() {
         <Route path="/service" element={<Service />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
-
-        {/* Additional routes */}
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/signIn" element={<SignIn />} />
-        <Route path="/staffdashboard/*" element={<StaffDashboard />} />
         <Route path="/accountRecovery" element={<AccountRecovery />} />
+
+        {/* Additional routes */}
+        <Route path="/staffdashboard/*" element={<StaffDashboard />} />
+        <Route path="/admindashboard/*" element={<AdminDashboard/>} />
       </Routes>
     </Router>
   );

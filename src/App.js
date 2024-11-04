@@ -7,7 +7,7 @@ import LogIssueForm from './components/LogIssueFormFolder/LogIssueForm';
 function App() {
   return (
       <div className="App">
-        <LogIssueForm />
+        <HeadDepartment />
       </div>
    
   );

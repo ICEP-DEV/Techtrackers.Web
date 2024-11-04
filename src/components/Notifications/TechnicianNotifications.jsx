@@ -5,11 +5,21 @@ import list from '../../images/list_icon.png';
 import profile from '../../images/profile_icon.png';
 import search from '../../images/search.png';
 import './NotificationsStyle.css';
+import { useNavigate } from "react-router-dom";
+import useIssues from "../All Issue and View Page/useIssues";
 
 const NotificationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('');
   const [sortOrder, setSortOrder] = useState('');
+
+  const { issues } = useIssues();
+
+  const navigate = useNavigate();
+
+  const handleIssueClick = (issue) => {
+    navigate(`/issues/${issue.id}`); // Pass the issue data
+  };
 
   const notifications = [
     {
@@ -152,13 +162,13 @@ const NotificationsPage = () => {
                 <p className="notification-issue">{notification.issue}</p>
               )}
               {notification.action && (
-                <p className="notification-action">{notification.action}</p>
+                <p className="notification-action"  onClick={() => navigate(`/collab`)}>{notification.action}</p>
               )}
             </div>
             <div className="notification-meta">
               <span className="notification-time">{notification.time}</span>
-              {notification.type !== 'resolution' && (
-                <button className="notification-view-button"> View</button>
+              {notification.type !== 'resolution' && notification.type !== 'collaboration' &&(
+                <button className="notification-view-button"  onClick={() => navigate(`/issues/${issues.issueId}`)}> View</button>
               )}
             </div>
           </div>

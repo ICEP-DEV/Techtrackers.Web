@@ -20,8 +20,9 @@ import TechnicianLiveChat from '../../components/TechnicianLiveChat/TechnicianLi
 import Table from "../../components/All Issue and View Page/Table";
 import IssueDetails from "../../components/All Issue and View Page/IssueDetails";
 import useIssues from "../../components/All Issue and View Page/useIssues";
-
-
+import IssueDetailsCollab from '../../components/CollaborationRequest/Table1';
+import Table1 from '../../components/CollaborationRequest/Table1';
+import IssueDetails1 from '../../components/CollaborationRequest/IssueDetails1';
 
 const TechnicianDashboard = () => {
   const { issues, setIssues } = useIssues();
@@ -42,9 +43,12 @@ const TechnicianDashboard = () => {
           <Route path="/tbl" element={<Table issues={issues} setIssues={setIssues} />} />
           <Route path="/issues/:issueId" element={<IssueDetails issues={issues} />} />
           <Route path="/liveChat" element={<TechnicianLiveChat/>} />
-          <Route path="/collaboration" element={<CollabMain />} />
+          {/* <Route path="/collaboration" element={<CollabMain />} /> */}
+          <Route path="/issue1/:issueId" element={<IssueDetailsCollab />} />
           <Route path="/reviews" element={<Ratings />} />
           
+          <Route path="/collab" element={<Table1 />} />
+          <Route path="/issue/:issueId" element={<IssueDetails1 />} />
           
         </Routes>
       </div>

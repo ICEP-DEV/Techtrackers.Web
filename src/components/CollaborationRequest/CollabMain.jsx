@@ -1,7 +1,7 @@
 // src/MainApp.jsx
 import React, { useState } from "react";
 import "./CollabMain.css";
-import Table from "./Table";
+import Table from "./Table1";
 
 const CollabMain = () => {
   const [sortConfig] = useState({ key: null, direction: null });

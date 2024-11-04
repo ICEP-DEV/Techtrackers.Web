@@ -62,7 +62,7 @@ const Sidebar = () => {
                     {isMenuOpen && <span>ALL ISSUES</span>}
                 </li>
 
-                <li onClick={() => handleOptionClick('collaboration')} className={`list ${selectedOption === 'collaboration' ? 'selected' : ''}`}>
+                <li onClick={() => handleOptionClick('collab')} className={`list ${selectedOption === 'collab' ? 'selected' : ''}`}>
                     <img src={collaborationRequests} alt="tech" className="sidebar-container-icon" />
                     {isMenuOpen && <span>COLLABORATION REQUESTS</span>}
                 </li>

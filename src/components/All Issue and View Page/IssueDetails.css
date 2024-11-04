@@ -3,11 +3,11 @@
   max-width: 800px; /* Ensures it doesn’t get too wide on large screens */
   margin: 20px auto;
   padding: 20px;
-  background-color: #f4ffff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
+
 .issue {
   display: flex;
   align-items: center;
@@ -23,13 +23,10 @@
 .issue-details-container .issue h2 {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: px;
+  margin-bottom: 0; /* Removed px to avoid error */
   color: #555;
 }
 
-.issue-details-container .issue-Title a {
-  margin-top: 50rel;
-}
 .issue-header {
   display: flex;
   justify-content: space-between;
@@ -50,26 +47,30 @@
   font-size: 14px;
   color: #666;
 }
+
 .issue-info .prio {
   display: flex;
-  justify-content: space-between; /* Aligns priority and date on opposite ends */
+  justify-content: space-between;
   align-items: center;
   margin-top: -1px;
   font-size: 14px;
   color: #666;
-  margin-right: 340px;
+  margin: right;
 }
 
 .issue-info .issue-date {
   margin-top: -1px;
+  margin-left: 300px;
   padding-top: 1px;
 }
+
 .priority-text {
   margin-top: 5px;
   margin-left: 25px;
   padding-left: 1px;
   padding-right: 1px;
 }
+
 .issue-requestor p {
   font-size: 14px;
   color: #888;
@@ -84,21 +85,7 @@
 .profile .name {
   margin-left: 10px;
 }
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-right: 10px;
-}
 
-.fa-user {
-  font-size: 30px;
-  background-color: #ccc;
-  margin-top: 7px;
-  margin-left: 12px;
-  color: white;
-}
 .name {
   font-size: 16px;
   font-weight: 600;
@@ -134,6 +121,7 @@
 .issue-details {
   margin-top: 30px;
 }
+
 .issue-details p {
   font-size: 16px;
   color: black;
@@ -153,16 +141,11 @@
   font-weight: bold;
   font-size: 20px;
 }
-.icon-description::before {
-  content: "\f03a"; /* Icon code */
-  font-family: FontAwesome;
-  margin-right: 8px;
-}
 
 .description-text {
   margin-bottom: 30px;
   line-height: 1.6;
-  color: #666;
+  color: #555;
   font-size: 14px;
 }
 
@@ -170,6 +153,7 @@
 .attachments {
   margin-top: -15px;
 }
+
 .attachments h3 {
   display: flex;
   align-items: center;
@@ -184,6 +168,7 @@
   font-size: 20px;
   color: black;
 }
+
 .attachment {
   display: flex;
   align-items: center;
@@ -204,12 +189,6 @@
   margin-left: 10px;
   margin-top: 15px;
 }
-.icon-file::before {
-  content: "\f15b"; /* FontAwesome file icon */
-  font-family: FontAwesome;
-  margin-right: 8px;
-  color: #666;
-}
 
 /* Additional Info */
 .additional-info {
@@ -224,10 +203,10 @@
 
 /* Status Section */
 .status {
-  display: flex;
+  display:flex;
   align-items: center;
-  justify-content: flex-end; /* Aligns the status to the right */
-  margin-right: -4px; /* Adjust as needed to match the desired position */
+  justify-content:right; /* Aligns the status to the right */
+  margin-top: 20px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -235,17 +214,13 @@
 .status p {
   margin: 0;
   color: #333;
-  margin-right: 72px;
+  margin-right: 10px; /* Adjust spacing as needed */
 }
 
 .status-text {
-  margin-left: 347px; /* Small space between "Status:" and the actual status text */
+  margin-left: 5px; /* Small space between "Status:" and the actual status text */
   color: #0a4d4d; /* Status color */
-  font-size: 16px;
   font-weight: bold;
-  padding-left: 1px;
-  padding-right: 1px;
-  margin-top: 8px;
 }
 
 .status-text.pending {
@@ -259,17 +234,24 @@
 .status-text.ongoing {
   color: orange;
 }
+
 /* Actions */
 .actions {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between the buttons */
+  align-items: center; /* Center items vertically */
+}
+.right-actions {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 20px;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-end; /* Align items to the right */
+  gap: 10px; /* Space between elements */
 }
 
-.accept-button,
-.decline-button {
-  padding: 14px 25px;
+
+.update-button,
+.close-button {  
+  padding: 9px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -278,39 +260,39 @@
   color: white;
   text-align: center;
   min-width: 50px;
-  margin: 0 -240px 0 32px;
+  justify-content: space-between;
+  
+}
+.invite-button {
+  padding: 9px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  min-width: 50px;
 }
 
 .close-button {
   padding: 9px 15px; /* Adjust padding for Close button */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
   background-color: #b02a37;
   transition: background-color 0.3s ease;
-  margin: 0 -230px 0 212px;
-  margin-bottom: 12px;
 }
 
-.accept-button {
+.invite-button {
   background-color: #007bff;
 }
 
-.decline-button {
-  background-color: #b02a37;
+.update-button {
+  background-color: #28a745;
+  padding: 9px 15px;
 }
 
-.close-button {
-  background-color: #b02a37;
-}
-
-.accept-button:hover,
-.decline-button:hover,
-.close-button:hover {
+.close-button:hover,
+.invite-button:hover,
+.update-button:hover {
   opacity: 0.9;
 }
 
@@ -331,14 +313,15 @@
   .status-text {
     margin-left: 320px;
   }
+
   .issue-info .prio {
     display: flex;
-    justify-content: space-between; /* Aligns priority and date on opposite ends */
+    justify-content: space-between;
     align-items: center;
     margin-top: 10px;
     font-size: 14px;
     color: #666;
-    margin-right: 250px;
+    margin-right: 340px;
   }
 
   .priority-text {
@@ -349,7 +332,7 @@
   }
 
   .close-button {
-    padding: 9px 15px; /* Adjust padding for Close button */
+    padding: 9px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -382,5 +365,280 @@
     padding: 10px;
     font-size: 12px;
     width: 100%;
+  }
+}
+/* Modal Overlay */
+.modal-overlay {
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically align to the bottom */
+  z-index: 1000;
+}
+/* Modal Content */
+.modal-content {
+  width: 80%; /* Width of the modal */
+  max-width: 350px; /* Maximum width */
+  background: white; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  margin-bottom: 20px; /* Space from the bottom */
+  padding: 20px;
+  text-align: center;
+}
+/* Specific Styles for Add Note Modal */
+.modal-content textarea {
+  width: 100%; /* Full width for textarea */
+  padding: 20px; /* Padding for textarea */
+  margin-bottom: 10px; /* Space below textarea */
+}
+/* Additional styling if needed */
+.modal-close {
+  cursor: pointer; /* Pointer cursor for close button */
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  background-color: #15959D;
+}
+.select-header {
+  margin-top: 10px; /* Spacing above the header */
+  font-weight: bold; /* Bold text */
+}
+/* Search Bar Styles */
+.search-bar {
+  flex: 1; /* Take available space */
+  margin-left: 5px; /* Spacing between heading and search bar */
+  padding: 5px; /* Padding inside the search bar */
+  border: 1px solid #ccc; /* Border for the search bar */
+  border-radius: 3px; /* Rounded corners */
+}
+.search-icon {
+  width: 10px; /* Adjust size as needed */
+  height: 10px; /* Adjust size as needed */
+}
+.technician-list {
+  max-height: 500px; /* Limit the height of the list */
+  overflow-y: hidden; /* Enable scrolling if the list exceeds the height */
+  margin-top: 10px; /* Space above the list */
+}
+
+.technician-container {
+  display:flex;
+  align-items: center;
+  padding: 10px; /* Add some padding */
+  margin: 5px 0; /* Add some margin */
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 5px; /* Rounded corners */
+  background: #EEF9F9;
+}
+.technician-container.selected {
+  transition: background-color 0.3s ease;
+}
+
+.technician-checkbox {
+  margin-right: 10px;
+}
+.technician-info {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Use full width for the technician info */
+}     
+.user-icon {
+  width: 40px; /* Icon size */
+  height: 40px;
+  margin-right: 10px; /* Space between icon and text */
+}
+.technician-info p {
+  margin: 0;
+}
+.technician-details {
+  flex: 1; /* Allow details to take up remaining space */
+}
+
+/* Success Message Overlay Styles */
+.success-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.success-message-wrapper {
+  display: flex; /* Flexbox for side-by-side layout */
+  align-items: center; /* Center items vertically */
+}
+/* Success Message Content Styles */
+.success-message-content {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Fixed width for the success message */
+  max-width: 90%; /* Responsive width */
+  text-align: center; /* Center text within */
+}
+.success-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tick-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px; /* Adjust spacing as needed */
+}
+
+.tick-icon {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  margin-bottom: 10px; /* Space below the icon */
+  align-items: right;
+}
+.ok-button {
+  background-color: #15959D; /* Button color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Space inside button */
+  cursor: pointer; /* Pointer cursor on hover */
+  align-self: center; /* Center button horizontally */
+}
+.ok-button:hover {
+  background-color: #15959D;
+}
+
+.ok-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.ok-button:active {
+  transform: scale(0.98);
+}
+.collab-header {
+  display: flex;
+  align-items: center; /* Center the items vertically */
+  margin-bottom: 15px; /* Space below the header */
+}
+.actions {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space out buttons */
+  align-items: center; /* Align vertically */
+  margin-top: 20px; /* Add some space above the actions */
+}
+
+.status {
+  /* Style for the status section */
+  text-align: center; /* Center text for better visibility */
+  flex: 1; /* Allow status to grow and take available space */
+}
+.statuses {
+  text-align: right; /* Align status text to the right */
+  margin-bottom: 10px; /* Space between status and buttons */
+}
+.status-text {
+  font-weight: bold;
+  font-size: 16px;
+  color: #0a4d4d; /* Status color */
+}
+
+/* Optional: additional styles for buttons */
+.update-button, .close-button {
+  margin-left: 10px; /* Add some space between buttons if needed */
+}
+
+.status-buttons {
+  display: flex; /* Flexbox for buttons */
+  gap: 10px; /* Space between buttons */
+}
+
+.right-actions {
+  display: flex; /* Make this a flex container */
+  flex-direction: row; /* Arrange items vertically */
+  align-items: flex-end; /* Align items to the right */
+}
+/* Optional: additional styles for buttons */
+.update-button,
+.close-button {
+  margin-left: 10px; /* Add some space between buttons if needed */
+}
+.toast-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Toast animations */
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+/* Collaboration Header Styles */
+.collab-header {
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Space between items */
+  margin-bottom: 15px; /* Spacing below the header */
+}
+/* Cancel Button Styling */
+.cancel-button {
+  background-color: #b02a37; /* Red background */
+  color: white; /* White text for contrast */
+  border: none;
+  border-radius: 5px;
+  padding: 9px 15px; /* Consistent padding */
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  min-width: 50px;
+  transition: background-color 0.3s ease;
+  position: absolute; /* Position within the modal */
+  bottom: 20px; /* Position at the bottom */
+  right: 20px; /* Align to the right side */
+}
+
+.cancel-button:hover {
+  background-color: #a02833; /* Darker red on hover */
+}
+
+.cancel-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-button:active {
+  transform: scale(0.98);
+}
+@media (max-width: 768px) {
+  .right-actions {
+    align-items: center;
   }
 }

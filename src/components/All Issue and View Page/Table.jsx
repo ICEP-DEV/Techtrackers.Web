@@ -1,13 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Header from "./TableHeader";
 import { sortAndFilterData } from "./Sort";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "./Table.css";
 
+
 // Include the list of issues and pass them from the parent component
 const Table = ({ issues, setIssues }) => {
   // issues and setIssues passed as props
-
+  const [isTableVisible, setIsTableVisible] = useState(true); // State to control table visibility
   const [sortConfig, setSortConfig] = React.useState({
     key: null,
     direction: null,
@@ -82,68 +83,80 @@ const Table = ({ issues, setIssues }) => {
     }
   };
 
-  return (
-    <div className="table-container">
-      <Header
-        handleSort={handleSortOption}
-        handleFilter={handleFilter}
-        handleSearch={handleSearch}
-      />
+  // Function to close the table
+  const handleClose = () => {
+    setIsTableVisible(false); // Set the table visibility to false
+  };
 
-      <table className="issue-table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("issueId")}>Issue ID</th>
-            <th onClick={() => handleSort("name")}>Name</th>
-            <th onClick={() => handleSort("title")}>Issue title</th>
-            <th onClick={() => handleSort("date")}>Date reported</th>
-            <th onClick={() => handleSort("department")}>Department</th>
-            <th onClick={() => handleSort("priority")}>Priority level</th>
-            <th onClick={() => handleSort("dueDate")}>Due Date</th>
-            <th>Action</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredAndSortedIssues.map((issue) => (
-            <tr key={issue.issueId}>
-              <td>{issue.issueId}</td>
-              <td>{issue.name}</td>
-              <td>{issue.title}</td>
-              <td>{issue.date}</td>
-              <td>{issue.department}</td>
-              <td>{issue.priority}</td>
-              <td>{issue.dueDate}</td>
-              <td>
-                {/* Add navigation to issue details when clicking the View button */}
-                <button
-                  className="view-button"
-                  onClick={() => navigate(`/issues/${issue.issueId}`)} // Navigate to IssueDetails page
-                >
-                  View
-                </button>
-              </td>
-              <td>
-                <div
-                  className="status"
-                  style={{
-                    color: getStatusColor(issue.status),
-                    display: "inline",
-                  }}
-                >
-                  {issue.status}
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="end-message">
-        <span id="table-span">You have reached the end</span>
-      </div>
-      <button className="close-button">CLOSE</button>
-    </div>
+  return (
+    <>
+      {isTableVisible && ( // Render the table only if isTableVisible is true
+        <div className="table-container">
+          <Header
+            handleSort={handleSortOption}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+          />
+
+          <table className="issue-table">
+            <thead>
+              <tr>
+                <th onClick={() => handleSort("issueId")}>Issue ID</th>
+                <th onClick={() => handleSort("name")}>Name</th>
+                <th onClick={() => handleSort("title")}>Issue title</th>
+                <th onClick={() => handleSort("date")}>Date reported</th>
+                <th onClick={() => handleSort("department")}>Department</th>
+                <th onClick={() => handleSort("priority")}>Priority level</th>
+                <th onClick={() => handleSort("dueDate")}>Due Date</th>
+                <th>Action</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredAndSortedIssues.map((issue) => (
+                <tr key={issue.issueId}>
+                  <td>{issue.issueId}</td>
+                  <td>{issue.name}</td>
+                  <td>{issue.title}</td>
+                  <td>{issue.date}</td>
+                  <td>{issue.department}</td>
+                  <td>{issue.priority}</td>
+                  <td>{issue.dueDate}</td>
+                  <td>
+                    {/* Add navigation to issue details when clicking the View button */}
+                    <button
+                      className="view-button"
+                      onClick={() => navigate(`/issues/${issue.issueId}`)} // Navigate to IssueDetails page
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td>
+                    <div
+                      className="status"
+                      style={{
+                        color: getStatusColor(issue.status),
+                        display: "inline",
+                      }}
+                    >
+                      {issue.status}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* End message with lines on either side */}
+          <div className="end-message">
+            <div className="line" />
+            <span id="table-span">You have reached the end</span>
+            <div className="line" />
+          </div>
+          <button className="close-button" onClick={handleClose}>CLOSE</button>
+        </div>
+      )}
+    </>
   );
 };
-
 export default Table;

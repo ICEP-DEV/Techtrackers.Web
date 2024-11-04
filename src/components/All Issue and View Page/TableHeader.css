@@ -67,9 +67,8 @@
   margin-top: 120px;
 }
 
-.filter-button,
-.sort-button {
-  background-color: #f4ffff;
+.filter-button1,
+.sort-button1 {
   border: none;
   padding: 10px;
   border-radius: 4px;
@@ -77,6 +76,13 @@
   margin-right: 60px;
   font-size: 16px;
   gap: 5px;
+  color: #1E1E1E;
+}
+
+.filter-button1:hover,
+.sort-button1:hover {
+  background-color: #0a4d4d;
+  color: #fff;
 }
 
 .filter-options {

@@ -45,7 +45,7 @@ const Sidebar = () => {
         <div className={`sidebar-container ${isMenuOpen ? 'open' : ''}`}>
             <div className="menu-icon" onClick={toggleMenu}>
                 {isMenuOpen && <span className="admin-name">Technician</span>}
-                <FaBars />
+                <FaBars className='icon-menu'/>
             </div>
             <ul>
                 <li onClick={() => handleOptionClick('dashboard')} className={`list ${selectedOption === 'dashboard' ? 'selected' : ''}`}>

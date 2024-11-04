@@ -25,7 +25,7 @@ const WelcomeTechnician = () => {
   });
 
   return (
-    <div className="main-content">
+    <div className="main-content1">
       {/* Top Container */}
       <div className="top-container">
         <h2 className='welcome-title'>WELCOME, TECHNICIAN!</h2>

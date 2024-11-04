@@ -80,7 +80,7 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
           <div className="filter-sort-container">
             {/* Filter Dropdown */}
             <div className="filter-dropdown-container" ref={filterDropdownRef}>
-              <button className="filter-button" onClick={toggleFilterDropdown}>
+              <button className="filter-button1" onClick={toggleFilterDropdown}>
                 <i className="fa-solid fa-filter" aria-hidden="true"></i> Filter
               </button>
               {showFilterDropdown && (
@@ -139,7 +139,7 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
 
             {/* Sort Dropdown */}
             <div className="sort-dropdown-container" ref={sortDropdownRef}>
-              <button className="sort-button" onClick={toggleSortDropdown}>
+              <button className="sort-button1" onClick={toggleSortDropdown}>
                 <i className="fa-solid fa-list" aria-hidden="true"></i> Sort
               </button>
               {showSortDropdown && (

@@ -25,8 +25,8 @@ function HeadDepartment() {
           <div className="content">
             <Routes>
               <Route path="/" element={<HODDashboard isSidebarOpen={isSidebarOpen} />} />
-              <Route path="/log-issue" element={<LogIssueForm />} />
-              {/* <Route path="/manage-logs" element={<ManageLogs />} />
+              {/*<Route path="/log-issue" element={<LogIssueForm />} />
+               <Route path="/manage-logs" element={<ManageLogs />} />
               <Route path="/generate-report" element={<GenerateReport />} />
               <Route path="/notifications" element={<Notifications />} /> */}
 

@@ -51,7 +51,7 @@ const Logissueform = () => {
     }
 
     // Constraction of LogDto
-    const logDto = {
+    /*const logDto = {
       Issue_Title: formValues.title,
       Category_ID: formValues.category,
       Department: formValues.department,
@@ -61,15 +61,26 @@ const Logissueform = () => {
       Location: formValues.location,
       AttachmentUrl: formValues.attachmentUrl ? formValues.attachmentUrl.name : null,
       Staff_ID: staffId, // I'll be passing staff ID from logged-in user(Staff)
-    };
+    };*/
+
+    const formData = new FormData();
+      formData.append("Issue_Title", formValues.title);
+      formData.append("Category_ID", formValues.category);
+      formData.append("Department", formValues.department);
+      formData.append("Description", formValues.description);
+      formData.append("Priority", formValues.priority);
+      formData.append("Created_at", formValues.date);
+      formData.append("Location", formValues.location);
+      formData.append("Staff_ID", staffId);
+
+      if (formValues.attachmentUrl) {
+        formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
+      }
 
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(logDto),
+        body: formData,
       });
 
       if (response.ok) {

@@ -8,7 +8,10 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        const response = await fetch('https://localhost:44328/api/Log/GetLogs');
+        const userInfo = JSON.parse(localStorage.getItem('user_info'));
+        const userId = userInfo ? userInfo.userId : null;
+
+        const response = await fetch(`https://localhost:44328/api/Log/GetLogs?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched logs:', data); // Log the fetched data for debugging
@@ -44,14 +47,13 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         </thead>
         <tbody>
           {issues.map((issue) => (
-            <tr key={issue.logId}>
+            <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
               <td>{issue.categoryName}</td>
               <td>{issue.assignedTo || "Unassigned"}</td>
               <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
-              <td>{issue.status}</td>
               {/* Check if issue.log_Status exists before calling toLowerCase() */}
               <td>
                 <span className={`status ${issue.status ? issue.status.toLowerCase() : 'unknown'}`}>

@@ -89,7 +89,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
             <div className="issue-in-fo">
                 <div className="in-fo-group">
                     <p>Department - {issue.department}</p>
-                    <p>Building 18 - 2nd Floor</p>
+                    <p>{issue.Location}</p>
                 </div>
                 <div className="in-fo-group">
                     <p>Priority: <span className={`prioritx ${issue.priority.toLowerCase()}`}>{issue.priority}</span></p>
@@ -115,7 +115,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 <div className="attachment-modal">
                     <div className="attachment-modal-content">
                         <span className="close-modal" onClick={closeAttachment}>&times;</span>
-                        <img src={brokenPrinter} alt="Attachment" className="attachment-image" />
+                        <img src={issue.AttachmentUrl} alt="Attachment" className="attachment-image" />
                     </div>
                 </div>
             )}

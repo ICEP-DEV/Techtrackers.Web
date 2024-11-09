@@ -62,6 +62,11 @@ const Logissueform = () => {
       AttachmentUrl: formValues.attachmentUrl ? formValues.attachmentUrl.name : null,
       Staff_ID: staffId, // I'll be passing staff ID from logged-in user(Staff)
     };*/
+    const fullLocation = formValues.location 
+    ? formValues.buildingNumber 
+      ? `${formValues.location}-${formValues.buildingNumber}`
+      : formValues.location
+    : "Location not specified";
 
     const formData = new FormData();
       formData.append("Issue_Title", formValues.title);
@@ -70,7 +75,7 @@ const Logissueform = () => {
       formData.append("Description", formValues.description);
       formData.append("Priority", formValues.priority);
       formData.append("Created_at", formValues.date);
-      formData.append("Location", formValues.location);
+      formData.append("Location", fullLocation);
       formData.append("Staff_ID", staffId);
 
       if (formValues.attachmentUrl) {
@@ -93,6 +98,7 @@ const Logissueform = () => {
           description: '',
           date: new Date().toISOString().split('T')[0],
           location: '',
+          buildingNumber: '',
           attachmentUrl: null,
         });
         toast.success("Log submitted successfully!");
@@ -220,6 +226,22 @@ const Logissueform = () => {
               <option>Remote Site</option>
             </select>
             {errors.location && <p className="error-message">{errors.location}</p>}
+          </div>
+          <div className='box'>
+            <label>Building Number</label>
+            <select
+              name="buildingNumber"
+              value={formValues.buildingNumber}
+              onChange={handleChange}
+            >
+              <option value="">Select Building Number</option>
+              <option value="G45H">G45H</option>
+              <option value="F23B">F23B</option>
+              <option value="D12C">D12C</option>
+              <option value="A1">A1</option>
+              <option value="B2">B2</option>
+              {/* Add more building numbers as needed */}
+            </select>
           </div>
         </div>
 

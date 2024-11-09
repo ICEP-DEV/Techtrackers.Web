@@ -102,7 +102,50 @@
   .log-issue-form .box {
     width: 45%;
   }
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
   
+  .box {
+    flex: 1;
+    margin-right: 20px; /* Adds spacing between the fields */
+  }
+  
+  .box:last-child {
+    margin-right: 0; /* Removes margin for the last item */
+  }
+  
+  .box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .box select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+  }
+  
+  .form-ctrl,
+  .box select {
+    height: 40px; /* Controls the height of the input and select boxes */
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .file-input-wrapper {
+    margin-bottom: 20px;
+  }
   .log-issue-form textarea {
     width: 100%;
     padding: 10px;

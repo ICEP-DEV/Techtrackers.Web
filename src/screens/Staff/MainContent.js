@@ -38,7 +38,6 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
           <tr>
             <th>Issue ID</th>
             <th>Issue title</th>
-            <th>Assigned to</th>
             <th>Date reported</th>
             <th>Department</th>
             <th>Priority level</th>
@@ -50,8 +49,9 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
             <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
               <td>{issue.categoryName}</td>
-              <td>{issue.assignedTo || "Unassigned"}</td>
-              <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
+              <td>
+                {new Date(issue.issuedAt).toLocaleDateString()} {new Date(issue.issuedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               {/* Check if issue.log_Status exists before calling toLowerCase() */}

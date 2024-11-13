@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LogIssueForm.css"; // Importing the CSS file
 
-function LogIssueForm() {
+function LogIssueForm({ isSidebarOpen }) { // Receive isSidebarOpen as a prop
   const [formData, setFormData] = useState({
     issueTitle: "",
     category: "",
@@ -65,7 +65,9 @@ function LogIssueForm() {
   };
 
   return (
-    <div className="form-container">
+    <div
+      className={`form-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
+    >
       <h2 className="form-header">
         <span className="form-icon">+</span> LOG ISSUE
       </h2>

@@ -1,14 +1,25 @@
 /* Container styling */
 .form-container {
   background-color: #d3d3d3;
-  padding: 20px;
-  max-width: 800px;
+  padding: 50px 30px;
+  max-width: 1200px;
   margin: auto;
   border-radius: 8px;
   font-family: Arial, sans-serif;
-  margin-top: 90px;
-
+  margin-top: 50px;
+  margin-right: 8%;
+  transition: margin-left 0.2s ease; /* Smooth transition for dynamic margin */
 }
+
+/* Adjusting margin-left for when sidebar is toggled */
+.form-container.sidebar-open {
+  margin-left: 250px; /* Adjust based on your sidebar width */
+}
+
+.form-container.sidebar-closed {
+  margin-left: 80px; /* Adjust based on your sidebar width when closed */
+}
+
 
 /* Error message styling */
 .error-message {

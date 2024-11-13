@@ -4,14 +4,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import './LiveChatStyle.css';
 import ProfileIcon from './icons/profile_icon.png';
 import AttachmentIcon from './icons/attachment_icon.png';
+import { useNavigate } from "react-router-dom";
 
 function TechncianAdminChat() {
     const technicianName = "Samuel Mahlangu"; 
     const [text, setText] = useState('');
     const [chatLog, setChatLog] = useState([
-        { text: "Hello, what time will you come to check the issue with ny computer?", sender: "Technician", time: "10:00" }
+        { text: "Hello, what time will you come to check the issue with my computer?", sender: "Technician", time: "10:00" }
     ]);
     const fileInputRef = useRef(null);
+
+    const navigate = useNavigate();
+    
+    const handleCancelBtn= () => {
+        navigate(-1);
+    }
 
     const handleSendText = () => {
         if (text.trim() !== '') {
@@ -41,7 +48,10 @@ function TechncianAdminChat() {
     return (
         <div className="main-container-chat">
             <div className="chat-container">
-                <h4 className="technician-name"><img src={ProfileIcon} alt="Profile" height={45}/> {technicianName}</h4>
+                <div className="chat-header">
+                    <div id='name'><h4 className="technician-name"><img src={ProfileIcon} alt="Profile" height={45}/> {technicianName}</h4></div>
+                    <div id='icon' onClick={handleCancelBtn}><i className="fa-solid fa-xmark"></i></div>
+                </div>
                 <div className="chat-box">
                     <div className="texts">
                         {chatLog.map((msg, index) => (

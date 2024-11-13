@@ -72,9 +72,9 @@ const Table = ({ issues, setIssues }) => {
     switch (status) {
       case "Pending":
         return "rgb(174, 0, 0)";
-      case "Ongoing":
-        return "#bfa829";
-      case "Done":
+      case "InProgress":
+        return "#E99A40";
+      case "Resolved":
         return "green";
       case "On Hold":
         return "#0a4d4d";
@@ -85,7 +85,7 @@ const Table = ({ issues, setIssues }) => {
 
   // Function to close the table
   const handleClose = () => {
-    setIsTableVisible(false); // Set the table visibility to false
+    navigate('/dashboard');
   };
 
   return (

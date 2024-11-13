@@ -43,6 +43,7 @@ body {
   background-color: transparent;
   cursor: pointer;
   font-size: 16px;
+  color: #353434;
 }
 
 .collab-table {
@@ -81,9 +82,10 @@ body {
   width: 2px;
   height: 40px;
   background-color: rgb(143, 143, 190);
-  margin-right: 10px;
+  /* margin-right: 10px; */
   margin-top: 5px;
 }
+
 
 .collab-profile-icon {
   width: 50px;
@@ -95,6 +97,7 @@ body {
 
 .collab-details {
   margin-right: auto;
+  cursor: pointer;
 }
 
 .collab-name {
@@ -131,24 +134,24 @@ body {
 
 .collab-issue-title {
   font-size: 0.85em;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   color: #555;
-  margin-left: 12px;
+  /* margin-left: 12px; */
   width: 300px;
-  cursor: pointer;
+  /* cursor: pointer; */
   border: none;
-  background-color: #f0f8f8;
+  /* background-color: #f0f8f8; */
 }
 
-.collab-issue-title:hover {
-  background-color: #d4f0f0;
+.collab-details:hover {
+  color: #349286;
 }
 .collab-issue-details {
-  font-size: 0.8em;
+  font-size: 0.99em;
   color: #777;
-  margin-left: 12px;
-  margin-top: 5px;
-  text-align: right;
+  /* margin-left: 12px; */
+  /* margin-top: 5px; */
+  /* text-align: right; */
 }
 
 .collab-issue-na {
@@ -163,6 +166,7 @@ body {
   border: none;
   background-color: #f0f8f8;
   font-size: 17px;
+  color: #353434;
 }
 .collab-sort-dropdown-container {
   position: relative;

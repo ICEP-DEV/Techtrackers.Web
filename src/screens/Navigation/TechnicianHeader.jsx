@@ -60,6 +60,7 @@ const TechnicianHeader = ({ onLogout }) => {
                     <span className={styles.reminderCount}>3</span> {/* Red circle with number */}
                 </button>
 
+                <div className='profile-btn'>
                 <button 
                     id="profile-button" 
                     onClick={toggleDropdown}
@@ -69,7 +70,7 @@ const TechnicianHeader = ({ onLogout }) => {
                     {user ? `${user.name} ${user.surname}` : 'Technician Name'}
                     <ChevronDown />
                 </button>
-
+                </div>
                 {isDropdownOpen && (
                     <div className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.open : ''}`}>
                         <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>

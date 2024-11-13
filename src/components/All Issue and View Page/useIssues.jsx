@@ -20,7 +20,7 @@ const useIssues = () => {
       department: "HR",
       priority: "High",
       dueDate: "19/08/2024",
-      status: "Ongoing",
+      status: "InProgress",
     },
     {
       issueId: "IT-P1-1222",
@@ -30,7 +30,7 @@ const useIssues = () => {
       department: "IT",
       priority: "High",
       dueDate: "15/08/2024",
-      status: "Ongoing",
+      status: "InProgress",
     },
     {
       issueId: "FI-P2-1223",
@@ -50,7 +50,7 @@ const useIssues = () => {
       department: "HR",
       priority: "Low",
       dueDate: "02/08/2024",
-      status: "Done",
+      status: "Resolved",
     },
     {
       issueId: "IT-P2-1225",
@@ -60,7 +60,7 @@ const useIssues = () => {
       department: "IT",
       priority: "Medium",
       dueDate: "28/07/2024",
-      status: "Done",
+      status: "Resolved",
     },
     {
       issueId: "F1-P1-1226",
@@ -70,7 +70,7 @@ const useIssues = () => {
       department: "Finance",
       priority: "High",
       dueDate: "19/07/2024",
-      status: "Done",
+      status: "Resolved",
     },
     {
       issueId: "PR-P3-1227",
@@ -80,7 +80,7 @@ const useIssues = () => {
       department: "Public Relations",
       priority: "Low",
       dueDate: "05/07/2024",
-      status: "Done",
+      status: "Resolved",
     },
   ]);
 

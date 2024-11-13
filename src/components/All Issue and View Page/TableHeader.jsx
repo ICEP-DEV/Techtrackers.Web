@@ -99,9 +99,9 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
                     <select onChange={(e) => setFilterValue(e.target.value)}>
                       <option value="">Select Status</option>
                       <option value="Pending">Pending</option>
-                      <option value="Ongoing">Ongoing</option>
+                      <option value="InProgress">In Progress</option>
                       <option value="On Hold">On Hold</option>
-                      <option value="Done">Done</option>
+                      <option value="Resolved">Resolved</option>
                     </select>
                     <button onClick={() => setFilterType("status")}>
                       Apply

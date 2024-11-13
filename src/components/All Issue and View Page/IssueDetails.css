@@ -253,11 +253,11 @@
   color: red;
 }
 
-.status-text.done {
+.status-text.resolved {
   color: green;
 }
 
-.status-text.ongoing {
+.status-text.inprogress {
   color: orange;
 }
 
@@ -312,7 +312,7 @@
 }
 
 .update-button {
-  background-color: #28a745;
+  background-color: #1B78CE;
   padding: 9px 15px;
 }
 

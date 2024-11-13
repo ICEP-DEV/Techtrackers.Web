@@ -1,6 +1,7 @@
 .main-container-chat{
     background-color: #EEF9F9;
-    margin: 50px;
+    max-width: 70%;
+    margin: auto;
     /* max-height: 90vh; */
 }
 
@@ -9,9 +10,26 @@
     padding: 20px;
     width: 80%;
     margin: auto;
-    height: 95vh;
+    height: 85vh;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#icon {
+    color: #15959D;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#icon:hover {
+    color: #71a9ad;
+}
+
 
 .technician-name {
     color: rgb(0, 0, 0);
@@ -23,7 +41,7 @@
     flex-direction: column;
     background-color: #EEF9F9;
     border-radius: 4px;
-    height: 75vh;
+    height: 60vh;
     padding: 10px; 
 }
 

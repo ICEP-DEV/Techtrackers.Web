@@ -8,6 +8,7 @@ import LogIssueForm from './LogIssueFormFolder/LogIssueForm'
 // import ManageLogs from './components/ManageLogs';
 // import GenerateReport from './components/GenerateReport';
 // import Notifications from './components/Notifications';
+import MainContent from './MainContent';
 
 function HeadDepartment() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -29,7 +30,7 @@ function HeadDepartment() {
                <Route path="/manage-logs" element={<ManageLogs />} />
               <Route path="/generate-report" element={<GenerateReport />} />
               <Route path="/notifications" element={<Notifications />} /> */}
-
+              <Route path="/all-issues" element={<MainContent isSidebarOpen={isSidebarOpen}/>} />
 
 
             </Routes>

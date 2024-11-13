@@ -38,8 +38,12 @@ const IssueDetails = ({ issues }) => {
       setShowModal(true);
   };
   // Handle the Close button click
-  const handleClose = () => {
-    navigate("/tbl"); // Navigate to the table route
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1); // Go to the previous page in history
+    } else {
+      navigate("/tbl"); // Default to a specific route if no previous page
+    }
   };
 
   const handleCollabArrowClick = () => {
@@ -134,7 +138,7 @@ const handleNoteSubmit = () => {
 
         {/* Issue Priority and Date */}
         <div className="issue-info">
-          <div className="prio">
+          <div className="prio1">
             <p>
               Priority:{" "}
               <span
@@ -149,9 +153,10 @@ const handleNoteSubmit = () => {
                 {issue.priority.toUpperCase()}
               </span>
             </p>
+            <div className="date-issue">
+            <p className="issue-date">{issue.date}</p>
+            </div>
           </div>
-
-          <p className="issue-date">{issue.date}</p>
         </div>
       </div>
 
@@ -187,12 +192,7 @@ const handleNoteSubmit = () => {
         <p>Building 18 - 2nd Floor</p>
       </div>
 
-      <div className="actions">
-  <button className="invite-button" onClick={handleInviteClick}>
-    Invite
-  </button>
-  <div className="right-actions">
-    <div className="statuses">
+      <div className="statuses">
       <h3>Status:</h3>
       <p>
         <span className={`status-text ${issue.status.toLowerCase()}`}>
@@ -200,12 +200,19 @@ const handleNoteSubmit = () => {
         </span>
       </p>
     </div>
+
+      <div className="actions1">
+  <button className="invite-button" onClick={handleInviteClick}>
+    Invite
+  </button>
+  <div className="right-actions">
+   
     <div className="button-container">
-      <button className="close-button" onClick={handleClose}>
-        Close
-      </button>
       <button className="update-button" onClick={handleUpdateClick}>
         Update
+      </button>
+      <button className="close-button1" onClick={handleBack}>
+        Close
       </button>
     </div>
   </div>

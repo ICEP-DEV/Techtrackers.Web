@@ -30,25 +30,28 @@
 .issue-header {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+  flex-wrap: wrap;
   margin-top: -30px;
+  align-items: center;
 }
+
+/* .issue-requestor {
+  flex: 1; 
+  margin-top: 10px;
+} */
 
 .issue-requestor {
-  flex: 1; /* Both sides take equal width */
-  margin-top: 10px;
-}
-
-.issue-info {
   display: flex;
-  justify-content: space-between; /* Aligns priority and date on opposite ends */
-  align-items: center;
+  float: left;
+  flex-direction: column;
+  /* justify-content: space-between;  */
+  /* align-items: center; */
   margin-top: 10px;
-  font-size: 14px;
-  color: #666;
+  /* font-size: 14px;
+  color: #666; */
 }
 
-.issue-info .prio {
+/* .issue-info .prio {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,7 +65,30 @@
   margin-top: -1px;
   margin-left: 300px;
   padding-top: 1px;
+  text-align: center;
+} */
+
+.issue-info {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Evenly spaces the content */
 }
+
+.prio1 {
+  display: flex;
+  align-items: center;
+  margin-right: 0; /* Ensures no extra space on the right */
+}
+
+
+.priority-text {
+  margin-right: 10px; /* Add some space between the priority text and date */
+}
+
+.date-issue {
+  margin-left: 250px; /* Pushes the date to the right */
+}
+
 
 .priority-text {
   margin-top: 5px;
@@ -236,7 +262,7 @@
 }
 
 /* Actions */
-.actions {
+.actions1 {
   display: flex; /* Use flexbox for layout */
   justify-content: space-between; /* Space between the buttons */
   align-items: center; /* Center items vertically */
@@ -250,7 +276,7 @@
 
 
 .update-button,
-.close-button {  
+.close-button1 {  
   padding: 9px 15px;
   border: none;
   border-radius: 5px;
@@ -264,25 +290,25 @@
   
 }
 .invite-button {
-  padding: 9px 15px;
+  padding: 20px 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
   color: white;
   text-align: center;
   min-width: 50px;
 }
 
-.close-button {
+.close-button1 {
   padding: 9px 15px; /* Adjust padding for Close button */
   background-color: #b02a37;
   transition: background-color 0.3s ease;
 }
 
 .invite-button {
-  background-color: #007bff;
+  background-color: #15959D;
 }
 
 .update-button {
@@ -290,7 +316,7 @@
   padding: 9px 15px;
 }
 
-.close-button:hover,
+.close-button1:hover,
 .invite-button:hover,
 .update-button:hover {
   opacity: 0.9;
@@ -331,7 +357,7 @@
     padding-right: 1px;
   }
 
-  .close-button {
+  .close-button1 {
     padding: 9px 15px;
     border: none;
     border-radius: 5px;
@@ -549,9 +575,14 @@
   flex: 1; /* Allow status to grow and take available space */
 }
 .statuses {
-  text-align: right; /* Align status text to the right */
+  display: flex;
+  flex-direction: row;
+  /* text-align: right; */
   margin-bottom: 10px; /* Space between status and buttons */
+  justify-content: flex-end;
+  align-items: center;
 }
+
 .status-text {
   font-weight: bold;
   font-size: 16px;
@@ -575,7 +606,7 @@
 }
 /* Optional: additional styles for buttons */
 .update-button,
-.close-button {
+.close-button1 {
   margin-left: 10px; /* Add some space between buttons if needed */
 }
 .toast-message {

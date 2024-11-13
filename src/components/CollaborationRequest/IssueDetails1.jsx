@@ -68,7 +68,7 @@ const IssueDetails = () => {
       <div className="actions">
         <button className="accept-button">Accept</button>
         <button className="decline-button">Decline</button>
-        <button className="close-button" onClick={handleClose}>
+        <button className="close-button2" onClick={handleClose}>
           Close
         </button>
       </div>

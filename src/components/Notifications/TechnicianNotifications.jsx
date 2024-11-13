@@ -26,34 +26,40 @@ const NotificationsPage = () => {
       id: 1,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
-      content: 'has assigned you to a new logged issue',
-      subject: 'John Doe',
+      content: 'has assigned you to issue',
+      staffName: 'John Doe',
       issue: 'Internal Issue: Server Downtime in Data Center',
+      issueId: 'IT-P1-1220',
       time: '12:18',
     },
     {
       id: 2,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
-      content: 'has assigned you to a new logged issue',
-      subject: 'Themba Zwane',
+      content: 'has assigned you to issue',
+      staffName: 'Themba Zwane',
       issue: 'Access Issue: Unable to log into HR Portal',
+      issueId: 'HR-P1-1221',
       time: '12:16',
     },
     {
       id: 3,
       type: 'resolution',
-      sender: 'Andile Zondo',
-      content: 'confirmed their log issue as resolved',
+      sender: 'Mike Jones',
+      content: 'confirmed issue ',
+      status: 'resolved',
+      issueId: 'IT-P2-1225',
       time: 'Yesterday',
     },
+
     {
       id: 4,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
-      content: 'has assigned you to a new logged issue',
-      subject: 'Andile Zondo',
+      content: 'has assigned you to issue',
+      staffName: 'Andile Zondo',
       issue: 'Connectivity Issue',
+      issueId: 'FI-P2-1223',
       time: '2024-08-18',
     },
     {
@@ -87,10 +93,9 @@ const NotificationsPage = () => {
     // Handle full date strings in standard formats
     return new Date(timeString);
   };
-  
 
   const filteredNotifications = notifications.filter(notification => {
-    const fullContent = `${notification.sender} ${notification.content} ${notification.subject || ''} ${notification.issue || ''}`.toLowerCase();
+    const fullContent = `${notification.sender} ${notification.content} ${notification.staffName || ''} ${notification.issue || ''}`.toLowerCase();
     return fullContent.includes(searchQuery.toLowerCase()) && 
            (filterType ? notification.type === filterType : true);
   });
@@ -106,6 +111,17 @@ const NotificationsPage = () => {
     }
     return 0;
   });
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'resolved':
+        return 'green';
+      case 'unresolved':
+        return 'red';
+      default:
+        return 'black'; // Default color if no status is provided
+    }
+  };
 
   return (
     <div className="notifications-container">
@@ -153,22 +169,32 @@ const NotificationsPage = () => {
             <div className="notification-content">
               <p className="notification-sender">
                 {notification.sender}{' '}
-                <span className="notification-message">{notification.content}</span>
+                <span className="notification-message">
+                  {notification.content}{' '}
+                  {notification.issueId && <span><strong>{notification.issueId}</strong></span>}
+                  {notification.status && (
+                    <span style={{ color: getStatusColor(notification.status) }}>
+                      { <strong> as {notification.status}</strong>}
+                    </span>
+                  )}
+                </span>
               </p>
-              {notification.subject && (
-                <p className="notification-subject">{notification.subject}</p>
+              {notification.staffName && (
+                <p className="notification-staffName">{notification.staffName}</p>
               )}
               {notification.issue && (
                 <p className="notification-issue">{notification.issue}</p>
               )}
               {notification.action && (
-                <p className="notification-action"  onClick={() => navigate(`/collab`)}>{notification.action}</p>
+                <p className="notification-action" onClick={() => navigate(`/collab`)}>{notification.action}</p>
               )}
             </div>
             <div className="notification-meta">
               <span className="notification-time">{notification.time}</span>
-              {notification.type !== 'resolution' && notification.type !== 'collaboration' &&(
-                <button className="notification-view-button"  onClick={() => navigate(`/issues/${issues.issueId}`)}> View</button>
+              {notification.type !== 'resolution' && notification.type !== 'collaboration' && (
+                <button className="notification-view-button" onClick={() => navigate(`/issues/${notification.issueId}`)}>
+                  View
+                </button>
               )}
             </div>
           </div>

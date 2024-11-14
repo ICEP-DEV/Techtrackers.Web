@@ -4,7 +4,7 @@ import React from "react";
 import IssueRow from "./IssueRow";
 import './ManageLogs.css';
 
-const ManageLogs = () => {
+const ManageLogs = ({isSidebarOpen}) => {
   const logs = [
     { id: "HR-P3-1250", title: "Unable to login", priority: "High", assignedTo: "Themba Zwane", loggedDate: "25-08-2024" },
     { id: "HR-P1-1252", title: "Replace faulty network switch in Data Center", priority: "High", assignedTo: "Lunga Ntshingila", loggedDate: "25-08-2024" },
@@ -13,7 +13,7 @@ const ManageLogs = () => {
   ];
 
   return (
-    <div className="manage-logs-container">
+    <div className={`manage-logs-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <h1>Manage Logs</h1>
     
       <table className="logs-table">

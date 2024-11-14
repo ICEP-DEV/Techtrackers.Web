@@ -462,7 +462,7 @@
   display:flex;
   align-items: center;
   padding: 10px; /* Add some padding */
-  margin: 5px 0; /* Add some margin */
+  margin: 5px 0;
   border: 1px solid #ccc; /* Default border */
   border-radius: 5px; /* Rounded corners */
   background: #EEF9F9;
@@ -471,8 +471,15 @@
   transition: background-color 0.3s ease;
 }
 
+.technician-container p{
+  font-size: 14px;
+  margin-left:6px;
+  display: flex;
+}
+
 .technician-checkbox {
   margin-right: 10px;
+  width: 20px;
 }
 .technician-info {
   display: flex;

@@ -30,7 +30,7 @@ const IssueDetails = () => {
     <div className="issue-details-container">
       {/* Issue Title */}
       <div className="issue">
-        <h2>Internal Issue: {issue.title}</h2>
+        <h2>Issue Title: {issue.issueTitle}</h2>
         <a href="">
           <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat}/>
         </a>

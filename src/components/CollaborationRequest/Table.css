@@ -4,7 +4,7 @@ body {
 }
 
 .collab-table-container {
-  width: 60%;
+  width: 70%;
   margin: 50px auto;
 }
 
@@ -12,7 +12,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px;
 }
 
 .collab-header-title {
@@ -20,6 +20,7 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .collab-header-title .icon {
@@ -155,8 +156,11 @@ body {
 }
 
 .collab-issue-na {
-  margin-left: -215px;
+  margin-left:6px;
+  display: flex;
+  font-weight: 550;
 }
+
 .collab-time {
   margin-right: 20px;
   color: gray;

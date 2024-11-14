@@ -77,12 +77,9 @@ const Table = () => {
   {/* Header */}
   <div className="collab-header">
     <div className="collab-header-title">
-      <img src={CollaIcon} width="30" height="30" alt="Collaboration Icon" /> COLLABORATION REQUESTS
+      <img src={CollaIcon} width="40" height="30" alt="Collaboration Icon" /> COLLABORATION REQUESTS
     </div>
     <div className="collab-header-actions">
-      <button className="collab-archived">
-        <h2>Archived</h2>
-      </button>
       <div className="collab-filter-container" ref={filterRef}>
         <button
           className="collab-header-btn"

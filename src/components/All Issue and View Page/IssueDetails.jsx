@@ -226,7 +226,7 @@ const handleNoteSubmit = () => {
                 &times;
             </button>
             <div className="collab-header">
-                <h3 style={{ margin: 0 }}>Collaborate with:</h3>
+                <h5 style={{ margin: 0 }}>Collaborate with:</h5>
                 <input
                     type="text"
                     placeholder="Search for a technician..."

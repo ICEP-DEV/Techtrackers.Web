@@ -4,15 +4,25 @@
   font-family: Arial, sans-serif;
   background-color: #eaf0f1;
   padding: 5%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
-  margin-top: 70px;
+  margin-top: 50px;
   border-radius: 8px;
+  transition: margin-left 0.2s ease; /* Smooth transition for dynamic margin */
+
+}
+/* Adjusting margin-left for when sidebar is toggled */
+.manage-logs-container.sidebar-open {
+  margin-left: 250px; /* Adjust based on your sidebar width */
+}
+
+.manage-logs-container.sidebar-closed {
+  margin-left: 80px; /* Adjust based on your sidebar width when closed */
 }
 
 h1 {
   font-size: 24px;
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 

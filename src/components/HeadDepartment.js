@@ -4,6 +4,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import HODDashboard from './HODDashboard';
 import LogIssueForm from './LogIssueFormFolder/LogIssueForm';
+import ManageLogs from './ManageLogsFolder/ManageLogs';
 
 function HeadDepartment() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -22,6 +23,7 @@ function HeadDepartment() {
             <Routes>
               <Route path="/" element={<HODDashboard isSidebarOpen={isSidebarOpen} />} />
               <Route path="/log-issue" element={<LogIssueForm isSidebarOpen={isSidebarOpen} />} />
+              <Route path="/manage-logs" element={<ManageLogs isSidebarOpen={isSidebarOpen} />} />
             </Routes>
           </div>
         </div>

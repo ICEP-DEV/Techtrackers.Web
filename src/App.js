@@ -7,7 +7,7 @@ import ManageLogs from './components/ManageLogsFolder/ManageLogs';
 function App() {
   return (
       <div className="App">
-        <ManageLogs />
+        <HeadDepartment />
       </div>
    
   );

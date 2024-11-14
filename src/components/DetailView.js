@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Paperclip, MoreVertical, MessageCircle } from "lucide-react";
-//import LiveChat from "./LiveChat";
+import { Paperclip, MessageCircle } from "lucide-react";
+import LiveChat from "./LiveChat";
 import styles from "./HOD styles/DetailView.module.css";
 
-
-function DetailView({ log, onBack }) {
+function DetailView({ log, onBack, isSidebarOpen }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [actionType, setActionType] = useState(null);
@@ -61,20 +60,7 @@ function DetailView({ log, onBack }) {
     }
 
     return (
-
       <div className={styles["action-buttons"]}>
-        <button
-          className={styles["close-button"]}
-          onClick={() => handleOpenPopup("close")}
-        >
-          CLOSE
-        </button>
-        <button
-          className={styles["reopen-button"]}
-          onClick={() => handleOpenPopup("reopen")}
-        >
-          RE-OPEN
-        </button>
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
@@ -83,7 +69,11 @@ function DetailView({ log, onBack }) {
   };
 
   return (
-    <div className={styles["dashboard-container"]}>
+    <div
+      className={`${styles["dashboard-container"]} ${
+        isSidebarOpen ? styles["sidebar-open"] : styles["sidebar-closed"]
+      }`}
+    >
       <div className={styles["detail-header"]}>
         <h2>{log.title}</h2>
         <div className={styles["header-actions"]}>
@@ -216,7 +206,7 @@ function DetailView({ log, onBack }) {
           </>
         )}
       </div>
-      
+      {isChatOpen && <LiveChat onClose={handleCloseLiveChat} />}
 
       {isPopupVisible && (
         <div className={styles["popup-overlay"]}>

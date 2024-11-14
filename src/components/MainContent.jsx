@@ -1,40 +1,25 @@
-// Table.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import DetailView from './DetailView';
+import DetailView from './DetailView'; // Ensure you have the correct path
 import styles from './HOD styles/Table.module.css';
 import './HOD styles/AllIssues.css';
 import { Clock } from "lucide-react";
+import FiltIcon from './HODIcons/FiltIcon.png';
+import SortIcon from './HODIcons/SortIcon.png';
 
-const IssueTableHeader = () => (
-  <div className={styles.headerContainer}>
-    <header className={styles.header}>
-      <div className={styles.headerLeft}>
-        <i className="fa-regular fa-clock" aria-hidden="true" aria-label="Clock Icon"></i>
-        <div className={styles.headerText}>
-          <h2>My Issues</h2>
-        </div>
-      </div>
-    </header>
-  </div>
-);
-
-const Table = () => {
-  // Constant Issues Data (Could be from useIssues hook or static data)
-  const issues = [
+const Table = ({ isSidebarOpen }) => {
+  const issuesData = [
     {
-      issueId: "IT-P2-1234",
+      issueId: "HR-P2-1234",
       name: "Excellent Nambane",
       title: "Internal Issue",
       description: "System error affecting multiple internal applications.",
       date: "19/08/2024",
-      department: "IT Department",
+      department: "Human Resources (HR)",
       priority: "Medium",
       assigned: "None",
       status: "Pending",
-      attachments: [
-        { filename: "error_screenshot.png", imageUrl: "/path/to/error_screenshot.png" },
-      ],
+      attachments: [{ filename: "error_screenshot.png", imageUrl: "/path/to/error_screenshot.png" }],
     },
     {
       issueId: "HR-P3-1235",
@@ -46,9 +31,7 @@ const Table = () => {
       priority: "High",
       assigned: "Abel Makamu",
       status: "Ongoing",
-      attachments: [
-        { filename: "network_diagram.jpg", imageUrl: "/path/to/network_diagram.jpg" },
-      ],
+      attachments: [{ filename: "network_diagram.jpg", imageUrl: "/path/to/network_diagram.jpg" }],
     },
     {
       issueId: "HR-P1-1236",
@@ -60,9 +43,7 @@ const Table = () => {
       priority: "Low",
       assigned: "Matete Sekgotodi",
       status: "On Hold",
-      attachments: [
-        { filename: "printer_issue.jpg", imageUrl: "/path/to/printer_issue.jpg" },
-      ],
+      attachments: [{ filename: "printer_issue.jpg", imageUrl: "/path/to/printer_issue.jpg" }],
     },
     {
       issueId: "HR-P1-1237",
@@ -74,13 +55,48 @@ const Table = () => {
       priority: "High",
       assigned: "Hamilton Masipa",
       status: "Done",
-      attachments: [
-        { filename: "password_reset_email.png", imageUrl: "/path/to/password_reset_email.png" },
-      ],
+      attachments: [{ filename: "password_reset_email.png", imageUrl: "/path/to/password_reset_email.png" }],
     },
   ];
 
+  const [filteredIssues, setFilteredIssues] = useState(issuesData);
   const [selectedLog, setSelectedLog] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleFilterChange = (status) => {
+    setFilterStatus(status);
+    setFilterDropdownOpen(false);
+    applyFiltersAndSorting(status, searchQuery);
+  };
+
+  const handleSortChange = (sortBy) => {
+    const sortedData = [...filteredIssues].sort((a, b) => {
+      if (sortBy === "user") return a.name.localeCompare(b.name);
+      if (sortBy === "issueId") return a.issueId.localeCompare(b.issueId);
+      if (sortBy === "time") return a.date.localeCompare(b.date);
+      return 0;
+    });
+    setFilteredIssues(sortedData);
+    setSortDropdownOpen(false);
+  };
+
+  const applyFiltersAndSorting = (status, search) => {
+    const filteredData = issuesData.filter((issue) => {
+      if (status !== "All" && issue.status !== status) return false;
+      if (search && !issue.name.toLowerCase().includes(search.toLowerCase()) &&
+          !issue.issueId.toLowerCase().includes(search.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+    setFilteredIssues(filteredData);
+  };
+
+  const toggleFilterDropdown = () => setFilterDropdownOpen(!filterDropdownOpen);
+  const toggleSortDropdown = () => setSortDropdownOpen(!sortDropdownOpen);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -98,11 +114,11 @@ const Table = () => {
   };
 
   const handleViewClick = (issue) => {
-    setSelectedLog(issue);
+    setSelectedLog(issue); // Set the selected issue when "View" is clicked
   };
 
   const handleBackToList = () => {
-    setSelectedLog(null);
+    setSelectedLog(null); // Reset selected issue when going back to list
   };
 
   if (selectedLog) {
@@ -110,56 +126,89 @@ const Table = () => {
   }
 
   return (
-    <div className="HOD-main-content">
+    <div className={`HOD-main-content ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <h2><Clock size={40} />ALL ISSUES</h2>
+
+      <div className={styles.filterSortContainer}>
+        <div className={styles.filterContainer}>
+          <button className={styles.filterBtn} onClick={toggleFilterDropdown}>
+            <img src={FiltIcon} width="15" height="15" alt="Filter Icon" /> Filter
+          </button>
+          {filterDropdownOpen && (
+            <ul className={styles.filterDropdown}>
+              <li onClick={() => handleFilterChange("All")}>All</li>
+              <li onClick={() => handleFilterChange("Done")}>Resolved</li>
+              <li onClick={() => handleFilterChange("Ongoing")}>Ongoing</li>
+              <li onClick={() => handleFilterChange("On Hold")}>On Hold</li>
+            </ul>
+          )}
+        </div>
+
+        <div className={styles.sortContainer}>
+          <button className={styles.sortBtn} onClick={toggleSortDropdown}>
+            <img src={SortIcon} width="15" height="15" alt="Sort Icon" /> Sort
+          </button>
+          {sortDropdownOpen && (
+            <ul className={styles.sortDropdown}>
+              <li onClick={() => handleSortChange("user")}>Name</li>
+              <li onClick={() => handleSortChange("issueId")}>Issue ID</li>
+              <li onClick={() => handleSortChange("time")}>Time</li>
+            </ul>
+          )}
+        </div>
+
+        <input
+          type="text"
+          placeholder="Search by User or Issue ID"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            applyFiltersAndSorting(filterStatus, e.target.value);
+          }}
+          className={styles.searchInput}
+        />
+      </div>
+
       <div className={styles.tableContainer}>
         <table className={styles.issueTable} aria-label="Issues Table">
           <thead>
             <tr>
               <th>Issue ID</th>
-              <th>Name</th>
-              <th>Issue Title</th>
+              <th>Title</th>
               <th>Assigned to</th>
               <th>Date Reported</th>
-              <th>Department</th>
               <th>Priority Level</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {issues.length > 0 ? (
-              issues.map((issue) => (
+            {filteredIssues.length > 0 ? (
+              filteredIssues.map((issue) => (
                 <tr key={issue.issueId}>
                   <td>{issue.issueId}</td>
-                  <td>{issue.name}</td>
                   <td>{issue.title}</td>
                   <td>{issue.assigned}</td>
                   <td>{issue.date}</td>
-                  <td>{issue.department}</td>
                   <td>{issue.priority}</td>
                   <td>
                     <span
-                      className={styles.status}
-                      style={{ color: getStatusColor(issue.status) }}
+                      style={{
+                        backgroundColor: getStatusColor(issue.status),
+                        color: 'white',
+                        padding: '5px 10px',
+                        borderRadius: '4px',
+                      }}
                     >
                       {issue.status}
                     </span>
                   </td>
-                  <td>
-                    <button
-                      className={styles.viewButton}
-                      onClick={() => handleViewClick(issue)}
-                      aria-label={`View details for issue ${issue.issueId}`}
-                    >
-                      View
-                    </button>
-                  </td>
+                  <td><button className={styles.viewButton} onClick={() => handleViewClick(issue)}>View</button></td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="9">No issues available</td>
+                <td colSpan="7">No issues available</td>
               </tr>
             )}
           </tbody>
@@ -180,8 +229,15 @@ Table.propTypes = {
       department: PropTypes.string.isRequired,
       priority: PropTypes.string.isRequired,
       status: PropTypes.string.isRequired,
+      attachments: PropTypes.arrayOf(
+        PropTypes.shape({
+          filename: PropTypes.string.isRequired,
+          imageUrl: PropTypes.string.isRequired,
+        })
+      ).isRequired,
     })
-  ),
+  ).isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
 };
 
 export default Table;

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify'; // Ensure this is imported
@@ -13,7 +14,7 @@ import CollabArrow from "./assets/icons/CollabArrow.png";
 
 const IssueDetails = ({ issues }) => {
   const { issueId } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook for navigation
   const [selectedTech, setSelectedTech] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -23,59 +24,26 @@ const IssueDetails = ({ issues }) => {
   const [selectedTechnician, setSelectedTechnician] = useState(null); 
   const [note, setNote] = useState("");
 
-  // Find the issue based on the ID
-  const issueIndex = issues.findIndex((i) => i.issueId === issueId);
-  const issue = issues[issueIndex];
+  const issue = issues.find((i) => i.issueId === issueId);
 
   if (!issue) {
     return <div>Issue not found</div>;
   }
-
-  const technicians = [
-    { name: "MIKE MDLULI", role: "Cloud Technician" },
-    { name: "COLIN RADEBE", role: "System Analyst" },
-    { name: "FAITH MNISI", role: "Web Support Technician" },
-    { name: "NATASHA SMITH", role: "Telecommunications Technician" },
-];
-
-  const handleInviteClick = () => {
-    setShowModal(true);
+    const technicians = [
+        { name: "MIKE MDLULI", role: "Cloud Technician" },
+        { name: "COLIN RADEBE", role: "System Analyst" },
+        { name: "FAITH MNISI", role: "Web Support Technician" },
+        { name: "NATASHA SMITH", role: "Telecommunications Technician" },
+    ];
+    const handleInviteClick = () => {
+      setShowModal(true);
   };
-
-  const handleUpdateStatus = (status) => {
-    issues[issueIndex].status = status; // Update the status in the array
-    console.log(`Status updated to: ${status}`);
-
-    // Show toast notification
-    if (status === "InProgress" || status === "Resolved") {
-      toast.success(`Status updated to ${status}!`);
-    }
-
-    setShowUpdateModal(false); // Close the modal
-  };
-
-  const handleAddNoteClick = () => {
-    setShowAddNoteModal(true); // Show the add note modal
-  };
-
-  const handleNoteSubmit = () => {
-    if (!note.trim()) { 
-      toast.error("Please enter a note before submitting.");
-      return;
-    }
-
-    issues[issueIndex].status = "On Hold"; // Update the status to "On Hold"
-    console.log(`Note added: ${note}`);
-    toast.success("Note successfully added and status updated to 'On Hold'!");
-    setNote("");
-    setShowAddNoteModal(false);
-  };
-
+  // Handle the Close button click
   const handleBack = () => {
     if (window.history.length > 2) {
-      navigate(-1); 
+      navigate(-1); // Go to the previous page in history
     } else {
-      navigate("/tbl"); 
+      navigate("/tbl"); // Default to a specific route if no previous page
     }
   };
 
@@ -88,7 +56,6 @@ const IssueDetails = ({ issues }) => {
         toast.error("Please select a technician to invite."); // Updated to use toast
     }
 }
-
   const handleChat = () => {
     navigate("/liveChat");
   };
@@ -106,31 +73,58 @@ const IssueDetails = ({ issues }) => {
 };
 
 const handleSuccessOk = () => {
-  setShowSuccess(false); 
+    setShowSuccess(false); 
 };
 
 const filteredTechnicians = technicians.filter((tech) =>
-  tech.name.toLowerCase().includes(searchTerm.toLowerCase())
+    tech.name.toLowerCase().includes(searchTerm.toLowerCase())
 );
 
 const handleCheckboxChange = (tech) => {
-  setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
+    setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
 };
 
 const handleUpdateClick = () => {
-  setShowUpdateModal(true); // Show the update log status modal
+    setShowUpdateModal(true); // Show the update log status modal
 };
 
+const handleAddNoteClick = () => {
+    setShowAddNoteModal(true); // Show the add note modal
+};
+
+const handleUpdateStatus = (status) => {
+    console.log(`Status updated to: ${status}`);
+    
+    // Show toast notification for specific statuses
+    if (status === "In Progress" || status === "Resolved") {
+        toast.success("Status successfully updated!");
+    }
+
+    setShowUpdateModal(false); // Close the modal after updating
+};
+
+const handleNoteSubmit = () => {
+    if (!note.trim()) { // Check if the note is empty or just spaces
+        toast.error("Please enter a note before submitting."); // Show error message
+        return; // Exit the function early if the note is empty
+    }
+
+    console.log(`Note added: ${note}`);
+    toast.success("Note successfully added!"); // Toast notification for note added
+    setNote(""); // Clear the note input
+    setShowAddNoteModal(false); // Close the add note modal
+};
 
   return (
     <div className="issue-details-container">
+      {/* Issue Title */}
       <div className="issue">
-      <h2>Issue title: {issue.title}</h2>
+        <h2>Issue title: {issue.title}</h2>
         <a href="#">
           <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat}/>
         </a>
       </div>
-      
+
       {/* Header Section */}
       <div className="issue-header">
             {/* Requestor Info */}
@@ -200,25 +194,33 @@ const handleUpdateClick = () => {
       </div>
 
       <div className="statuses">
-        <h3>Status:</h3>
-        <p>
-          <span className={`status-text ${issue.status.toLowerCase()}`}>
-            {issue.status}
-          </span>
-        </p>
-      </div>
+      <h3>Status:</h3>
+      <p>
+        <span className={`status-text ${issue.status.toLowerCase()}`}>
+          {issue.status}
+        </span>
+      </p>
+    </div>
 
       <div className="actions1">
-        <button className="invite-button" onClick={() => setShowModal(true)}>Invite</button>
-        <div className="right-actions">
-          <div className="button-container">
-            <button className="update-button" onClick={() => setShowUpdateModal(true)}>Update</button>
-            <button className="close-button1" onClick={handleBack}>Close</button>
-          </div>
-        </div>
-      </div>
+  <button className="invite-button" onClick={handleInviteClick}>
+    Invite
+  </button>
+  <div className="right-actions">
+   
+    <div className="button-container">
+      <button className="update-button" onClick={handleUpdateClick}>
+        Update
+      </button>
+      <button className="close-button1" onClick={handleBack}>
+        Close
+      </button>
+    </div>
+  </div>
+</div>
 
-      {showModal && (
+
+            {showModal && (
     <div className="modal-overlay">
         <div className="modal-content">
             <button className="modal-close" onClick={() => setShowModal(false)}>
@@ -265,60 +267,89 @@ const handleUpdateClick = () => {
     </div>
 )}
 
-      {showUpdateModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowUpdateModal(false)}>&times;</button>
+
+          {/* Update Log Status Modal */}
+{showUpdateModal && (
+    <div className="modal-overlay">
+        <div className="modal-content">
+            <button className="modal-close" onClick={() => setShowUpdateModal(false)}>
+                &times;
+            </button>
             <h3>Update Log Status</h3>
+            <h4 className="select-header">SELECT:</h4> {/* Added a class for styling */}
             <div className="status-buttons">
-              <button
-                style={{ backgroundColor: "#0C4643", color: "white" }}
-                onClick={() => {
-                  handleAddNoteClick();
-                }}
-              >
-                On Hold
-              </button>
-              <button
-                style={{ backgroundColor: "#B08D0F", color: "white" }}
-                onClick={() => handleUpdateStatus("InProgress")}
-              >
-                In Progress
-              </button>
-              <button
-                style={{ backgroundColor: "#2FB00F", color: "white" }}
-                onClick={() => handleUpdateStatus("Resolved")}
-              >
-                Resolved
-              </button>
+                <button
+                    style={{ backgroundColor: "#0C4643", color: "white" , fontsize: "5px"}}
+                    onClick={() => {
+                        handleUpdateStatus("On Hold"); // Update status
+                        handleAddNoteClick(); // Open the note modal
+                    }}
+                >
+                    On Hold
+                </button>
+                <button
+                    style={{ backgroundColor: "#B08D0F", color: "white", fontsize: "5px" }}
+                    onClick={() => {
+                        handleUpdateStatus("In Progress"); // Update status
+                    }}
+                >
+                    In Progress
+                </button>
+                <button
+                    style={{ backgroundColor: "#2FB00F", color: "white", fontsize: "5px" }}
+                    onClick={() => {
+                        handleUpdateStatus("Resolved"); // Update status
+                    }}
+                >
+                    Resolved
+                </button>
             </div>
-          </div>
         </div>
-      )}
-
-      {showAddNoteModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowAddNoteModal(false)}>&times;</button>
-            <h3>Add Note:</h3>
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="I am putting this issue on hold because..."
-              rows="4"
-              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-            />
-            <div className="modal-actions">
-              <button className="cancel-button" onClick={() => setShowAddNoteModal(false)}>Cancel</button>
-              <button className="update-button" onClick={handleNoteSubmit}>Update</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <ToastContainer />
     </div>
-  );
+)}
+
+
+            {/* Add Note Modal */}
+            {showAddNoteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="modal-close" onClick={() => setShowAddNoteModal(false)}>
+                            &times;
+                        </button>
+                        <h3>Add Note:</h3>
+                        <textarea
+                            value={note}
+                            onChange={(e) => setNote(e.target.value)}
+                            placeholder="I am putting this issue on hold because..."
+                            rows="4"
+                            style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+                        />
+                        <div className="modal-actions">
+                            <button className="cancel-button" onClick={() => setShowAddNoteModal(false)}>Cancel</button>
+                            <button className="update-button" onClick={handleNoteSubmit}>Update</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Success Message Popup */}
+            {showSuccess && (
+                <div className="success-message-overlay">
+                    <div className="success-message-content">
+                        <div className="success-message-wrapper">
+                            <img src={tickIcon} alt="Tick Icon" className="tick-icon" />
+                            <h3 style={{ margin: 0 }}>INVITATION WAS SUCCESSFULLY SENT</h3>
+                        </div>
+                        <button className="ok-button" onClick={handleSuccessOk}>
+                            OK
+                        </button>
+                    </div>
+                </div>
+            )}
+            {/* Toast Container */}
+            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
+        </div>
+    );
 };
 
 export default IssueDetails;

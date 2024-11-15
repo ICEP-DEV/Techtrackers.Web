@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Table.css";
-import CollaIcon from "./assets/icons/callabIcon.png";
-import FiltIcon from "./assets/icons/FiltIcon.png";
-import AvatarIcon from "./assets/icons/avatarIcon.png";
-import SortIcon from "./assets/icons/SortIcon.png";
-import { sortUsers } from "./sortUsers"; // Import the sort function
-import useIssues from "./useIssues"; // Import the useIssues hook
+import "../SidebarCSS/TableCollaburationRequest.css";
+import CollaIcon from "../images/callabIcon.png";
+import FiltIcon from "../images/FiltIcon.png";
+import AvatarIcon from "../images/avatarIcon.png";
+import SortIcon from "../images/SortIcon.png";
+import { sortUsers } from "./sortUsersCollaburationRequest"; // Import the sort function
+import useIssues from "./useIssuesCollaburationRequest"; // Import the useIssues hook
 
 const Table = () => {
+
   const { issues } = useIssues(); // Access issues from useIssues
+
   const navigate = useNavigate();
 
   // State to manage sorting, filtering, and dropdown visibility

@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import "./IssueDetails.css";
-import descIcon from "./assets/icons/desc.png";
-import attachIcon from "./assets/icons/attachme.png";
-import profIcon from "./assets/icons/profile.png";
-import image from "./assets/icons/image.png";
-import chat from "./assets/icons/chat.png";
+import "../SidebarCSS/IssueDetailsCollaburationRequest.css";
+import descIcon from "../images/descCollaborationRequest.png";
+import attachIcon from "../images/attachmeCollaborationRequest.png";
+import profIcon from "../images/profileCollaborationRequest.png";
+import image from "../images/imageCollaborationRequest.png";
+import chat from "../images/chatCollaborationRequest.png";
 
 const IssueDetails = () => {
   const { issueId } = useParams();

@@ -4,25 +4,47 @@ import { Routes, Route } from "react-router-dom";
 import Sidebar from "./TechnicianSidebar";
 import TechnicianHeader from './TechnicianHeader';
 
-import Techdashboard from "./pages/Techdashboard";
-import NotificationsPage from "./pages/TechNotification";
-import TechCollaboration from "./pages/TechCollaboration";
-import TechReviews from "./pages/TechReviews";
-import MyIssues from "./pages/TechAllIssues";
+//import Techdashboard from "./pages/Techdashboard";
+//import NotificationsPage from "./pages/TechNotification";
+//import TechCollaboration from "./pages/TechCollaboration";
+//import TechReviews from "./pages/TechReviews";
+//import MyIssues from "./pages/TechAllIssues";
 
-import TechnicianNotifications from '../../components/Notifications/TechnicianNotifications';
-import WelcomTechnician from '../TechDashBoard1/WelcomeTechnician';
-import RoutesComponent from '../../components/All Issue and View Page/RoutesComponent';
-import CollabMain from '../../components/CollaborationRequest/CollabMain';
-import Ratings from '../../components/Ratings';
+
+
+//From the folders called components
+
+//import TechnicianNotifications from '../../components/Notifications/TechnicianNotifications';
+//import WelcomTechnician from '../TechDashBoard1/WelcomeTechnician';
+//import RoutesComponent from '../../components/All Issue and View Page/RoutesComponent';
+//import CollabMain from '../../components/CollaborationRequest/CollabMain';
+//import Ratings from '../../components/Ratings';
+//import "./SidebarCSS/SidebarNavStyle.css";
+//import TechnicianLiveChat from '../../components/TechnicianLiveChat/TechnicianLiveChat';
+//import Table from "../../components/All Issue and View Page/Table";
+//import IssueDetails from "../../components/All Issue and View Page/IssueDetails";
+//import useIssues from "../../components/All Issue and View Page/useIssues";
+//import IssueDetailsCollab from '../../components/CollaborationRequest/TableCollaburationRequest';
+//import Table1 from '../../components/CollaborationRequest/TableCollaburationRequest';
+//import IssueDetails1 from '../../components/CollaborationRequest/IssueDetailsCollaburationRequest';
+//in the navigation folder 
+
+
+import TechnicianNotifications from '../Navigation/pages/TechnicianNotifications.jsx';
+import WelcomTechnician from '../Navigation/pages/WelcomeTechnician.jsx';
+import RoutesComponent from '../Navigation/pages/RoutesComponent.jsx';
+import CollabMain from '../Navigation/pages/CollabMain.jsx';
+import Ratings from '../Navigation/pages/Ratings.jsx';
 import "./SidebarCSS/SidebarNavStyle.css";
-import TechnicianLiveChat from '../../components/TechnicianLiveChat/TechnicianLiveChat';
-import Table from "../../components/All Issue and View Page/Table";
-import IssueDetails from "../../components/All Issue and View Page/IssueDetails";
-import useIssues from "../../components/All Issue and View Page/useIssues";
-import IssueDetailsCollab from '../../components/CollaborationRequest/Table1';
-import Table1 from '../../components/CollaborationRequest/Table1';
-import IssueDetails1 from '../../components/CollaborationRequest/IssueDetails1';
+import TechnicianLiveChat from '../Navigation/pages/TechnicianLiveChat.jsx';
+import Table from "../Navigation/pages/Table.jsx";
+import IssueDetails from "../Navigation/pages/IssueDetails.jsx";
+import useIssues from "../Navigation/pages/useIssues.jsx";
+import IssueDetailsCollab from '../Navigation/pages/IssueDetailsCollaburationRequest.jsx';
+import Table1 from '../Navigation/pages/TableCollaburationRequest.jsx';
+import IssueDetails1 from '../Navigation/pages/IssueDetailsCollaburationRequest.jsx';
+
+
 
 const TechnicianDashboard = () => {
   const { issues, setIssues } = useIssues();

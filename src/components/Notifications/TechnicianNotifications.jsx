@@ -28,7 +28,7 @@ const NotificationsPage = () => {
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
       staffName: 'John Doe',
-      issue: 'Internal Issue: Server Downtime in Data Center',
+      issue: 'Issue Title: Server Downtime in Data Center',
       issueId: 'IT-P1-1220',
       time: '12:18',
     },
@@ -38,7 +38,7 @@ const NotificationsPage = () => {
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
       staffName: 'Themba Zwane',
-      issue: 'Access Issue: Unable to log into HR Portal',
+      issue: 'Issue Title: Unable to log into HR Portal',
       issueId: 'HR-P1-1221',
       time: '12:16',
     },
@@ -67,7 +67,7 @@ const NotificationsPage = () => {
       type: 'collaboration',
       sender: 'Mike Mdluli',
       content: 'invited you to collaborate with them',
-      issue: 'Log Details: Maintenance Request',
+      issue: 'Issue Title: Maintenance Request',
       action: 'View Collaboration Requests',
       time: '2024-08-14',
     },
@@ -174,7 +174,7 @@ const NotificationsPage = () => {
                   {notification.issueId && <span><strong>{notification.issueId}</strong></span>}
                   {notification.status && (
                     <span style={{ color: getStatusColor(notification.status) }}>
-                      { <strong> as {notification.status}</strong>}
+                      { <strong> {notification.status}</strong>}
                     </span>
                   )}
                 </span>

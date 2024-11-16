@@ -1,0 +1,176 @@
+/* Main container styles */
+.maiNContent {
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+.contners {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Notification icon styles */
+.notificationIcons {
+  font-size: 20px;
+  color: #495057;
+}
+
+/* Search bar styles */
+.searchBarContainers {
+  position: relative;
+  width: 200px;
+}
+
+.searchInputs {
+  padding-right: 30px;
+}
+
+.searchIcons {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #17a2b8;
+}
+
+/* Filter and sort styles aligned with tabs */
+.filterSortsTabsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filterSortsContainers {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.filterContainer {
+  position: relative;
+  display: inline-block;
+  min-width: 140px;
+  max-width: 200px;
+}
+
+.filterSortToggle {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: contents;
+  margin: 0;
+  align-items: center;
+  font-size: 0.75rem;
+  width: 100%;
+}
+
+.filterSortIcon {
+  margin-right: 5px;
+}
+
+/* Dropdown menu styles */
+.dropdownMenu {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  max-width: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.dropdownItem {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdownItem:hover {
+  background-color: #e9ecef;
+}
+
+/* Tabs styles */
+.navTabs {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  color: #495057;
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.navLinkActive {
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Notification list styles */
+.notificationRows {
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 0;
+}
+
+.notificationRowsLastChild {
+  border-bottom: none;
+}
+
+.notificationTimestamps {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.indent {
+  margin-left: 10px;
+  color: #212529;
+}
+
+.textPrimary {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.textPrimary:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .searchBarContainers {
+    width: 100%;
+  }
+
+  .filterSortsTabsContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filterSortsContainers {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .filterSortToggle {
+    width: 100%;
+  }
+
+  .navTabs {
+    margin-bottom: 10px;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './StaffStyle/NotificationIssue.css';
+import styles from './StaffStyle/NotificationIssue.module.css';
 import { FaBell, FaSearch, FaFilter, FaBars } from 'react-icons/fa';
 
 const NotificationContainer = () => {
@@ -148,37 +148,37 @@ const NotificationContainer = () => {
   const noNotificationsMessage = activeTab === 'unread' ? 'No unread notifications available.' : 'No read notifications available.';
 
   return (
-    <div className="main-content">
-      <div className="containers mt-4">
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <div className="d-flex align-items-center">
-            <FaBell className="notification-icons me-2 text-success" />
+    <div className={styles.maiNContent}>
+      <div className={`${styles.contners} mt-4`}>
+        <div className={`d-flex justify-content-between align-items-center mb-3`}>
+          <div className={`d-flex align-items-center`}>
+            <FaBell className={`${styles.notificationIcons} me-2 text-success`} />
             <h2>Notifications</h2>
           </div>
-          <div className="d-flex justify-content-center mb-3">
-            <div className="search-bar-containers">
+          <div className={`d-flex justify-content-center mb-3`}>
+            <div className={styles.searchBarContainers}>
               <input
                 type="text"
-                className="form-control search-inputs"
+                className={`${styles.formmControl} ${styles.searchInputs}`}
                 placeholder="Search"
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
-              <FaSearch className="search-icons" />
+              <FaSearch className={styles.searchIcons }/>
             </div>
           </div>
         </div>
 
-        <div className="d-flex justify-content-end mb-3 align-items-center">
-          <div className="filter-sorts-containers d-flex align-items-center">
-            <div className="filter-container">
-              <div className="filter-sort-toggle text-center" onClick={() => setFilterOpen(!filterOpen)}>
-                <FaFilter className="filter-sort-icon" /> Filter
+        <div className={`d-flex justify-content-end mb-3 align-items-center`}>
+          <div className={`filter-sorts-containers d-flex align-items-center`}>
+            <div className={styles.filterContainer}>
+              <div className={`${styles.filterSortToggle} text-center`} onClick={() => setFilterOpen(!filterOpen)}>
+                <FaFilter className={styles.filterSortIcon} /> Filter
               </div>
               {filterOpen && (
-                <div className="dropdown-menu show">
+                <div className={`${styles.dropdownMenu} ${styles.show}`}>
                   {Object.entries(filterOptions).map(([key, option]) => (
-                    <button key={key} className="dropdown-item" onClick={() => handleFilterChange(key)}>
+                    <button key={key} className={styles.dropdownItem} onClick={() => handleFilterChange(key)}>
                       {option.label}
                     </button>
                   ))}
@@ -186,54 +186,54 @@ const NotificationContainer = () => {
               )}
             </div>
 
-            <div className="filter-container ms-2">
-              <div className="filter-sort-toggle text-center" onClick={() => setSortOpen(!sortOpen)}>
-                <FaBars className="filter-sort-icon" /> Sort
+            <div className={`${styles.filterContainer} ms-2`}>
+              <div className={`${styles.filterSortToggle} text-center`} onClick={() => setSortOpen(!sortOpen)}>
+                <FaBars className={styles.filterSortIcon} /> Sort
               </div>
               {sortOpen && (
-                <div className="dropdown-menu show">
-                  <button className="dropdown-item" onClick={() => handleSortChange('asc')}>Sort (Oldest First)</button>
-                  <button className="dropdown-item" onClick={() => handleSortChange('desc')}>Sort (Newest First)</button>
+                <div className={`${styles.dropdownMenu} ${styles.show}`}>
+                  <button className={styles.dropdownItem} onClick={() => handleSortChange('asc')}>Sort (Oldest First)</button>
+                  <button className={styles.dropdownItem} onClick={() => handleSortChange('desc')}>Sort (Newest First)</button>
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        <ul className="nav nav-tabs mb-3">
-          <li className="nav-item">
-            <button className={`nav-link ${activeTab === 'allRead' ? 'active' : ''}`} onClick={() => handleTabClick('allRead')}>
+        <ul className={`nav ${styles.navTabs} mb-3`}>
+          <li className={styles.navItem}>
+            <button className={`${styles.navLink} ${activeTab === 'allRead' ? 'active' : ''}`} onClick={() => handleTabClick('allRead')}>
               All read issues
             </button>
           </li>
-          <li className="nav-item">
-            <button className={`nav-link ${activeTab === 'unread' ? 'active' : ''}`} onClick={() => handleTabClick('unread')}>
+          <li className={styles.navItem}>
+            <button className={`${styles.navLink} ${activeTab === 'unread' ? 'active' : ''}`} onClick={() => handleTabClick('unread')}>
               Unread issues
             </button>
           </li>
         </ul>
 
-        <table className="table table-borderless">
+      <table className={`table table-borderless`}>
           <tbody>
             {sortedNotifications.length > 0 ? (
               sortedNotifications.map((notification) => (
-                <tr key={notification.notification_ID} className="notification-rows">
-                  <td className="d-flex align-items-center">
-                    <FaBell className="notification-icons me-2" />
+                <tr key={notification.notification_ID} className={styles.notificationRows}>
+                  <td className={`d-flex align-items-center`}>
+                    <FaBell className={`${styles.notificationIcons} me-2`} />
                     <div>
                       {formatMessage(notification.notification_Message)}
                       <button onClick={() => markAsRead(notification.notification_ID)}>Mark as Read</button>
                     </div>
                   </td>
                   <td>
-                    <small className="notification-timestamps">{formatTimestamp(notification.timestamp)}</small>
-                    <small className="notification-timestamps">{formatTimestamp(notification.timestamp)}</small>
+                    <small className={styles.notificationTimestamps}>{formatTimestamp(notification.timestamp)}</small>
+                    <small className={styles.notificationTimestamps}>{formatTimestamp(notification.timestamp)}</small>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="2" className="text-center">
+                <td colSpan="2" className={styles.textCenter}>
                   <p>{noNotificationsMessage}</p>
                 </td>
               </tr>

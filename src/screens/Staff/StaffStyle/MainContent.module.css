@@ -1,5 +1,5 @@
 /* MainContent.css */
-.main-content {
+.MmainContent {
     padding: 20px;
     background-color: #f0f0f0;
     flex-grow: 1;
@@ -7,20 +7,20 @@
     
   }
   
-  .status-header {
+  .statusHeader {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
   }
   
-  .issues-table {
+  .issuesTable {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
   }
   
-  .issues-table th, .issues-table td {
+  .issuesTable th, .issuesTable td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -37,7 +37,7 @@
   .resolved { background-color: green; }
   .on-hold {background-color: gray;}
   
-  .view-button {
+  .viewButton {
     background-color: #1a3c40;
     color: white;
     border: none;

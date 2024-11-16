@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Clock } from 'lucide-react';
-import './StaffStyle/MainContent.css';
+import styles from'./StaffStyle/MainContent.module.css';
 
 export default function MainContent({ onSelectIssue, onOpenChat }) {
   const [issues, setIssues] = useState([]);
-
+ 
   useEffect(() => {
     const fetchIssues = async () => {
       try {
@@ -28,12 +28,12 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
   }, []);
 
   return (
-    <main className="main-content">
-      <div className="status-header">
+    <main className={styles.MmainContent}>
+      <div className={styles.statusHeader}>
         <Clock size={32} />
         <h2>ALL ISSUES</h2>
       </div>
-      <table className="issues-table">
+      <table className={styles.issuesTable}>
         <thead>
           <tr>
             <th>Issue ID</th>
@@ -56,11 +56,11 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
               <td>{issue.priority}</td>
               {/* Check if issue.log_Status exists before calling toLowerCase() */}
               <td>
-                <span className={`status ${issue.status ? issue.status.toLowerCase() : 'unknown'}`}>
+              <span className={`${styles.status} ${styles[issue.status ? issue.status.toLowerCase() : 'unknown']}`}>
                   {issue.status || 'Unknown'}
                 </span>
               </td>
-              <td><button className="view-button" onClick={() => onSelectIssue(issue)}>View</button></td>
+              <td><button className={styles.viewButton} onClick={() => onSelectIssue(issue)}>View</button></td>
             </tr>
           ))}
         </tbody>

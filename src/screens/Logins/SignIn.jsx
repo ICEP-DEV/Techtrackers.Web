@@ -45,7 +45,7 @@ function SignIn() {
                             navigate('/techniciandashboard');
                             break;
                         case 'admin':
-                            navigate('/admindashboard/DashboardPage');
+                            navigate('/admindashboard/dashboard');
                             break;
                         case 'hod':
                             navigate('/hoddashboard');

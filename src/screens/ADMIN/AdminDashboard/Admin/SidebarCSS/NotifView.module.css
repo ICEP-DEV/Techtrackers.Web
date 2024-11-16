@@ -1,0 +1,192 @@
+.issueDetailsContainer {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f4ffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.issue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.issue a {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.issueDetailsContainer h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: px;
+  color: #555;
+}
+
+.name {
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.issueHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+  margin-top: -10px;
+}
+
+.issueRequestor {
+  flex: 1; /* Both sides take equal width */
+  margin-bottom: 10px;
+}
+
+.issueInfo {
+  display: flex;
+  justify-content: space-between; /* Aligns priority and date on opposite ends */
+  align-items: center;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.prio {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 12px;
+  font-size: 17px;
+  color: #666;
+  margin-right: 340px;
+}
+
+.issueDate {
+  margin-left: -10px;
+  font-size: 17px;
+}
+
+.priorityText {
+  margin-top: 5px;
+  margin-left: 25px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.requestorInfo {
+  font-size: 14px;
+  color: #888;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profileName {
+  margin-left: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 10px;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+.issueDetails {
+  margin-top: -35px;
+}
+
+.issueDetails p {
+  font-size: 16px;
+  color: #333;
+  margin-top: -25px;
+}
+
+.issueDetailsTitle {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start; /* Aligns the button to the left */
+  margin-top: -20px;
+}
+
+.closeButton {
+  padding: 14px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background-color: #b02a37;
+  margin-left: auto; /* Pushes the button to the far left */
+}
+
+.acceptButton:hover,
+.declineButton:hover,
+.closeButton:hover {
+  opacity: 0.9;
+}
+
+.actions button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.actions button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .status {
+    margin-right: 12px;
+  }
+
+  .statusText {
+    margin-left: 320px;
+  }
+
+  .prio {
+    display: flex;
+    justify-content: space-between; /* Aligns priority and date on opposite ends */
+    align-items: center;
+    margin-top: 10px;
+    font-size: 17px;
+    color: #666;
+    margin-right: 250px;
+  }
+
+  .priorityText {
+    margin-top: 5px;
+    margin-left: 75px;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+
+  .closeButton {
+    padding: 9px 15px;
+    font-size: 10px;
+    margin-right: auto;
+    margin-bottom: 12px;
+  }
+}

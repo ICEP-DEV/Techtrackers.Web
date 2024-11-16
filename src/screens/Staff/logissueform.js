@@ -3,7 +3,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import '../Staff/StaffStyle/logissue.css';
+import styles from '../Staff/StaffStyle/logissue.module.css';
 
 const Logissueform = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -122,19 +122,19 @@ const Logissueform = () => {
   };
 
   return (
-    <div className="main-content">
+    <div className={styles.mainContent}>
       <ToastContainer />
       {submitted && (
-        <div className="success-message">
+        <div className={styles.successMessage}>
           Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
         </div>
       )}
-      <form className="log-issue-form" onSubmit={handleSubmit}>
+      <form className={styles.logIssueForm} onSubmit={handleSubmit}>
         <h2><FaPlusCircle /> LOG ISSUE</h2>
         
-        <div className="form-row">
-          <div className='box'>
-            <label>Issue title<span className="required">*</span></label>
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
+            <label>Issue title<span className={styles.Required}>*</span></label>
             <input
               id='issue-title'
               type="text"
@@ -143,11 +143,11 @@ const Logissueform = () => {
               value={formValues.title}
               onChange={handleChange}
             />
-            {errors.title && <p className="error-message">{errors.title}</p>}
+            {errors.title && <p className={styles.errorMessage}>{errors.title}</p>}
           </div>
 
           <div className='box'>
-            <label>Category<span className="required">*</span></label>
+            <label>Category<span className={styles.Required}>*</span></label>
             <select
               name="category"
               value={formValues.category}
@@ -161,12 +161,12 @@ const Logissueform = () => {
               <option value={5}>Security Issue</option>
               <option value={6}>Facilities Management</option>
             </select>
-            {errors.category && <p className="error-message">{errors.category}</p>}
+            {errors.category && <p className={styles.errorMessage}>{errors.category}</p>}
           </div>
         </div>
 
-        <div className="form-row">
-          <div className='box'>
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
             <label>Department</label>
             <input
               type="text"
@@ -176,8 +176,8 @@ const Logissueform = () => {
             />
           </div>
 
-          <div className='box'>
-            <label>Priority level<span className="required">*</span></label>
+          <div className={styles.Box}>
+            <label>Priority level<span className={styles.Required}>*</span></label>
             <select
               name="priority"
               value={formValues.priority}
@@ -188,11 +188,11 @@ const Logissueform = () => {
               <option>Medium</option>
               <option>High</option>
             </select>
-            {errors.priority && <p className="error-message">{errors.priority}</p>}
+            {errors.priority && <p className={styles.errorMessage}>{errors.priority}</p>}
           </div>
         </div>
 
-        <label>Description<span className="required">*</span></label>
+        <label>Description<span className={styles.Required}>*</span></label>
         <textarea
           name="description"
           placeholder="Describe the issue here..."
@@ -200,10 +200,10 @@ const Logissueform = () => {
           value={formValues.description}
           onChange={handleChange}
         ></textarea>
-        {errors.description && <p className="error-message">{errors.description}</p>}
+        {errors.description && <p className={styles.errorMessage}>{errors.description}</p>}
 
-        <div className="form-row">
-          <div className='box'>
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
             <label>Date</label>
             <input
               type="date"
@@ -213,8 +213,8 @@ const Logissueform = () => {
             />
           </div>
           
-          <div className='box'>
-            <label>Location<span className="required">*</span></label>
+          <div className={styles.Box}>
+            <label>Location<span className={styles.Required}>*</span></label>
             <select
               name="location"
               value={formValues.location}
@@ -225,9 +225,9 @@ const Logissueform = () => {
               <option>Main Office</option>
               <option>Remote Site</option>
             </select>
-            {errors.location && <p className="error-message">{errors.location}</p>}
+            {errors.location && <p className={styles.errorMessage}>{errors.location}</p>}
           </div>
-          <div className='box'>
+          <div className={styles.Box}>
             <label>Building Number</label>
             <select
               name="buildingNumber"
@@ -245,17 +245,17 @@ const Logissueform = () => {
           </div>
         </div>
 
-        <div className="file-input-wrapper">
+        <div className={styles.fileInputWrapper}>
           <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
           <div>
             <input type="file" name="attachmentUrl" onChange={handleFileChange} />
-            <p className="file-format-hint">(JPEG,PNG,PDF)</p> 
+            <p className={styles.fileFormatHint}>(JPEG,PNG,PDF)</p> 
           </div>
         </div>
 
-        <div className="form-buttons">
+        <div className={styles.FformButons}>
           <button type="submit">Submit</button>
-          <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
+          <button type="button" className={styles.CcancelButton} onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

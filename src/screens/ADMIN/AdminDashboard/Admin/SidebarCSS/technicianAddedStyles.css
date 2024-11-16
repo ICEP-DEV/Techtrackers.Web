@@ -1,0 +1,33 @@
+.success-container {
+    background-color: #108181;
+    height: 50svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .success-content {
+    text-align: center;
+  }
+  
+  .success-icon {
+    font-size: 150px;
+    color: white;
+  }
+  
+  .success-message {
+    color: white;
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  .btn-cancel {
+    background-color: #b81c1c;
+    color: white;
+    border: none;
+    padding: 10px 5px;
+   
+   
+  }
+  

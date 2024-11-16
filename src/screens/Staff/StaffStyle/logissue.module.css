@@ -30,7 +30,7 @@
     overflow: hidden;
   }
   
-  .main-content {
+  .mainContent {
     padding: 10px;
     flex: 1;
     overflow-y: auto;
@@ -38,7 +38,7 @@
   }
   
   /* Success Message */
-  .success-message {
+  .successMessage {
     background-color: #e6f7e6;
     border: 1px solid #b2d8b2;
     color: #2e7d32;
@@ -47,13 +47,13 @@
     margin-bottom: 20px;
     font-weight: bold;
   }
-  .required {
+  .Required {
     color: red;
     margin-left: 5px; /* Add some space between label and asterisk */
     font-weight: bold;
   }
   /* Form Styles */
-  .log-issue-form {
+  .logIssueForm {
     display: block;
     background-color: #B3B3B3;
     padding: 20px;
@@ -61,7 +61,7 @@
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   }
   
-  .log-issue-form h2 {
+  .logIssueForm h2 {
     margin-bottom: 20px;
     color: black; /* Set both the heading and the icon color to black */
     font-size: 18px; /* Reduced font size */
@@ -69,21 +69,21 @@
     align-items: center;
   }
   
-  .log-issue-form h2 svg {
+  .logIssueForm h2 svg {
     margin-right: 10px; /* Optional: Adds some space between the icon and text */
     color: #108484; /* Ensure the icon color is black */
     font-size: 35px;
   }
   
-  .log-issue-form label {
+  .logIssueForm label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     color: #333;
   }
   
-  .log-issue-form input,
-  .log-issue-form select {
+  .logIssueForm input,
+  .logIssueForm select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -93,22 +93,22 @@
     font-size: 14px;
   }
   
-  .log-issue-form .form-row {
+  .logIssueForm .formRow {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
   
-  .log-issue-form .box {
+  .logIssueForm .Box {
     width: 45%;
   }
-  .form-row {
+  .formRow {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
   
-  .box {
+  .Box {
     flex: 1;
     margin-right: 20px; /* Adds spacing between the fields */
   }
@@ -117,13 +117,13 @@
     margin-right: 0; /* Removes margin for the last item */
   }
   
-  .box label {
+  .Box label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
   }
   
-  .box select {
+  .Box select {
     width: 100%;
     padding: 8px;
     font-size: 16px;
@@ -133,20 +133,20 @@
   }
   
   .form-ctrl,
-  .box select {
+  .Box select {
     height: 40px; /* Controls the height of the input and select boxes */
   }
   
-  .form-buttons {
+  .FformButonss {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   }
   
-  .file-input-wrapper {
+  .fileInputWrapper {
     margin-bottom: 20px;
   }
-  .log-issue-form textarea {
+  .logIssueForm textarea {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -156,7 +156,7 @@
     font-size: 14px;
   }
   
-  .log-issue-form input[type="file"] {
+  .logIssueForm input[type="file"] {
     width: 45%; 
     padding: 10px; 
     background-color: white;
@@ -165,27 +165,27 @@
     color: #333;
     font-size: 14px;
   }
-  .file-input-wrapper {
+  .fileInputWrapper {
     display: flex;
     flex-direction: column; 
     margin-bottom: 20px; 
   }
   
-  .file-input-wrapper input {
+  .fileInputWrapper input {
     margin-bottom: 5px; 
   }
   
-  .file-input-wrapper .file-format-hint {
+  .fileInputWrapper .fileFormatHint {
     font-size: 12px;
     color: #666; 
     margin-left: 2px; 
   }
-  .log-issue-form .form-buttons {
+  .logIssueForm .FformButons {
     display: flex;
     justify-content: flex-end; 
     gap: 15px; 
   }
-  .log-issue-form .form-buttons button {
+  .logIssueForm .FformButons button {
     padding: 10px 15px;
     background-color: #004d4e;
     color: rgb(241, 241, 241);
@@ -199,10 +199,10 @@
     background-color: #fff;
   }
   
-  .log-issue-form .form-buttons button:hover {
+  .logIssueForm .FformButons button:hover {
     background-color: #003c3d;
   }
-  .error-message {
+  .errorMessage {
     color: red; /* Set the text color to red */
     font-size: 0.875rem; /* Optional: Adjust the font size */
     margin-top: 0.25rem; /* Optional: Add some space above the message */

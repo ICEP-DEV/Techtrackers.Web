@@ -4,7 +4,7 @@ import AllIssue from './IssueDisplay';
 import Notification from './IssueTracker';
 import SideBar from './Navigation/Sidebar';
 import {BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
-import './StaffStyle/staffdashboard.css';
+import styles from './StaffStyle/staffdashboard.module.css';
 import StaffHeader from './Navigation/StaffHeader';
 
 const StaffDashboard = () => {
@@ -16,7 +16,7 @@ const StaffDashboard = () => {
     return (  
         <div>
          <StaffHeader onLogout={handleLogout}/> 
-         <SideBar>
+         <SideBar className >
             <Routes>
                 <Route path="WelcomeStaff" element={<Dashboard />} /> 
                 <Route path="logissueform" element={<LogIssue />}/>

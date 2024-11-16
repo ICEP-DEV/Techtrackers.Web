@@ -13,7 +13,7 @@
   flex-direction: column; /* Align items in a column */
 }
 
-.top_section {
+.topSection {
   display: flex;
   align-items: center;
   padding: 20px 15px;
@@ -37,7 +37,7 @@
   color: #00b3b3; /* Change color on hover */
 }
 
-.link {
+.Link {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -48,12 +48,12 @@
   margin: 5px 0; /* Spacing between links */
 }
 
-.link.active {
+.Link.active {
   background-color: #00b3b3; /* Active link color */
   transition-duration: 0.1s;
 }
 
-.link:hover {
+.Link:hover {
   background-color: #114949; /* Background color on hover */
 }
 
@@ -91,7 +91,7 @@ main {
   margin: 0; /* Remove default margin */
 }
 
-.link {
+.Link {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -103,16 +103,16 @@ main {
   font-size: 18px; /* Adjust font size for navigation items */
 }
 
-.icon {
+.Icon {
   font-size: 30px; /* Icon size */
   margin-right: 10px; /* Space between icon and text */
 }
 
-.navItem {
+.NavItem {
   font-size: 18px; /* Adjust this size for navigation item text */
   white-space: nowrap; /* Prevent text from wrapping */
 }
-.sidebar-icon {
+.sidebarIcons {
   width: 29px; /* Set width */
   height: 29px; /* Set height */
   margin-right: 10px; /* Space between icon and text */

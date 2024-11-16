@@ -1,0 +1,15 @@
+#home, #about, #services, #login, #contact {
+    min-height: 100vh; /* Make each section fill the screen */
+    width: 100%;
+    scroll-snap-align: start; /* Optional: for smooth scrolling */
+  }
+  
+  body {
+    scroll-snap-type: y mandatory; /* Optional: for smooth scrolling */
+    overflow-y: scroll; /* Allows vertical scrolling */
+  }
+  
+  .main-contain {
+    padding-top: 60px; /* Make sure this is enough space to account for the height of your fixed header */
+  }
+  

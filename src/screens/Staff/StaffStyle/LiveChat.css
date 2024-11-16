@@ -1,0 +1,135 @@
+.live-chat-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.chat-header {
+  background-color: #1e3a5f;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-header h3 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.chat-header .back-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.message {
+  margin-bottom: 15px;
+  max-width: 80%;
+}
+
+.message.user {
+  margin-left: auto;
+  text-align: right;
+}
+
+.message.staff {
+  margin-right: auto;
+}
+
+.message-content {
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 18px;
+  display: inline-block;
+}
+
+.message.user .message-content {
+  background-color: #007bff;
+  color: white;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 5px;
+}
+
+.chat-input {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.attachment-button {
+  background-color: #6c757d !important;
+}
+
+.attachment-preview {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.attachment-preview img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+}
+
+.attachment-preview span {
+  flex-grow: 1;
+  font-size: 0.9em;
+  color: #495057;
+}
+
+.attachment-preview button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8em;
+}

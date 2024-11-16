@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
  //import App from './App';
 
-import Ratings from './components/Ratings';
+
 //import TechnicianNotifications from './components/Notifications/TechnicianNotifications';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,10 +16,9 @@ import RoutesComponent from "./components/All Issue and View Page/RoutesComponen
 //import CollabMain from './components/CollaborationRequest/CollabMain';
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import IssueDetails from './components/All Issue and View Page/IssueDetails';
+
 import SideBarNavigation from './screens/Navigation/SideBarNavigation';
 import TechnicianNotifications from './components/CollaborationRequest/IssueDetailsCollaburationRequest.jsx';
-import CollabMain from './screens/Navigation/pages/Ratings.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

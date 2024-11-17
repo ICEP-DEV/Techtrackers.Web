@@ -1,20 +1,20 @@
 /* Main content */
-.main-content1 {
+.mainContent1 {
   padding-top: 0;
   max-width: 100%;
   margin: auto;
 }
 
-.top-container {
+.topContainer {
   text-align: center;
 }
 
-.welcome-title {
+.welcomeTitle {
   font-weight: 700;
   padding: 10px;
 }
 
-.active-title {
+.activeTitle {
   font-weight: 600;
   margin: 10px;
 }
@@ -24,29 +24,29 @@
 }
 
 /* Flex container for status cards */
-.status-cards,
-.status-cards2 {
+.statusCards,
+.statusCards2 {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-.cards-left,
-.cards-right {
+.cardsLeft,
+.cardsRight {
   width: 48%;
   display: flex;
   gap: 20px;
 }
 
-.cards-left {
+.cardsLeft {
   float: left;
 }
 
-.cards-right {
+.cardsRight {
   float: right;
 }
 
-.card-left {
+.cardLeft {
   padding: 5px;
   border-radius: 4px;
   color: #fff;
@@ -56,11 +56,11 @@
   background: linear-gradient(135deg, #108484, #0C3A3A);
 }
 
-.card-left strong {
+.cardLeft strong {
   font-size: 40px;
 }
 
-.upcoming-tasks, .update-status {
+.upcomingTasks, .updateStatus {
   padding: 20px 10px;
   border-radius: 4px;
   color: #fff;
@@ -77,20 +77,20 @@
 }
 
 /* Bottom container with tasks and reviews */
-.bottom-container {
+.bottomContainer {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   clear: both;
 }
 
-.active-tasks, .my-reviews {
+.activeTasks, .myReviews {
   flex: 1;
   min-width: 300px;
 }
 
 /* Task cards layout */
-.task-card {
+.taskCard {
   padding: 15px;
   color: #fff;
   height: 220px;
@@ -99,24 +99,24 @@
   flex-direction: column; 
 }
 
-.issues-title {
+.issuesTitle {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 10px;
   height: 40px; /* Set a consistent height for task titles */
 }
 
-.task-card  p {
+.taskCard  p {
   color: #fff;
 }
 
-.task-card.high, .task-card.medium, .task-card.low {
+.taskCard.high, .taskCard.medium, .taskCard.low {
   background: linear-gradient(135deg, #108484, #0C3A3A);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Progress Bar Container */
-.dashboard-progress-bar {
+.dashboardProgressBar {
   width: 100%;
   height: 20px;
   background-color: #fff;
@@ -129,7 +129,7 @@
 }
 
 /* The bar inside that shows the progress */
-.dashboard-progress-bar::before {
+.dashboardProgressBar::before {
   content: '';
   display: block;
   height: 100%;
@@ -138,25 +138,25 @@
 }
 
 /* Status: Pending (Red progress) */
-.dashboard-progress-bar.pending::before {
+.dashboardProgressBar.pending::before {
   width: 30%; /* Example width, can adjust */
   background-color: #B81600; /* Red for Pending */
 }
 
 /* Status: In Progress (Orange progress) */
-.dashboard-progress-bar.in-progress::before {
+.dashboardProgressBar.inprogress::before {
   width: 60%; /* Example width */
   background-color: #B08D0F; /* Orange for In Progress */
 }
 
-/* Status: Completed (Green progress) */
-.dashboard-progress-bar.completed::before {
+/* Status: resolved (Green progress) */
+.dashboardProgressBar.resolved::before {
   width: 100%;
-  background-color: #1f750a; /* Green for Completed */
+  background-color: #1f750a; /* Green for resolved */
 }
 
 
-.task-cards {
+.taskCards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
@@ -165,7 +165,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.my-reviews {
+.myReviews {
   background: #EDF1F8;
   padding: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -173,7 +173,7 @@
 }
 
 /* Review box and rating */
-.review-box {
+.reviewBox {
   margin: auto;
   background: linear-gradient(135deg, #108484, #0C3A3A);
   border-radius: 4px;
@@ -191,17 +191,17 @@
   margin-bottom: 10px;
 }
 
-.rating-breakdown {
+.ratingBreakdown {
   margin-top: 20px;
 }
 
-.rating-item {
+.ratingItem {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.rating-item span {
+.rating-Item span {
   width: 20px;
 }
 
@@ -222,68 +222,68 @@
 
 /* Media Queries for responsiveness */
 @media (max-width: 1024px) {
-  .status-cards,
-  .status-cards2 {
+  .statusCards,
+  .statusCards2 {
     flex-direction: column;
     gap: 20px;
   }
 
-  .cards-left,
-  .cards-right {
+  .cardsLeft,
+  .cardsRight {
     float: none;
     width: 100%;
   }
 
-  .bottom-container {
+  .bottomContainer {
     flex-direction: column;
     gap: 20px;
   }
 
-  .task-cards {
+  .taskCards {
     grid-template-columns: 1fr;
     padding: 30px;
   }
 
-  .my-reviews,
-  .review-box {
+  .myReviews,
+  .reviewBox {
     padding: 30px;
   }
 }
 
 @media (max-width: 768px) {
-  .task-cards {
+  .taskCards {
     padding: 20px;
     gap: 20px;
   }
 
-  .my-reviews,
-  .review-box {
+  .myReviews,
+  .reviewBox {
     padding: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .card-left,
-  .upcoming-tasks,
-  .update-status {
+  .cardLeft,
+  .upcomingTasks,
+  .updateStatus {
     font-size: 0.875rem;
     padding: 10px;
   }
 
-  .task-cards {
+  .taskCards {
     padding: 10px;
   }
 
-  .review-box {
+  .reviewBox {
     padding: 20px;
   }
 
-  .status-cards {
+  .statusCards {
     flex-direction: column;
     gap: 10px;
   }
 
-  .bottom-container {
+  .bottomContainer {
     flex-direction: column;
     gap: 10px;
   }

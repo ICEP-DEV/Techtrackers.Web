@@ -1,4 +1,4 @@
-.header-container {
+.headerContainer {
   padding: 20px;
 }
 
@@ -9,14 +9,14 @@
   padding: 10px 0;
 }
 
-.header-left {
+.headerLeft {
   display: flex;
   align-items: center;
   margin-left: -20px;
   margin-top: -100px;
 }
 
-.fa-clock {
+.faClock {
   font-size: 40px;
   margin-right: 10px;
   color: gray;
@@ -24,25 +24,25 @@
   margin-left: 12px;
 }
 
-.header-text h2 {
+.headerText h2 {
   margin: 0;
   font-size: 25px;
   color: black;
   font-weight: bold;
 }
 
-.header-text p {
+.headerText p {
   margin: 0;
   font-size: 12px;
   color: gray;
 }
 
-.header-right {
+.headerRight {
   display: flex;
   align-items: center;
 }
 
-.search-input {
+.searchInput {
   padding: 1px 10px;
   margin-top: -120px;
   margin-right: -45px;
@@ -60,15 +60,15 @@
   background-color: white;
 }
 
-.filter-sort-container {
+.filterSortContainer {
   display: flex;
   align-items: center;
   margin-left: -160px;
   margin-top: 120px;
 }
 
-.filter-button1,
-.sort-button1 {
+.filterButton1,
+.sortButton1 {
   border: none;
   padding: 10px;
   border-radius: 4px;
@@ -79,13 +79,13 @@
   color: #1E1E1E;
 }
 
-.filter-button1:hover,
-.sort-button1:hover {
+.filterButton1:hover,
+.sortButton1:hover {
   background-color: #0a4d4d;
   color: #fff;
 }
 
-.filter-options {
+.filterOptions {
   position: absolute;
   width: 150px;
   background-color: #f4ffff;
@@ -98,25 +98,25 @@
   flex-direction: column;
 }
 
-.filter-options label {
+.filterOptions label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.filter-options div {
+.filterOptions div {
   margin-bottom: 10px;
 }
 
-.filter-options input,
-.filter-options select {
+.filterOptions input,
+.filterOptions select {
   width: 93%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.filter-options button {
+.filterOptions button {
   background-color: #0a4d4d;
   color: #fff;
   border: none;
@@ -126,15 +126,15 @@
   margin-top: 5px;
 }
 
-.filter-options button:hover {
+.filterOptions button:hover {
   background-color: #0056b3;
 }
 
-.sort-dropdown-container {
+.sortDropdownContainer {
   position: relative;
 }
 
-.sort-options {
+.sortOptions {
   position: absolute;
   background-color: #f4ffff;
   border: 1px solid #ddd;
@@ -144,12 +144,12 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.sort-option {
+.sortOption {
   padding: 5px;
   cursor: pointer;
 }
 
-.sort-option:hover {
+.sortOption:hover {
   background-color: #f0f0f0;
 }
 

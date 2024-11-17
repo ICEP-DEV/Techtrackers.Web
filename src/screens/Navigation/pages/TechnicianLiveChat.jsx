@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../SidebarCSS/LiveChatStyle.css';
+import styles from '../SidebarCSS/LiveChatStyle.module.css';
 import ProfileIcon from '../images/profile_iconlivechat.png';
 import AttachmentIcon from '../images/attachment_icon.png';
 import { useNavigate } from "react-router-dom";
 
-function TechncianAdminChat() {
+function TechncianLiveChat() {
     const technicianName = "Samuel Mahlangu"; 
     const [text, setText] = useState('');
     const [chatLog, setChatLog] = useState([
@@ -46,16 +46,20 @@ function TechncianAdminChat() {
     };
 
     return (
-        <div className="main-container-chat">
-            <div className="chat-container">
-                <div className="chat-header">
-                    <div id='name'><h4 className="technician-name"><img src={ProfileIcon} alt="Profile" height={45}/> {technicianName}</h4></div>
-                    <div id='icon' onClick={handleCancelBtn}><i className="fa-solid fa-xmark"></i></div>
+        <div className={styles.mainContainerChat}>
+            <div className={styles.chatContainer}>
+                <div className={styles.chatHeader}>
+                    <div className={styles.name}><h4 className={styles.technicianName}><img src={ProfileIcon} alt="Profile" height={45}/> {technicianName}</h4></div>
+                    <div clsassName={styles.icon} onClick={handleCancelBtn}><i className="fa-solid fa-xmark"></i></div>
                 </div>
-                <div className="chat-box">
-                    <div className="texts">
+                <div className={styles.chatBox}>
+                    <div className={styles.texts}>
                         {chatLog.map((msg, index) => (
-                            <div key={index} className={msg.sender === "You" ? "user-message" : "tech-message"}>
+                            <div key={index} className={
+                                msg.sender === "You"
+                                  ? styles.userMessage
+                                  : styles.techMessage
+                              }>
                             {msg.type === "image" ? (
                                 <a href={msg.text} target="_blank" rel="noopener noreferrer">
                                     <img 
@@ -67,13 +71,13 @@ function TechncianAdminChat() {
                             ) : (
                                 <p>{msg.text}</p>
                             )}
-                            <span className="time-stamp">{msg.time}</span>
+                            <span className={styles.timeStamp}>{msg.time}</span>
                         </div>
                         
                         ))}
                     </div>
                 </div>
-                <div className="message-field">
+                <div className={styles.messageField}>
                     <input 
                         type="text" 
                         value={text} 
@@ -85,7 +89,7 @@ function TechncianAdminChat() {
                         alt="Attach" 
                         onClick={handleAttachImage} 
                         height={45} 
-                        className="attachment-icon" 
+                        className={styles.attachmentIcon} 
                     />
                     <input 
                         type="file" 
@@ -94,7 +98,7 @@ function TechncianAdminChat() {
                         style={{ display: 'none' }} 
                     />
                 
-                    <button className="send-button" onClick={handleSendText}>Send</button>
+                    <button className={styles.sendButton} onClick={handleSendText}>Send</button>
                     
                 </div>
             </div>
@@ -103,4 +107,4 @@ function TechncianAdminChat() {
     );
 }
 
-export default TechncianAdminChat;
+export default TechncianLiveChat;

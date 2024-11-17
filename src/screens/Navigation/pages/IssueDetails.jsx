@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify'; // Ensure this is imported
 import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
-import "../SidebarCSS/IssueDetails.css"; // Your CSS file
+import styles from "../SidebarCSS/IssueDetails.module.css"; // Your CSS file
 import desc from "../images/desc.png";
 import attachme from "../images/attachme.png";
 import image from "../images/image.png";
@@ -115,9 +115,9 @@ const handleNoteSubmit = () => {
 };
 
   return (
-    <div className="issue-details-container">
+    <div className={styles.issueDetailsContainer}>
       {/* Issue Title */}
-      <div className="issue">
+      <div className={styles.issue}>
         <h2>Issue title: {issue.title}</h2>
         <a href="#">
           <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat}/>
@@ -125,48 +125,48 @@ const handleNoteSubmit = () => {
       </div>
 
       {/* Header Section */}
-      <div className="issue-header">
+      <div className={styles.issueHeader}>
         {/* Requestor Info */}
-        <div className="issue-requestor">
+        <div className={styles.issueRequestor}>
           <p>Invite Requested By:</p>
-          <div className="profile">
+          <div className={styles.profile}>
             <img src={profile} width="50" height="50" alt="Profile Icon" />
-            <p className="name">{issue.name}</p>
+            <p className={styles.name}>{issue.name}</p>
           </div>
-          <p className="issue-id">{issue.issueId}</p>
+          <p className={styles.issueId}>{issue.issueId}</p>
         </div>
 
         {/* Issue Priority and Date */}
-        <div className="issue-info">
-          <div className="prio1">
+        <div className={styles.issueInfo}>
+          <div className={styles.prio1}>
             <p>
               Priority:{" "}
               <span
-                className={`priority-text ${
+                className={`${styles.priorityText} ${
                   issue.priority === "High"
-                    ? "priority-high"
+                    ? styles.priorityHigh
                     : issue.priority === "Medium"
-                    ? "priority-medium"
-                    : "priority-low"
+                    ? styles.priorityMedium
+                    : styles.priorityLow
                 }`}
               >
                 {issue.priority.toUpperCase()}
               </span>
             </p>
-            <div className="date-issue">
-            <p className="issue-date">{issue.date}</p>
+            <div className={styles.dateIssue}>
+            <p className={styles.issueDate}>{issue.date}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Issue Description */}
-      <div className="issue-details">
+      <div className={styles.issueDetails}>
         <h3>
           <img src={desc} width="25" height="30" alt="Description Icon" />
           <h4>Description</h4>
         </h3>
-        <p className="description-text">
+        <p className={styles.descriptionText}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -175,43 +175,44 @@ const handleNoteSubmit = () => {
       </div>
 
       {/* Attachments Section */}
-      <div className="attachments">
+      <div className={styles.attachments}>
         <h3>
           <img src={attachme} width="15" height="25" alt="Attachment Icon" />
           <h4>Attachments</h4>
         </h3>
-        <div className="attachment">
+        <div className={styles.attachment}>
           <img src={image} width="30" height="25" alt="Image Attachment" />{" "}
           <p>image.jpeg 12 KB</p>
         </div>
       </div>
 
       {/* Additional Information */}
-      <div className="additional-info">
+      <div className={styles.additionalInfo}>
         <p>Department - {issue.department}</p>
         <p>Building 18 - 2nd Floor</p>
       </div>
 
-      <div className="statuses">
+      <div className={styles.statuses}>
       <h3>Status:</h3>
       <p>
-        <span className={`status-text ${issue.status.toLowerCase()}`}>
+        <span className={`${styles.statusText} ${styles[issue.status.toLowerCase()]}`}
+        >
           {issue.status}
         </span>
       </p>
     </div>
 
-      <div className="actions1">
-  <button className="invite-button" onClick={handleInviteClick}>
+      <div className={styles.actions1}>
+  <button className={styles.inviteButton} onClick={handleInviteClick}>
     Invite
   </button>
-  <div className="right-actions">
+  <div className={styles.rightActions}>
    
-    <div className="button-container">
-      <button className="update-button" onClick={handleUpdateClick}>
+    <div className={styles.buttonContainer}>
+      <button className={styles.updateButton} onClick={handleUpdateClick}>
         Update
       </button>
-      <button className="close-button1" onClick={handleBack}>
+      <button className={styles.closeButton1} onClick={handleBack}>
         Close
       </button>
     </div>
@@ -220,38 +221,38 @@ const handleNoteSubmit = () => {
 
 
             {showModal && (
-    <div className="modal-overlay">
-        <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowModal(false)}>
+    <div className={styles.modalOverlay}>
+        <div className={styles.modalContent}>
+            <button className={styles.modalClose} onClick={() => setShowModal(false)}>
                 &times;
             </button>
-            <div className="collab-header">
+            <div className={styles.collabHeader}>
                 <h5 style={{ margin: 0 }}>Collaborate with:</h5>
                 <input
                     type="text"
                     placeholder="Search for a technician..."
-                    className="search-bar"
+                    className={styles.searchBar}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div className="technician-list">
+            <div className={styles.technicianList}>
                 {filteredTechnicians.map((tech, index) => (
                     <div
                         key={index}
-                        className={`technician-container ${
+                        className={`${styles.technicianContainer} ${styles[
                             selectedTechnician === tech.name ? "selected" : ""
-                        }`}
+                        ]}`}
                     >
-                        <div className="technician-info">
+                        <div className={styles.technicianInfo}>
                             <input
                                 type="checkbox"
-                                className="technician-checkbox"
+                                className={styles.technicianCheckbox}
                                 checked={selectedTechnician === tech.name}
                                 onChange={() => handleCheckboxChange(tech)}
                             />
                             <img src={profile} alt="User Icon" className="user-icon" />
-                            <div className="technician-details">
+                            <div className={styles.technicianDetails}>
                                 <p>{tech.name}</p>
                                 <p>{tech.role}</p>
                             </div>
@@ -259,8 +260,8 @@ const handleNoteSubmit = () => {
                     </div>
                 ))}
             </div>
-            <div className="tick-icon-container" onClick={handleCollabArrowClick} style={{ cursor: "pointer", marginTop: "15px" }}>
-                <img src={CollabArrow} alt="Collab Arrow Icon" className="tick-icon" />
+            <div className={styles.tickIconContainer} onClick={handleCollabArrowClick} style={{ cursor: "pointer", marginTop: "15px" }}>
+                <img src={CollabArrow} alt="Collab Arrow Icon" className={styles.tickIcon} />
             </div>
         </div>
     </div>
@@ -269,14 +270,14 @@ const handleNoteSubmit = () => {
 
           {/* Update Log Status Modal */}
 {showUpdateModal && (
-    <div className="modal-overlay">
-        <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowUpdateModal(false)}>
+    <div className={styles.modalOverlay}>
+        <div className={styles.modalContent}>
+            <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>
                 &times;
             </button>
             <h3>Update Log Status</h3>
-            <h4 className="select-header">SELECT:</h4> {/* Added a class for styling */}
-            <div className="status-buttons">
+            <h4 className={styles.selectHeader}>SELECT:</h4> {/* Added a class for styling */}
+            <div className={styles.statusButtons}>
                 <button
                     style={{ backgroundColor: "#0C4643", color: "white" , fontsize: "5px"}}
                     onClick={() => {
@@ -310,9 +311,9 @@ const handleNoteSubmit = () => {
 
             {/* Add Note Modal */}
             {showAddNoteModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <button className="modal-close" onClick={() => setShowAddNoteModal(false)}>
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                        <button className={styles.modalClose} onClick={() => setShowAddNoteModal(false)}>
                             &times;
                         </button>
                         <h3>Add Note:</h3>
@@ -323,9 +324,9 @@ const handleNoteSubmit = () => {
                             rows="4"
                             style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
                         />
-                        <div className="modal-actions">
-                            <button className="cancel-button" onClick={() => setShowAddNoteModal(false)}>Cancel</button>
-                            <button className="update-button" onClick={handleNoteSubmit}>Update</button>
+                        <div className={styles.modalActions}>
+                            <button className={styles.cancelButton} onClick={() => setShowAddNoteModal(false)}>Cancel</button>
+                            <button className={styles.updateButton} onClick={handleNoteSubmit}>Update</button>
                         </div>
                     </div>
                 </div>
@@ -333,20 +334,20 @@ const handleNoteSubmit = () => {
 
             {/* Success Message Popup */}
             {showSuccess && (
-                <div className="success-message-overlay">
-                    <div className="success-message-content">
-                        <div className="success-message-wrapper">
-                            <img src={tickIcon} alt="Tick Icon" className="tick-icon" />
+                <div className={styles.successMessageOverlay}>
+                    <div className={styles.successMessageContent}>
+                        <div className={styles.successMessageWrapper}>
+                            <img src={tickIcon} alt="Tick Icon" className={styles.tickIcon} />
                             <h3 style={{ margin: 0 }}>INVITATION WAS SUCCESSFULLY SENT</h3>
                         </div>
-                        <button className="ok-button" onClick={handleSuccessOk}>
+                        <button className={styles.okButton} onClick={handleSuccessOk}>
                             OK
                         </button>
                     </div>
                 </div>
             )}
             {/* Toast Container */}
-            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
+            <ToastContainer position={styles.topRight} autoClose={5000} hideProgressBar={false} />
         </div>
     );
 };

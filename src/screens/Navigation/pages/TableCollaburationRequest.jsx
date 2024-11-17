@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../SidebarCSS/TableCollaburationRequest.css";
+import styles from "../SidebarCSS/TableCollaburationRequest.module.css";
 import CollaIcon from "../images/callabIcon.png";
 import FiltIcon from "../images/FiltIcon.png";
 import AvatarIcon from "../images/avatarIcon.png";
@@ -75,60 +75,60 @@ const Table = () => {
   }, [filterRef, sortRef]);
 
   return (
-    <div className="collab-table-container">
+    <div className={styles.collabTableContainer}>
   {/* Header */}
-  <div className="collab-header">
-    <div className="collab-header-title">
+  <div className={styles.collabHeader}>
+    <div className={styles.collabHeaderTitle}>
       <img src={CollaIcon} width="40" height="30" alt="Collaboration Icon" /> COLLABORATION REQUESTS
     </div>
-    <div className="collab-header-actions">
-      <div className="collab-filter-container" ref={filterRef}>
+    <div className={styles.collabHeaderActions}>
+      <div className={styles.collabFilterContainer} ref={filterRef}>
         <button
-          className="collab-header-btn"
+          className={styles.collabHeaderBtn}
           onClick={() => setIsFilterOpen((prev) => !prev)}
         >
           <img src={FiltIcon} width="15" height="15" alt="Filter Icon" /> Filter
         </button>
         {isFilterOpen && (
-          <div className="collab-filter-dropdown">
-            <div className="collab-filter-inputs">
+          <div className={styles.collabFilterDropdown}>
+            <div className={styles.collabFilterInputs}>
               <input
                 type="text"
                 placeholder="Filter by Name..."
                 value={filterName}
                 onChange={handleNameChange}
-                className="collab-filter-input"
+                className={styles.collabFilterInput}
               />
               <input
                 type="text"
                 placeholder="Filter by Time..."
                 value={filterTime}
                 onChange={handleTimeChange}
-                className="collab-filter-input"
+                className={styles.collabFilterInput}
               />
             </div>
           </div>
         )}
       </div>
-      <div className="collab-sort-dropdown-container" ref={sortRef}>
+      <div className={styles.collabSortDropdownContainer} ref={sortRef}>
         <button
-          className="collab-sort-button"
+          className={styles.collabSortButton}
           onClick={() => setIsSortOpen((prev) => !prev)}
         >
           <img src={SortIcon} width="15" height="15" alt="Sort Icon" /> Sort
         </button>
         {isSortOpen && (
-          <div className="collab-sort-options">
-            <div className="collab-sort-option" onClick={() => handleSort("alphabetically-name")}>
+          <div className={styles.collabSortOptions}>
+            <div className={styles.collabSortOption} onClick={() => handleSort("alphabetically-name")}>
               By name
             </div>
-            <div className="collab-sort-option" onClick={() => handleSort("alphabetically-title")}>
+            <div className={styles.collabSortOption} onClick={() => handleSort("alphabetically-title")}>
               By title
             </div>
-            <div className="collab-sort-option" onClick={() => handleSort("time-old-new")}>
+            <div className={styles.collabSortOption} onClick={() => handleSort("time-old-new")}>
               By time (old - new)
             </div>
-            <div className="collab-sort-option" onClick={() => handleSort("time-new-old")}>
+            <div className={styles.collabSortOption} onClick={() => handleSort("time-new-old")}>
               By time (new - old)
             </div>
           </div>
@@ -138,30 +138,34 @@ const Table = () => {
   </div>
 
   {/* Table Content */}
-  <div className="collab-table">
+  <div className={styles.collabTable}>
     {displayedIssues.map((issue, index) => (
-      <div className="collab-row" key={index}>
-        <div className="collab-profile-info">
-          <div className="collab-profile-icon">
+      <div className={styles.collabRow} key={index}>
+        <div className={styles.collabProfileInfo}>
+          <div className={styles.collabProfileIcon}>
             <img src={AvatarIcon} width="50" height="50" alt="Avatar Icon" />
           </div>
-          <div className="collab-details"  onClick={() => handleIssueClick(issue)}>
-            <div className="collab-name">
-              {issue.name} <span className="collab-title">{issue.title}</span>
+          <div className={styles.collabDetails}  onClick={() => handleIssueClick(issue)}>
+            <div className={styles.collabName}>
+              {issue.name} <span className={styles.collabTitle}>{issue.title}</span>
             </div>
-            <div className="collab-vertical-line">
-              <button className="collab-issue-title">
-                <div className="collab-issue-na">{issue.issueTitle}</div>
-                <div className="collab-issue-details">{issue.issueDetails}</div>
+            <div className={styles.collabVerticalLine}>
+              <button className={styles.collabIssueTitle}>
+                <div className={styles.collabIssueNa}>{issue.issueTitle}</div>
+                <div className={styles.collabIssueDetails}>{issue.issueDetails}</div>
               </button>
             </div>
           </div>
         </div>
 
-        <div className="collab-buttons">
-          <div className="collab-time">{issue.time}</div>
-          <button className="collab-btn collab-btn-decline">Decline</button>
-          <button className="collab-btn collab-btn-accept">Accept</button>
+        <div className={styles.collabButtons}>
+          <div className={styles.collabTime}>{issue.time}</div>
+          <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`}>
+                Decline
+            </button>
+            <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`}>
+                Accept
+            </button>
         </div>
       </div>
     ))}

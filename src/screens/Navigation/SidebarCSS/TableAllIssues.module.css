@@ -1,50 +1,50 @@
 /* * {
   background-color: #f4ffff;
 } */
-.table-container {
+.tableContainer {
   width: 100%;
   max-width: 98%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
 }
 
-.issue-table {
+.issueTable {
   width: 100%;
   border-collapse: collapse;
 }
 
-.issue-table th,
-.issue-table td {
+.issueTable th,
+.issueTable td {
   padding: 12px;
   text-align: left;
 }
 
-.issue-table th {
+.issueTable th {
   background-color: #9fc1b3;
   font-size: 16px;
   color: black;
   font-weight: bold;
 }
 
-.status-select {
+.statusSelect {
   border: none;
 }
-.issue-table td {
+.issueTable td {
   background-color: #f4ffff;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
   color: black;
 }
 
-.issue-table tr:nth-child(even) td {
+.issueTable tr:nth-child(even) td {
   background-color: #cad8d6ed;
 }
 
-.issue-table tr:nth-child(even) .status {
+.issueTable tr:nth-child(even) .status {
   background-color: #cad8d6ed;
 }
 
-.view-button {
+.viewButton {
   background-color: #0a4d4d;
   color: white;
   border: 1px solid black;
@@ -53,7 +53,7 @@
   cursor: pointer;
 }
 
-.view-button:hover {
+.viewButton:hover {
   background-color: #0056b3;
 }
 
@@ -70,7 +70,7 @@
   border: none;
 }
 
-.end-message {
+.endMessage {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,7 +83,7 @@
   background-color: #000; /* Color of the line */
   margin: 0 10px; /* Spacing between line and text */
 }
-.close-button {
+.closeButton {
   margin-top: 10px; /* Spacing above the button */
   padding: 10px 15px; /* Button padding */
   background-color: #007bff; /* Button background color */
@@ -93,11 +93,11 @@
   cursor: pointer; /* Pointer cursor on hover */
 }
 
-.close-button:hover {
+.closeButton:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
 
-.table-span {
+.tableSpan {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -120,7 +120,7 @@
   display: none;
 }
 
-.table-container .close-button {
+.tableContainer .closeButton {
   background-color: rgb(174, 0, 0);
   color: white;
   border: 1px solid black;

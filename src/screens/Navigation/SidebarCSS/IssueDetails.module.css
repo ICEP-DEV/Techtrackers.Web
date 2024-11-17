@@ -1,4 +1,4 @@
-.issue-details-container {
+.issueDetailsContainer {
   width: 100%;
   max-width: 800px; /* Ensures it doesn’t get too wide on large screens */
   margin: 20px auto;
@@ -20,14 +20,14 @@
   margin-left: 10px;
 }
 
-.issue-details-container .issue h2 {
+.issueDetailsContainer .issue h2 {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 0; /* Removed px to avoid error */
   color: #555;
 }
 
-.issue-header {
+.issueHeader {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@
   margin-top: 10px;
 } */
 
-.issue-requestor {
+.issueRequestor {
   display: flex;
   float: left;
   flex-direction: column;
@@ -68,7 +68,7 @@
   text-align: center;
 } */
 
-.issue-info {
+.issueInfo {
   display: flex;
   align-items: center; /* Center vertically */
   justify-content: space-between; /* Evenly spaces the content */
@@ -81,23 +81,23 @@
 }
 
 
-.priority-text {
+.priorityText {
   margin-right: 10px; /* Add some space between the priority text and date */
 }
 
-.date-issue {
+.dateIssue {
   margin-left: 250px; /* Pushes the date to the right */
 }
 
 
-.priority-text {
+.priorityText {
   margin-top: 5px;
   margin-left: 25px;
   padding-left: 1px;
   padding-right: 1px;
 }
 
-.issue-requestor p {
+.issueRequestor p {
   font-size: 14px;
   color: #888;
   margin-top: 18px;
@@ -118,57 +118,57 @@
   color: #555;
 }
 
-.issue-info p {
+.issueInfo p {
   margin: 5px 0;
   font-size: 14px;
   text-align: right;
 }
 
-.priority-text {
+.priorityText {
   font-weight: bold;
   font-size: 14px;
   margin-left: 5px;
   margin-top: 7px;
 }
 
-.priority-high {
+.priorityHigh {
   color: red;
 }
 
-.priority-medium {
+.priorityMedium {
   color: orange;
 }
 
-.priority-low {
+.priorityLow {
   color: green;
 }
 
 /* Issue details section */
-.issue-details {
+.issueDetails {
   margin-top: 30px;
 }
 
-.issue-details p {
+.issueDetails p {
   font-size: 16px;
   color: black;
   margin-top: 5px;
 }
 
-.issue-details h3 {
+.issueDetails h3 {
   display: flex;
   align-items: center;
   margin-top: -20px;
   color: black;
 }
 
-.issue-details h3 h4 {
+.issueDetails h3 h4 {
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
 }
 
-.description-text {
+.descriptionText {
   margin-bottom: 30px;
   line-height: 1.6;
   color: #555;
@@ -217,11 +217,11 @@
 }
 
 /* Additional Info */
-.additional-info {
+.additionalInfo {
   margin-bottom: 30px;
 }
 
-.additional-info p {
+.additionalInfo p {
   font-size: 14px;
   color: #888;
   margin: 5px 0;
@@ -243,21 +243,21 @@
   margin-right: 10px; /* Adjust spacing as needed */
 }
 
-.status-text {
+.statusText {
   margin-left: 5px; /* Small space between "Status:" and the actual status text */
   color: #0a4d4d; /* Status color */
   font-weight: bold;
 }
 
-.status-text.pending {
+.statusText.pending {
   color: red;
 }
 
-.status-text.resolved {
+.statusText.resolved {
   color: green;
 }
 
-.status-text.inprogress {
+.statusText.inprogress {
   color: orange;
 }
 
@@ -267,7 +267,7 @@
   justify-content: space-between; /* Space between the buttons */
   align-items: center; /* Center items vertically */
 }
-.right-actions {
+.rightActions {
   display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: flex-end; /* Align items to the right */
@@ -275,8 +275,8 @@
 }
 
 
-.update-button,
-.close-button1 {  
+.updateButton,
+.closeButton1 {  
   padding: 9px 15px;
   border: none;
   border-radius: 5px;
@@ -289,7 +289,7 @@
   justify-content: space-between;
   
 }
-.invite-button {
+.inviteButton {
   padding: 20px 30px;
   border: none;
   border-radius: 5px;
@@ -301,24 +301,24 @@
   min-width: 50px;
 }
 
-.close-button1 {
+.closeButton1 {
   padding: 9px 15px; /* Adjust padding for Close button */
   background-color: #b02a37;
   transition: background-color 0.3s ease;
 }
 
-.invite-button {
+.inviteButton {
   background-color: #15959D;
 }
 
-.update-button {
+.updateButton {
   background-color: #1B78CE;
   padding: 9px 15px;
 }
 
-.close-button1:hover,
-.invite-button:hover,
-.update-button:hover {
+.closeButton1:hover,
+.inviteButton:hover,
+.updateButton:hover {
   opacity: 0.9;
 }
 
@@ -336,11 +336,11 @@
     margin-right: 12px;
   }
 
-  .status-text {
+  .statusText {
     margin-left: 320px;
   }
 
-  .issue-info .prio {
+  .issueInfo .prio {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -350,14 +350,14 @@
     margin-right: 340px;
   }
 
-  .priority-text {
+  .priorityText {
     margin-top: 5px;
     margin-left: 75px;
     padding-left: 1px;
     padding-right: 1px;
   }
 
-  .close-button1 {
+  .closeButton1 {
     padding: 9px 15px;
     border: none;
     border-radius: 5px;
@@ -379,11 +379,11 @@
     margin-right: 5px;
   }
 
-  .status-text {
+  .statusText {
     font-size: 14px;
   }
 
-  .issue-details-container {
+  .issue-DetailsContainer {
     padding: 10px;
   }
 
@@ -394,7 +394,7 @@
   }
 }
 /* Modal Overlay */
-.modal-overlay {
+.modalOverlay {
   position:fixed;
   top: 0;
   left: 0;
@@ -406,7 +406,7 @@
   z-index: 1000;
 }
 /* Modal Content */
-.modal-content {
+.modalContent {
   width: 80%; /* Width of the modal */
   max-width: 350px; /* Maximum width */
   background: white; /* Background color */
@@ -417,16 +417,16 @@
   text-align: center;
 }
 /* Specific Styles for Add Note Modal */
-.modal-content textarea {
+.modalContent textarea {
   width: 100%; /* Full width for textarea */
   padding: 20px; /* Padding for textarea */
   margin-bottom: 10px; /* Space below textarea */
 }
 /* Additional styling if needed */
-.modal-close {
+.modalClose {
   cursor: pointer; /* Pointer cursor for close button */
 }
-.modal-close {
+.modalClose {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -436,29 +436,29 @@
   cursor: pointer;
   background-color: #15959D;
 }
-.select-header {
+.selectHeader {
   margin-top: 10px; /* Spacing above the header */
   font-weight: bold; /* Bold text */
 }
 /* Search Bar Styles */
-.search-bar {
+.searchBar {
   flex: 1; /* Take available space */
   margin-left: 5px; /* Spacing between heading and search bar */
   padding: 5px; /* Padding inside the search bar */
   border: 1px solid #ccc; /* Border for the search bar */
   border-radius: 3px; /* Rounded corners */
 }
-.search-icon {
+.searchIcon {
   width: 10px; /* Adjust size as needed */
   height: 10px; /* Adjust size as needed */
 }
-.technician-list {
+.technicianList {
   max-height: 500px; /* Limit the height of the list */
   overflow-y: hidden; /* Enable scrolling if the list exceeds the height */
   margin-top: 10px; /* Space above the list */
 }
 
-.technician-container {
+.technicianContainer {
   display:flex;
   align-items: center;
   padding: 10px; /* Add some padding */
@@ -467,39 +467,39 @@
   border-radius: 5px; /* Rounded corners */
   background: #EEF9F9;
 }
-.technician-container.selected {
+.technicianContainer.selected {
   transition: background-color 0.3s ease;
 }
 
-.technician-container p{
+.technicianContainer p{
   font-size: 14px;
   margin-left:6px;
   display: flex;
 }
 
-.technician-checkbox {
+.technicianCheckbox {
   margin-right: 10px;
   width: 20px;
 }
-.technician-info {
+.technicianInfo {
   display: flex;
   align-items: center;
   flex: 1; /* Use full width for the technician info */
 }     
-.user-icon {
+.userIcon {
   width: 40px; /* Icon size */
   height: 40px;
   margin-right: 10px; /* Space between icon and text */
 }
-.technician-info p {
+.technicianInfo p {
   margin: 0;
 }
-.technician-details {
+.technicianDetails {
   flex: 1; /* Allow details to take up remaining space */
 }
 
 /* Success Message Overlay Styles */
-.success-message-overlay {
+.successMessageOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -511,12 +511,12 @@
   align-items: center;
   z-index: 1000;
 }
-.success-message-wrapper {
+.successMessageWrapper {
   display: flex; /* Flexbox for side-by-side layout */
   align-items: center; /* Center items vertically */
 }
 /* Success Message Content Styles */
-.success-message-content {
+.successMessageContent {
   background: white;
   border-radius: 8px;
   padding: 20px;
@@ -525,25 +525,25 @@
   max-width: 90%; /* Responsive width */
   text-align: center; /* Center text within */
 }
-.success-header {
+.successHeader {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.tick-icon-container {
+.tickIconContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 15px; /* Adjust spacing as needed */
 }
 
-.tick-icon {
+.tickIcon {
   width: 40px; /* Adjust size as needed */
   height: 40px; /* Adjust size as needed */
   margin-bottom: 10px; /* Space below the icon */
   align-items: right;
 }
-.ok-button {
+.okButton {
   background-color: #15959D; /* Button color */
   color: white; /* Text color */
   border: none; /* Remove border */
@@ -552,19 +552,19 @@
   cursor: pointer; /* Pointer cursor on hover */
   align-self: center; /* Center button horizontally */
 }
-.ok-button:hover {
+.okButton:hover {
   background-color: #15959D;
 }
 
-.ok-button:focus {
+.okButton:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.ok-button:active {
+.okButton:active {
   transform: scale(0.98);
 }
-.collab-header {
+.collabHeader {
   display: flex;
   align-items: center; /* Center the items vertically */
   margin-bottom: 15px; /* Space below the header */
@@ -590,33 +590,33 @@
   align-items: center;
 }
 
-.status-text {
+.statusText {
   font-weight: bold;
   font-size: 16px;
   color: #0a4d4d; /* Status color */
 }
 
 /* Optional: additional styles for buttons */
-.update-button, .close-button {
+.updateButton, .closeButton {
   margin-left: 10px; /* Add some space between buttons if needed */
 }
 
-.status-buttons {
+.statusButtons {
   display: flex; /* Flexbox for buttons */
   gap: 10px; /* Space between buttons */
 }
 
-.right-actions {
+.rightActions {
   display: flex; /* Make this a flex container */
   flex-direction: row; /* Arrange items vertically */
   align-items: flex-end; /* Align items to the right */
 }
 /* Optional: additional styles for buttons */
-.update-button,
-.close-button1 {
+.updateButton,
+.closeButton1 {
   margin-left: 10px; /* Add some space between buttons if needed */
 }
-.toast-message {
+.toastMessage {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -639,14 +639,14 @@
   to { opacity: 0; }
 }
 /* Collaboration Header Styles */
-.collab-header {
+.collabHeader {
   display: flex; /* Use flexbox */
   align-items: center; /* Center vertically */
   justify-content: space-between; /* Space between items */
   margin-bottom: 15px; /* Spacing below the header */
 }
 /* Cancel Button Styling */
-.cancel-button {
+.cancelButton {
   background-color: #b02a37; /* Red background */
   color: white; /* White text for contrast */
   border: none;
@@ -663,20 +663,20 @@
   right: 20px; /* Align to the right side */
 }
 
-.cancel-button:hover {
+.cancelButton:hover {
   background-color: #a02833; /* Darker red on hover */
 }
 
-.cancel-button:focus {
+.cancelButton:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.cancel-button:active {
+.cancelButton:active {
   transform: scale(0.98);
 }
 @media (max-width: 768px) {
-  .right-actions {
+  .rightActions {
     align-items: center;
   }
 }

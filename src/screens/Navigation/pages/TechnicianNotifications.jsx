@@ -4,7 +4,7 @@ import filter from '../images/filter_icon.png';
 import list from '../images/list_icon.png';
 import profile from '../images/profile_icon.png';
 import search from '../images/search.png';
-import '../SidebarCSS/NotificationsStyle.css';
+import styles from '../SidebarCSS/NotificationsStyle.module.css';
 import { useNavigate } from "react-router-dom";
 import useIssues from "./useIssues";
 
@@ -12,8 +12,11 @@ const NotificationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('');
   const [sortOrder, setSortOrder] = useState('');
+
   const { issues } = useIssues();
+
   const navigate = useNavigate();
+
   const handleIssueClick = (issue) => {
     navigate(`/issues/${issue.id}`); // Pass the issue data
   };
@@ -25,7 +28,7 @@ const NotificationsPage = () => {
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
       staffName: 'John Doe',
-      issue: 'Internal Issue: Server Downtime in Data Center',
+      issue: 'Issue Title: Server Downtime in Data Center',
       issueId: 'IT-P1-1220',
       time: '12:18',
     },
@@ -35,7 +38,7 @@ const NotificationsPage = () => {
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
       staffName: 'Themba Zwane',
-      issue: 'Access Issue: Unable to log into HR Portal',
+      issue: 'Issue Title: Unable to log into HR Portal',
       issueId: 'HR-P1-1221',
       time: '12:16',
     },
@@ -64,7 +67,7 @@ const NotificationsPage = () => {
       type: 'collaboration',
       sender: 'Mike Mdluli',
       content: 'invited you to collaborate with them',
-      issue: 'Log Details: Maintenance Request',
+      issue: 'Issue Title: Maintenance Request',
       action: 'View Collaboration Requests',
       time: '2024-08-14',
     },
@@ -121,75 +124,75 @@ const NotificationsPage = () => {
   };
 
   return (
-    <div className="notifications-container">
-      <div className="notifications-header">
-        <h1 className="notifications-title">
+    <div className={styles.notificationsContainer}>
+      <div className={styles.notificationsHeader}>
+        <h1 className={styles.notificationsTitle}>
           <img src={bell} alt="Bell" /> NOTIFICATIONS
         </h1>
-        <div className="filter-container">
-          <div className="the-search-container">
+        <div className={styles.filterContainer}>
+        <div className={styles.theSearchContainer}>
             <input 
               type="text" 
               placeholder="Search" 
-              className="the-search-input" 
+              className={styles.theSearchInput} 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} 
             />
-            <img src={search} className="the-search-icon" alt="Search" />
+            <img src={search} className={styles.theSearchIcon} alt="Search" />
           </div>
-          <div className="notification-dropdown">
-            <button className="the-filter-button">Filter <img src={filter} alt="Filter" /></button>
-            <div className="notification-dropdown-content">
-              <div className="notification-dropdown-item" onClick={() => setFilterType('assignment')}>Assignment</div>
-              <div className="notification-dropdown-item" onClick={() => setFilterType('resolution')}>Resolution</div>
-              <div className="notification-dropdown-item" onClick={() => setFilterType('collaboration')}>Collaboration</div>
-              <div className="notification-dropdown-item" onClick={() => setFilterType('')}>All</div>
+          <div className={styles.notificationDropdown}>
+            <button className={styles.theSearchFilterButton}>Filter <img src={filter} alt="Filter" /></button>
+            <div className={styles.notificationDropdownContent}>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('assignment')}>Assignment</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('resolution')}>Resolution</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('collaboration')}>Collaboration</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
             </div>
           </div>
-          <div className="notification-dropdown">
-            <button className="the-sort-button">Sort <img src={list} alt="Sort" /></button>
-            <div className="notification-dropdown-content">
-              <div className="notification-dropdown-item" onClick={() => setSortOrder('newest')}>Newest First</div>
-              <div className="notification-dropdown-item" onClick={() => setSortOrder('oldest')}>Oldest First</div>
-              <div className="notification-dropdown-item" onClick={() => setSortOrder('')}>Default</div>
+          <div className={styles.notificationDropdown}>
+            <button className={styles.theSortButton}>Sort <img src={list} alt="Sort" /></button>
+            <div className={styles.notificationDropdownContent}>
+          <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('newest')}>Newest First</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('oldest')}>Oldest First</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('')}>Default</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="notifications-list">
+      <div className={styles.notificationsList}>
         {sortedNotifications.map((notification) => (
-          <div key={notification.id} className="notification-item">
-            <div className="notification-profile">
+          <div key={notification.id} className={styles.notificationItem}>
+            <div className={styles.notificationProfile}>
               <img src={profile} alt="Profile" />
             </div>
-            <div className="notification-content">
-              <p className="notification-sender">
+            <div className={styles.notificationContent}>
+              <p className={styles.notificationCender}>
                 {notification.sender}{' '}
-                <span className="notification-message">
+                <span className={styles.notificationMessage}>
                   {notification.content}{' '}
                   {notification.issueId && <span><strong>{notification.issueId}</strong></span>}
                   {notification.status && (
                     <span style={{ color: getStatusColor(notification.status) }}>
-                      { <strong> as {notification.status}</strong>}
+                      { <strong> {notification.status}</strong>}
                     </span>
                   )}
                 </span>
               </p>
               {notification.staffName && (
-                <p className="notification-staffName">{notification.staffName}</p>
+                <p className={styles.notificationStaffName}>{notification.staffName}</p>
               )}
               {notification.issue && (
-                <p className="notification-issue">{notification.issue}</p>
+                <p className={styles.notificationIssue}>{notification.issue}</p>
               )}
               {notification.action && (
-                <p className="notification-action" onClick={() => navigate(`/collab`)}>{notification.action}</p>
+                <p className={styles.notificationAction} onClick={() => navigate(`/collab`)}>{notification.action}</p>
               )}
             </div>
-            <div className="notification-meta">
-              <span className="notification-time">{notification.time}</span>
+            <div className={styles.notificationMeta}>
+              <span className={styles.notificationTime}>{notification.time}</span>
               {notification.type !== 'resolution' && notification.type !== 'collaboration' && (
-                <button className="notification-view-button" onClick={() => navigate(`/issues/${notification.issueId}`)}>
+                <button className={styles.notificationViewButton} onClick={() => navigate(`/issues/${notification.issueId}`)}>
                   View
                 </button>
               )}

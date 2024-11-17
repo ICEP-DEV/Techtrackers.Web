@@ -1,11 +1,11 @@
-.main-container-chat{
+.mainContainerChat{
     background-color: #EEF9F9;
     max-width: 70%;
     margin: auto;
     /* max-height: 90vh; */
 }
 
-.chat-container {
+.chatContainer {
     background-color: #ffffff;
     padding: 20px;
     width: 80%;
@@ -14,29 +14,29 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chat-header {
+.chatHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#icon {
+.icon {
     color: #15959D;
     font-size: 30px;
     cursor: pointer;
 }
 
-#icon:hover {
+.icon:hover {
     color: #71a9ad;
 }
 
 
-.technician-name {
+.technicianName {
     color: rgb(0, 0, 0);
     font-weight: 700;
 }
 
-.chat-box {
+.chatBox {
     display: flex; 
     flex-direction: column;
     background-color: #EEF9F9;
@@ -60,7 +60,7 @@
     border-radius: 8px;
 }
 
-.user-message {
+.userMessage {
     position: relative;
     background-color: #ffffff;
     padding: 15px;
@@ -74,7 +74,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.tech-message {
+.techMessage {
     position: relative;
     background-color: #ffffff; 
     display: inline-block;
@@ -89,7 +89,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.time-stamp {
+.timeStamp {
     position: absolute;
     bottom: 5px;
     right: 10px;
@@ -97,7 +97,7 @@
     color: gray;
 }
 
-.message-field {
+.messageField {
     margin-top: 30px;
     display: flex;
     background-color: #ffffff;
@@ -113,7 +113,7 @@ input {
 }
 
 
-.send-button {
+.sendButton {
     background-color: #15959D;
     padding: 10px 30px;
     color: #fff;
@@ -122,12 +122,12 @@ input {
     cursor: pointer;
 }
 
-.attachment-icon {
+.attachmentIcon {
     padding: 2px;
     cursor: pointer;
     margin: 0 5px;
 }
 
-.send-button:hover {
+.sendButton:hover {
     background-color: #0C3A3A; 
 }

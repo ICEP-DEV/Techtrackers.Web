@@ -1,4 +1,4 @@
-.issue-details-container {
+.issueDetailsContainer {
   width: 100%;
   max-width: 800px; /* Ensures it doesn’t get too wide on large screens */
   margin: 20px auto;
@@ -20,29 +20,29 @@
   margin-left: 10px;
 }
 
-.issue-details-container .issue h2 {
+.issueDetailsContainer .issue h2 {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: px;
   color: #555;
 }
 
-.issue-details-container .issue-Title a {
+.issueDetailsContainer .issueTitle a {
   margin-top: 50rel;
 }
-.issue-header {
+.issueHeader {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap; /* Ensure wrapping on smaller screens */
   margin-top: -30px;
 }
 
-.issue-requestor {
+.issueRequestor {
   flex: 1; /* Both sides take equal width */
   margin-top: 10px;
 }
 
-.issue-info {
+.issueInfo {
   display: flex;
   justify-content: space-between; /* Aligns priority and date on opposite ends */
   align-items: center;
@@ -50,7 +50,7 @@
   font-size: 14px;
   color: #666;
 }
-.issue-info .prio {
+.issueInfo .prio {
   display: flex;
   justify-content: space-between; /* Aligns priority and date on opposite ends */
   align-items: center;
@@ -60,17 +60,17 @@
   margin-right: 340px;
 }
 
-.issue-info .issue-date {
+.issueInfo .issueDate {
   margin-top: -1px;
   padding-top: 1px;
 }
-.priority-text {
+.priorityText {
   margin-top: 5px;
   margin-left: 25px;
   padding-left: 1px;
   padding-right: 1px;
 }
-.issue-requestor p {
+.issueRequestor p {
   font-size: 14px;
   color: #888;
   margin-top: 18px;
@@ -105,24 +105,24 @@
   color: #555;
 }
 
-.issue-info p {
+.issueInfo p {
   margin: 5px 0;
   font-size: 14px;
   text-align: right;
 }
 
-.priority-text {
+.priorityText {
   font-weight: bold;
   font-size: 14px;
   margin-left: 5px;
   margin-top: 7px;
 }
 
-.priority-high {
+.priorityHigh {
   color: red;
 }
 
-.priority-medium {
+.priorityMedium {
   color: orange;
 }
 
@@ -131,7 +131,7 @@
 }
 
 /* Issue details section */
-.issue-details {
+.issueDetails {
   margin-top: 30px;
 }
 .issue-details p {
@@ -140,26 +140,26 @@
   margin-top: 5px;
 }
 
-.issue-details h3 {
+.issueDetails h3 {
   display: flex;
   align-items: center;
   margin-top: -20px;
   color: #666;
 }
 
-.issue-details h3 h4 {
+.issueDetails h3 h4 {
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
 }
-.icon-description::before {
+.iconDescription::before {
   content: "\f03a"; /* Icon code */
   font-family: FontAwesome;
   margin-right: 8px;
 }
 
-.description-text {
+.descriptionText {
   margin-bottom: 30px;
   line-height: 1.6;
   color: #666;
@@ -204,7 +204,7 @@
   margin-left: 10px;
   margin-top: 15px;
 }
-.icon-file::before {
+.iconFile::before {
   content: "\f15b"; /* FontAwesome file icon */
   font-family: FontAwesome;
   margin-right: 8px;
@@ -212,11 +212,11 @@
 }
 
 /* Additional Info */
-.additional-info {
+.additionalInfo {
   margin-bottom: 30px;
 }
 
-.additional-info p {
+.additionalInfo p {
   font-size: 14px;
   color: #888;
   margin: 5px 0;
@@ -238,7 +238,7 @@
   margin-right: 72px;
 }
 
-.status-text {
+.statusText {
   color: #0a4d4d; /* Status color */
   font-size: 16px;
   font-weight: bold;
@@ -247,15 +247,15 @@
   margin-top: 8px;
 }
 
-.status-text.pending {
+.statusText.pending {
   color: red;
 }
 
-.status-text.done {
+.statusText.done {
   color: green;
 }
 
-.status-text.ongoing {
+.statusText.ongoing {
   color: orange;
 }
 /* Actions */
@@ -266,8 +266,8 @@
   margin-top: 20px;
 }
 
-.accept-button,
-.decline-button {
+.acceptButton,
+.declineButton {
   padding: 14px 25px;
   border: none;
   border-radius: 5px;
@@ -280,7 +280,7 @@
   margin: 0 -240px 0 32px;
 }
 
-.close-button2 {
+.closeButton2 {
   padding: 9px 15px; /* Adjust padding for Close button */
   border: none;
   border-radius: 5px;
@@ -295,21 +295,21 @@
   margin-bottom: 12px;
 }
 
-.accept-button {
+.acceptButton {
   background-color: #007bff;
 }
 
-.decline-button {
+.declineButton {
   background-color: #b02a37;
 }
 
-.close-button2 {
+.closeButton2 {
   background-color: #b02a37;
 }
 
-.accept-button:hover,
-.decline-button:hover,
-.close-button2:hover {
+.acceptButton:hover,
+.declineButton:hover,
+.closeButton2:hover {
   opacity: 0.9;
 }
 
@@ -327,9 +327,9 @@
     margin-right: 12px;
   }
 
-  .status-text {
+  .statusText {
     margin-left: 320px;
-  }.issue-details-container {
+  }.issueDetailsContainer {
     width: 100%;
     max-width: 800px; /* Ensures it doesn’t get too wide on large screens */
     margin: 20px auto;
@@ -351,29 +351,29 @@
     margin-left: 10px;
   }
   
-  .issue-details-container .issue h2 {
+  .issueDetailsContainer .issue h2 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: px;
     color: #555;
   }
   
-  .issue-details-container .issue-Title a {
+  .issueDetailsContainer .issueTitle a {
     margin-top: 50rel;
   }
-  .issue-header {
+  .issueHeader {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; /* Ensure wrapping on smaller screens */
     margin-top: -30px;
   }
   
-  .issue-requestor {
+  .issueRequestor {
     flex: 1; /* Both sides take equal width */
     margin-top: 10px;
   }
   
-  .issue-info {
+  .issueInfo {
     display: flex;
     justify-content: space-between; /* Aligns priority and date on opposite ends */
     align-items: center;
@@ -381,7 +381,7 @@
     font-size: 14px;
     color: #666;
   }
-  .issue-info .prio {
+  .issueInfo .prio {
     display: flex;
     justify-content: space-between; /* Aligns priority and date on opposite ends */
     align-items: center;
@@ -391,17 +391,17 @@
     margin-right: 340px;
   }
   
-  .issue-info .issue-date {
+  .issueInfo .issueDate {
     margin-top: -1px;
     padding-top: 1px;
   }
-  .priority-text {
+  .priorityText {
     margin-top: 5px;
     margin-left: 25px;
     padding-left: 1px;
     padding-right: 1px;
   }
-  .issue-requestor p {
+  .issueRequestor p {
     font-size: 14px;
     color: #888;
     margin-top: 18px;
@@ -436,55 +436,55 @@
     color: #555;
   }
   
-  .issue-info p {
+  .issueInfo p {
     margin: 5px 0;
     font-size: 14px;
     text-align: right;
   }
   
-  .priority-text {
+  .priorityText {
     font-weight: bold;
     font-size: 14px;
     margin-left: 5px;
     margin-top: 7px;
   }
   
-  .priority-high {
+  .priorityHigh {
     color: red;
   }
   
-  .priority-medium {
+  .priorityMedium {
     color: orange;
   }
   
-  .priority-low {
+  .priorityLow {
     color: green;
   }
   
   /* Issue details section */
-  .issue-details {
+  .issueDetails {
     margin-top: 30px;
   }
-  .issue-details p {
+  .issueDetails p {
     font-size: 16px;
     color: #666;
     margin-top: 5px;
   }
   
-  .issue-details h3 {
+  .issueDetails h3 {
     display: flex;
     align-items: center;
     margin-top: -20px;
     color: #666;
   }
   
-  .issue-details h3 h4 {
+  .issueDetails h3 h4 {
     margin-left: 10px;
     margin-top: 15px;
     font-weight: bold;
     font-size: 20px;
   }
-  .icon-description::before {
+  .iconDescription::before {
     content: "\f03a"; /* Icon code */
     font-family: FontAwesome;
     margin-right: 8px;
@@ -530,7 +530,7 @@
     margin-left: 10px;
     margin-top: 15px;
   }
-  .icon-file::before {
+  .iconFile::before {
     content: "\f15b"; /* FontAwesome file icon */
     font-family: FontAwesome;
     margin-right: 8px;
@@ -538,11 +538,11 @@
   }
   
   /* Additional Info */
-  .additional-info {
+  .additionalInfo {
     margin-bottom: 30px;
   }
   
-  .additional-info p {
+  .additionalInfo p {
     font-size: 14px;
     color: #888;
     margin: 5px 0;
@@ -564,7 +564,7 @@
     margin-right: 72px;
   }
   
-  .status-text {
+  .statusText {
     margin-left: 347px; /* Small space between "Status:" and the actual status text */
     color: #0a4d4d; /* Status color */
     font-size: 16px;
@@ -574,15 +574,15 @@
     margin-top: 8px;
   }
   
-  .status-text.pending {
+  .statusText.pending {
     color: red;
   }
   
-  .status-text.done {
+  .statusText.done {
     color: green;
   }
   
-  .status-text.ongoing {
+  .statusText.ongoing {
     color: orange;
   }
   /* Actions */
@@ -593,8 +593,8 @@
     margin-top: 20px;
   }
   
-  .accept-button,
-  .decline-button {
+  .acceptButton,
+  .declineButton {
     padding: 14px 25px;
     border: none;
     border-radius: 5px;
@@ -607,7 +607,7 @@
     margin: 0 -240px 0 32px;
   }
   
-  .close-button2 {
+  .closeButton2 {
     padding: 9px 15px; /* Adjust padding for Close button */
     border: none;
     border-radius: 5px;
@@ -622,21 +622,21 @@
     margin-bottom: 12px;
   }
   
-  .accept-button {
+  .acceptButton {
     background-color: #007bff;
   }
   
-  .decline-button {
+  .declineButton {
     background-color: #b02a37;
   }
   
-  .close-button2 {
+  .closeButton2 {
     background-color: #b02a37;
   }
   
-  .accept-button:hover,
-  .decline-button:hover,
-  .close-button2:hover {
+  .acceptButton:hover,
+  .declineButton:hover,
+  .closeButton2:hover {
     opacity: 0.9;
   }
   
@@ -654,10 +654,10 @@
       margin-right: 12px;
     }
   
-    .status-text {
+    .statusText {
       margin-left: 320px;
     }
-    .issue-info .prio {
+    .issueInfo .prio {
       display: flex;
       justify-content: space-between; /* Aligns priority and date on opposite ends */
       align-items: center;
@@ -667,14 +667,14 @@
       margin-right: 250px;
     }
   
-    .priority-text {
+    .priorityText {
       margin-top: 5px;
       margin-left: 75px;
       padding-left: 1px;
       padding-right: 1px;
     }
   
-    .close-button2 {
+    .closeBtton2 {
       padding: 9px 15px; /* Adjust padding for Close button */
       border: none;
       border-radius: 5px;
@@ -696,11 +696,11 @@
       margin-right: 5px;
     }
   
-    .status-text {
+    .statusText {
       font-size: 14px;
     }
   
-    .issue-details-container {
+    .issueDetailsContainer {
       padding: 10px;
     }
   
@@ -711,7 +711,7 @@
     }
   }
   
-  .issue-info .prio {
+  .issueInfo .prio {
     display: flex;
     justify-content: space-between; /* Aligns priority and date on opposite ends */
     align-items: center;
@@ -721,14 +721,14 @@
     margin-right: 250px;
   }
 
-  .priority-text {
+  .priorityText {
     margin-top: 5px;
     margin-left: 75px;
     padding-left: 1px;
     padding-right: 1px;
   }
 
-  .close-button2 {
+  .closeButton2 {
     padding: 9px 15px; /* Adjust padding for Close button */
     border: none;
     border-radius: 5px;
@@ -750,11 +750,11 @@
     margin-right: 5px;
   }
 
-  .status-text {
+  .statusText {
     font-size: 14px;
   }
 
-  .issue-details-container {
+  .issueDetailsContainer {
     padding: 10px;
   }
 

@@ -3,19 +3,19 @@ body {
   background-color: #f0f8f8; /* Light page background */
 }
 
-.collab-table-container {
+.collabTableContainer {
   width: 70%;
   margin: 50px auto;
 }
 
-.collab-header {
+.collabHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20px;
 }
 
-.collab-header-title {
+.collabHeaderTitle {
   font-size: 24px;
   font-weight: bold;
   display: flex;
@@ -23,23 +23,23 @@ body {
   gap: 10px;
 }
 
-.collab-header-title .icon {
+.collabHeaderTitle .icon {
   margin-right: 10px;
 }
 
-.collab-header-actions {
+.collabHeaderActions {
   display: flex;
   align-items: center;
   gap: 20px;
   border-bottom: 1px solid #ccc;
 }
 
-.collab-archived {
+.collabArchived {
   font-weight: bold;
   color: gray;
 }
 
-.collab-header-btn {
+.collabHeaderBtn {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -47,12 +47,12 @@ body {
   color: #353434;
 }
 
-.collab-table {
+.collabTable {
   border-collapse: separate;
   border-spacing: 0 15px; /* Adds space between rows */
 }
 
-.collab-row {
+.collabRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +63,7 @@ body {
   margin-bottom: 15px;
 }
 
-.collab-row::after {
+.collabRow::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -73,13 +73,13 @@ body {
   background-color: #ddd;
 }
 
-.collab-profile-info {
+.collabProfileInfo {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.collab-vertical-line {
+.collabVerticalLine {
   width: 2px;
   height: 40px;
   background-color: rgb(143, 143, 190);
@@ -88,7 +88,7 @@ body {
 }
 
 
-.collab-profile-icon {
+.collabProfileIcon {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -96,26 +96,26 @@ body {
   margin-right: 20px;
 }
 
-.collab-details {
+.collabDetails {
   margin-right: auto;
   cursor: pointer;
 }
 
-.collab-name {
+.collabName {
   font-weight: bold;
 }
 
-.collab-title {
+.collabTitle {
   color: gray;
   font-size: 0.9em;
 }
 
-.collab-buttons {
+.collabButtons {
   display: flex;
   gap: 10px;
 }
 
-.collab-btn {
+.collabBtn {
   padding: 10px 50px;
   border: none;
   border-radius: 5px;
@@ -123,17 +123,17 @@ body {
   font-size: 1em;
 }
 
-.collab-btn-accept {
+.collabBtnAccept {
   background-color: #2d8d91;
   color: white;
 }
 
-.collab-btn-decline {
+.collabBtnDecline {
   background-color: #c23838;
   color: white;
 }
 
-.collab-issue-title {
+.collabIssueTitle {
   font-size: 0.85em;
   /* margin-top: 5px; */
   color: #555;
@@ -144,10 +144,10 @@ body {
   /* background-color: #f0f8f8; */
 }
 
-.collab-details:hover {
+.collabDetails:hover {
   color: #349286;
 }
-.collab-issue-details {
+.collabIssueDetails {
   font-size: 0.99em;
   color: #777;
   /* margin-left: 12px; */
@@ -155,28 +155,28 @@ body {
   /* text-align: right; */
 }
 
-.collab-issue-na {
+.collabIssueNa {
   margin-left:6px;
   display: flex;
   font-weight: 550;
 }
 
-.collab-time {
+.collabTime {
   margin-right: 20px;
   color: gray;
 }
 
-.collab-sort-button {
+.collabSortButton {
   border: none;
   background-color: #f0f8f8;
   font-size: 17px;
   color: #353434;
 }
-.collab-sort-dropdown-container {
+.collabSortDropdownContainer {
   position: relative;
 }
 
-.collab-sort-options {
+.collabSortOptions {
   position: absolute;
   top: 100%;
   left: 0;
@@ -187,23 +187,23 @@ body {
   border-radius: 12px;
 }
 
-.collab-sort-option:hover {
+.collabSortOption:hover {
   background-color: #ddd;
 }
-.collab-sort-option {
+.collabSortOption {
   padding: 10px;
   cursor: pointer;
 }
 
-.collab-sort-option:hover {
+.collabSortOption:hover {
   background-color: #f0f0f0;
 }
 
-.collab-filter-container {
+.collabFilterContainer {
   position: relative;
 }
 
-.collab-filter-dropdown {
+.collabFilterDropdown {
   position: absolute;
   background: white;
   border: 1px solid #ccc;
@@ -213,21 +213,21 @@ body {
   background-color: #f0f8f8;
 }
 
-.collab-filter-options {
+.collabFilterOptions {
   display: flex;
   flex-direction: column;
 }
 
-.collab-filter-option {
+.collabFilterOption {
   padding: 10px;
   cursor: pointer;
 }
 
-.collab-filter-option:hover {
+.collabFilterOption:hover {
   background: #f0f0f0;
 }
 
-.collab-filter-input {
+.collabFilterInput {
   margin: 5px;
   padding: 5px;
   width: calc(100% - 50px);
@@ -235,13 +235,13 @@ body {
   border-radius: 10px;
 }
 
-.collab-archived {
+.collabArchived {
   background-color: #f0f8f8;
   border: none;
   cursor: pointer;
 }
 
-.collab-archived h2 {
+.collabArchived h2 {
   color: black;
   font-size: 22px;
 }

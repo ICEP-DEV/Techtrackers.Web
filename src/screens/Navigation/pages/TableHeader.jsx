@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../SidebarCSS/TableHeader.css";
+import styles from "../SidebarCSS/TableHeader.module.css";
 
 const Header = ({ handleSort, handleFilter, handleSearch }) => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
@@ -58,33 +58,33 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
   }, []);
 
   return (
-    <div className="header-container">
-      <header className="header">
-        <div className="header-left">
-          <i className="fa-regular fa-clock" aria-hidden="true"></i>
-          <div className="header-text">
+    <div className={styles.headerContainer}>
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+        <i className={`fa-regular fa-clock ${styles.faClock}`} aria-hidden="true"></i>
+          <div className={styles.headerText}>
             <h2>ALL ISSUES</h2>
           </div>
         </div>
-        <div className="header-right">
+        <div className={styles.headerRight}>
           <input
             type="text"
             id="searchInput"
-            className="search-input"
+            className={styles.searchInput}
             placeholder="search"
             value={searchTerm}
             onChange={handleSearchInputChange}
           />
-          <i className="fa fa-search search" aria-hidden="true"></i>
+          <i className={`fa fa-search ${styles.search}`} aria-hidden="true"></i>
 
-          <div className="filter-sort-container">
+          <div className={styles.filterSortContainer}>
             {/* Filter Dropdown */}
-            <div className="filter-dropdown-container" ref={filterDropdownRef}>
-              <button className="filter-button1" onClick={toggleFilterDropdown}>
-                <i className="fa-solid fa-filter" aria-hidden="true"></i> Filter
+            <div className={styles.filterDropdownContainer} ref={filterDropdownRef}>
+              <button className={styles.filterButton1} onClick={toggleFilterDropdown}>
+              <i className={`fa-solid fa-filter ${styles.filter}`} aria-hidden="true">Filter</i>
               </button>
               {showFilterDropdown && (
-                <div className="filter-options">
+                <div className={styles.filterOptions}>
                   <div>
                     <label>Date:</label>
                     <input
@@ -138,26 +138,26 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
             </div>
 
             {/* Sort Dropdown */}
-            <div className="sort-dropdown-container" ref={sortDropdownRef}>
-              <button className="sort-button1" onClick={toggleSortDropdown}>
-                <i className="fa-solid fa-list" aria-hidden="true"></i> Sort
+            <div className={styles.sortDropdownContainer} ref={sortDropdownRef}>
+              <button className={styles.sortButton1} onClick={toggleSortDropdown}>
+              <i className={`fa-solid fa-list ${styles.listIcon}`} aria-hidden="true"></i> Sort
               </button>
               {showSortDropdown && (
-                <div className="sort-options">
+                <div className={styles.sortOptions}>
                   <div
-                    className="sort-option"
+                    className={styles.sortOption}
                     onClick={() => handleOptionClick("date-old-new")}
                   >
                     By date (old - new)
                   </div>
                   <div
-                    className="sort-option"
+                    className={styles.sortOption}
                     onClick={() => handleOptionClick("date-new-old")}
                   >
                     By date (new - old)
                   </div>
                   <div
-                    className="sort-option"
+                    className={styles.sortOption}
                     onClick={() => handleOptionClick("alphabetically")}
                   >
                     Alphabetically

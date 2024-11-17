@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import Header from "./TableHeader";
 import { sortAndFilterData } from "./Sort";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import "../SidebarCSS/Table.css";
+import styles from "../SidebarCSS/TableAllIssues.module.css";
 
 
 // Include the list of issues and pass them from the parent component
@@ -91,14 +91,14 @@ const Table = ({ issues, setIssues }) => {
   return (
     <>
       {isTableVisible && ( // Render the table only if isTableVisible is true
-        <div className="table-container">
+        <div className={styles.tableContainer}>
           <Header
             handleSort={handleSortOption}
             handleFilter={handleFilter}
             handleSearch={handleSearch}
           />
 
-          <table className="issue-table">
+          <table className={styles.issueTable}>
             <thead>
               <tr>
                 <th onClick={() => handleSort("issueId")}>Issue ID</th>
@@ -125,7 +125,7 @@ const Table = ({ issues, setIssues }) => {
                   <td>
                     {/* Add navigation to issue details when clicking the View button */}
                     <button
-                      className="view-button"
+                      className={styles.viewButton}
                       onClick={() => navigate(`/issues/${issue.issueId}`)} // Navigate to IssueDetails page
                     >
                       View
@@ -133,7 +133,7 @@ const Table = ({ issues, setIssues }) => {
                   </td>
                   <td>
                     <div
-                      className="status"
+                      className={styles.status}
                       style={{
                         color: getStatusColor(issue.status),
                         display: "inline",
@@ -148,12 +148,12 @@ const Table = ({ issues, setIssues }) => {
           </table>
 
           {/* End message with lines on either side */}
-          <div className="end-message">
-            <div className="line" />
-            <span id="table-span">You have reached the end</span>
-            <div className="line" />
+          <div className={styles.endMessage}>
+            <div className={styles.line} />
+            <span id={styles.tableSpan}>You have reached the end</span>
+            <div className={styles.line} />
           </div>
-          <button className="close-button" onClick={handleClose}>CLOSE</button>
+          <button className={styles.closeButton} onClick={handleClose}>CLOSE</button>
         </div>
       )}
     </>

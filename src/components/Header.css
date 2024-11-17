@@ -1,62 +1,57 @@
-@media {
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #0C3A3A; /* Dark greenish color */
-    color: white;
-    height: 60px;
-    z-index: 1000;   /* Ensures it sits above other content */
-  }
-    
-}
-
-  .menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .header-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .header-user {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    margin-left: 70em;
-  }
-  
-  .header-user .user-name {
-    margin-left: 10px;
-  }
-  
-  .header-user i {
-    margin-left: 10px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  .profile-icon {
-  width: 40px; /* Adjust size */
-  height: 40px; /* Adjust size */
-  border-radius: 50%; /* Optional, for circular icon */
-  cursor: pointer;
-}
-
-.header-logo {
-  flex: 1;
+/* Header */
+.header {
+  position: fixed;  /* Fix the header to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0C3A3A;  /* Dark greenish color */
+  color: white;
   display: flex;
-  justify-content: center; /* Center the logo horizontally */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 60px;
+  z-index: 1000;   /* Ensures header stays above all content */
+}
+
+/* Header logo and title */
+.header-logo {
+  display: flex;
+  justify-content: center;
 }
 
 .TUTlogo {
   height: 50px; /* Adjust logo size */
 }
 
-/* Ensure the header items (left, middle, right) are properly spaced */
-.header-title,
-.header-user {
+/* Title and user section */
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
   flex: 1;
+  text-align: center;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.header-user .user-name {
+  margin-left: 10px;
+}
+
+.header-user i {
+  margin-left: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Profile icon */
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circular profile icon */
+  cursor: pointer;
 }

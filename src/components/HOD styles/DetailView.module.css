@@ -3,10 +3,11 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #fff;
-    margin-left: 198px; /* Same width as your sidebar */
-    margin-top: 10px; /* Adjust to match header height */
+    margin-left: 300px; /* Same width as your sidebar */
+    margin-top: 100px; /* Adjust to match header height */
     transition: margin-left 0.3s ease;
     background-color: #EEF9F9;
+    max-width: 800px;
   }
   
   .detailForm {

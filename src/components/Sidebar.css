@@ -1,21 +1,25 @@
+/* Sidebar */
 .sidebar {
+  position: fixed;  /* Fix the sidebar to the left */
+  top: 80px;        /* Offset from the top to account for header */
+  left: 0;
   width: 210px;
+  height: calc(100vh - 80px);  /* Take full viewport height minus the header */
   background-color: #0C3A3A;
   color: white;
-position: absolute;
-  top: 80px;
-  left: 0;
   display: flex;
   flex-direction: column;
   transition: width 0.3s;
-  z-index: 1000;   /* Ensures it sits above other content */
-  
+  z-index: 1000;   /* Ensure it stays above other content */
+  padding-top: 20px;  /* Add padding for spacing from top */
 }
 
+/* Sidebar when closed */
 .sidebar.closed {
-  width: 60px;
+  width: 60px;  /* Minimized sidebar width */
 }
 
+/* Menu icon styles */
 .menu-icon {
   padding: 20px;
   cursor: pointer;
@@ -23,10 +27,9 @@ position: absolute;
 
 .menu-icon:hover {
   color: #6ff1f1;
-  cursor: pointer;
 }
 
-/* Links for the navigation */
+/* Links for navigation */
 .sidebar-nav ul {
   list-style: none;
   padding: 0;
@@ -45,7 +48,7 @@ position: absolute;
   background-color: #195353;
 }
 
-/* Menu links styling */
+/* Menu link styling */
 .menu-link {
   display: flex;
   align-items: center;
@@ -64,6 +67,7 @@ position: absolute;
   transition: opacity 0.3s;
 }
 
+/* When sidebar is closed, hide menu text */
 .sidebar.closed .menu-text {
   opacity: 0;
   visibility: hidden;
@@ -100,9 +104,10 @@ position: absolute;
   color: #4ed6ff;
   cursor: pointer;
 }
+
 /* Style for the active menu item */
 .sidebar-nav li.active {
-  background-color: #108484; /* Highlight color */
+  background-color: #108484;
 }
 
 .sidebar-nav li.active .menu-link {

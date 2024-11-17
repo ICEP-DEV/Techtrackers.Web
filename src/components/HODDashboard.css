@@ -2,7 +2,7 @@
 .dashboard-content {
   padding: 20px;
   margin-left: 250px; /* Same width as your sidebar */
-  margin-top: 10px; /* Adjust to match header height */
+  margin-top: 100px; /* Adjust to match header height */
   transition: margin-left 0.3s ease;
   background-color: #EEF9F9;
   color: #3a3a3a;

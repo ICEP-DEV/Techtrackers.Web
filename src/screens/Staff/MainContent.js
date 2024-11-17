@@ -11,7 +11,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
         const userId = userInfo ? userInfo.userId : null;
 
-        const response = await fetch(`https://localhost:44328/api/Log/GetLogs?userId=${userId}`);
+        const response = await fetch(`https://localhost:44328/api/Log/GetLogsForStaff?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched logs:', data); // Log the fetched data for debugging

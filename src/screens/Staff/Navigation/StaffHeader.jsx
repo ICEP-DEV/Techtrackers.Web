@@ -44,6 +44,7 @@ const StaffHeader = ({ onLogout }) => {
                 >
                     <FontAwesomeIcon icon={faUser} />
                     {user ? `${user.name}` : 'Staff Name'}
+                    
                 </button>
                 {isDropdownOpen && (
                     <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>

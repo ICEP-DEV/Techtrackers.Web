@@ -11,6 +11,8 @@ import LandingPage from './screens/Logins/LandingPage';
 import StaffDashboard from './screens/Staff/StaffDashboard';
 import AccountRecovery from './screens/Logins/AccountRecovery';
 import AdminDashboard from './screens/ADMIN/AdminDashboard/Admin/SideBarNavigation';
+import TechnicianDashboard from './screens/TECHNICIAN/SideBarTechnician';
+
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
 
         {/* Additional routes */}
         <Route path="/staffdashboard/*" element={<StaffDashboard />} />
+        <Route path="/techniciandashboard/*" element={<TechnicianDashboard />} />
         <Route path="/admindashboard/*" element={<AdminDashboard/>} />
         <Route path="/ReportButtons/issueReport" element={<issueReport />} />
         <Route path="/ReportButtons/monthlyReport" element={<monthlyReport />} />

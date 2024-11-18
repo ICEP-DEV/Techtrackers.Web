@@ -138,7 +138,7 @@ const TechnicianPerformanceReport = () => {
         padding: "20px",
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#E5F0EC",
-        marginTop: "-100px",
+        marginTop: "-10px",
       }}
     >
       <Typography variant="h4" align="center" gutterBottom>

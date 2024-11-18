@@ -1,0 +1,46 @@
+/* MainContent.css */
+.MmainContent {
+  padding: 20px;
+  background-color: #f0f0f0;
+  flex-grow: 1;
+  position: relative;
+  
+}
+
+.statusHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.issuesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.issuesTable th, .issuesTable td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.pending { background-color: red; }
+.ongoing { background-color: #ffa500; }
+.resolved { background-color: green; }
+.on-hold {background-color: gray;}
+
+.viewButton {
+  background-color: #1a3c40;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

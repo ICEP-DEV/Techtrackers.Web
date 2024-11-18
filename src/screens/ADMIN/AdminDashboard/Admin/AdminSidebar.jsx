@@ -48,7 +48,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`sidebar-container ${isMenuOpen ? "open" : ""}`}>
+    <div className={`sidebarContainer ${isMenuOpen ? "open" : ""}`}>
       <div className="menu-icon" onClick={toggleMenu}>
         {isMenuOpen && <span className="admin-name">Admin</span>}
         <FaBars />

@@ -115,7 +115,7 @@ const IssueReport = () => {
   };
 
   return (
-    <div style={{ padding: "20px", marginTop: "-90px" }}>
+    <div style={{ padding: "20px", marginTop: "-10px" }}>
       <h1 style={{ textAlign: "center" }}>Issue By Status Report</h1>
       <p style={{ textAlign: "center" }}>
         Date report was generated: {startDate || "N/A"} to {endDate || "N/A"}

@@ -156,7 +156,7 @@ const ReportPage = () => {
 
 // Styles
 const containerStyle = {
-  marginTop: "-90px",
+  marginTop: "-10px",
   padding: "20px",
   fontFamily: "Arial, sans-serif",
   backgroundColor: "#f9f9f9",

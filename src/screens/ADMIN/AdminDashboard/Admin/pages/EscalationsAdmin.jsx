@@ -78,7 +78,7 @@ const Escalations = ({ logId }) => {
         <div className="issue-info">
           <p>Issue ID: {logId}</p>
           <p>Created On: 20/09/2024 08:57 AM</p>
-          <p>Created By: A Ntia</p>
+          <p>Created By: E Magagane</p>
         </div>
       </div>
 

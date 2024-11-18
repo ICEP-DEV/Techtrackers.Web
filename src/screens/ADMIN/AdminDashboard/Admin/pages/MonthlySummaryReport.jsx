@@ -144,7 +144,7 @@ const MonthlyGenerateReport = () => {
         padding: "20px",
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#E5F0EC",
-        marginTop: "-100px",
+        marginTop: "-10px",
       }}
     >
       <h1 style={{ textAlign: "center" }}>Monthly Issue Report</h1>

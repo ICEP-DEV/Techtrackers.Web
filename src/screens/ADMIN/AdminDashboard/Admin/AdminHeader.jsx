@@ -53,7 +53,7 @@ const AdminHeader = ({ onLogout }) => {
           className={styles.profileButton}
         >
           <img src={ProfileIcon} alt="Profile Icon" />
-          {user ? `${user.name} ${user.surname}` : "Admin Name"}
+          {user ? `${user.name}` : "Admin Name"}
         </button>
         {isDropdownOpen && (
           <div
@@ -61,7 +61,7 @@ const AdminHeader = ({ onLogout }) => {
               isDropdownOpen ? styles.open : ""
             }`}
           >
-            <p>{user ? `${user.name} ${user.surname}` : "Name Surname"}</p>
+            <p>{user ? `${user.name}` : "Name Surname"}</p>
             <p className={styles.subText}>
               {user ? user.email : "EzraAdmin.com"}
             </p>

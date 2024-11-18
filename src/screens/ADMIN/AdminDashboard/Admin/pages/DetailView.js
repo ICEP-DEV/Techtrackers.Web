@@ -125,8 +125,8 @@ function DetailView({ log, onBack }) {
                       className={styles["avatar"]}
                     />
                     <div>
-                      <p>Issue Logged By:</p>
-                      <p className={styles["user-name"]}>{log.assigned}</p>
+                      <p>Issue Logged By: E Magagane</p>
+                      <p className={styles["user-name"]}>{log.logBy}</p>
                     </div>
                   </div>
                   <div className={styles["issue-priority"]}>

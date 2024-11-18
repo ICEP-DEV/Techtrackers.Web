@@ -215,7 +215,7 @@ const AssignTech = () => {
             </div>
 
             <button
-              className={styles.btnClose1}
+              className={styles.btnClose}
               onClick={handleCloseTechDetails}
             >
               CLOSE

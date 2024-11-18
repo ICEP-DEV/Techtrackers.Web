@@ -1,17 +1,17 @@
 /* Main container styling */
-.dashboard-container {
+.dashboardContainer {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-.main-heading {
+.mainHeading {
   text-align: left;
   font-size: 2em;
   margin-bottom: 30px;
 }
 
 /* Grid layout for the 3 columns */
-.grid-container {
+.gridContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
@@ -19,14 +19,14 @@
 }
 
 /* First, Second, and Third Column Spacing */
-.first-col, .second-col, .third-col {
+.firstCol, .secondCol, .thirdCol {
   text-align: center;
   margin-bottom: 10px; /* Reduce space between columns */
   position: relative; /* To position the column divider correctly */
 }
 
 /* Divider styling for columns */
-.column-divider {
+.columnDivider {
   width: 1px; /* Vertical line */
   height: 100%; /* Full height of the column */
   background-color: #ccc; /* Color of the divider */
@@ -37,7 +37,7 @@
 }
 
 /* Rating row styling */
-.rating-row {
+.ratingRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,13 +45,13 @@
 }
 
 /* Progress bar styling */
-.progress-bar-container {
+.progressBarContainer {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.progress-bar {
+.progressBar {
   background-color: transparent;
   border-radius: 5px;
   height: 20px;
@@ -66,7 +66,7 @@
   border-radius: 5px;
 }
 
-.percentage-text {
+.percentageText {
   position: absolute;
   left: 10px;
   color: white;
@@ -74,7 +74,7 @@
 }
 
 /* User rating next to the progress bar */
-.user-rating {
+.userRating {
   font-size: 1.1em;
   color: black; /* Changed user rating color to black */
   font-family: Arial, sans-serif;
@@ -82,17 +82,17 @@
 }
 
 /* Rating summary section in the second column */
-.rating-summary {
+.ratingSummary {
   text-align: center;
   margin-top: 10px; /* Reduce space above rating summary */
 }
 
-.rating-summary h2 {
+.ratingSummary h2 {
   font-weight: bold; /* Making the rating heading bold */
   margin-bottom: 10px; /* Reduce space below 3.0 Rating */
 }
 
-.rating-summary span {
+.ratingSummary span {
   font-size: 2.5em; /* Increased star size */
   color: #0B5353; /* Updated star color */
   font-family: Arial, sans-serif;
@@ -100,12 +100,12 @@
 }
 
 /* Total reviews in the third column */
-.third-col h2 {
+.thirdCol h2 {
   font-weight: bold; /* Making the total reviews heading bold */
   margin-bottom: 5px; /* Reduce space between title and total reviews */
 }
 
-.third-col p {
+.thirdCol p {
   font-size: 1.5em;
   font-weight: bold; /* Making total reviews bold */
   margin-top: 0px; /* Remove space above the total reviews count */
@@ -120,14 +120,14 @@
 }
 
 /* User Reviews Section */
-.user-reviews-container {
+.userReviewsContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 /* Container for each user review */
-.user-review {
+.userReview {
   display: flex;
   align-items: center; /* Center items vertically */
   padding: 10px;
@@ -139,26 +139,26 @@
 }
 
 /* User details section inside the user review */
-.user-details {
+.userDetails {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center-align the user image and text */
 }
 
-.user-image {
-  width: 50px;  /* Adjust the size of the user image as needed */
+.userImage {
+  width: 50px; /* Adjust the size of the user image as needed */
   height: 50px; /* Adjust the height of the user image */
   border-radius: 50%;
   margin-bottom: 10px;
 }
 
-.user-info p {
+.userInfo p {
   text-align: center; /* Center the name and surname text */
   width: 100%;
 }
 
 /* Vertical Divider between user details and feedback */
-.user-review .divider {
+.userReview .divider {
   width: 2px; /* Vertical line */
   height: 50px; /* Adjust height as needed */
   background-color: #ccc;
@@ -166,7 +166,7 @@
 }
 
 /* User feedback section */
-.user-feedback {
+.userFeedback {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align feedback to the left */
@@ -175,27 +175,27 @@
   margin-left: 5px; /* Optional: add slight left margin for spacing */
 }
 
-.user-feedback p {
+.userFeedback p {
   font-size: 0.9em;
   color: #555;
   margin-top: 5px;
 }
 
 /* Sort container styling */
-.sort-container {
+.sortContainer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.sort-container p {
+.sortContainer p {
   font-size: 1em;
   color: #333;
   margin-right: 10px;
 }
 
-.sort-container {
+.sortContainer {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;

@@ -7,6 +7,8 @@ import AvatarIcon from "../images/avatarIcon.png";
 import SortIcon from "../images/SortIcon.png";
 import { sortUsers } from "./sortUsersCollaburationRequest"; // Import the sort function
 import useIssues from "./useIssuesCollaburationRequest"; // Import the useIssues hook
+import DeclineIcon from "../images/declineIcon.png";
+import AcceptIcon from "../images/acceptIcon.png";
 
 const Table = () => {
 
@@ -20,6 +22,7 @@ const Table = () => {
   const [filterTime, setFilterTime] = useState(""); // Track input value for time filter
   const [isFilterOpen, setIsFilterOpen] = useState(false); // Track dropdown visibility
   const [isSortOpen, setIsSortOpen] = useState(false); // Track sort dropdown visibility
+  const [popupMessage, setPopupMessage] = useState(""); // State for popup message visibility
 
   const filterRef = useRef(null); // Ref for filter dropdown
   const sortRef = useRef(null); // Ref for sort dropdown
@@ -43,6 +46,17 @@ const Table = () => {
   const handleIssueClick = (issue) => {
     navigate(`/issue/${issue.id}`, { state: issue }); // Pass the issue data
   };
+
+  // Handle Accept button click
+  const handleAccept = () => {
+    setPopupMessage("Accepts collaboration request");
+  };
+
+  // Handle Decline button click
+  const handleDecline = () => {
+    setPopupMessage("Declines collaboration request");
+  };
+
   // Filter issues based on filter criteria
   const filteredIssues = issues.filter((issue) => {
     const matchesName = issue.name
@@ -73,6 +87,29 @@ const Table = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [filterRef, sortRef]);
+
+
+  // Popup component for displaying accept/decline messages with icons
+  const Popup = ({ message, onClose }) => (
+    <div className={styles.popupOverlay}>
+      <div className={styles.popupContainer}>
+        <p>
+          {message.includes("Accept") ? (
+            <>
+              <img src={AcceptIcon} alt="Accept Icon" width="25" height="25" />
+              {message}
+            </>
+          ) : (
+            <>
+              <img src={DeclineIcon} alt="Decline Icon" width="25" height="25" />
+              {message}
+            </>
+          )}
+        </p>
+        <button className={styles.popupClose} onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
 
   return (
     <div className={styles.collabTableContainer}>
@@ -160,13 +197,17 @@ const Table = () => {
 
         <div className={styles.collabButtons}>
           <div className={styles.collabTime}>{issue.time}</div>
-          <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`}>
+          <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`} onClick={handleDecline}>
                 Decline
             </button>
-            <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`}>
+            <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`} onClick={handleAccept}>
                 Accept
             </button>
         </div>
+
+        {/* Popup for showing accept/decline messages */}
+      {popupMessage && <Popup message={popupMessage} onClose={() => setPopupMessage("")} />}
+
       </div>
     ))}
   </div>

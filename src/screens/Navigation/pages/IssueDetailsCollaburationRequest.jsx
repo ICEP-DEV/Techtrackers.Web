@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import styles from "../SidebarCSS/IssueDetailsCollaburationRequest.module.css";
 import descIcon from "../images/descCollaborationRequest.png";
@@ -6,11 +6,26 @@ import attachIcon from "../images/attachmeCollaborationRequest.png";
 import profIcon from "../images/profileCollaborationRequest.png";
 import image from "../images/imageCollaborationRequest.png";
 import chat from "../images/chatCollaborationRequest.png";
+import acceptIcon from "../images/acceptIcon.png";
+import declineIcon from "../images/declineIcon.png";
+
+// Popup component for displaying message
+const Popup = ({ message, onClose }) => {
+  return (
+    <div className={styles.popupOverlay}>
+      <div className={styles.popupContainer}>
+        <p>{message}</p>
+        <button className={styles.popupClose} onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
+};
 
 const IssueDetails = () => {
   const { issueId } = useParams();
   const navigate = useNavigate();
   const { state: issue } = useLocation(); // Retrieve issue data from route state
+  const [popupMessage, setPopupMessage] = useState(""); // State for popup message visibility
 
   // Handle the Close button click
   const handleClose = () => {
@@ -20,6 +35,38 @@ const IssueDetails = () => {
   const handleChat = () => {
     navigate("/liveChat");
   };
+
+  // Handle Accept button click
+  const handleAccept = () => {
+    setPopupMessage("Collaboration Accepted");
+  };
+
+  // Handle Decline button click
+  const handleDecline = () => {
+    setPopupMessage("Collaboration Declined");
+  };
+
+  // Popup component for displaying accept/decline messages with icons
+  const Popup = ({ message, onClose }) => (
+    <div className={styles.popupOverlay}>
+      <div className={styles.popupContainer}>
+        <p>
+          {message.includes("Accept") ? (
+            <>
+              <img src={acceptIcon} alt=" Accept Icon" width="25" height="25" />
+              {message}
+            </>
+          ) : (
+            <>
+              <img src={declineIcon} alt=" Decline Icon" width="25" height="25" />
+              {message}
+            </>
+          )}
+        </p>
+        <button className={styles.popupClose} onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
 
   // Check if the issue data is available
   if (!issue) {
@@ -66,12 +113,15 @@ const IssueDetails = () => {
 
       {/* Action Buttons */}
       <div className={styles.actions}>
-        <button className={styles.acceptButton}>Accept</button>
-        <button className={styles.declineButton}>Decline</button>
+        <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
+        <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
         <button className={styles.closeButton2} onClick={handleClose}>
           Close
         </button>
-      </div>
+      </div>  
+      {/* Popup for showing accept or decline messages */}
+      {popupMessage && <Popup message={popupMessage} onClose={() => setPopupMessage("")} />}
+
     </div>
   );
 };

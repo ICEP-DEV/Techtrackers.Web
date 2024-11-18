@@ -10,7 +10,6 @@ import './index.css';
 //import TechnicianNotifications from './components/Notifications/TechnicianNotifications';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './TechRatings.css';
 //import WelcomeTechnician from './screens/TechDashBoard1/WelcomeTechnician';
 import RoutesComponent from "./components/All Issue and View Page/RoutesComponent";
 //import CollabMain from './components/CollaborationRequest/CollabMain';

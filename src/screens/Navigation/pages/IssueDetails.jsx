@@ -43,11 +43,17 @@ const IssueDetails = ({ issues }) => {
   };
 
   const handleUpdateStatus = (status) => {
+    if (issue.status === "Resolved") {
+      toast.error("Cannot update status. The issue is already resolved.");
+      setShowUpdateModal(false);
+      return;
+    }
+
     issues[issueIndex].status = status; // Update the status in the array
     console.log(`Status updated to: ${status}`);
 
     // Show toast notification
-    if (status === "InProgress" || status === "Resolved") {
+    if (status === "InProgress" || status === "On Hold") {
       toast.success(`Status updated to ${status}!`);
     }
 
@@ -59,6 +65,9 @@ const IssueDetails = ({ issues }) => {
   };
 
   const handleNoteSubmit = () => {
+      if (issue.status === "Resolved") {
+      toast.error("Cannot update status. The issue is already resolved."); 
+      return;}
     if (!note.trim()) { 
       toast.error("Please enter a note before submitting.");
       return;
@@ -69,6 +78,7 @@ const IssueDetails = ({ issues }) => {
     toast.success("Note successfully added and status updated to 'On Hold'!");
     setNote("");
     setShowAddNoteModal(false);
+    setShowUpdateModal(false);
   };
 
   const handleBack = () => {
@@ -308,7 +318,7 @@ const handleUpdateClick = () => {
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="I am putting this issue on hold because..."
+              placeholder="Start Typing..."
               rows="4"
               style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
             />

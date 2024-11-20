@@ -154,18 +154,12 @@
   margin-top: 5px;
 }
 
-.issueDetails h3 {
-  display: flex;
-  align-items: center;
-  margin-top: -20px;
-  color: #555;
-}
-
-.issueDetails h3 h4 {
+.issueDetails h4 {
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
+  color: #555;
 }
 
 .descriptionText {
@@ -678,4 +672,40 @@
   .rightActions {
     align-items: center;
   }
+}
+
+.chatIconContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.chatIcon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.chatDropdown {
+  position: absolute;
+  top: 40px; /* Adjust based on the size of your chat icon */
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 10;
+  min-width: 150px;
+  padding: 10px;
+}
+
+.chatDropdown p {
+  margin: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+}
+
+.chatDropdown p:hover {
+  background-color: #a1d1d1;
+  color: #fff;
 }

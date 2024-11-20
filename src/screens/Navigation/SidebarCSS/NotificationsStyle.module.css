@@ -157,7 +157,21 @@
   border: none;
 }
 
-.notificationViewButton:hover {
+.techChatBtn {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #0C3A3A;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-size: small;
+}
+
+.techColabBtns {
+  display: grid;
+}
+
+.notificationViewButton:hover, .techChatBtn:hover {
   background-color: #126868; 
 }
 

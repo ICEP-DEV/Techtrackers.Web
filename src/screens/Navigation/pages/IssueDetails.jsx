@@ -100,7 +100,7 @@ const IssueDetails = ({ issues }) => {
 }
 
   const handleChat = () => {
-    navigate("/liveChat");
+    navigate("/tech2staffchat");
   };
 
   const handleAssignClick = () => {

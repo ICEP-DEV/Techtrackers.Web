@@ -1,140 +1,201 @@
-import React, { useState, useEffect } from 'react';
-import '../Notification Page/Notification.css';
-import { FaBell, FaSearch, FaFilter, FaSort } from 'react-icons/fa';
+import React, { useState } from "react";
+import styles from "./Notification.module.css"; // CSS Module
 
-const Notification = () => {
-  const [activeTab, setActiveTab] = useState('allRead');
-  const [sortOrder, setSortOrder] = useState('desc');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterOption, setFilterOption] = useState('all');
-  
-  // Sample notifications to demonstrate the functionality
-  const [notificationsState, setNotificationsState] = useState([
+const Notifications = () => {
+  const [activeTab, setActiveTab] = useState("all");
+  const [sortOrder, setSortOrder] = useState("newest");
+  const [filterTime, setFilterTime] = useState("All");
+  const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
+  const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
+
+  const [notifications, setNotifications] = useState([
     {
-      notification_ID: 1,
-      message: 'System update completed successfully.',
-      read_Status: true,
-      received_time: '2023-11-13T10:15:00',
+      id: 1,
+      message:
+        "Issue: Internal Issue has been assigned to a technician, please keep track of the status.",
+      time: "1 day",
+      read: false,
     },
     {
-      notification_ID: 2,
-      message: 'New comment on your post.',
-      read_Status: false,
-      received_time: '2023-11-13T14:30:00',
+      id: 2,
+      message:
+        "Issue: Printer not working has been Re-opened for further investigation. You will receive updates as we progress.",
+      time: "1mon",
+      read: false,
     },
     {
-      notification_ID: 3,
-      message: 'Your password will expire in 5 days.',
-      read_Status: true,
-      received_time: '2023-11-12T09:20:00',
-    },
-    {
-      notification_ID: 4,
-      message: 'You have a new follower!',
-      read_Status: false,
-      received_time: '2023-11-13T16:45:00',
+      id: 3,
+      message:
+        "Issue: Printer not working has been Resolved. Make sure you confirm status.",
+      time: "1mon",
+      read: true,
     },
   ]);
 
-  const handleTabClick = (tab) => setActiveTab(tab);
-  const handleSearchChange = (event) => setSearchQuery(event.target.value);
-  const handleFilterChange = (option) => setFilterOption(option);
-  const handleSortChange = (order) => setSortOrder(order);
+  // Handle Tabs
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
-  const filteredNotifications = notificationsState
-    .filter((notification) => {
-      if (activeTab === 'allRead') return notification.read_Status === true;
-      if (activeTab === 'unread') return notification.read_Status === false;
-      return true;
-    })
-    .filter((notification) => notification.message.toLowerCase().includes(searchQuery.toLowerCase()))
-    .sort((a, b) => {
-      return sortOrder === 'asc'
-        ? new Date(a.received_time) - new Date(b.received_time)
-        : new Date(b.received_time) - new Date(a.received_time);
+  // Handle Sort Order
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+    setSortDropdownOpen(false);
+
+    const sortedNotifications = [...notifications].sort((a, b) => {
+      // Customize sorting based on `time` or other logic
+      if (order === "newest") {
+        return a.time > b.time ? -1 : 1; // Sort descending
+      } else {
+        return a.time > b.time ? 1 : -1; // Sort ascending
+      }
     });
 
+    setNotifications(sortedNotifications);
+  };
+
+  // Handle Filter Change
+  const handleFilterChange = (time) => {
+    setFilterTime(time);
+    setFilterDropdownOpen(false);
+  };
+
+  // Mark Notification as Read
+  const markAsRead = (id) => {
+    const updatedNotifications = notifications.map((notif) =>
+      notif.id === id ? { ...notif, read: true } : notif
+    );
+    setNotifications(updatedNotifications);
+  };
+
+  // Filter Notifications
+  const filterNotifications = () => {
+    if (filterTime === "All") return notifications;
+
+    const filterMapping = {
+      "Last 1 day": ["1 day"],
+      "Last 1 week": ["1 day", "2 day", "3 day", "4 day", "5 day", "6 day", "7 day"],
+      "Last 1 month": ["1mon"],
+    };
+
+    return notifications.filter((notif) =>
+      filterMapping[filterTime].includes(notif.time)
+    );
+  };
+
+  // Apply Filter & Tab Logic
+  const filteredNotifications = filterNotifications().filter((notif) =>
+    activeTab === "unread" ? !notif.read : activeTab === "all" || notif.read
+  );
+
   return (
-    <div className="main-content">
-      <div className="containers mt-4">
-        <div className="header-container">
-          <div className="left-section">
-            <FaBell className="notification-icons" />
-            <h2>Notifications</h2>
-          </div>
-          <div className="search-bar-containers">
-            <input
-              type="text"
-              className="form-control search-inputs"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <FaSearch className="search-icons" />
-          </div>
+    <div className={styles.notificationsContainer}>
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.title}>
+          <i className={`fas fa-bell ${styles.icon}`}></i>
+          <h2>Notifications</h2>
         </div>
-        <div className="filters-sorting-container">
-          <div className="filters">
-            <FaFilter />
-            <select
-              value={filterOption}
-              onChange={(e) => handleFilterChange(e.target.value)}
-              className="filter-dropdown"
-            >
-              <option value="all">All</option>
-              <option value="1d">Last 1 Day</option>
-              <option value="1w">Last 1 Week</option>
-            </select>
-          </div>
-          <div className="sorting">
-            <FaSort />
-            <select
-              value={sortOrder}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="sort-dropdown"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
+        <div className={styles.searchContainer}>
+          <input
+            type="text"
+            placeholder="Search"
+            className={styles.searchInput}
+          />
+          <i className={`fas fa-search ${styles.searchIcon}`}></i>
         </div>
-        <div className="nav-tabs-container">
+
+        {/* Filter Dropdown */}
+        <div className={styles.dropdownContainer}>
           <button
-            className={`tab-button ${activeTab === 'allRead' ? 'active' : ''}`}
-            onClick={() => handleTabClick('allRead')}
+            className={styles.filterButton}
+            onClick={() => setFilterDropdownOpen(!isFilterDropdownOpen)}
           >
-            All Read
+            <i className={`fas fa-filter ${styles.filterIcon}`}></i>
+            Filter: {filterTime}
+            <i className={`fas fa-caret-down ${styles.dropdownIcon}`}></i>
           </button>
-          <button
-            className={`tab-button ${activeTab === 'unread' ? 'active' : ''}`}
-            onClick={() => handleTabClick('unread')}
-          >
-            Unread
-          </button>
+          {isFilterDropdownOpen && (
+            <ul className={styles.dropdown}>
+              <li onClick={() => handleFilterChange("All")}>All</li>
+              <li onClick={() => handleFilterChange("Last 1 day")}>
+                Last 1 day
+              </li>
+              <li onClick={() => handleFilterChange("Last 1 week")}>
+                Last 1 week
+              </li>
+              <li onClick={() => handleFilterChange("Last 1 month")}>
+                Last 1 month
+              </li>
+            </ul>
+          )}
         </div>
-        <div className="notification-list">
-          {filteredNotifications.map((notification) => (
-            <div key={notification.notification_ID} className="notification-item">
-              <FaBell className="notification-item-icon" />
-              <span className="notification-message">{notification.message}</span>
-              <span className="notification-time">
-                {new Date(notification.received_time).toLocaleTimeString()}
-              </span>
+
+        {/* Sort Dropdown */}
+        <div className={styles.dropdownContainer}>
+          <button
+            className={styles.sortButton}
+            onClick={() => setSortDropdownOpen(!isSortDropdownOpen)}
+          >
+            <i className={`fas fa-sort ${styles.sortIcon}`}></i>
+            Sort: {sortOrder}
+            <i className={`fas fa-caret-down ${styles.dropdownIcon}`}></i>
+          </button>
+          {isSortDropdownOpen && (
+            <ul className={styles.dropdown}>
+              <li onClick={() => handleSortChange("newest")}>Newest</li>
+              <li onClick={() => handleSortChange("oldest")}>Oldest</li>
+            </ul>
+          )}
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className={styles.tabs}>
+        <button
+          className={`${styles.tab} ${
+            activeTab === "all" ? styles.active : ""
+          }`}
+          onClick={() => handleTabChange("all")}
+        >
+          All
+        </button>
+        <button
+          className={`${styles.tab} ${
+            activeTab === "unread" ? styles.active : ""
+          }`}
+          onClick={() => handleTabChange("unread")}
+        >
+          Unread
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className={styles.content}>
+        {filteredNotifications.length === 0 ? (
+          <p>No notifications available.</p>
+        ) : (
+          filteredNotifications.map((notif) => (
+            <div
+              key={notif.id}
+              className={styles.notificationItem}
+              onClick={() => markAsRead(notif.id)}
+            >
+              <i
+                className={`fas fa-bell ${
+                  notif.read ? styles.readIcon : styles.unreadIcon
+                }`}
+              ></i>
+              <div className={styles.notificationText}>
+                <p>{notif.message}</p>
+                <span className={styles.notificationTime}>{notif.time}</span>
+              </div>
             </div>
-          ))}
-        </div>
+          ))
+        )}
       </div>
     </div>
   );
 };
 
-export default Notification;
-
-
-
-
-
-
-
-
-
+export default Notifications;

@@ -44,7 +44,7 @@ const Table = () => {
   };
 
   const handleIssueClick = (issue) => {
-    navigate(`/issue/${issue.id}`, { state: issue }); // Pass the issue data
+    navigate(`/techniciandashboard/issue/${issue.id}`, { state: issue }); // Pass the issue data
   };
 
   // Handle Accept button click

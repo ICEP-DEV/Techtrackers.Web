@@ -31,9 +31,15 @@
 }
 
 
-.technicianName {
+.technicianName, .staffName {
     color: rgb(0, 0, 0);
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.name {
+    display: flex;
+    flex-direction: row;
 }
 
 .chatBox {
@@ -110,6 +116,7 @@ input {
     width: 85%;
     border: 1px solid;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 

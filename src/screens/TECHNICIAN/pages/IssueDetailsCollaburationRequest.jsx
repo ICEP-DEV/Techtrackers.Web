@@ -33,7 +33,7 @@ const IssueDetails = () => {
   };
 
   const handleChat = () => {
-    navigate("/liveChat");
+    navigate("/techniciandashboard/techChat");
   };
 
   // Handle Accept button click

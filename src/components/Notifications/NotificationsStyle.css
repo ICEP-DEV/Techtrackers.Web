@@ -7,20 +7,11 @@
 
 .notifications-header {
   display: flex;
-  margin-left: 40px;
-  margin-right: 40px;
   justify-content: space-between;
   align-items: center;
+  margin-left: 40px;
+  margin-right: 40px;
   margin-bottom: 40px;
-}
-
-.notifications-header .the-search-container {
-  justify-content: center;
-}
-
-.button-container {
-  display: flex;
-  gap: 10px;
 }
 
 .notifications-title {
@@ -28,7 +19,6 @@
   font-weight: 600;
   display: flex;
   align-items: center;
-  margin-left: 40px;
 }
 
 .notifications-title svg {
@@ -42,7 +32,6 @@
 
 .the-search-container {
   position: relative;
-  
 }
 
 .the-search-input {
@@ -50,14 +39,20 @@
   padding-right: 0.5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  border: 1px solid #83FFFF !important;
+  border: 1px solid #83FFFF;
   border-radius: 30px;
+  transition: border-color 0.3s ease;
+}
+
+.the-search-input:focus {
+  outline: none;
+  border-color: #0C3A3A;
 }
 
 .the-search-icon {
   position: absolute;
   left: 0.5rem;
-  top: 50% ;
+  top: 50%;
   transform: translateY(-50%);
   color: #a0aec0;
 }
@@ -67,17 +62,18 @@
   align-items: center;
   padding: 10px 20px;
   background-color: #EEF9F9;
-  margin-right: 0.5rem;
   border: none;
   color: #000;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.the-filter-button img, .the-sort-button img{
+.the-filter-button:hover, .the-sort-button:hover {
+  background-color: #D1F3F3;
+}
+
+.the-filter-button img, .the-sort-button img {
   margin-left: 10px;
-}
-
-.filter-button svg, .sort-button svg {
-  margin-right: 0.25rem;
 }
 
 .notifications-list {
@@ -94,12 +90,19 @@
   padding-left: 20px;
   margin-left: 40px;
   margin-right: 40px;
+  padding-right: 20px;
 }
 
 .notification-profile {
   background-color: #edf2f7;
   border-radius: 50%;
   margin-right: 20px;
+}
+
+.notification-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .notification-content {
@@ -128,6 +131,8 @@
   font-size: 0.875rem;
   color: #2c7a7b;
   cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }
 
 .notification-action:hover {
@@ -154,10 +159,18 @@
   color: white;
   border-radius: 4px;
   border: none;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
 }
 
 .notification-view-button:hover {
-  background-color: #126868; 
+  background-color: #126868;
+}
+
+.notification-countdown {
+  font-size: 12px;
+  font-weight: bold;
+  color: #d9534f;
 }
 
 /* Dropdown Styles */
@@ -173,6 +186,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1;
   border-radius: 5px;
+  top: 100%;
+  left: 0;
 }
 
 .notification-dropdown:hover .notification-dropdown-content {
@@ -182,10 +197,30 @@
 .notification-dropdown-item {
   padding: 12px 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .notification-dropdown-item:hover {
   background-color: #a1d1d1;
   color: #fff;
+}
+
+/* Animation for Profile Picture */
+.notification-profile img {
+  transition: transform 0.3s ease;
+}
+
+.notification-profile img:hover {
+  transform: scale(1.1);
+}
+.countdown {
+  font-size: 14px;
+  color: #ff5722;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.countdown.expired {
+  color: gray; /* Indicate expiration */
 }

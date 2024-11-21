@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import bell from '../../images/bell.png';
 import filter from '../../images/filter_icon.png';
 import list from '../../images/list_icon.png';
@@ -12,98 +12,143 @@ const NotificationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('');
   const [sortOrder, setSortOrder] = useState('');
-
-  const { issues } = useIssues();
-
-  const navigate = useNavigate();
-
-  const handleIssueClick = (issue) => {
-    navigate(`/issues/${issue.id}`); // Pass the issue data
-  };
-
-  const notifications = [
+  const [notifications, setNotifications] = useState([
     {
       id: 1,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
-      staffName: 'John Doe',
-      issue: 'Issue Title: Server Downtime in Data Center',
-      issueId: 'IT-P1-1220',
+      issue: 'Server Downtime in Data Center',
+      issueId: 'IT-P1-1221',
       time: '12:18',
+      priority: 'high',
+      timeRemaining: 3600, // 1 hour countdown (in seconds)
     },
     {
       id: 2,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
-      staffName: 'Themba Zwane',
-      issue: 'Issue Title: Unable to log into HR Portal',
-      issueId: 'HR-P1-1221',
+      issue: 'Unable to log into HR Portal',
+      issueId: 'HR-P1-1225',
       time: '12:16',
+      priority: 'medium',
+      timeRemaining: 1800, // 30 minutes countdown (in seconds)
     },
     {
       id: 3,
       type: 'resolution',
       sender: 'Mike Jones',
-      content: 'confirmed issue ',
+      content: 'confirmed issue',
       status: 'resolved',
       issueId: 'IT-P2-1225',
       time: 'Yesterday',
+      priority: 'low',
+      timeRemaining: null, // No countdown for resolved issues
     },
-
     {
       id: 4,
       type: 'assignment',
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
-      staffName: 'Andile Zondo',
       issue: 'Connectivity Issue',
       issueId: 'FI-P2-1223',
       time: '2024-08-18',
+      priority: 'medium',
+      timeRemaining: 7200, // 2 hours countdown (in seconds)
     },
     {
       id: 5,
       type: 'collaboration',
       sender: 'Mike Mdluli',
       content: 'invited you to collaborate with them',
-      issue: 'Issue Title: Maintenance Request',
-      action: 'View Collaboration Requests',
+      issue: 'Maintenance Request',
+      issueId: 'FI-P2-1224',
       time: '2024-08-14',
+      priority: 'low',
+      timeRemaining: null, // No countdown for collaborations
     },
-  ];
+  ]);
 
-  const formatDate = (timeString) => {
-    // Handle "Yesterday" explicitly
+  const { issues } = useIssues();
+  const navigate = useNavigate();
+
+  const handleIssueClick = (issueId) => {
+    navigate(`/issues/${issueId}`);
+  };
+
+  // Countdown logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notification) => {
+          if (notification.timeRemaining && notification.timeRemaining > 0) {
+            // Debug log to check countdown
+            console.log(`Updating countdown for notification ${notification.id}: ${notification.timeRemaining}`);
+            return {
+              ...notification,
+              timeRemaining: notification.timeRemaining - 1, // Decrement countdown
+            };
+          }
+          return notification; // No countdown for 'null' or expired
+        })
+      );
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
+  // Format time remaining (seconds -> hh:mm:ss)
+  const formatRemainingTime = (seconds) => {
+    if (seconds <= 0) return "Expired";
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs}h ${mins}m ${secs}s`;
+  };
+
+  // Format time of notification (e.g., time ago: 2 hours ago)
+  const formatTime = (timeString) => {
+    const now = new Date();
+    let date;
+
     if (timeString.toLowerCase() === "yesterday") {
-      const date = new Date();
+      date = new Date();
       date.setDate(date.getDate() - 1);
-      return date;
-    }
-    
-    // Handle time-only formats by assuming today's date
-    const timeOnlyPattern = /^\d{2}:\d{2}$/;
-    if (timeOnlyPattern.test(timeString)) {
-      const today = new Date();
+    } else if (/^\d{2}:\d{2}$/.test(timeString)) {
+      date = new Date();
       const [hours, minutes] = timeString.split(":").map(Number);
-      today.setHours(hours, minutes, 0, 0);
-      return today;
+      date.setHours(hours, minutes, 0, 0);
+    } else {
+      date = new Date(timeString);
     }
-  
-    // Handle full date strings in standard formats
-    return new Date(timeString);
+
+    const diff = now - date;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (days > 0) {
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    }
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
   };
 
   const filteredNotifications = notifications.filter(notification => {
-    const fullContent = `${notification.sender} ${notification.content} ${notification.staffName || ''} ${notification.issue || ''}`.toLowerCase();
+    const fullContent = `${notification.sender} ${notification.content} ${notification.subject || ''} ${notification.issue || ''}`.toLowerCase();
     return fullContent.includes(searchQuery.toLowerCase()) && 
            (filterType ? notification.type === filterType : true);
   });
 
   const sortedNotifications = filteredNotifications.sort((a, b) => {
-    const dateA = formatDate(a.time);
-    const dateB = formatDate(b.time);
-    
+    const dateA = formatTime(a.time);
+    const dateB = formatTime(b.time);
+
     if (sortOrder === 'newest') {
       return dateB - dateA;
     } else if (sortOrder === 'oldest') {
@@ -111,17 +156,6 @@ const NotificationsPage = () => {
     }
     return 0;
   });
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'resolved':
-        return 'green';
-      case 'unresolved':
-        return 'red';
-      default:
-        return 'black'; // Default color if no status is provided
-    }
-  };
 
   return (
     <div className="notifications-container">
@@ -131,12 +165,12 @@ const NotificationsPage = () => {
         </h1>
         <div className="filter-container">
           <div className="the-search-container">
-            <input 
-              type="text" 
-              placeholder="Search" 
-              className="the-search-input" 
+            <input
+              type="text"
+              placeholder="Search"
+              className="the-search-input"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} 
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <img src={search} className="the-search-icon" alt="Search" />
           </div>
@@ -169,30 +203,29 @@ const NotificationsPage = () => {
             <div className="notification-content">
               <p className="notification-sender">
                 {notification.sender}{' '}
-                <span className="notification-message">
-                  {notification.content}{' '}
-                  {notification.issueId && <span><strong>{notification.issueId}</strong></span>}
-                  {notification.status && (
-                    <span style={{ color: getStatusColor(notification.status) }}>
-                      { <strong> {notification.status}</strong>}
-                    </span>
-                  )}
-                </span>
+                <span className="notification-message">{notification.content}</span>
               </p>
-              {notification.staffName && (
-                <p className="notification-staffName">{notification.staffName}</p>
-              )}
+              {notification.subject && <p className="notification-subject">{notification.subject}</p>}
               {notification.issue && (
-                <p className="notification-issue">{notification.issue}</p>
-              )}
-              {notification.action && (
-                <p className="notification-action" onClick={() => navigate(`/collab`)}>{notification.action}</p>
+                <p className="notification-issue">
+                  {notification.issue}{' '}
+                  {notification.timeRemaining != null && notification.timeRemaining > 0 ? (
+                    <span className="countdown">
+                      {formatRemainingTime(notification.timeRemaining)}
+                    </span>
+                  ) : (
+                    <span className="countdown expired">Expired</span>
+                  )}
+                </p>
               )}
             </div>
             <div className="notification-meta">
-              <span className="notification-time">{notification.time}</span>
+              <span className="notification-time">{formatTime(notification.time)}</span>
               {notification.type !== 'resolution' && notification.type !== 'collaboration' && (
-                <button className="notification-view-button" onClick={() => navigate(`/issues/${notification.issueId}`)}>
+                <button
+                  className="notification-view-button"
+                  onClick={() => handleIssueClick(notification.issueId)}
+                >
                   View
                 </button>
               )}

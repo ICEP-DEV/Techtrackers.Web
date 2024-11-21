@@ -66,7 +66,7 @@ const IssueDetails = ({ issues }) => {
 
     issues[issueIndex].status = "On Hold"; // Update the status to "On Hold"
     console.log(`Note added: ${note}`);
-    toast.success("Note successfully added and status updated to 'On Hold'!");
+    toast.success("Note successfully added and status updated to On Hold!");
     setNote("");
     setShowAddNoteModal(false);
   };

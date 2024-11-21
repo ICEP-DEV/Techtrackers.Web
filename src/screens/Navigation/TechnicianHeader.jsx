@@ -9,8 +9,32 @@ import { ChevronDown, Bell } from "lucide-react";
 
 const TechnicianHeader = ({ onLogout }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [showReminders, setShowReminders] = useState(false); // Reminders visibility
+    const [showReminders, setShowReminders] = useState(false);
     const [user, setUser] = useState(null);
+    const [reminders, setReminders] = useState([
+        {
+            id: 'IT-P1-1220',
+            title: 'Internal Issue: Server Downtime in Data Center',
+            dueIn: 6 * 60 * 60 * 1000, // 6 hours in milliseconds
+            status: 'Due date approaching',
+            timeRemaining: 6 * 60 * 60 * 1000, // initial time left
+        },
+        {
+            id: 'HR-P1-1221',
+            title: 'Access Issue: Unable to log into HR portal',
+            dueIn: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+            status: 'Due date approaching',
+            timeRemaining: 24 * 60 * 60 * 1000, // initial time left
+        },
+        {
+            id: 'FI-P2-1123',
+            title: 'Access Issue: Unable to log into HR portal',
+            dueIn: 0, // Overdue immediately
+            status: 'Issue resolution escalated',
+            timeRemaining: 0, // Time expired
+        }
+    ]);
+    
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
@@ -23,7 +47,7 @@ const TechnicianHeader = ({ onLogout }) => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
-                setShowReminders(false); // Close reminders on outside click
+                setShowReminders(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -32,16 +56,39 @@ const TechnicianHeader = ({ onLogout }) => {
         };
     }, []);
 
+    useEffect(() => {
+        const countdownInterval = setInterval(() => {
+            setReminders((prevReminders) =>
+                prevReminders.map((reminder) => {
+                    if (reminder.timeRemaining > 0) {
+                        const newTimeRemaining = reminder.timeRemaining - 1000; // decrease by 1 second
+                        return { ...reminder, timeRemaining: newTimeRemaining };
+                    }
+                    return reminder; // Keep the expired ones as they are
+                })
+            );
+        }, 1000); // update every second
+
+        return () => clearInterval(countdownInterval); // cleanup on unmount
+    }, []);
+
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
     const closeDropdown = () => setIsDropdownOpen(false);
 
     const handleBellClick = () => setShowReminders(!showReminders);
 
     const handleLogout = () => {
-        localStorage.removeItem('user_info'); 
+        localStorage.removeItem('user_info');
         closeDropdown();
         onLogout();
-        navigate('/signIn'); 
+        navigate('/signIn');
+    };
+
+    const formatTime = (time) => {
+        const hours = Math.floor(time / (1000 * 60 * 60));
+        const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((time % (1000 * 60)) / 1000);
+        return `${hours}h ${minutes}m ${seconds}s`;
     };
 
     return (
@@ -50,33 +97,32 @@ const TechnicianHeader = ({ onLogout }) => {
                 <img src={logo} alt="Logo" className={styles.logo} />
             </div>
             <div className={styles.headerRight} ref={dropdownRef}>
-
                 <button 
                     id="reminders-button"
                     onClick={handleBellClick}
                     className={styles.bellButton}
                 >
-                    <Bell size={40} color="red" /> {/* Red bell icon */}
-                    <span className={styles.reminderCount}>3</span> {/* Red circle with number */}
+                    <Bell size={40} color="red" />
+                    <span className={styles.reminderCount}>3</span>
                 </button>
 
                 <div className='profile-btn'>
-                <button 
-                    id="profile-button" 
-                    onClick={toggleDropdown}
-                    className={styles.profileButton}
-                >
-                    <img src={ProfileIcon} alt="Profile Icon" />
-                    {user ? `${user.name} ${user.surname}` : 'Technician Name'}
-                    <ChevronDown />
-                </button>
+                    <button 
+                        id="profile-button" 
+                        onClick={toggleDropdown}
+                        className={styles.profileButton}
+                    >
+                        <img src={ProfileIcon} alt="Profile Icon" />
+                        {user ? `${user.name} ${user.surname}` : 'Technician Name'}
+                        <ChevronDown />
+                    </button>
                 </div>
                 {isDropdownOpen && (
                     <div className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.open : ''}`}>
                         <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
                         <p className={styles.subText}>{user ? user.email : 'EzraAdmin.com'}</p>
                         <p className={styles.subText}>{user ? user.department : 'ICT'}</p>
-                        <button onClick={() => { closeDropdown(); /* Navigate to profile */ }}>Profile</button>
+                        <button onClick={() => { closeDropdown(); }}>Profile</button>
                         <button onClick={() => { closeDropdown(); }}>Settings</button>
                         <button className={styles.signoutButton} onClick={handleLogout}>
                             <span className={styles.signoutIcon}>
@@ -87,53 +133,29 @@ const TechnicianHeader = ({ onLogout }) => {
                     </div>
                 )}
 
-{showReminders && (
-    <div className={styles.remindersContainer}>
-        <h3 className={styles.remindersHeader}>Reminders!</h3>
-
-        <div className={styles.reminderItem}>
-            <FontAwesomeIcon icon={faExclamation} color="red" className={styles.iconLarge} style={{ fontSize: '50px' }}/>
-            <div className={styles.reminderContent}>
-                <p>
-                    <span className={styles.dueDateApproaching} style={{ fontSize: '12px' }}>Due date approaching</span> - 
-                    <strong> 6 Hrs remaining</strong>
-                </p>
-                <p className={styles.reminderIssueId}>HR-P1-1134</p>
-                <p>Internal Issue: Server Downtime in Data Center</p>
-                <span className={styles.reminderTime}> 12:06</span>
-            </div>
-        </div>
-        <hr className={styles.reminderDivider} /> {/* Divider after the first issue */}
-
-        <div className={styles.reminderItem}>
-            <FontAwesomeIcon icon={faExclamation} color="red" className={styles.iconLarge} style={{ fontSize: '50px' }} />
-            <div className={styles.reminderContent}>
-                <p>
-                    <span className={styles.dueDateApproaching} style={{ fontSize: '12px' }}>Due date approaching</span> - 
-                    <strong> 24 Hrs remaining</strong>
-                   
-                </p>
-                <p className={styles.reminderIssueId}>HR-P3-1132</p>
-                <p>Access Issue: Unable to log into HR portal</p>
-                <span className={styles.reminderTime}> 12:06</span> {/* Display time here */}
-            </div> 
-        </div>
-        <hr className={styles.reminderDivider} /> {/* Divider after the second issue */}
-
-        <div className={styles.reminderItem}>
-            <FontAwesomeIcon icon={faExclamation} color="red" className={styles.iconLarge} style={{ fontSize: '50px' }} />
-            <div className={styles.reminderContent}>
-                <p>
-                    <span className={styles.overdueText}>Issue resolution overdue</span>
-                    
-                </p>
-                <p className={styles.reminderIssueId}>HR-P2-1122</p>
-                <p>Access Issue: Unable to log into HR portal</p>
-                <span className={styles.reminderTime}> 12:06</span> {/* Display time here */}
-            </div>
-        </div>
-    </div>
-)}
+                {showReminders && (
+                    <div className={styles.remindersContainer}>
+                        <h3 className={styles.remindersHeader}>Reminders!</h3>
+                        {reminders.map((reminder) => (
+                            <div key={reminder.id} className={styles.reminderItem}>
+                                <FontAwesomeIcon icon={faExclamation} color="red" className={styles.iconLarge} style={{ fontSize: '50px' }} />
+                                <div className={styles.reminderContent}>
+                                    <p>
+                                        <span className={styles.dueDateApproaching} style={{ fontSize: '12px' }}>
+                                            {reminder.status}
+                                        </span> - 
+                                        <strong>{reminder.timeRemaining > 0 ? formatTime(reminder.timeRemaining) : 'Expired'}</strong>
+                                    </p>
+                                    <p className={styles.reminderIssueId}>{reminder.id}</p>
+                                    <p>{reminder.title}</p>
+                                    <span className={styles.reminderTime}>
+                                        {reminder.timeRemaining > 0 ? formatTime(reminder.timeRemaining) : 'Expired'}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </header>
     );

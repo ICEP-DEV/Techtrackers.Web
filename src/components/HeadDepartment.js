@@ -23,6 +23,8 @@ function HeadDepartment() {
             <Routes>
               <Route path="/" element={<HODDashboard isSidebarOpen={isSidebarOpen} />} />
               
+
+              
               <Route path="/manage-logs" element={<ManageLogs isSidebarOpen={isSidebarOpen} />} />
               <Route path="/log-issue" element={<LogIssueForm isSidebarOpen={isSidebarOpen} />} />
               <Route path="/all-issues" element={<MainContent isSidebarOpen={isSidebarOpen}/>} />

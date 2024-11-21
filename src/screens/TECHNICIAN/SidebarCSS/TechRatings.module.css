@@ -1,0 +1,202 @@
+/* Main container styling */
+.dashboardContainer {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.mainHeading {
+  text-align: left;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+/* Grid layout for the 3 columns */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* First, Second, and Third Column Spacing */
+.firstCol, .secondCol, .thirdCol {
+  text-align: center;
+  margin-bottom: 10px; /* Reduce space between columns */
+  position: relative; /* To position the column divider correctly */
+}
+
+/* Divider styling for columns */
+.columnDivider {
+  width: 1px; /* Vertical line */
+  height: 100%; /* Full height of the column */
+  background-color: #ccc; /* Color of the divider */
+  position: absolute; /* Absolute positioning */
+  right: 0; /* Align it to the right */
+  top: 0; /* Align it to the top */
+  z-index: 1; /* Ensure it stays above other elements */
+}
+
+/* Rating row styling */
+.ratingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Progress bar styling */
+.progressBarContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.progressBar {
+  background-color: transparent;
+  border-radius: 5px;
+  height: 20px;
+  width: 80%;
+  margin: 0 10px;
+  position: relative;
+}
+
+.progress {
+  background-color: #008000;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.percentageText {
+  position: absolute;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+/* User rating next to the progress bar */
+.userRating {
+  font-size: 1.1em;
+  color: black; /* Changed user rating color to black */
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+/* Rating summary section in the second column */
+.ratingSummary {
+  text-align: center;
+  margin-top: 10px; /* Reduce space above rating summary */
+}
+
+.ratingSummary h2 {
+  font-weight: bold; /* Making the rating heading bold */
+  margin-bottom: 10px; /* Reduce space below 3.0 Rating */
+}
+
+.ratingSummary span {
+  font-size: 2.5em; /* Increased star size */
+  color: #0B5353; /* Updated star color */
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+/* Total reviews in the third column */
+.thirdCol h2 {
+  font-weight: bold; /* Making the total reviews heading bold */
+  margin-bottom: 5px; /* Reduce space between title and total reviews */
+}
+
+.thirdCol p {
+  font-size: 1.5em;
+  font-weight: bold; /* Making total reviews bold */
+  margin-top: 0px; /* Remove space above the total reviews count */
+}
+
+/* Divider styling for user reviews */
+.divider {
+  width: 2px; /* Vertical line */
+  height: 50px; /* Adjust height to match user review */
+  background-color: #ccc;
+  margin: 0 10px; /* Space around the vertical divider */
+}
+
+/* User Reviews Section */
+.userReviewsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Container for each user review */
+.userReview {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: auto; /* Set height to auto for flexibility */
+}
+
+/* User details section inside the user review */
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the user image and text */
+}
+
+.userImage {
+  width: 50px; /* Adjust the size of the user image as needed */
+  height: 50px; /* Adjust the height of the user image */
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.userInfo p {
+  text-align: center; /* Center the name and surname text */
+  width: 100%;
+}
+
+/* Vertical Divider between user details and feedback */
+.userReview .divider {
+  width: 2px; /* Vertical line */
+  height: 50px; /* Adjust height as needed */
+  background-color: #ccc;
+  margin: 0 10px; /* Space around the vertical divider */
+}
+
+/* User feedback section */
+.userFeedback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align feedback to the left */
+  justify-content: flex-start; /* Aligns feedback vertically at the start */
+  flex: 2; /* Allow user feedback to take more space */
+  margin-left: 5px; /* Optional: add slight left margin for spacing */
+}
+
+.userFeedback p {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Sort container styling */
+.sortContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sortContainer p {
+  font-size: 1em;
+  color: #333;
+  margin-right: 10px;
+}
+
+.sortContainer {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}

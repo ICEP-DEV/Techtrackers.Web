@@ -1,0 +1,132 @@
+/* * {
+  background-color: #f4ffff;
+} */
+.tableContainer {
+  width: 100%;
+  max-width: 98%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.issueTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.issueTable th,
+.issueTable td {
+  padding: 12px;
+  text-align: left;
+}
+
+.issueTable th {
+  background-color: #9fc1b3;
+  font-size: 16px;
+  color: black;
+  font-weight: bold;
+}
+
+.statusSelect {
+  border: none;
+}
+.issueTable td {
+  background-color: #f4ffff;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  color: black;
+}
+
+.issueTable tr:nth-child(even) td {
+  background-color: #cad8d6ed;
+}
+
+.issueTable tr:nth-child(even) .status {
+  background-color: #cad8d6ed;
+}
+
+.viewButton {
+  background-color: #0a4d4d;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.viewButton:hover {
+  background-color: #0056b3;
+}
+
+.status {
+  margin-left: -20px;
+  font-size: 14px;
+  color: black;
+  border: none;
+  background-color: #f4ffff;
+  font-weight: bold;
+}
+
+.status::after {
+  border: none;
+}
+
+.endMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0; /* Adjust spacing as needed */
+}
+
+.line {
+  flex: 1; /* Allow lines to take up remaining space */
+  height: 1px; /* Thickness of the line */
+  background-color: #000; /* Color of the line */
+  margin: 0 10px; /* Spacing between line and text */
+}
+.closeButton {
+  margin-top: 10px; /* Spacing above the button */
+  padding: 10px 15px; /* Button padding */
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.closeButton:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.tableSpan {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f4ffff;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 7px;
+}
+
+.status:disabled {
+  /* Hide arrow for disabled select */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Optional: Additional styles for dropdown arrow */
+.status:disabled::after {
+  content: "";
+  display: none;
+}
+
+.tableContainer .closeButton {
+  background-color: rgb(174, 0, 0);
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 12px;
+  margin-left: 1px;
+}

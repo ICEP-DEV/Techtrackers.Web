@@ -11,7 +11,7 @@ import LandingPage from './screens/Logins/LandingPage';
 import StaffDashboard from './screens/Staff/StaffDashboard';
 import AccountRecovery from './screens/Logins/AccountRecovery';
 import AdminDashboard from './screens/ADMIN/AdminDashboard/Admin/SideBarNavigation';
-import TechnicianDashboard from './screens/TECHNICIAN/SideBarTechnician';
+import TechnicianDashboard from './screens/TECHNICIAN/SideBarNavigation';
 
 
 function App() {

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
-//import generateReport from './screens/AdminGenerateReport/generateReport.jsx';
+import generateReport from './components/GenerateReport/ReportRoutes.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <generateReport />
   </React.StrictMode>
 );
 

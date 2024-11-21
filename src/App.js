@@ -13,7 +13,7 @@ import Notification from './screens/Notification Page/Notification';
 function App() {
   return (
       <div className="App">
-        <Notification/>
+        <HeadDepartment/>
       </div>
    
   );

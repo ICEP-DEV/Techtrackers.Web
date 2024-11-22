@@ -29,7 +29,7 @@ const IssueDetails = () => {
 
   // Handle the Close button click
   const handleClose = () => {
-    navigate("/collab"); // Navigate back to the table route
+    navigate("/techniciandashboard/collab"); // Navigate back to the table route
   };
 
   const handleChat = () => {

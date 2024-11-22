@@ -55,7 +55,7 @@ function TechncianLiveChat() {
                         {staffName} - {department}</h4>
                     </div>
                     
-                    <div clsassName={styles.icon} onClick={handleCancelBtn}><i className="fa-solid fa-xmark"></i></div>
+                    <div clsassName={styles.icon} onClick={handleCancelBtn}><h1 className={styles.closeIcon}>x</h1></div>
                 </div>
                 <div className={styles.chatBox}>
                     <div className={styles.texts}>

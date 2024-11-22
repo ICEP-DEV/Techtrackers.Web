@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { useLocation,useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -23,6 +23,7 @@ import {
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
+import "./IssueReport.css"; // Importing the CSS for IssueReport
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +35,8 @@ ChartJS.register(
   ArcElement
 );
 
-const IssueReport = () => {
+const IssueReport = ({ isSidebarOpen }) => {
+  const navigate = useNavigate(); 
   const { state } = useLocation();
   const { startDate, endDate } = state || {};
 
@@ -48,37 +50,6 @@ const IssueReport = () => {
       dateCreated: "25-08-2024",
       dueDate: "25-08-2024",
       dateClosed: "25-08-2024",
-    },
-
-    {
-      logID: "LOG-002",
-      description: "Lights Flickering",
-      priority: "Low",
-      technician: "Jane Smith",
-      status: "Resolved",
-      dateCreated: "20-08-2024",
-      dueDate: "22-08-2024",
-      dateClosed: "21-08-2024",
-    },
-    {
-      logID: "LOG-003",
-      description: "Printer not working",
-      priority: "Medium",
-      technician: "Themba Zwane",
-      status: "Resolved",
-      dateCreated: "30-08-2024",
-      dueDate: "30-08-2024",
-      dateClosed: "30-08-2024",
-    },
-    {
-      logID: "LOG-004",
-      description: "Database connection timeout",
-      priority: "High",
-      technician: "Abel Makamu",
-      status: "In Progress",
-      dateCreated: "23-08-2024",
-      dueDate: "24-08-2024",
-      dateClosed: "23-08-2024",
     },
     // Additional table data rows here
   ];
@@ -135,11 +106,9 @@ const IssueReport = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1 style={{ textAlign: "center" }}>Issue By Status Report</h1>
-      <p style={{ textAlign: "center" }}>
-        Date report was generated: {startDate || "N/A"} to {endDate || "N/A"}
-      </p>
+    <div className={`issue-report-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      <h1>Issue By Status Report</h1>
+      <p>Date report was generated: {startDate || "N/A"} to {endDate || "N/A"}</p>
 
       <TableContainer component={Paper}>
         <Table>
@@ -157,13 +126,7 @@ const IssueReport = () => {
           </TableHead>
           <TableBody>
             {tableData.map((row, index) => (
-              <TableRow
-                key={index}
-                style={{
-                  backgroundColor:
-                    row.logID === "LOG-002" ? "#E2F0D9" : "white",
-                }}
-              >
+              <TableRow key={index} style={{ backgroundColor: row.logID === "LOG-002" ? "#E2F0D9" : "white" }}>
                 <TableCell>{row.logID}</TableCell>
                 <TableCell>{row.description}</TableCell>
                 <TableCell>{row.priority}</TableCell>
@@ -178,67 +141,25 @@ const IssueReport = () => {
         </Table>
       </TableContainer>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginTop: "40px",
-        }}
-      >
-        <div style={{ width: "45%" }}>
+      <div className="chart-container">
+        <div style={{width: "45%"}}>
           <Bar data={barChartData} />
         </div>
-        <div>
+        <div className="chart">
           <Pie data={pieChartData} />
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "30px",
-        }}
-      >
-        <button
-          style={{
-            backgroundColor: "red",
-            color: "white",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
+      <div className="buttons-container">
+    
+
+      <button onClick={() => navigate(-1)} className="backbutton1">
           BACK
         </button>
-
-        <div>
-          <button
-            onClick={exportPDF}
-            style={{
-              backgroundColor: "#005A50",
-              color: "white",
-              padding: "10px 20px",
-              marginRight: "10px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Export PDF
-          </button>
-          <button
-            onClick={exportExcel}
-            style={{
-              backgroundColor: "#333",
-              color: "white",
-              padding: "10px 20px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Export Excel
-          </button>
-        </div>
+        <div className="buttons">
+        <button className="exportButton" onClick={exportPDF}>Export Excel</button>
+        <button className="downloadButton" onClick={exportExcel}>Download PDF</button>
+      </div>
       </div>
     </div>
   );

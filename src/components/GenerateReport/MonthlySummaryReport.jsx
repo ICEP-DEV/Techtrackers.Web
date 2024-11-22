@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -23,6 +23,7 @@ import {
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
+import "./MonthlyGenerateReport.css"; // Import the CSS file
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +35,8 @@ ChartJS.register(
   ArcElement
 );
 
-const MonthlyGenerateReport = () => {
+const MonthlyGenerateReport = ({ isSidebarOpen }) => {
+  const navigate = useNavigate(); // Create the navigate function
   const { state } = useLocation();
   const { startDate, endDate } = state || {};
 
@@ -48,47 +50,18 @@ const MonthlyGenerateReport = () => {
     },
     {
       month: "February 2024",
-      totalIssues: 70,
-      issuesClosed: 65,
-      issuesOpen: 5,
-      avgResolution: "3.0 days",
-    },
-    {
-      month: "March 2024",
       totalIssues: 90,
       issuesClosed: 85,
       issuesOpen: 5,
-      avgResolution: "3.8 days",
+      avgResolution: "3.2 days",
     },
     {
-      month: "April 2024",
+      month: "March 2024",
       totalIssues: 100,
       issuesClosed: 95,
       issuesOpen: 5,
-      avgResolution: "3.6 days",
+      avgResolution: "3.0 days",
     },
-    {
-      month: "May 2024",
-      totalIssues: 110,
-      issuesClosed: 100,
-      issuesOpen: 10,
-      avgResolution: "4.2 days",
-    },
-    {
-      month: "June 2024",
-      totalIssues: 120,
-      issuesClosed: 110,
-      issuesOpen: 10,
-      avgResolution: "4.2 days",
-    },
-    {
-      month: "July 2024",
-      totalIssues: 130,
-      issuesClosed: 120,
-      issuesOpen: 10,
-      avgResolution: "4.7 days",
-    },
-
     // Add more rows as needed...
   ];
 
@@ -150,50 +123,30 @@ const MonthlyGenerateReport = () => {
 
   return (
     <div
-      style={{
-        padding: "20px",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#E5F0EC",
-      }}
+      className={`monthly-report-container ${
+        isSidebarOpen ? "sidebar-open" : "sidebar-closed"
+      }`}
     >
-      <h1 style={{ textAlign: "center" }}>Monthly Issue Report</h1>
-      <p style={{ textAlign: "center" }}>
+      <h1>Monthly Issue Report</h1>
+      <p>
         Date Range: {startDate || "Start Date"} to {endDate || "End Date"}
       </p>
 
       {/* Table Section */}
-      <TableContainer
-        component={Paper}
-        style={{ margin: "20px auto", maxWidth: 800 }}
-      >
-        <Table>
+      <TableContainer component={Paper} className="report-table-container">
+        <Table className="report-table">
           <TableHead>
-            <TableRow style={{ backgroundColor: "#5C9A3A" }}>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Month
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Total Issues
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Issues Closed
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Issues Open
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Average Resolution Time
-              </TableCell>
+            <TableRow>
+              <TableCell>Month</TableCell>
+              <TableCell>Total Issues</TableCell>
+              <TableCell>Issues Closed</TableCell>
+              <TableCell>Issues Open</TableCell>
+              <TableCell>Average Resolution Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tableData.map((row, index) => (
-              <TableRow
-                key={index}
-                style={{
-                  backgroundColor: index % 2 === 0 ? "#E2F0D9" : "white",
-                }}
-              >
+              <TableRow key={index}>
                 <TableCell>{row.month}</TableCell>
                 <TableCell>{row.totalIssues}</TableCell>
                 <TableCell>{row.issuesClosed}</TableCell>
@@ -206,70 +159,27 @@ const MonthlyGenerateReport = () => {
       </TableContainer>
 
       {/* Chart Section */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginTop: "30px",
-        }}
-      >
-        <div style={{ width: "35%" }}>
-          <h3 style={{ textAlign: "center" }}>
-            Number of Issues Logged per Category
-          </h3>
+      <div className="chart-container">
+        <div className="chart-bar">
+          <h3>Number of Issues Logged per Category</h3>
           <Bar data={barChartData} options={{ responsive: true }} />
         </div>
-        <div style={{ width: "20%" }}>
-          <h3 style={{ textAlign: "center" }}>
-            Distribution of Issues by Department
-          </h3>
+        <div className="chart-pie">
+          <h3>Distribution of Issues by Department</h3>
           <Pie data={pieChartData} options={{ responsive: true }} />
         </div>
       </div>
 
       {/* Buttons */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "30px",
-        }}
-      >
-        <button
-          style={{
-            backgroundColor: "#B71C1C",
-            color: "white",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
+      <div className="buttons-container">
+        <button onClick={() => navigate(-1)} className="back-button">
           BACK
         </button>
-        <div>
-          <button
-            onClick={downloadPDF}
-            style={{
-              backgroundColor: "#005A50",
-              color: "white",
-              padding: "10px 20px",
-              marginRight: "10px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
+        <div className="action-buttons">
+          <button onClick={downloadPDF} className="download-pdf">
             DOWNLOAD PDF
           </button>
-          <button
-            onClick={exportToExcel}
-            style={{
-              backgroundColor: "#333",
-              color: "white",
-              padding: "10px 20px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
+          <button onClick={exportToExcel} className="export-excel">
             EXPORT TO EXCEL
           </button>
         </div>

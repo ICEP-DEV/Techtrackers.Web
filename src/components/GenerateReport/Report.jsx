@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ReportPage.css"; // Import CSS file
 
 // Import images
 import titleImage from "./images/title.jpg";
 import chevronRight from "./images/Chevron right.jpg";
 import vectorImage from "./images/Vector.jpg";
 
-const ReportPage = () => {
+const ReportPage = ({ isSidebarOpen }) => {
   const [reportType, setReportType] = useState("");
   const [previewContent, setPreviewContent] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -48,65 +49,60 @@ const ReportPage = () => {
     setPreviewContent("");
   };
 
-  const getButtonStyle = (type) => {
-    return reportType === type
-      ? { ...buttonStyle, backgroundColor: "#3F9421" } // Highlight selected button
-      : buttonStyle;
-  };
+  const getButtonClassName = (type) =>
+    reportType === type ? "button selected" : "button";
 
   return (
-    <div style={containerStyle}>
-      <div style={headerStyle}>
-        <img src={titleImage} alt="Report Title" style={titleImageStyle} />
-        <h1 style={{ color: "#000", fontWeight: "bold" }}>GENERATE REPORT</h1>
+    <div className={`ReportContainer ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      <div className="ReportHeader">
+        <img src={titleImage} alt="Report Title" className="title-image" />
+        <h1>GENERATE REPORT</h1>
       </div>
 
-      <div style={reportTypePreviewStyle}>
-        <h3 style={{ color: "#000", fontWeight: "bold" }}>Report Type:</h3>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <img src={vectorImage} alt="Vector Icon" style={iconStyle} />
-          <h3 style={{ color: "#000", fontWeight: "bold" }}>Preview</h3>
+      <div className="report-type-preview">
+        <h3>Report Type:</h3>
+        <div>
+          <img src={vectorImage} alt="Vector Icon" className="icon" />
+          <h3>Preview</h3>
         </div>
       </div>
 
       <div style={{ display: "flex", gap: "20px" }}>
-        <div style={buttonColumnStyle}>
+        <div className="button-column">
           <button
             onClick={() => handleSelectReport("Issues of Status Report")}
-            style={getButtonStyle("Issues of Status Report")}
+            className={getButtonClassName("Issues of Status Report")}
           >
             <span>Issues of Status Report</span>
-            <img src={chevronRight} alt="Chevron Right" style={chevronStyle} />
+            <img src={chevronRight} alt="Chevron Right" className="chevron" />
           </button>
           <button
             onClick={() => handleSelectReport("Monthly Summary Report")}
-            style={getButtonStyle("Monthly Summary Report")}
+            className={getButtonClassName("Monthly Summary Report")}
           >
             <span>Monthly Summary Report</span>
-            <img src={chevronRight} alt="Chevron Right" style={chevronStyle} />
+            <img src={chevronRight} alt="Chevron Right" className="chevron" />
           </button>
           <button
             onClick={() => handleSelectReport("Technician Performance Report")}
-            style={getButtonStyle("Technician Performance Report")}
+            className={getButtonClassName("Technician Performance Report")}
           >
             <span>Technician Performance Report</span>
-            <img src={chevronRight} alt="Chevron Right" style={chevronStyle} />
+            <img src={chevronRight} alt="Chevron Right" className="chevron" />
           </button>
         </div>
 
-        <div style={previewBoxStyle}>
+        <div className="preview-box">
           {previewContent ? (
-            <p style={{ color: "#333" }}>{previewContent}</p>
+            <p>{previewContent}</p>
           ) : (
-            <p style={{ color: "#888" }}>
-              Select a report type and date range to preview
-            </p>
+            <p>Select a report type and date range to preview</p>
           )}
         </div>
       </div>
 
-      <div style={dateInputContainerStyle}>
-        <div style={{ flex: 1 }}>
+      <div className="date-input-container">
+        <div style={{flex: 1}}>
           <label>
             Start Date:
             <input
@@ -114,13 +110,13 @@ const ReportPage = () => {
               value={startDate}
               onChange={(e) => {
                 setStartDate(e.target.value);
-                updatePreviewContent(reportType, e.target.value, endDate); // Update preview as the date is selected
+                updatePreviewContent(reportType, e.target.value, endDate);
               }}
-              style={inputStyle}
+              className="input"
             />
           </label>
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{flex: 1}}>
           <label>
             End Date:
             <input
@@ -128,98 +124,24 @@ const ReportPage = () => {
               value={endDate}
               onChange={(e) => {
                 setEndDate(e.target.value);
-                updatePreviewContent(reportType, startDate, e.target.value); // Update preview as the date is selected
+                updatePreviewContent(reportType, startDate, e.target.value);
               }}
-              style={inputStyle}
+              className="input"
             />
           </label>
         </div>
       </div>
 
-      <div style={actionButtonContainerStyle}>
-        <button
-          onClick={handleCancel}
-          style={{ ...buttonStyle, backgroundColor: "#BA0909", color: "#fff" }}
-        >
+      <div className="action-button-container">
+        <button onClick={handleCancel} className="button" style={{ backgroundColor: "#BA0909" }}>
           CANCEL
         </button>
-        <button
-          onClick={handleGenerateReport}
-          style={{ ...buttonStyle, backgroundColor: "#3F9421", color: "#fff" }}
-        >
+        <button onClick={handleGenerateReport} className="button" style={{ backgroundColor: "#3F9421" }}>
           GENERATE REPORT
         </button>
       </div>
     </div>
   );
-};
-
-// Styles
-const containerStyle = {
-  padding: "20px",
-  fontFamily: "Arial, sans-serif",
-  backgroundColor: "#f9f9f9",
-  borderRadius: "8px",
-};
-const headerStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  marginBottom: "20px",
-};
-const titleImageStyle = { maxWidth: "100px", marginRight: "20px" };
-const reportTypePreviewStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: "10px",
-};
-const iconStyle = { maxWidth: "20px", marginRight: "10px" };
-const buttonColumnStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-  width: "200px",
-};
-const previewBoxStyle = {
-  width: "50%",
-  marginLeft: "auto",
-  border: "1px solid #ccc",
-  padding: "10px",
-  minHeight: "150px",
-  borderRadius: "4px",
-  backgroundColor: "#fff",
-};
-const dateInputContainerStyle = {
-  display: "flex",
-  gap: "10px",
-  marginTop: "20px",
-};
-const actionButtonContainerStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: "20px",
-};
-const buttonStyle = {
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
-  backgroundColor: "#15959D",
-  color: "#fff",
-  transition: "background-color 0.3s",
-  fontSize: "16px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-};
-const chevronStyle = { width: "20px", height: "20px", marginLeft: "10px" };
-const inputStyle = {
-  width: "100%",
-  marginTop: "5px",
-  padding: "8px",
-  borderRadius: "4px",
-  border: "1px solid #ccc",
 };
 
 export default ReportPage;

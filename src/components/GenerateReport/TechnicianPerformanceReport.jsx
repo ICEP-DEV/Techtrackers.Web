@@ -1,6 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { Line } from "react-chartjs-2";
+import "./TechnicianPerformanceReport.css"; // Import the CSS
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,8 +21,6 @@ import {
   TableRow,
   Paper,
   Button,
-  Typography,
-  Box,
 } from "@mui/material";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -37,7 +36,8 @@ ChartJS.register(
   Legend
 );
 
-const TechnicianPerformanceReport = () => {
+const TechnicianPerformanceReport = ({ isSidebarOpen }) => {
+  const navigate = useNavigate(); 
   const location = useLocation();
   const { startDate, endDate } = location.state || {};
 
@@ -132,101 +132,64 @@ const TechnicianPerformanceReport = () => {
   };
 
   return (
-    <Box
-      sx={{
-        padding: "20px",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#E5F0EC",
-      }}
+    <div
+      className={`technician-report-container ${
+        isSidebarOpen ? "sidebar-open" : "sidebar-closed"
+      }`}
     >
-      <Typography variant="h4" align="center" gutterBottom>
-        Technician Performance Report
-      </Typography>
-      <Typography variant="subtitle1" align="center" gutterBottom>
+      <h1 className="report-title">Technician Performance Report</h1>
+      <p className="report-subtitle">
         Date report was generated: {startDate} - {endDate}
-      </Typography>
+      </p>
 
-      <TableContainer component={Paper} sx={{ margin: "40px 0" }}>
-        <Table>
-          <TableHead>
-            <TableRow sx={{ backgroundColor: "#6da397" }}>
-              <TableCell>Technician Name</TableCell>
-              <TableCell>Total Issues Assigned</TableCell>
-              <TableCell>Issues Resolved</TableCell>
-              <TableCell>Average Resolution Time</TableCell>
-              <TableCell>Pending Issues</TableCell>
-              <TableCell>Performance Rating</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tableData.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{ backgroundColor: index % 2 === 0 ? "#f0f5f4" : "white" }}
-              >
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.assigned}</TableCell>
-                <TableCell>{row.resolved}</TableCell>
-                <TableCell>{row.resolutionTime}</TableCell>
-                <TableCell>{row.pending}</TableCell>
-                <TableCell>{row.rating}</TableCell>
+      <div className="report-table-container">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow className="report-table-head">
+                <TableCell>Technician Name</TableCell>
+                <TableCell>Total Issues Assigned</TableCell>
+                <TableCell>Issues Resolved</TableCell>
+                <TableCell>Average Resolution Time</TableCell>
+                <TableCell>Pending Issues</TableCell>
+                <TableCell>Performance Rating</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row, index) => (
+                <TableRow key={index} className="report-table-row">
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.assigned}</TableCell>
+                  <TableCell>{row.resolved}</TableCell>
+                  <TableCell>{row.resolutionTime}</TableCell>
+                  <TableCell>{row.pending}</TableCell>
+                  <TableCell>{row.rating}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
 
-      <Box
-        sx={{
-          padding: "10px",
-          backgroundColor: "#dbe7e4",
-          borderRadius: "8px",
-          marginBottom: "20px",
-        }}
-      >
-        <Typography variant="h6" align="center" gutterBottom>
-          Number of Issues Logged per Category
-        </Typography>
+      <div className="chart-container">
+        <h2 className="chart-title"> Number of Issues Logged per Category</h2>
         <Line data={chartData} options={chartOptions} />
-      </Box>
+      </div>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "30px",
-        }}
-      >
-        <Button variant="contained" color="error" sx={{ padding: "10px 20px" }}>
+      <div className="buttons-container">
+      <button onClick={() => navigate(-1)} className="back-button">
           BACK
-        </Button>
-        <Box>
-          <Button
-            onClick={downloadPDF}
-            variant="contained"
-            sx={{
-              backgroundColor: "#005A50",
-              color: "white",
-              padding: "10px 20px",
-              marginRight: "10px",
-            }}
-          >
+        </button>
+        <div className="action-buttons">
+          <button onClick={downloadPDF} className="download-pdf-button">
             DOWNLOAD PDF
-          </Button>
-          <Button
-            onClick={exportToExcel}
-            variant="contained"
-            sx={{
-              backgroundColor: "#333",
-              color: "white",
-              padding: "10px 20px",
-            }}
-          >
+          </button>
+          <button onClick={exportToExcel} className="export-excel-button">
             EXPORT TO EXCEL
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

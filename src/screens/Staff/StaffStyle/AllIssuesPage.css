@@ -127,6 +127,10 @@
   .status.on-hold {
     background-color: grey; /* Color for On-Hold status */
   }
+
+  .status.escalated {
+    background-color: #148fd6;
+  }
   
   .view-button {
     background-color: #1a3c40;

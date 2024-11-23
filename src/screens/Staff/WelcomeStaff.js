@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 const WelcomeStaff = () => {
     const navigate = useNavigate();
 
+    const handleAllIssues = () => {
+        navigate('/staffdashboard/IssueDisplay')
+    }
+
     const handleLogIssue = () => {
         navigate('/staffdashboard/logissueform');
     };
@@ -30,7 +34,7 @@ const WelcomeStaff = () => {
                 </div>
 
                 {/* Status Card */}
-                <div className={`${styles.cards} ${styles.cards}`}>
+                <div className={`${styles.cards} ${styles.cards}`} onClick={handleAllIssues}>
                     <div className={styles.cardsIcon}><FontAwesomeIcon icon={faCircleCheck} /></div>
                     <div className={styles.cardsContent}>
                         <h2>STATUS</h2>

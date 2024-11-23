@@ -1,136 +1,128 @@
+import React, { useState, useRef } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import styles from './StaffStyle/LiveChat.module.css';
+import ProfileIcon from '../TECHNICIAN/images/profile_icon.png';
+import AttachmentIcon from '../TECHNICIAN/images/attachment_icon.png';
+import { useNavigate } from "react-router-dom";
 
-import { Paperclip, Send } from 'lucide-react';
-import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeftIcon, ArrowLeft  } from '@heroicons/react/24/outline';// Adjust if using a different icon library
-import PropTypes from 'prop-types';
-import './StaffStyle/LiveChat.css';
+function LiveChat() {
+    const staffName = "Samuel Mahlangu";  // Replaced technicianName with staffName
+    const [text, setText] = useState('');
+    
+    // Updated chatLog with your new message structure
+    const [chatLog, setChatLog] = useState([
+        { text: "Morning, can you please help fix the issue I am facing?", sender: "Lunga Ntshingila", time: "10:00", attachment: null },
+        { text: "Hello, I've received your issue about the printer in Building 18. The picture you attached is not clear enough, could you please send the clear screenshot of the error message displayed on the screen?", sender: "Samuel Mahlangu", time: "12:34", attachment: null },
+        { text: "Here is an error code displayed on the screen.", sender: "Samuel Mahlangu", time: "12:36", attachment: { name: 'error_screenshot.png', url: '/placeholder.svg?height=100&width=100' } },
+        { text: "It looks like a driver issue based on the error code. I'll reset the drivers remotely and let you know once it's done. Thank you.", sender: "Lunga Ntshingila", time: "12:37", attachment: null }
+    ]);
+    
+    const fileInputRef = useRef(null);
+    const navigate = useNavigate();
+    
+    const handleCancelBtn = () => {
+        navigate(-1);
+    };
 
-const initialMessages = [
-  {
-    id: 1,
-    sender: 'Lunga Ntshingila',
-    content: "Hello, I've received your issue about the printer in Building 18. The picture you attached is not clear enough, could you please send the clear screenshot of the error message displayed on the screen ?",
-    timestamp: '12:34',
-    attachment: null
-  },
-  {
-    id: 2,
-    sender: 'User',
-    content: 'Here is an error code displayed on the screen.',
-    timestamp: '12:36',
-    attachment: {
-      name: 'error_screenshot.png',
-      url: '/placeholder.svg?height=100&width=100'
-    }
-  },
-  {
-    id: 3,
-    sender: 'Lunga Ntshingila',
-    content: "It looks like a driver issue based on the error code. I'll reset the drivers remotely and let you know once it's done. Thank You",
-    timestamp: '12:37',
-    attachment: null
-  }
-]
+    const handleSendText = () => {
+        if (text.trim() !== '') {
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            setChatLog([...chatLog, { text: text, sender: "You", time: currentTime, attachment: null }]);
+            setText('');
+        }
+    };
 
-function LiveChat({ onClose }) {
-  const [messages, setMessages] = useState(initialMessages)
-  const [newMessage, setNewMessage] = useState('')
-  const [attachment, setAttachment] = useState(null)
-  const chatEndRef = useRef(null)
-  const fileInputRef = useRef(null)
+    const handleAttachImage = () => {
+        fileInputRef.current.click();
+    };
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const fileURL = URL.createObjectURL(file);
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            // Toast to notify user the file is attached
+            toast.success(`Attached: ${file.name}`);
+            
+            // Update chatLog with the attached image
+            setChatLog([...chatLog, { text: fileURL, sender: "You", type: "image", fileName: file.name, time: currentTime }]);
+        }
+    };
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== '' || attachment) {
-      const newMsg = {
-        id: messages.length + 1,
-        sender: 'User',
-        content: newMessage,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        attachment: attachment
-      }
-      setMessages([...messages, newMsg])
-      setNewMessage('')
-      setAttachment(null)
-    }
-  }
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0]
-    if (file) {
-      setAttachment({
-        name: file.name,
-        url: URL.createObjectURL(file)
-      })
-    }
-  }
-
-  const handleAttachmentClick = () => {
-    fileInputRef.current.click()
-  }
-
-  return (
-    <div className="live-chat-fullscreen">
-      <div className="chat-header">
-        <button className="back-button" onClick={onClose}>
-          <ArrowLeftIcon  size={20} />
-        </button>
-        <h3>Lunga Ntshingila</h3>
-      </div>
-      <div className="chat-messages">
-        {messages.map((message) => (
-          <div key={message.id} className={`message ${message.sender === 'User' ? 'user' : 'staff'}`}>
-            <div className="message-content">
-              {message.content}
-              {message.attachment && (
-                <div className="attachment-preview">
-                  <img src={message.attachment.url} alt={message.attachment.name} />
-                  <span>{message.attachment.name}</span>
+    return (
+        <div className={styles.mainContainerChat}>
+            <div className={styles.chatContainer}>
+                <div className={styles.chatHeader}>
+                    <div className={styles.name}>
+                        <h4 className={styles.technicianName}>
+                            <img src={ProfileIcon} alt="Profile" height={45}/> 
+                            {staffName}
+                        </h4>
+                    </div>                    
+                    <div className={styles.icon} onClick={handleCancelBtn}>
+                        <h1 className={styles.closeIcon}>x</h1>
+                    </div>
                 </div>
-              )}
+                <div className={styles.chatBox}>
+                    <div className={styles.texts}>
+                        {chatLog.map((msg, index) => (
+                            <div key={index} className={msg.sender === "You" ? styles.userMessage : styles.techMessage}>
+                                {msg.attachment ? (
+                                    // If there is an image attached, render the image preview
+                                    <a href={msg.attachment.url} target="_blank" rel="noopener noreferrer">
+                                        <img 
+                                            src={msg.attachment.url} // Using the URL of the attached image for preview
+                                            alt={msg.attachment.name} 
+                                            style={{ maxWidth: '180px', maxHeight: '150px', borderRadius: '10px' }} 
+                                        />
+                                    </a>
+                                ) : msg.type === "image" ? (
+                                    // If the message is of type image, use the Blob URL to display the image
+                                    <a href={msg.text} target="_blank" rel="noopener noreferrer">
+                                        <img 
+                                            src={msg.text} // Blob URL for preview
+                                            alt={msg.fileName} 
+                                            style={{ maxWidth: '80px', maxHeight: '80px', borderRadius: '5px' }} 
+                                        />
+                                    </a>
+                                ) : (
+                                    <p>{msg.text}</p>
+                                )}
+                                <span className={styles.timeStamp}>{msg.time}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className={styles.messageField}>
+                    <input 
+                        type="text" 
+                        value={text} 
+                        onChange={(e) => setText(e.target.value)} 
+                        placeholder="Type a message..."
+                    />
+                    <img 
+                        src={AttachmentIcon} 
+                        alt="Attach" 
+                        onClick={handleAttachImage} 
+                        height={45} 
+                        className={styles.attachmentIcon} 
+                    />
+                    <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        onChange={handleFileChange} 
+                        style={{ display: 'none' }} 
+                    />
+                
+                    <button className={styles.sendButton} onClick={handleSendText}>Send</button>
+                    
+                </div>
             </div>
-            <div className="message-timestamp">{message.timestamp}</div>
-          </div>
-        ))}
-        <div ref={chatEndRef} />
-      </div>
-      <div className="chat-input">
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
-          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-        />
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={handleFileChange}
-        />
-        <button className="attachment-button" onClick={handleAttachmentClick}>
-          <Paperclip size={20} />
-        </button>
-        <button onClick={handleSendMessage}>
-          <Send size={20} />
-        </button>
-      </div>
-      {attachment && (
-        <div className="attachment-preview">
-          <img src={attachment.url} alt={attachment.name} />
-          <span>{attachment.name}</span>
-          <button onClick={() => setAttachment(null)}>Remove</button>
+            <ToastContainer />
         </div>
-      )}
-    </div>
-  )
+    );
 }
 
-LiveChat.propTypes = {
-  onClose: PropTypes.func.isRequired,
-}
-
-export default LiveChat
+export default LiveChat;

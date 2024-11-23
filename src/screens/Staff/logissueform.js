@@ -18,6 +18,7 @@ const Logissueform = () => {
     attachmentUrl: null,
   });
   const [errors, setErrors] = useState({});
+  const [filePreview, setFilePreview] = useState(null); // State for storing file URL
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -33,10 +34,18 @@ const Logissueform = () => {
   };
 
   const handleFileChange = (event) => {
+    const file = event.target.files[0];
     setFormValues((prevValues) => ({
       ...prevValues,
-      attachmentUrl: event.target.files[0],
+      attachmentUrl: file,
     }));
+
+    // Generate file URL for the selected file
+    if (file) {
+      setFilePreview(URL.createObjectURL(file)); // Store the URL for the file
+    } else {
+      setFilePreview(null); // Reset preview if no file
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -45,42 +54,30 @@ const Logissueform = () => {
     const userInfo = JSON.parse(localStorage.getItem('user_info'));
     const staffId = userInfo?.userId;
 
-    if(!staffId) {
+    if (!staffId) {
       toast.error("User ID is missing. Please log in again.");
       return;
     }
 
-    // Constraction of LogDto
-    /*const logDto = {
-      Issue_Title: formValues.title,
-      Category_ID: formValues.category,
-      Department: formValues.department,
-      Description: formValues.description,
-      Priority: formValues.priority,
-      Created_at: formValues.date,
-      Location: formValues.location,
-      AttachmentUrl: formValues.attachmentUrl ? formValues.attachmentUrl.name : null,
-      Staff_ID: staffId, // I'll be passing staff ID from logged-in user(Staff)
-    };*/
     const fullLocation = formValues.location 
-    ? formValues.buildingNumber 
-      ? `${formValues.location}-${formValues.buildingNumber}`
-      : formValues.location
-    : "Location not specified";
+      ? formValues.buildingNumber 
+        ? `${formValues.location}-${formValues.buildingNumber}`
+        : formValues.location
+      : "Location not specified";
 
     const formData = new FormData();
-      formData.append("Issue_Title", formValues.title);
-      formData.append("Category_ID", formValues.category);
-      formData.append("Department", formValues.department);
-      formData.append("Description", formValues.description);
-      formData.append("Priority", formValues.priority);
-      formData.append("Created_at", formValues.date);
-      formData.append("Location", fullLocation);
-      formData.append("Staff_ID", staffId);
+    formData.append("Issue_Title", formValues.title);
+    formData.append("Category_ID", formValues.category);
+    formData.append("Department", formValues.department);
+    formData.append("Description", formValues.description);
+    formData.append("Priority", formValues.priority);
+    formData.append("Created_at", formValues.date);
+    formData.append("Location", fullLocation);
+    formData.append("Staff_ID", staffId);
 
-      if (formValues.attachmentUrl) {
-        formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
-      }
+    if (formValues.attachmentUrl) {
+      formData.append("AttachmentUrl", formValues.attachmentUrl);
+    }
 
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
@@ -240,7 +237,6 @@ const Logissueform = () => {
               <option value="D12C">D12C</option>
               <option value="A1">A1</option>
               <option value="B2">B2</option>
-              {/* Add more building numbers as needed */}
             </select>
           </div>
         </div>
@@ -248,11 +244,31 @@ const Logissueform = () => {
         <div className={styles.fileInputWrapper}>
           <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
           <div>
-            <input type="file" name="attachmentUrl" onChange={handleFileChange} />
-            <p className={styles.fileFormatHint}>(JPEG,PNG,PDF)</p> 
+            <input 
+              type="file" 
+              name="attachmentUrl" 
+              onChange={handleFileChange} 
+            />
+            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF)</p> 
+
+            {/* Display file name as a clickable link */}
+            {formValues.attachmentUrl && (
+              <div>
+                {/* Use the filePreview URL or fallback to the uploaded file name */}
+                {filePreview ? (
+                  <a 
+                    href={filePreview} 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    {formValues.attachmentUrl.name}
+                  </a>
+                ) : (
+                  <span>{formValues.attachmentUrl.name}</span> // Fallback to file name when no preview is available
+                )}
+              </div>
+            )}
           </div>
         </div>
-
         <div className={styles.FformButons}>
           <button type="submit">Submit</button>
           <button type="button" className={styles.CcancelButton} onClick={handleCancel}>Cancel</button>

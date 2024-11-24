@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Notification.module.css"; // CSS Module
 
-const Notifications = () => {
+const Notifications = ({ isSidebarOpen }) => {
   const [activeTab, setActiveTab] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
   const [filterTime, setFilterTime] = useState("All");
@@ -89,7 +89,7 @@ const Notifications = () => {
   );
 
   return (
-    <div className={styles.notificationsContainer}>
+<div className={`${styles.notificationContainer} ${isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.title}>

@@ -6,7 +6,7 @@ import HODDashboard from './HODDashboard';
 import LogIssueForm from './LogIssueFormFolder/LogIssueForm';
 import ManageLogs from './ManageLogsFolder/ManageLogs';
 import GenerateReport from '../components/GenerateReport/Report';
-
+import Notification from '../screens/Notification Page/Notification';
 import IssueReport from '../components/GenerateReport/IssuesStatusReport';
 import MonthlyReprt from '../components/GenerateReport/MonthlySummaryReport';
 import TechnicianReport from '../components/GenerateReport/TechnicianPerformanceReport';
@@ -35,10 +35,11 @@ function HeadDepartment() {
               <Route path="/log-issue" element={<LogIssueForm isSidebarOpen={isSidebarOpen} />} />
               <Route path="/all-issues" element={<MainContent isSidebarOpen={isSidebarOpen}/>} />
               <Route path="/generate-report" element={<GenerateReport isSidebarOpen={isSidebarOpen}/>} />
-
               <Route path="/status-report" element={<IssueReport isSidebarOpen={isSidebarOpen}/>} />
               <Route path="/monthly-summary-report" element={<MonthlyReprt isSidebarOpen={isSidebarOpen}/>} />
               <Route path="/technician-performance-report" element={<TechnicianReport isSidebarOpen={isSidebarOpen}/>} />
+              <Route path="/notifications" element={<Notification isSidebarOpen={isSidebarOpen}/>} />
+
             </Routes>
           </div>
         </div>

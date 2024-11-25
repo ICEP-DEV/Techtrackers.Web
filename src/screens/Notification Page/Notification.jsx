@@ -45,9 +45,9 @@ const Notifications = ({ isSidebarOpen }) => {
     const sortedNotifications = [...notifications].sort((a, b) => {
       // Customize sorting based on `time` or other logic
       if (order === "newest") {
-        return a.time > b.time ? -1 : 1; // Sort descending
+        return a.time > b.time ? 1 : -1; // Sort descending
       } else {
-        return a.time > b.time ? 1 : -1; // Sort ascending
+        return a.time > b.time ? -1 : 1; // Sort ascending
       }
     });
 

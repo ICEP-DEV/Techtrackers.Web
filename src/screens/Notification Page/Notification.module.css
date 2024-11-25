@@ -1,7 +1,7 @@
 .notificationContainer {
-  width: 90%;
-  max-width: 880px;
-  margin: 100px auto;
+  max-width: 100%;
+  margin: 150px;
+  margin-left: 60px;
   padding: 30px;
   background-color: #f5f5f5;
   border-radius: 10px;
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .title {

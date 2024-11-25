@@ -37,7 +37,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         <thead>
           <tr>
             <th>Issue ID</th>
-            <th>Issue title</th>
+            <th>Category</th>
             <th>Date reported</th>
             <th>Department</th>
             <th>Priority level</th>

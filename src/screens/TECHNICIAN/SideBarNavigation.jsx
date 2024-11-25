@@ -43,6 +43,7 @@ import useIssues from "./pages/useIssues.jsx";
 import IssueDetailsCollab from './pages/IssueDetailsCollaburationRequest.jsx';
 import Table1 from './pages/TableCollaburationRequest.jsx';
 import IssueDetails1 from './pages/IssueDetailsCollaburationRequest.jsx';
+import TechnicianStaffLiveChat from './pages/TechnicianStaffLiveChat.jsx';
 
 
 
@@ -64,7 +65,8 @@ const TechnicianDashboard = () => {
           <Route path="/notifications" element={<TechnicianNotifications />} />
           <Route path="/tbl" element={<Table issues={issues} setIssues={setIssues} />} />
           <Route path="/issues/:issueId" element={<IssueDetails issues={issues} />} />
-          <Route path="/liveChat" element={<TechnicianLiveChat/>} />
+          <Route path="/techChat" element={<TechnicianLiveChat/>} />
+          <Route path="/staffChat" element={<TechnicianStaffLiveChat/>} />
           {/* <Route path="/collaboration" element={<CollabMain />} /> */}
           <Route path="/issue1/:issueId" element={<IssueDetailsCollab />} />
           <Route path="/reviews" element={<Ratings />} />

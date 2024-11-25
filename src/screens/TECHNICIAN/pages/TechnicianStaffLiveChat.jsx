@@ -7,11 +7,11 @@ import AttachmentIcon from '../images/attachment_icon.png';
 import { useNavigate } from "react-router-dom";
 
 function TechncianLiveChat() {
-    const technicianName = "Samuel Mahlangu"; 
-    const specialization = "Web Support Technician";
+    const staffName = "John Doe"; 
+    const department = "Human Resources";
     const [text, setText] = useState('');
     const [chatLog, setChatLog] = useState([
-        { text: "Morning, what will will we meet to work on this issue?", sender: "Technician", time: "10:00" }
+        { text: "Hello, what time will you come to check the issue with my computer?", sender: "Staff", time: "10:00" }
     ]);
     const fileInputRef = useRef(null);
 
@@ -50,10 +50,11 @@ function TechncianLiveChat() {
         <div className={styles.mainContainerChat}>
             <div className={styles.chatContainer}>
                 <div className={styles.chatHeader}>
-                <div className={styles.name}><h4 className={styles.technicianName}>
-                    <img src={ProfileIcon} alt="Profile" height={45}/> 
-                    {technicianName} - {specialization}</h4>
-                </div>                    
+                    <div className={styles.name}><h4 className={styles.staffName}>
+                        <img src={ProfileIcon} alt="Profile" height={45}/> 
+                        {staffName} - {department}</h4>
+                    </div>
+                    
                     <div clsassName={styles.icon} onClick={handleCancelBtn}><h1 className={styles.closeIcon}>x</h1></div>
                 </div>
                 <div className={styles.chatBox}>

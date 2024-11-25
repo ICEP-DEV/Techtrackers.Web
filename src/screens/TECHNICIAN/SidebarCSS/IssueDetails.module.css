@@ -6,6 +6,7 @@
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  background-color: #ffffff;
 }
 
 .issue {
@@ -150,22 +151,16 @@
 
 .issueDetails p {
   font-size: 16px;
-  color: black;
+  color: #555;
   margin-top: 5px;
 }
 
 .issueDetails h3 {
-  display: flex;
-  align-items: center;
-  margin-top: -20px;
-  color: black;
-}
-
-.issueDetails h3 h4 {
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
+  color: #555;
 }
 
 .descriptionText {
@@ -192,7 +187,7 @@
   margin-top: 10px;
   margin-left: 10px;
   font-size: 20px;
-  color: black;
+  color: #555;
 }
 
 .attachment {
@@ -404,11 +399,12 @@
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically align to the bottom */
   z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.2);;
 }
 /* Modal Content */
 .modalContent {
   width: 80%; /* Width of the modal */
-  max-width: 350px; /* Maximum width */
+  max-width: 400px; /* Maximum width */
   background: white; /* Background color */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
@@ -423,11 +419,11 @@
   margin-bottom: 10px; /* Space below textarea */
 }
 /* Additional styling if needed */
+
 .modalClose {
-  cursor: pointer; /* Pointer cursor for close button */
-}
-.modalClose {
-  position: absolute;
+  padding: 2px 5px;
+  cursor: pointer;
+  margin-left: 94%;
   top: 10px;
   right: 10px;
   font-size: 12px;
@@ -435,6 +431,8 @@
   border: none;
   cursor: pointer;
   background-color: #15959D;
+  border-radius: 4px;
+  border: 1px solid #555;
 }
 .selectHeader {
   margin-top: 10px; /* Spacing above the header */
@@ -606,6 +604,12 @@
   gap: 10px; /* Space between buttons */
 }
 
+.statusButtons button{
+  border-radius: 4px;
+  padding: 5px; 
+  width: 100%;
+}
+
 .rightActions {
   display: flex; /* Make this a flex container */
   flex-direction: row; /* Arrange items vertically */
@@ -658,10 +662,9 @@
   text-align: center;
   min-width: 50px;
   transition: background-color 0.3s ease;
-  position: absolute; /* Position within the modal */
-  bottom: 20px; /* Position at the bottom */
-  right: 20px; /* Align to the right side */
+  /* position: absolute; */
 }
+
 
 .cancelButton:hover {
   background-color: #a02833; /* Darker red on hover */
@@ -679,4 +682,40 @@
   .rightActions {
     align-items: center;
   }
+}
+
+.chatIconContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.chatIcon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.chatDropdown {
+  position: absolute;
+  top: 40px; /* Adjust based on the size of your chat icon */
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 10;
+  min-width: 150px;
+  padding: 10px;
+}
+
+.chatDropdown p {
+  margin: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+}
+
+.chatDropdown p:hover {
+  background-color: #a1d1d1;
+  color: #fff;
 }

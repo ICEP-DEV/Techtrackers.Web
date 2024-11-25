@@ -85,7 +85,7 @@ const Table = ({ issues, setIssues }) => {
 
   // Function to close the table
   const handleClose = () => {
-    navigate('/dashboard');
+    navigate('/techniciandashboard/dashboard');
   };
 
   return (
@@ -126,7 +126,7 @@ const Table = ({ issues, setIssues }) => {
                     {/* Add navigation to issue details when clicking the View button */}
                     <button
                       className={styles.viewButton}
-                      onClick={() => navigate(`/issues/${issue.issueId}`)} // Navigate to IssueDetails page
+                      onClick={() => navigate(`/techniciandashboard/issues/${issue.issueId}`)} // Navigate to IssueDetails page
                     >
                       View
                     </button>

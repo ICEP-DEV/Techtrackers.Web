@@ -43,11 +43,17 @@ const IssueDetails = ({ issues }) => {
   };
 
   const handleUpdateStatus = (status) => {
+    if (issue.status === "Resolved") {
+      toast.error("Cannot update status. The issue is already resolved.");
+      setShowUpdateModal(false);
+      return;
+    }
+
     issues[issueIndex].status = status; // Update the status in the array
     console.log(`Status updated to: ${status}`);
 
     // Show toast notification
-    if (status === "InProgress" || status === "Resolved") {
+    if (status === "InProgress" || status === "On Hold" || status ==="Resolved") {
       toast.success(`Status updated to ${status}!`);
     }
 
@@ -59,23 +65,27 @@ const IssueDetails = ({ issues }) => {
   };
 
   const handleNoteSubmit = () => {
-    if (!note.trim()) { 
-      toast.error("Please enter a note before submitting.");
-      return;
-    }
+    if (issue.status === "Resolved") {
+    toast.error("Cannot update status. The issue is already resolved."); 
+    return;}
+  if (!note.trim()) { 
+    toast.error("Please enter a note before submitting.");
+    return;
+  }
 
-    issues[issueIndex].status = "On Hold"; // Update the status to "On Hold"
-    console.log(`Note added: ${note}`);
-    toast.success("Note successfully added and status updated to 'On Hold'!");
-    setNote("");
-    setShowAddNoteModal(false);
-  };
+  issues[issueIndex].status = "On Hold"; // Update the status to "On Hold"
+  console.log(`Note added: ${note}`);
+  toast.success("Note successfully added and status updated to 'On Hold'!");
+  setNote("");
+  setShowAddNoteModal(false);
+  setShowUpdateModal(false);
+};
 
   const handleBack = () => {
     if (window.history.length > 2) {
       navigate(-1); 
     } else {
-      navigate("/tbl"); 
+      navigate("/techniciandashboard/tbl"); 
     }
   };
 
@@ -90,7 +100,7 @@ const IssueDetails = ({ issues }) => {
 }
 
   const handleChat = () => {
-    navigate("/liveChat");
+    navigate("/techniciandashboard/staffChat");
   };
 
   const handleAssignClick = () => {
@@ -149,12 +159,12 @@ const handleUpdateClick = () => {
             <p>
               Priority:{" "}
               <span
-                className={`${styles['priority-text']} ${
+                className={`${styles['priorityText']} ${
                   issue.priority === "High"
-                    ? styles['priority-high']
+                    ? styles['priorityHigh']
                     : issue.priority === "Medium"
-                    ? styles['priority-medium']
-                    : styles['priority-low']
+                    ? styles['priorityMedium']
+                    : styles['priorityLow']
                 }`}
               >
                 {issue.priority.toUpperCase()}
@@ -169,10 +179,7 @@ const handleUpdateClick = () => {
 
       {/* Issue Description */}
       <div className={styles.issueDetails}>
-        <h3>
-          <img src={desc} width="25" height="30" alt="Description Icon" />
-          <h4>Description</h4>
-        </h3>
+          <h3><img src={desc} width="25" height="30" alt="Description Icon" /> Description</h3>
         <p className={styles.descriptionText}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -273,10 +280,10 @@ const handleUpdateClick = () => {
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>&times;</button>
-            <h3>Update Log Status</h3>
+            <h4>Update Issue Status</h4>
             <div className={styles.statusButtons}>
               <button
-                style={{ backgroundColor: "#0C4643", color: "white" }}
+                style={{ backgroundColor: "#0C4643" }}
                 onClick={() => {
                   handleAddNoteClick();
                 }}
@@ -284,13 +291,13 @@ const handleUpdateClick = () => {
                 On Hold
               </button>
               <button
-                style={{ backgroundColor: "#B08D0F", color: "white" }}
+                style={{ backgroundColor: "#B08D0F"}}
                 onClick={() => handleUpdateStatus("InProgress")}
               >
                 In Progress
               </button>
               <button
-                style={{ backgroundColor: "#2FB00F", color: "white" }}
+                style={{ backgroundColor: "#2FB00F", color: "white"}}
                 onClick={() => handleUpdateStatus("Resolved")}
               >
                 Resolved
@@ -308,7 +315,7 @@ const handleUpdateClick = () => {
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="I am putting this issue on hold because..."
+              placeholder="Type a message..."
               rows="4"
               style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
             />

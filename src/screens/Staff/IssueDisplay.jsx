@@ -3,6 +3,7 @@ import MainContent from './MainContent'
 import IssueDetails from './IssueDetails'
 import LiveChat from './LiveChat'
 
+
 export default function IssueDisplay() {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [isChatOpen, setIsChatOpen] = useState(false)

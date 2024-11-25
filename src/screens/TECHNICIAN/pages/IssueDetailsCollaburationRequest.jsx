@@ -29,11 +29,11 @@ const IssueDetails = () => {
 
   // Handle the Close button click
   const handleClose = () => {
-    navigate("/collab"); // Navigate back to the table route
+    navigate("/techniciandashboard/collab"); // Navigate back to the table route
   };
 
   const handleChat = () => {
-    navigate("/liveChat");
+    navigate("/techniciandashboard/techChat");
   };
 
   // Handle Accept button click

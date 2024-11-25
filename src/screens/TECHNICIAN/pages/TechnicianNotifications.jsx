@@ -7,6 +7,7 @@ import search from '../images/search.png';
 import styles from '../SidebarCSS/NotificationsStyle.module.css';
 import { useNavigate } from "react-router-dom";
 import useIssues from "./useIssues";
+import chatIcon from "../images/chatIcon.png";
 
 const NotificationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +19,7 @@ const NotificationsPage = () => {
   const navigate = useNavigate();
 
   const handleIssueClick = (issue) => {
-    navigate(`/issues/${issue.id}`); // Pass the issue data
+    navigate(`/techniciandashboard/issues/${issue.id}`); // Pass the issue data
   };
 
   const notifications = [
@@ -58,7 +59,7 @@ const NotificationsPage = () => {
       sender: 'Zinhle Ngidi',
       content: 'has assigned you to issue',
       staffName: 'Andile Zondo',
-      issue: 'Connectivity Issue',
+      issue: 'Issue: Title: Connectivity Issue',
       issueId: 'FI-P2-1223',
       time: '2024-08-18',
     },
@@ -70,6 +71,16 @@ const NotificationsPage = () => {
       issue: 'Issue Title: Maintenance Request',
       action: 'View Collaboration Requests',
       time: '2024-08-14',
+    },
+    {
+      id: 6,
+      type: 'collaboration response',
+      sender: 'Abel Makamu',
+      content: 'accepted your collaboration request for issue ',
+      staffName: 'John Doe',
+      issue: 'Issue Title: 	Network Issue',
+      issueId: 'F1-P1-1226',
+      time: '15:43'
     },
   ];
 
@@ -186,15 +197,27 @@ const NotificationsPage = () => {
                 <p className={styles.notificationIssue}>{notification.issue}</p>
               )}
               {notification.action && (
-                <p className={styles.notificationAction} onClick={() => navigate(`/collab`)}>{notification.action}</p>
+                <p className={styles.notificationAction} onClick={() => navigate(`/reviews`)}>{notification.action}</p>
               )}
             </div>
             <div className={styles.notificationMeta}>
               <span className={styles.notificationTime}>{notification.time}</span>
-              {notification.type !== 'resolution' && notification.type !== 'collaboration' && (
-                <button className={styles.notificationViewButton} onClick={() => navigate(`/issues/${notification.issueId}`)}>
+              {notification.type !== 'collaboration' && notification.type !== 'collaboration response'&&(
+                <button className={styles.notificationViewButton} onClick={() => navigate(`/techniciandashboard/issues/${notification.issueId}`)}>
                   View
                 </button>
+              )}
+              {notification.type === 'collaboration response' && (
+                <div className={styles.techColabBtns}>
+                <button className={styles.notificationViewButton} onClick={() => navigate(`/techniciandashboard/issues/${notification.issueId}`
+                )}>
+                  View
+                </button>
+                <button className={styles.techChatBtn} 
+                onClick={() => navigate(`/techniciandashboard/techChat`)}>
+                  <img src={chatIcon} width="20" height="20" alt="Chat Icon"/> Tech-2-Tech
+                </button>
+                </div>
               )}
             </div>
           </div>

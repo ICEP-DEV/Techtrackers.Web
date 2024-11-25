@@ -15,7 +15,7 @@ const Logissueform = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
-    attachmentUrl: null,
+    attachmentFile: null,
   });
   const [errors, setErrors] = useState({});
   const [filePreview, setFilePreview] = useState(null); // State for storing file URL
@@ -96,7 +96,7 @@ const Logissueform = () => {
           date: new Date().toISOString().split('T')[0],
           location: '',
           buildingNumber: '',
-          attachmentUrl: null,
+          attachmentFile: null,
         });
         toast.success("Log submitted successfully!");
       } else {

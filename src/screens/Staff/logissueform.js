@@ -15,7 +15,7 @@ const Logissueform = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
-    attachmentUrl: null,
+    attachmentFile: null,
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Logissueform = () => {
   const handleFileChange = (event) => {
     setFormValues((prevValues) => ({
       ...prevValues,
-      attachmentUrl: event.target.files[0],
+      attachmentFile: event.target.files[0],
     }));
   };
 
@@ -78,8 +78,8 @@ const Logissueform = () => {
       formData.append("Location", fullLocation);
       formData.append("Staff_ID", staffId);
 
-      if (formValues.attachmentUrl) {
-        formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
+      if (formValues.attachmentFile) {
+        formData.append("AttachmentFile", formValues.attachmentFile); // Add file directly
       }
 
     try {
@@ -99,7 +99,7 @@ const Logissueform = () => {
           date: new Date().toISOString().split('T')[0],
           location: '',
           buildingNumber: '',
-          attachmentUrl: null,
+          attachmentFile: null,
         });
         toast.success("Log submitted successfully!");
       } else {

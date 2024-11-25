@@ -115,7 +115,8 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 <div className="attachment-modal">
                     <div className="attachment-modal-content">
                         <span className="close-modal" onClick={closeAttachment}>&times;</span>
-                        <img src={issue.AttachmentUrl} alt="Attachment" className="attachment-image" />
+                         {/*<img src={issue.AttachmentUrl} alt="Attachment" className="attachment-image" />*/}
+                         <img src={`data:image/jpeg;base64,${issue.AttachmentBase64}`} alt="Attachment" className="attachment-image" />
                     </div>
                 </div>
             )}

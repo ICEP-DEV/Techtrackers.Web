@@ -10,12 +10,16 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
       try {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
         const userId = userInfo ? userInfo.userId : null;
-
+  
         const response = await fetch(`https://localhost:44328/api/Log/GetLogsForStaff?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched logs:', data); // Log the fetched data for debugging
-          setIssues(data);
+  
+          // Sort the issues by date in descending order (latest first)
+          const sortedData = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
+  
+          setIssues(sortedData);
         } else {
           console.error('Failed to fetch issues');
         }
@@ -23,9 +27,10 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         console.error('Error fetching issues:', error);
       }
     };
-
+  
     fetchIssues();
   }, []);
+  
 
   return (
     <main className={styles.MmainContent}>

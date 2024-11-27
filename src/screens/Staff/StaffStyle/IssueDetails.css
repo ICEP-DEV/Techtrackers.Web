@@ -6,11 +6,15 @@
   margin: 0 auto;
   position: relative;
 }
+.title {
+  display: flex;
+  padding: 15px;
+  margin-bottom: 20px;
+}
 
-h2 {
+.title span{
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .issue-in-fo {
@@ -19,6 +23,13 @@ h2 {
   margin-bottom: 20px;
   padding: 15px;
   border-bottom: 1px solid #ccc;
+}
+
+.location-building{
+  display: flex;
+  padding: 15px;
+  font-size: larger;
+  font-weight: bolder;
 }
 
 .in-fo-group {

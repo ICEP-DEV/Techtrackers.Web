@@ -114,7 +114,6 @@ const AssignTech = () => {
             <th>Log ID</th> {/* Display the formatted log ID */}
             <th>Log By</th>
             <th>Issue Description</th>
-            <th>Due Date</th>
             <th>Department</th>
             <th>Priority Level</th>
             <th>Action</th>
@@ -126,7 +125,6 @@ const AssignTech = () => {
               <td>{issue.issueId}</td> {/* Format logId for display */}
               <td>{issue.logBy}</td>
               <td>{issue.description}</td>
-              <td>{issue.dueDate}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               <td>

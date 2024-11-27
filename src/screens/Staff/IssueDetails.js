@@ -85,7 +85,12 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
 
     return (
         <main className="issue-deta">
-            <h2>{issue.title}</h2>
+            <div className="title"> 
+                <p>Issue Title - <span>{issue.issueTitle}</span></p>
+            </div>
+            <div className="location-building">
+                <p>Location/Building - {issue.location}</p>
+            </div>
             <div className="issue-in-fo">
                 <div className="in-fo-group">
                     <p>Department - {issue.department}</p>
@@ -98,11 +103,12 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                     <button className="live-chat-btn" onClick={onOpenChat}>Live Chat</button>
                     <p>{issue.date}</p>
                 </div>
+                
             </div>
             <div className="descrip-section">
-    <h3><FileText /> Description</h3>
-    <p>{issue.description}</p>
-</div>
+                <h3><FileText /> Description</h3>
+                <p>{issue.description}</p>
+            </div>
 
             <div className="attach-section">
                 <h3><FaPaperclip /> Attachments</h3>
@@ -116,7 +122,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                     <div className="attachment-modal-content">
                         <span className="close-modal" onClick={closeAttachment}>&times;</span>
                          {/*<img src={issue.AttachmentUrl} alt="Attachment" className="attachment-image" />*/}
-                         <img src={`data:image/jpeg;base64,${issue.AttachmentBase64}`} alt="Attachment" className="attachment-image" />
+                         <img src={`data:image/jpeg;base64,${issue.attachmentBase64}`} alt="Attachment" className="attachment-image" />
                     </div>
                 </div>
             )}

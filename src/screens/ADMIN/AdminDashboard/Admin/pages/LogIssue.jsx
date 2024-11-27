@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,13 +10,32 @@ const Logissueform = () => {
   const [formValues, setFormValues] = useState({
     title: '',
     category: '',
-    department: 'Human Resource (HR)', // default value
+    department: '', // default value
     priority: '',
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
     attachmentUrl: null,
   });
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+
+    if (userInfo && userInfo.department) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: userInfo.department, // Set the department
+      }));
+    } else {
+      console.warn("No department found in user_info.");
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: "Unknown Department", // Fallback if department is missing
+      }));
+    }
+  }, []);
+
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -133,7 +152,7 @@ const Logissueform = () => {
               id="issue-title"
               type="text"
               name="title"
-              placeholder="Internal Issue"
+              placeholder="Issue Type"
               value={formValues.title}
               onChange={handleChange}
             />

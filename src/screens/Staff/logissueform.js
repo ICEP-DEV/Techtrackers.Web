@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +20,23 @@ const Logissueform = () => {
   const [errors, setErrors] = useState({});
   const [filePreview, setFilePreview] = useState(null); // State for storing file URL
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+
+    if (userInfo && userInfo.department) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: userInfo.department, // Set the department
+      }));
+    } else {
+      console.warn("No department found in user_info.");
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: "Unknown Department", // Fallback if department is missing
+      }));
+    }
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

@@ -1,22 +1,34 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/NotificationPage.module.css"; // Use the same CSS module
 
 const IssueSummaryPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { data } = location.state || {}; // Get the data passed from ViewAllLogs
+  const [totalIssues, setTotalIssues] = useState(0); // State to hold the total count of logs
 
-  // Ensure data exists, sort by date in descending order (latest first)
-  const sortedData = data
-    ? [...data].sort((a, b) => new Date(b.date) - new Date(a.date))
-    : [];
+  // Fetch the total count of logs
+  useEffect(() => {
+    const fetchTotalLogs = async () => {
+      try {
+        const response = await fetch("https://localhost:44328/api/ManageLogs/CountAllLogs");
+        if (response.ok) {
+          const data = await response.json();
+          console.log("API Response:", data); // Debugging
+          if (data.isSuccess && typeof data.result === "number") {
+            setTotalIssues(data.result); // Extract and set the count from `result`
+          } else {
+            console.error("Unexpected API response structure:", data);
+          }
+        } else {
+          console.error("Failed to fetch total logs.");
+        }
+      } catch (error) {
+        console.error("Error fetching total logs:", error);
+      }
+    };
 
-  // Slice the array to show only 3 issues after sorting
-  const issuesToDisplay = sortedData.slice(0, 3);
-
-  // Get the total number of issues
-  const totalIssues = data ? data.length : 0;
+    fetchTotalLogs();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -32,43 +44,7 @@ const IssueSummaryPage = () => {
         <p className={styles.totalIssues}>Total Issues: {totalIssues}</p>
       </div>
 
-      {/* Display the issues */}
-      {issuesToDisplay.length > 0 ? (
-        issuesToDisplay.map((row, index) => (
-          <div key={index} className={styles.row}>
-            <div className={styles.issueInfo}>
-              <strong>{row.user}</strong>
-              <strong>{row.issueId}</strong>
-              <span
-                className={
-                  row.status === "RESOLVED"
-                    ? styles.resolved
-                    : row.status === "IN PROGRESS"
-                    ? styles.inProgress
-                    : ""
-                }
-              >
-                {row.status}
-              </span>
-            </div>
-            <div className={styles.details}>
-              <p>
-                <strong>Description:</strong> {row.description}
-              </p>
-              <p>
-                <strong>Date:</strong> {row.date}
-              </p>
-              <p>
-                <strong>Priority:</strong> {row.priority}
-              </p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>No issues to display</p>
-      )}
-
-      {/* Buttons for Back and View All */}
+      {/* No issues displayed, only the total */}
       <div className={styles.IssueButton}>
         {/* View All Button */}
         <button

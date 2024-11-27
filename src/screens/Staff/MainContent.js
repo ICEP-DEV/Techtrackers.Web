@@ -37,7 +37,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         <thead>
           <tr>
             <th>Issue ID</th>
-            <th>Category</th>
+            <th>Issue Title</th>
             <th>Date reported</th>
             <th>Department</th>
             <th>Priority level</th>
@@ -48,7 +48,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
           {issues.map((issue) => (
             <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
-              <td>{issue.categoryName}</td>
+              <td>{issue.issueTitle}</td>
               <td>
                 {new Date(issue.issuedAt).toLocaleDateString()} {new Date(issue.issuedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </td>

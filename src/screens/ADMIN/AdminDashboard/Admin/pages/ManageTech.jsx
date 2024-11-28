@@ -1,41 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/Table.module.css";
 import TechnicianDetailView from "./TechnicianDetailView";
-
-// Sample technician data for testing
-const sampleTechnicians = [
-  {
-    technicianId: "T001",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    specialization: "Electrical",
-    contact: "123-456-7890",
-    fromTime: "08:00 AM",
-    toTime: "04:00 PM",
-    activeIssues: 2,
-  },
-  {
-    technicianId: "T002",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    specialization: "HVAC",
-    contact: "987-654-3210",
-    fromTime: "09:00 AM",
-    toTime: "05:00 PM",
-    activeIssues: 1,
-  },
-  {
-    technicianId: "T003",
-    name: "Mike Johnson",
-    email: "mike.johnson@example.com",
-    specialization: "Plumbing",
-    contact: "456-789-1234",
-    fromTime: "10:00 AM",
-    toTime: "06:00 PM",
-    activeIssues: 3,
-  },
-];
+import axios from "axios";  // If you’re using axios for API calls
 
 const ManageTechniciansHeader = () => {
   const navigate = useNavigate();
@@ -67,9 +34,26 @@ const ManageTechniciansHeader = () => {
 };
 
 const ManageTechniciansTable = () => {
-  const navigate = useNavigate(); // Add useNavigate hook for navigation
-  const [technicians, setTechnicians] = useState(sampleTechnicians); // Manage technician state
+  const navigate = useNavigate();
+  const [technicians, setTechnicians] = useState([]);  // Start with an empty array
   const [selectedTechnician, setSelectedTechnician] = useState(null);
+
+  useEffect(() => {
+    const fetchTechnicians = async () => {
+      try {
+        const response = await axios.get("https://localhost:44328/api/Users/GetTechniciansByRole/GetTechniciansByRole/3");  // Use your API endpoint
+        const technicianData = response.data.map((technician) => ({
+          ...technician,
+          name: `${technician.surname} ${technician.initials}`,  // Combine surname and initials
+        }));
+        setTechnicians(technicianData);
+      } catch (error) {
+        console.error("Error fetching technicians:", error);
+      }
+    };
+
+    fetchTechnicians();
+  }, []);
 
   const handleViewClick = (technician) => {
     setSelectedTechnician(technician);
@@ -83,7 +67,7 @@ const ManageTechniciansTable = () => {
   };
 
   const handleBackToList = () => {
-    navigate("/admindashboard/dashboard"); // Navigate back to the dashboard
+    navigate("/admindashboard/dashboard");
   };
 
   if (selectedTechnician) {
@@ -91,7 +75,7 @@ const ManageTechniciansTable = () => {
       <TechnicianDetailView
         technician={selectedTechnician}
         onBack={() => setSelectedTechnician(null)}
-        onRemove={handleRemoveTechnician} // Pass the remove function
+        onRemove={handleRemoveTechnician}
       />
     );
   }
@@ -114,7 +98,7 @@ const ManageTechniciansTable = () => {
         <tbody>
           {technicians.map((technician) => (
             <tr key={technician.technicianId}>
-              <td>{technician.name}</td>
+              <td>{technician.name}</td>  {/* Using the combined name here */}
               <td>{technician.email}</td>
               <td>{technician.specialization}</td>
               <td>{technician.contact}</td>

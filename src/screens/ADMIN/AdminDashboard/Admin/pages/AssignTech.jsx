@@ -38,8 +38,12 @@ const AssignTech = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched issues:", data);
-          setIssues(data);
+          
+          // Sort issues by date in descending order
+          const sortedIssues = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
+    
+          console.log("Fetched issues:", sortedIssues); // Debug
+          setIssues(sortedIssues); // Save sorted issues to state
         } else {
           console.error("Failed to fetch issues.");
         }
@@ -47,6 +51,7 @@ const AssignTech = () => {
         console.error("Error fetching issues:", error);
       }
     };
+    
 
     fetchTechnicians();
     fetchIssues();
@@ -115,9 +120,9 @@ const AssignTech = () => {
       <table className={`${styles.table} table table-striped`}>
         <thead>
           <tr>
-            <th>Log ID</th>
+            <th>Log ID</th> {/* Display the formatted log ID */}
+            <th>Issue Title</th>
             <th>Log By</th>
-            <th>Issue Description</th>
             <th>Department</th>
             <th>Priority Level</th>
             <th>Action</th>
@@ -126,9 +131,9 @@ const AssignTech = () => {
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.logId}>
-              <td>{issue.issueId}</td>
+              <td>{issue.issueId}</td> {/* Format logId for display */}
+              <td>{issue.issueTitle}</td>
               <td>{issue.logBy}</td>
-              <td>{issue.description}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               <td>

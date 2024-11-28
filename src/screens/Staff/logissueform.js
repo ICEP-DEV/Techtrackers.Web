@@ -172,12 +172,16 @@ const Logissueform = () => {
               onChange={handleChange}
             >
               <option value="">Select Category</option>
-              <option value={1}>Network Issue</option>
+              {/* <option value={1}>Network Issue</option>
               <option value={2}>Software Issue</option>
-              <option value={3}>Hardware Issue</option>
               <option value={4}>Infrastructure Issue</option>
               <option value={5}>Security Issue</option>
-              <option value={6}>Facilities Management</option>
+              <option value={6}>Facilities Management</option> */}
+              <option value={1}>Hardware Issue</option>
+              <option value={2}>Software Issue</option>
+              <option value={3}>Network Issue</option>
+              <option value={4}>Account Management Issue</option>
+              <option value={5}>General Inquiry</option>
             </select>
             {errors.category && <p className={styles.errorMessage}>{errors.category}</p>}
           </div>

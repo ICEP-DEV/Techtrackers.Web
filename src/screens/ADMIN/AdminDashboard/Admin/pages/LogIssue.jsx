@@ -60,34 +60,34 @@ const Logissueform = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const userInfo = JSON.parse(localStorage.getItem('user_info'));
     const staffId = userInfo?.userId;
 
-    if(!staffId) {
+    if (!staffId) {
       toast.error("User ID is missing. Please log in again.");
       return;
     }
 
-    const fullLocation = formValues.location 
-    ? formValues.buildingNumber 
-      ? `${formValues.location}-${formValues.buildingNumber}`
-      : formValues.location
-    : "Location not specified";
+    const fullLocation = formValues.location
+      ? formValues.buildingNumber
+        ? `${formValues.location}-${formValues.buildingNumber}`
+        : formValues.location
+      : "Location not specified";
 
     const formData = new FormData();
-      formData.append("Issue_Title", formValues.title);
-      formData.append("Category_ID", formValues.category);
-      formData.append("Department", formValues.department);
-      formData.append("Description", formValues.description);
-      formData.append("Priority", formValues.priority);
-      formData.append("Created_at", formValues.date);
-      formData.append("Location", fullLocation);
-      formData.append("Staff_ID", staffId);
+    formData.append("Issue_Title", formValues.title);
+    formData.append("Category_ID", formValues.category);
+    formData.append("Department", formValues.department);
+    formData.append("Description", formValues.description);
+    formData.append("Priority", formValues.priority);
+    formData.append("Created_at", formValues.date);
+    formData.append("Location", fullLocation);
+    formData.append("Staff_ID", staffId);
 
-      if (formValues.attachmentUrl) {
-        formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
-      }
+    if (formValues.attachmentUrl) {
+      formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
+    }
 
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
@@ -100,7 +100,7 @@ const Logissueform = () => {
         setFormValues({
           title: '',
           category: '',
-          department: '',
+          department: formData.department,
           priority: '',
           description: '',
           date: new Date().toISOString().split('T')[0],
@@ -120,7 +120,7 @@ const Logissueform = () => {
     }
   };
 
-    // Validation (excluding department and date)
+  // Validation (excluding department and date)
 
   const handleCancel = () => {
     navigate("/adminDashboard/WelcomeAdmin"); // Changed to AdminDashboard
@@ -135,7 +135,7 @@ const Logissueform = () => {
       <ToastContainer />
       {submitted && (
         <div className={styles.successMessage}>
-           Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
         </div>
       )}
       <form className={styles.logIssueForm} onSubmit={handleSubmit}>
@@ -171,12 +171,16 @@ const Logissueform = () => {
               onChange={handleChange}
             >
               <option value="">Select Category</option>
-              <option value={1}>Network Issue</option>
+              {/* <option value={1}>Network Issue</option>
               <option value={2}>Software Issue</option>
-              <option value={3}>Hardware Issue</option>
               <option value={4}>Infrastructure Issue</option>
               <option value={5}>Security Issue</option>
-              <option value={6}>Facilities Management</option>
+              <option value={6}>Facilities Management</option> */}
+              <option value={1}>Hardware Issue</option>
+              <option value={2}>Software Issue</option>
+              <option value={3}>Network Issue</option>
+              <option value={4}>Account Management Issue</option>
+              <option value={5}>General Inquiry</option>
             </select>
             {errors.category && (
               <p className={styles.errorMessage}>{errors.category}</p>

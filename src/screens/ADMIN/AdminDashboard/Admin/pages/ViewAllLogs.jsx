@@ -29,10 +29,12 @@ function ViewAllLogs() {
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched logs:", data); // Debug: Log fetched data
-          setLogs(data); // Store fetched logs in `logs`
-          setFilteredLogs(data); // Initialize `filteredLogs` with fetched data
-          const sortedIssues = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
-          setFilteredLogs(sortedIssues);
+          
+          // Sort logs by `issuedAt` date in descending order
+          const sortedLogs = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
+  
+          setLogs(sortedLogs); // Store sorted logs
+          setFilteredLogs(sortedLogs); // Initialize `filteredLogs` with sorted data
         } else {
           console.error("Failed to fetch logs.");
         }
@@ -40,9 +42,10 @@ function ViewAllLogs() {
         console.error("Error fetching logs:", error);
       }
     };
-
+  
     fetchLogs();
   }, []);
+  
 
   // Load sort option from localStorage on component mount
   useEffect(() => {
@@ -229,7 +232,7 @@ function ViewAllLogs() {
         <thead>
           <tr>
             <th>Issue ID</th>
-            <th>Issue Description</th>
+            <th>Issue Title</th>
             <th>Date Reported</th>
             <th>Priority Level</th>
             <th>Assigned To</th>
@@ -242,7 +245,7 @@ function ViewAllLogs() {
           {filteredLogs.map((log) => (
             <tr key={log.logId}>
               <td>{log.issueId}</td>
-              <td>{log.description}</td>
+              <td>{log.issueTitle}</td>
               <td>{new Date(log.issuedAt).toLocaleDateString()}</td>
               <td>{log.priority}</td>
               <td>{log.assignedTo}</td>

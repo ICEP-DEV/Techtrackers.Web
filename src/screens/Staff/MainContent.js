@@ -76,7 +76,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         />
         <select onChange={handleFilterChange} className={styles.filterSelect}>
           <option value="All">All Status</option>
-          <option value="ONGOING">ONGOING</option>
+          <option value="INPROGRESS">INPROGRESS</option>
           <option value="PENDING">PENDING</option>
           <option value="RESOLVED">RESOLVED</option>
           <option value="ESCALATED">ESCALATED</option>
@@ -85,8 +85,6 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
         <select onChange={handleSortChange} className={styles.sortSelect}>
           <option value="Date Descending">Date Descending</option>
           <option value="Date Ascending">Date Ascending</option>
-          <option value="Priority High to Low">Priority High to Low</option>
-          <option value="Priority Low to High">Priority Low to High</option>
         </select>
       </div>
 

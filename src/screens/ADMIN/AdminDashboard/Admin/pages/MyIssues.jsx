@@ -1,5 +1,4 @@
-// Table.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../SidebarCSS/Table.module.css';
 import PropTypes from 'prop-types';
@@ -31,8 +30,33 @@ const IssueTableHeader = () => {
   );
 };
 
-const Table = ({ issues }) => {
+const Table = ({adminId}) => {
+  const [issues, setIssues] = useState([]); // State to store fetched issues
   const [selectedLog, setSelectedLog] = useState(null); // State to store selected log
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+
+  // Fetch issues from the API
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        const userInfo = JSON.parse(localStorage.getItem('user_info'));
+        const userId = userInfo ? userInfo.userId : null;
+        const response = await fetch(`https://localhost:44328/api/AdminLog/GetAdminLoggedIssues/GetAdminLoggedIssues/admin/${userId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        } 
+        const data = await response.json();
+        setIssues(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchIssues();
+  }, [adminId]);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -56,6 +80,14 @@ const Table = ({ issues }) => {
   const handleBackToList = () => {
     setSelectedLog(null); // Reset selected log to go back to the list view
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Loading message
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Error message
+  }
 
   if (selectedLog) {
     return <DetailView log={selectedLog} onBack={handleBackToList} />; // Render DetailView if a log is selected
@@ -82,10 +114,10 @@ const Table = ({ issues }) => {
           {issues.map((issue) => (
             <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
-              <td>{issue.name}</td>
-              <td>{issue.title}</td>
-              <td>{issue.assigned}</td>
-              <td>{issue.date}</td>
+              <td>{issue.logBy}</td>
+              <td>{issue.description}</td>
+              <td>{issue.assignedTo}</td>
+              <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               <td>
@@ -116,18 +148,7 @@ const Table = ({ issues }) => {
 };
 
 Table.propTypes = {
-  issues: PropTypes.arrayOf(
-    PropTypes.shape({
-      issueId: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      assigned: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      department: PropTypes.string.isRequired,
-      priority: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  adminId: PropTypes.number.isRequired, // Admin ID to fetch issues for
 };
 
 export default Table;

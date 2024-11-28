@@ -1,4 +1,3 @@
-/* Main content styles */
 .dashboardContainer {
   padding: 20px;
   background-color: white;
@@ -12,7 +11,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-content: center;
   margin-bottom: 20px;
 }
 
@@ -21,18 +19,6 @@
   font-size: 24px;
   font-weight: bold;
   align-items: center;
-  align-content: center;
-  justify-content: space-between;
-  padding: 5px;
-}
-
-.logIssueButton {
-  background-color: #17a2b8;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .searchBar {
@@ -44,10 +30,15 @@
 .searchInput {
   border: 1px solid #ccc;
   border-radius: 20px;
-  margin-right: 10px;
   background-color: white;
   padding-left: 20px;
   width: 200px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #17a2b8;
+  box-shadow: 0 0 4px rgba(23, 162, 184, 0.5);
 }
 
 .searchIcon {
@@ -62,6 +53,11 @@
   margin-top: -50px;
 }
 
+.filterButtonContainer,
+.sortButtonContainer {
+  position: relative;
+}
+
 .filterButton,
 .sortButton {
   display: flex;
@@ -71,6 +67,15 @@
   cursor: pointer;
   margin-left: 20px;
   color: #17a2b8;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.filterButton:hover,
+.sortButton:hover {
+  color: #0d6efd;
+  transform: scale(1.1);
 }
 
 .logsTable {
@@ -95,13 +100,11 @@
 }
 
 .logsTable th:first-child {
-  border-left: 1px solid #dee2e6;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
 .logsTable th:last-child {
-  border-right: 1px solid #dee2e6;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
@@ -117,13 +120,11 @@
 }
 
 .logsTable td:first-child {
-  border-left: 1px solid #dee2e6;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
 .logsTable td:last-child {
-  border-right: 1px solid #dee2e6;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
@@ -141,7 +142,7 @@
   color: #ffa007;
 }
 
-.statusOngoing {
+.statusInprogress {
   background-color: #cce5ff;
   color: #004085;
 }
@@ -169,6 +170,12 @@
   padding: 5px 15px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.viewButton:hover {
+  background-color: #0d6efd;
+  transform: scale(1.1);
 }
 
 .pagination {
@@ -184,6 +191,7 @@
   margin: 0 5px;
   padding: 5px 10px;
   border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination button.active {
@@ -192,9 +200,9 @@
   border-color: #17a2b8;
 }
 
-/* Back button styles */
-.backButton {
-  margin-bottom: 20px;
+.pagination button:hover {
+  background-color: #e9ecef;
+  color: #495057;
 }
 
 .iconButton {
@@ -214,95 +222,110 @@
 }
 
 /* Modal styles */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal {
+  position: absolute;
+  top: 100%;
+  left: -40px;
+  margin-top: 10px;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 200px;
 }
 
-.modal h2 {
+.modal h3 {
   margin-top: 0;
-  margin-bottom: 20px;
-  color: #1e3a5f;
-}
-
-.formGroup {
   margin-bottom: 15px;
+  font-size: 18px;
+  color: #495057;
 }
 
-.formGroup label {
-  display: block;
-  margin-bottom: 5px;
-  color: #6c757d;
-}
-
-.formGroup select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-}
-
-.modalButtons {
+.filterOptions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.applyButton,
-.cancelButton {
-  padding: 8px 15px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 4px;
+.filterOptions label {
+  display: block;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border: 2px solid transparent;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
 
-.applyButton {
+.filterOptions label:hover {
+  background-color: #e0e0e0;
+}
+
+.filterOptions input[type="radio"] {
+  display: none;
+}
+
+.filterOptions input[type="radio"]:checked + label {
   background-color: #17a2b8;
   color: white;
+  border-color: #0d6efd;
 }
 
-.cancelButton {
-  background-color: #6c757d;
-  color: white;
+.sortModal {
+  position: absolute;
+  top: 100%;
+  left: -110px;
+  margin-top: 10px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 200px;
 }
 
+.sortModal h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #495057;
+}
 .sortOptions {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
-
 .sortOptions button {
-  margin-bottom: 10px;
-  padding: 8px 15px;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+  display: block;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: black;
+  background-color: #f5f5f5;
+  border: 2px solid transparent;
+  border-radius: 5px;
   cursor: pointer;
-  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .sortOptions button:hover {
-  background-color: #e9ecef;
+  background-color: #e0e0e0;
+  transform: scale(1.05);
 }
 
+.sortOptions button.activeSort, /* New style for active sort */
+.sortOptions button.activeSort:hover {
+  background-color: #17a2b8;
+  color: white;
+  border-color: #0d6efd;
+}
 @media (max-width: 768px) {
   .filterSort {
     margin-left: 30px;
   }
 }
-/* DetailView styles */

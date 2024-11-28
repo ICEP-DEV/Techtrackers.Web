@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Filter, List, ArrowLeft, Clock } from "lucide-react";
-import FilterModal from "./FilterModal";
-import SortModal from "./SortModal";
 import DetailView from "./DetailView";
 import styles from "../SidebarCSS/ViewAllLog.module.css";
 
@@ -12,6 +10,13 @@ function ViewAllLogs() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [selectedSort, setSelectedSort] = useState("issuedAt-desc");
+
+  const filterRef = useRef(null);
+  const sortRef = useRef(null);
+
+  
 
   const formatStatus = (status) => {
     return status.charAt(0) + status.slice(1).toLowerCase();
@@ -26,6 +31,8 @@ function ViewAllLogs() {
           console.log("Fetched logs:", data); // Debug: Log fetched data
           setLogs(data); // Store fetched logs in `logs`
           setFilteredLogs(data); // Initialize `filteredLogs` with fetched data
+          const sortedIssues = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
+          setFilteredLogs(sortedIssues);
         } else {
           console.error("Failed to fetch logs.");
         }
@@ -37,7 +44,14 @@ function ViewAllLogs() {
     fetchLogs();
   }, []);
 
-  
+  // Load sort option from localStorage on component mount
+  useEffect(() => {
+    const savedSort = localStorage.getItem("selectedSort");
+    if (savedSort) {
+      const [key, direction] = savedSort.split("-");
+      handleSort(key, direction);
+    }
+  }, []);
 
   const handleSearch = (event) => {
     const term = event.target.value;
@@ -50,21 +64,20 @@ function ViewAllLogs() {
         .toLowerCase()
         .includes(term.toLowerCase())
     );
-    console.log("Filtered logs after search:", filtered); // Debug: Log filtered logs
     setFilteredLogs(filtered);
   };
   
-  const handleFilter = (filters) => {
-    // Apply filters to the logs
-    const filtered = logs.filter((log) => {
-      return Object.entries(filters).every(([key, value]) => {
-        if (!value) return true; // Ignore empty filters
-        return typeof log[key] === "string" && log[key].toLowerCase() === value.toLowerCase();
-      });
-    });
-    
-    console.log("Filtered logs after applying filters:", filtered); // Debug: Log filtered logs
-    setFilteredLogs(filtered);
+  const handleFilter = (status) => {
+    setFilterStatus(status);
+
+    if (status === "all") {
+      setFilteredLogs(logs);
+    } else {
+      const filtered = logs.filter(
+        (log) => log.status.toLowerCase() === status.toLowerCase()
+      );
+      setFilteredLogs(filtered);
+    }
     setIsFilterModalOpen(false);
   };
 
@@ -74,10 +87,32 @@ function ViewAllLogs() {
       if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
       return 0;
     });
-    console.log("Sorted logs:", sortedLogs); // Debug: Log sorted logs
     setFilteredLogs(sortedLogs);
+
+    // Persist sort option in state and localStorage
+    const sortOption = `${key}-${direction}`;
+    setSelectedSort(sortOption);
+    localStorage.setItem("selectedSort", sortOption);
+
     setIsSortModalOpen(false);
   };
+
+    // Close modals on outside click
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (filterRef.current && !filterRef.current.contains(event.target)) {
+          setIsFilterModalOpen(false);
+        }
+        if (sortRef.current && !sortRef.current.contains(event.target)) {
+          setIsSortModalOpen(false);
+        }
+      };
+  
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
 
   const handleViewLog = (log) => {
     console.log("Selected log ID:", log.logId);
@@ -111,20 +146,84 @@ function ViewAllLogs() {
         />
       </div>
       <div className={styles.filterSort}>
-        <button
-          className={styles.filterButton}
-          onClick={() => setIsFilterModalOpen(true)}
-        >
-          <Filter />
-          Filter
-        </button>
-        <button
-          className={styles.sortButton}
-          onClick={() => setIsSortModalOpen(true)}
-        >
-          <List />
-          Sort
-        </button>
+      <div className={styles.filterButtonContainer} ref={filterRef}>
+          <button
+            className={styles.filterButton}
+            onClick={() => setIsFilterModalOpen((prev) => !prev)}
+          >
+            <Filter />
+            Filter
+          </button>
+          {isFilterModalOpen && (
+            <div className={styles.modal}>
+              <h3>Filter Logs</h3>
+              <div className={styles.filterOptions}>
+                <input
+                  type="radio"
+                  id="all"
+                  name="status"
+                  value="all"
+                  checked={filterStatus === "all"}
+                  onChange={() => handleFilter("all")}
+                />
+                <label htmlFor="all">All</label>
+
+                <input
+                  type="radio"
+                  id="escalated"
+                  name="status"
+                  value="escalated"
+                  checked={filterStatus === "escalated"}
+                  onChange={() => handleFilter("escalated")}
+                />
+                <label htmlFor="escalated">Escalated</label>
+
+                <input
+                  type="radio"
+                  id="pending"
+                  name="status"
+                  value="pending"
+                  checked={filterStatus === "pending"}
+                  onChange={() => handleFilter("pending")}
+                />
+                <label htmlFor="pending">Pending</label>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className={styles.sortButtonContainer} ref={sortRef}>
+          <button
+            className={styles.sortButton}
+            onClick={() => setIsSortModalOpen((prev) => !prev)}
+          >
+            <List />
+            Sort
+          </button>
+          {isSortModalOpen && (
+            <div className={styles.sortModal}>
+              <h3>Sort Logs</h3>
+              <div className={styles.sortOptions}>
+                <button
+                  onClick={() => handleSort("issuedAt", "asc")}
+                  className={
+                    selectedSort === "issuedAt-asc" ? styles.activeSort : ""
+                  }
+                >
+                  Date Reported (Oldest)
+                </button>
+                <button
+                  onClick={() => handleSort("issuedAt", "desc")}
+                  className={
+                    selectedSort === "issuedAt-desc" ? styles.activeSort : ""
+                  }
+                >
+                  Date Reported (Newest)
+                </button>
+                
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <table className={styles.logsTable}>
         <thead>
@@ -153,7 +252,7 @@ function ViewAllLogs() {
               >
                 {formatStatus(log.status)} {/* Display formatted status */}
              </span>
-              </td>
+            </td>
               <td>
                 <button
                   className={styles.viewButton}
@@ -166,32 +265,6 @@ function ViewAllLogs() {
           ))}
         </tbody>
       </table>
-      <div className={styles.pagination}>
-        <button className={styles.active}>1</button>
-        <button>2</button>
-        <button>3</button>
-        <span>...</span>
-        <button>7</button>
-        <button>8</button>
-      </div>
-      {isFilterModalOpen && (
-        <FilterModal
-          onClose={() => setIsFilterModalOpen(false)}
-          onFilter={handleFilter}
-        />
-      )}
-      {isSortModalOpen && (
-        <SortModal
-          onClose={() => setIsSortModalOpen(false)}
-          onSort={handleSort}
-        />
-      )}
-      <div className={styles.backButton}>
-        <button className={styles.iconButton}>
-          <ArrowLeft />
-          <span>BACK</span>
-        </button>
-      </div>
     </main>
   );
 }

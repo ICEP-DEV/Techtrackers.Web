@@ -11,8 +11,9 @@ const AssignTech = () => {
   const [technicians, setTechnicians] = useState([]);
   const [issues, setIssues] = useState([]);
   const [selectedIssueId, setSelectedIssueId] = useState(null);
+  const [assignedIssues, setAssignedIssues] = useState([]); // Keep track of assigned issues
 
-  // Fetch technicians from the backend
+  // Fetch technicians and issues from the backend
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
@@ -51,9 +52,6 @@ const AssignTech = () => {
     fetchIssues();
   }, []);
 
-  // Function to format logId for display purposes
-  const formatLogId = (id) => `HR-${id}`;
-
   const handleAssignClick = async () => {
     if (selectedCheckbox !== null && selectedIssueId !== null) {
       const assignedTech = technicians[selectedCheckbox];
@@ -77,6 +75,12 @@ const AssignTech = () => {
         if (response.ok) {
           toast.success(`You have assigned ${assignedTech.name} to the task!`);
           setShowModal(false);
+
+          // Add the assigned issue ID to the list of assigned issues
+          setAssignedIssues((prevAssignedIssues) => [
+            ...prevAssignedIssues,
+            selectedIssueId,
+          ]);
         } else {
           toast.error(responseData.title || "Failed to assign technician.");
         }
@@ -111,7 +115,7 @@ const AssignTech = () => {
       <table className={`${styles.table} table table-striped`}>
         <thead>
           <tr>
-            <th>Log ID</th> {/* Display the formatted log ID */}
+            <th>Log ID</th>
             <th>Log By</th>
             <th>Issue Description</th>
             <th>Department</th>
@@ -122,22 +126,27 @@ const AssignTech = () => {
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.logId}>
-              <td>{issue.issueId}</td> {/* Format logId for display */}
+              <td>{issue.issueId}</td>
               <td>{issue.logBy}</td>
               <td>{issue.description}</td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               <td>
                 <button
-                  className={styles.btnAssign}
+                  className={`${styles.btnAssign} ${
+                    assignedIssues.includes(issue.logId)
+                      ? styles.btnDisabled
+                      : ""
+                  }`}
                   onClick={() => {
-                    console.log("Issue object:", issue);
-                    console.log("Setting selectedIssueId with:", issue.issueId); // Debug log
-                    setShowModal(true);
-                    setSelectedIssueId(issue.logId); // Store integer logId for backend use
+                    if (!assignedIssues.includes(issue.logId)) {
+                      setShowModal(true);
+                      setSelectedIssueId(issue.logId);
+                    }
                   }}
+                  disabled={assignedIssues.includes(issue.logId)}
                 >
-                  ASSIGN
+                  {assignedIssues.includes(issue.logId) ? "Assigned" : "Assign"}
                 </button>
               </td>
             </tr>

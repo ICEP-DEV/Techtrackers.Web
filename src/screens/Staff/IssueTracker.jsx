@@ -25,22 +25,30 @@ const NotificationContainer = () => {
   // Fetch notifications from the API when the component mounts
   const fetchNotifications = async () => {
     try {
-      const response = await fetch('https://localhost:44328/api/Notification/ReceiveNotification');
+      const userInfo = JSON.parse(localStorage.getItem('user_info'));
+      const userId = userInfo ? userInfo.userId : null;
+
+      if (!userId) {
+        throw new Error('User ID not found.');
+      }
+
+      const response = await fetch(`https://localhost:44328/api/Log/GetNotifications/${userId}?onlyUnread=false`);
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
       const data = await response.json();
-      if (data.isSuccess) {
-        setNotificationsState(data.result);
+      if (data) {
+        setNotificationsState(data);
       } else {
-        console.error('Failed to fetch notifications:', data.message);
+        console.error('Failed to fetch notifications: Unexpected response structure.');
       }
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
   };
 
-  // Use useEffect to fetch notifications on mount
   useEffect(() => {
     fetchNotifications();
   }, []);
@@ -72,6 +80,7 @@ const NotificationContainer = () => {
   };
 
   const formatMessage = (message) => {
+    if (!message) return null; // Check if message exists
     const parts = message.split(/(?<=[.,])\s*/);
     return parts.map((part, index) => (
       <p key={index} className="mb-0">
@@ -97,12 +106,14 @@ const NotificationContainer = () => {
       const days = Math.floor(diffInSeconds / 86400);
       return `${days} day${days === 1 ? '' : 's'} ago`;
     } else {
-      return new Date(timestamp).toLocaleString(); // Show full date for older notifications
+      return new Date(timestamp).toLocaleString();
     }
   };
 
   const filteredNotifications = notificationsState.filter((notification) => {
-    const matchesSearchQuery = notification.notification_Message.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearchQuery = notification.notification_Message
+      ? notification.notification_Message.toLowerCase().includes(searchQuery.toLowerCase())
+      : false;
     const isActiveTab = activeTab === 'unread' ? notification.read_Status === false : notification.read_Status === true;
 
     const now = new Date().getTime();
@@ -132,7 +143,7 @@ const NotificationContainer = () => {
         filterThreshold = now - 30 * 24 * 60 * 60 * 1000;
         break;
       default:
-        filterThreshold = 0; // No filtering
+        filterThreshold = 0;
     }
 
     const isInTimeFrame = notificationDate >= filterThreshold;
@@ -150,12 +161,12 @@ const NotificationContainer = () => {
   return (
     <div className={styles.maiNContent}>
       <div className={`${styles.contners} mt-4`}>
-        <div className={`d-flex justify-content-between align-items-center mb-3`}>
-          <div className={`d-flex align-items-center`}>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div className="d-flex align-items-center">
             <FaBell className={`${styles.notificationIcons} me-2 text-success`} />
             <h2>Notifications</h2>
           </div>
-          <div className={`d-flex justify-content-center mb-3`}>
+          <div className="d-flex justify-content-center mb-3">
             <div className={styles.searchBarContainers}>
               <input
                 type="text"
@@ -164,13 +175,13 @@ const NotificationContainer = () => {
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
-              <FaSearch className={styles.searchIcons }/>
+              <FaSearch className={styles.searchIcons} />
             </div>
           </div>
         </div>
 
-        <div className={`d-flex justify-content-end mb-3 align-items-center`}>
-          <div className={`filter-sorts-containers d-flex align-items-center`}>
+        <div className="d-flex justify-content-end mb-3 align-items-center">
+          <div className="filter-sorts-containers d-flex align-items-center">
             <div className={styles.filterContainer}>
               <div className={`${styles.filterSortToggle} text-center`} onClick={() => setFilterOpen(!filterOpen)}>
                 <FaFilter className={styles.filterSortIcon} /> Filter
@@ -213,12 +224,12 @@ const NotificationContainer = () => {
           </li>
         </ul>
 
-      <table className={`table table-borderless`}>
+        <table className="table table-borderless">
           <tbody>
             {sortedNotifications.length > 0 ? (
               sortedNotifications.map((notification) => (
                 <tr key={notification.notification_ID} className={styles.notificationRows}>
-                  <td className={`d-flex align-items-center`}>
+                  <td className="d-flex align-items-center">
                     <FaBell className={`${styles.notificationIcons} me-2`} />
                     <div>
                       {formatMessage(notification.notification_Message)}
@@ -226,7 +237,6 @@ const NotificationContainer = () => {
                     </div>
                   </td>
                   <td>
-                    <small className={styles.notificationTimestamps}>{formatTimestamp(notification.timestamp)}</small>
                     <small className={styles.notificationTimestamps}>{formatTimestamp(notification.timestamp)}</small>
                   </td>
                 </tr>

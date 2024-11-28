@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,6 +21,23 @@ const Logissueform = () => {
   const [filePreview, setFilePreview] = useState(null); // State for storing file URL
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+
+    if (userInfo && userInfo.department) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: userInfo.department, // Set the department
+      }));
+    } else {
+      console.warn("No department found in user_info.");
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: "Unknown Department", // Fallback if department is missing
+      }));
+    }
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -37,7 +54,7 @@ const Logissueform = () => {
     const file = event.target.files[0];
     setFormValues((prevValues) => ({
       ...prevValues,
-      attachmentUrl: file,
+      attachmentFile: file,
     }));
 
     // Generate file URL for the selected file
@@ -75,10 +92,14 @@ const Logissueform = () => {
     formData.append("Location", fullLocation);
     formData.append("Staff_ID", staffId);
 
-    if (formValues.attachmentUrl) {
-      formData.append("AttachmentUrl", formValues.attachmentUrl);
+    if (formValues.attachmentFile) {
+      formData.append("AttachmentFile", formValues.attachmentFile);
     }
 
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+    
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
         method: 'POST',
@@ -252,7 +273,7 @@ const Logissueform = () => {
             <p className={styles.fileFormatHint}>(JPEG, PNG, PDF)</p> 
 
             {/* Display file name as a clickable link */}
-            {formValues.attachmentUrl && (
+            {formValues.attachmentFile && (
               <div>
                 {/* Use the filePreview URL or fallback to the uploaded file name */}
                 {filePreview ? (
@@ -260,10 +281,10 @@ const Logissueform = () => {
                     href={filePreview} 
                     target="_blank" 
                     rel="noopener noreferrer">
-                    {formValues.attachmentUrl.name}
+                    {formValues.attachmentFile.name}
                   </a>
                 ) : (
-                  <span>{formValues.attachmentUrl.name}</span> // Fallback to file name when no preview is available
+                  <span>{formValues.attachmentFile.name}</span> // Fallback to file name when no preview is available
                 )}
               </div>
             )}

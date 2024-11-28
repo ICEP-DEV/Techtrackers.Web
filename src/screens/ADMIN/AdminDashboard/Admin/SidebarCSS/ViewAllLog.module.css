@@ -137,8 +137,8 @@
 }
 
 .statusPending {
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: #f8f2de;
+  color: #ffa007;
 }
 
 .statusOngoing {
@@ -150,6 +150,17 @@
   background-color: #d4edda;
   color: #155724;
 }
+
+.statusEscalated {
+  background-color: #ffdede;
+  color: #f70000;
+}
+
+.statusOnhold {
+  background-color: #dfe3e7;
+  color: #8f9396;
+}
+
 
 .viewButton {
   background-color: #17a2b8;

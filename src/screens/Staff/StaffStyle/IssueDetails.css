@@ -6,15 +6,24 @@
   margin: 0 auto;
   position: relative;
 }
+
 .title {
   display: flex;
   padding: 15px;
   margin-bottom: 20px;
 }
 
-.title span{
+.title span {
   font-size: 24px;
   font-weight: bold;
+}
+.close-popup-btn {
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .issue-in-fo {
@@ -25,7 +34,7 @@
   border-bottom: 1px solid #ccc;
 }
 
-.location-building{
+.location-building {
   display: flex;
   padding: 15px;
   font-size: larger;
@@ -43,17 +52,46 @@
   padding: 5px;
   border-radius: 4px;
 }
-
-.prioritx.high {
-  color: red;
+.priority-low {
+  background-color: #28a745; /* Green - Low priority */
 }
 
-.prioritx.medium {
-  color: orange;
+.priority-medium {
+  background-color: #ffa007; /* Orange - Medium priority */
 }
 
-.prioritx.low {
-  color: green;
+.priority-high {
+  background-color: #f70000; /* Red - High priority */
+}
+
+
+.issue-status {
+  color: white; /* Ensure text color is always white */
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.status-resolved {
+  background-color: #28a745; /* Green - Resolved */
+}
+.status-inprogress {
+  background-color: #14788f; /* Blue - InProgress */
+  
+}
+
+.status-pending {
+  background-color: #ffa007; /* Orange - Pending */
+  
+}
+
+.status-escalated {
+  background-color: #f70000; /* Red - Escalated */
+  
+}
+
+.status-onhold {
+  background-color: #8f9396; /* Gray - OnHold */
+  
 }
 
 .descrip-section, .attach-section {
@@ -83,6 +121,8 @@
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  width: 150px;
+  height: 50px;
 }
 
 .close-btn {
@@ -112,6 +152,7 @@
 .Resolved-btn {
   background-color: #06ee67;
 }
+
 /* Attachment modal styling */
 .attachment-modal {
   position: fixed;
@@ -149,6 +190,7 @@
   font-weight: bold;
   cursor: pointer;
 }
+
 /* Feedback popup styling */
 .feedback-popup {
   position: fixed;
@@ -180,6 +222,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .ok-btn {
   margin-top: 10px;
   padding: 8px 16px;
@@ -189,6 +232,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .feedback-popup-content {
   position: relative; /* To position the close icon correctly */
   padding: 30px;
@@ -200,6 +244,8 @@
   right: 10px;
   cursor: pointer; /* Change cursor to pointer for better UX */
 }
+
+/* Confirmation popup */
 .confirmation-popup {
   display: flex;
   align-items: center;
@@ -220,6 +266,7 @@
   max-width: 400px; /* Set a max width for the popup */
   text-align: center; /* Center align text */
 }
+
 .rating-popup {
   display: flex;
   align-items: center;
@@ -244,8 +291,8 @@
 .star-rating {
   margin-bottom: 10px; /* Space between stars and textarea */
 }
-.submit-rating-btn
-{
+
+.submit-rating-btn {
   background-color: #0B5050;
   color: white;
   border: none;
@@ -255,8 +302,8 @@
   cursor: pointer;
   margin-top: 10px;
 }
-.rating-popup-close
-{
+
+.rating-popup-close {
   background-color: #6B6160;
   color: white;
   border: none;
@@ -266,7 +313,8 @@
   cursor: pointer;
   margin-top: 10px;
 }
-/* Popup styles */
+
+/* Error popup */
 .error-popup {
   position: fixed;
   top: 0;
@@ -279,7 +327,6 @@
   align-items: center;
   z-index: 1000; /* Make sure it appears above other content */
 }
-
 .error-popup-content {
   background-color: white; /* Popup background color */
   padding: 20px;

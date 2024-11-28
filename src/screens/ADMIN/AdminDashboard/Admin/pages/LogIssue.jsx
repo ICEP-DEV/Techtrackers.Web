@@ -15,7 +15,8 @@ const Logissueform = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
-    attachmentUrl: null,
+    buildingNumber: '',  // Added to maintain separate value
+    attachmentUrl: null,  // Holds the file object
   });
 
   useEffect(() => {
@@ -35,7 +36,6 @@ const Logissueform = () => {
     }
   }, []);
 
-
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -52,9 +52,10 @@ const Logissueform = () => {
   };
 
   const handleFileChange = (event) => {
+    const file = event.target.files[0];
     setFormValues((prevValues) => ({
       ...prevValues,
-      attachmentUrl: event.target.files[0],
+      attachmentUrl: file,
     }));
   };
 
@@ -64,30 +65,30 @@ const Logissueform = () => {
     const userInfo = JSON.parse(localStorage.getItem('user_info'));
     const staffId = userInfo?.userId;
 
-    if(!staffId) {
+    if (!staffId) {
       toast.error("User ID is missing. Please log in again.");
       return;
     }
 
     const fullLocation = formValues.location 
-    ? formValues.buildingNumber 
-      ? `${formValues.location}-${formValues.buildingNumber}`
-      : formValues.location
-    : "Location not specified";
+      ? formValues.buildingNumber 
+        ? `${formValues.location}-${formValues.buildingNumber}`
+        : formValues.location
+      : "Location not specified";
 
     const formData = new FormData();
-      formData.append("Issue_Title", formValues.title);
-      formData.append("Category_ID", formValues.category);
-      formData.append("Department", formValues.department);
-      formData.append("Description", formValues.description);
-      formData.append("Priority", formValues.priority);
-      formData.append("Created_at", formValues.date);
-      formData.append("Location", fullLocation);
-      formData.append("Staff_ID", staffId);
+    formData.append("Issue_Title", formValues.title);
+    formData.append("Category_ID", formValues.category);
+    formData.append("Department", formValues.department);
+    formData.append("Description", formValues.description);
+    formData.append("Priority", formValues.priority);
+    formData.append("Created_at", formValues.date);
+    formData.append("Location", fullLocation);
+    formData.append("Staff_ID", staffId);
 
-      if (formValues.attachmentUrl) {
-        formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
-      }
+    if (formValues.attachmentUrl) {
+      formData.append("AttachmentUrl", formValues.attachmentUrl); // Add file directly
+    }
 
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
@@ -120,8 +121,6 @@ const Logissueform = () => {
     }
   };
 
-    // Validation (excluding department and date)
-
   const handleCancel = () => {
     navigate("/adminDashboard/WelcomeAdmin"); // Changed to AdminDashboard
   };
@@ -135,7 +134,7 @@ const Logissueform = () => {
       <ToastContainer />
       {submitted && (
         <div className={styles.successMessage}>
-           Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
         </div>
       )}
       <form className={styles.logIssueForm} onSubmit={handleSubmit}>
@@ -152,7 +151,7 @@ const Logissueform = () => {
               id="issue-title"
               type="text"
               name="title"
-              placeholder="Issue Type"
+              placeholder="Issue title"
               value={formValues.title}
               onChange={handleChange}
             />
@@ -171,12 +170,11 @@ const Logissueform = () => {
               onChange={handleChange}
             >
               <option value="">Select Category</option>
-              <option value={1}>Network Issue</option>
+              <option value={1}>Hardware Issue</option>
               <option value={2}>Software Issue</option>
-              <option value={3}>Hardware Issue</option>
-              <option value={4}>Infrastructure Issue</option>
-              <option value={5}>Security Issue</option>
-              <option value={6}>Facilities Management</option>
+              <option value={3}>Network Issue</option>
+              <option value={4}>Account Management</option>
+              <option value={5}>General Inquiry</option>
             </select>
             {errors.category && (
               <p className={styles.errorMessage}>{errors.category}</p>
@@ -266,31 +264,34 @@ const Logissueform = () => {
               <option value="D12C">D12C</option>
               <option value="A1">A1</option>
               <option value="B2">B2</option>
-              {/* Add more building numbers as needed */}
             </select>
           </div>
         </div>
 
         <div className={styles.fileInputWrapper}>
-          <label>
-            Attachments (include screenshots, photos of faulty
-            equipment/documents):
-          </label>
-          <div>
-            <input type="file" />
-            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF)</p>
-          </div>
+          <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
+          <input 
+            type="file" 
+            name="attachmentUrl" 
+            onChange={handleFileChange} 
+          />
+          <p className={styles.fileFormatHint}>(JPEG, PNG, PDF)</p> 
+
+          {formValues.attachmentUrl && (
+            <div>
+              <a 
+                href={URL.createObjectURL(formValues.attachmentUrl)} 
+                target="_blank" 
+                rel="noopener noreferrer">
+                {formValues.attachmentUrl.name}
+              </a>
+            </div>
+          )}
         </div>
 
-        <div className={styles.formButtons}>
+        <div className={styles.formActions}>
           <button type="submit">Submit</button>
-          <button
-            type="button"
-            className={styles.cancelButton}
-            onClick={handleCancel}
-          >
-            Cancel
-          </button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

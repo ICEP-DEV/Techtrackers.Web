@@ -243,11 +243,20 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  font-weight: 700;
+  color: #2c2c2c;
 }
 
 .issue-logged-by {
   display: flex;
   align-items: center;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.issue-location, .issue-status {
+  font-weight: 700;
+  color: #2c2c2c;
 }
 
 .avatar {
@@ -268,12 +277,24 @@
 }
 
 .issue-description {
-  margin: 20px 0;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.issue-description h3, .issue-attachments h3{
+  font-weight: 700;
+  color: #2c2c2c;
 }
 
 .issue-attachments {
   margin-bottom: 20px;
   cursor: pointer;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
 }
 
 .attachment {
@@ -351,27 +372,32 @@
   font-weight: bold;
 }
 
-.priority.low,
-.done {
+.priority.low {
   color: green; /* Color for low priority */
 }
 
-.priority.medium,
-.ongoing {
-  color: orange; /* Color for medium priority */
+.priority.medium, .pending{
+  color: #ffa007;
 }
 
-.priority.high,
-.pending {
-  color: red; /* Color for high priority */
-}
 /* DetailView.module.css */
 .status {
   font-weight: bold;
 }
 
 .onhold {
-  color: darkgrey; /* On hold status */
+  color: #8f9396; /* On hold status */
+}
+
+.escalated, .priority.high {
+  color: red;
+}
+
+.resolved {
+  color:  #28a745;
+}
+.inprogress {
+  color: #14788f;
 }
 
 /* In DetailView.module.css */

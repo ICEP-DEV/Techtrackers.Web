@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Paperclip, MoreVertical, MessageCircle } from "lucide-react";
-import LiveChat from "./LiveChat";
 import EscalationPage from "./EscalationsAdmin"; // Import the EscalationPage component
 import styles from "../SidebarCSS/DetailView.module.css";
 import userAvatar from "../adminIcons/images/user.jpg";
@@ -15,10 +14,6 @@ function DetailView({ log, onBack }) {
   const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isEscalationVisible, setIsEscalationVisible] = useState(false); // State to control EscalationPage visibility
-
-  const handleCloseLiveChat = () => {
-    setIsChatOpen(false);
-  };
 
   const handleOpenPopup = (action) => {
     setActionType(action);
@@ -59,22 +54,16 @@ function DetailView({ log, onBack }) {
   console.log("DetailView - Log ID passed to EscalationPage:", log.logId);
 
   const renderActionButtons = () => {
-    if (log.status && log.status.toLowerCase() === "done") {
+    if (log.status && log.status.toLowerCase() != "resolved") {
       return (
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
       );
     }
-
+    else
     return (
       <div className={styles["action-buttons"]}>
-        <button
-          className={styles["close-button"]}
-          onClick={() => handleOpenPopup("close")}
-        >
-          CLOSE
-        </button>
         <button
           className={styles["reopen-button"]}
           onClick={() => handleOpenPopup("reopen")}
@@ -93,13 +82,6 @@ function DetailView({ log, onBack }) {
       <div className={styles["detail-header"]}>
         <h2>{log.issueId}</h2>
         <div className={styles["header-actions"]}>
-          <button
-            className={styles["live-chat-button"]}
-            onClick={() => setIsChatOpen(true)}
-          >
-            <MessageCircle size={20} />
-            <span>Live Chat</span>
-          </button>
           <button className={styles["more-button"]} onClick={toggleEscalation}>
             <MoreVertical size={20} /> More
           </button>
@@ -116,7 +98,6 @@ function DetailView({ log, onBack }) {
                 style={{ color: actionType === "close" ? "green" : "red" }}
               >
                 <p>{statusMessage}</p>
-                <h3>Issue Details:</h3>
                 <div className={styles["issue-info"]}>
                   <div className={styles["issue-logged-by"]}>
                     <img
@@ -125,8 +106,7 @@ function DetailView({ log, onBack }) {
                       className={styles["avatar"]}
                     />
                     <div>
-                      <p>Issue Logged By: E Magagane</p>
-                      <p className={styles["user-name"]}>{log.logBy}</p>
+                      <p>Issue Logged By: {log.logBy}</p>
                     </div>
                   </div>
                   <div className={styles["issue-priority"]}>
@@ -142,7 +122,10 @@ function DetailView({ log, onBack }) {
                     </p>
                   </div>
                   <div className={styles["issue-date"]}>
-                    <p>{log.date || "N/A"}</p>
+                    <p>{new Intl.DateTimeFormat("en-US", { 
+                      dateStyle: "long", 
+                      timeStyle: "short" 
+                    }).format(new Date(log.issuedAt))}</p>
                   </div>
                 </div>
                 <div className={styles["issue-status"]}>
@@ -157,6 +140,10 @@ function DetailView({ log, onBack }) {
                     </span>
                   </p>
                 </div>
+                <div>
+                    <h3>Description</h3>
+                    <p>{log.description}</p>
+                </div>
                 <button className={styles["back-button-d"]} onClick={onBack}>
                   BACK
                 </button>
@@ -170,9 +157,8 @@ function DetailView({ log, onBack }) {
                       alt="User Avatar"
                       className={styles["avatar"]}
                     />
-                    <div>
-                      <p>Issue Logged By:</p>
-                      <p className={styles["user-name"]}>{log.assigned}</p>
+                    <div className={styles["logged-by"]}>
+                      <p>Issue Logged By: {log.logBy}</p>
                     </div>
                   </div>
                   <div className={styles["issue-priority"]}>
@@ -188,12 +174,21 @@ function DetailView({ log, onBack }) {
                     </p>
                   </div>
                   <div className={styles["issue-date"]}>
-                    <p>{log.date || "N/A"}</p>
+                    <p>
+                      {log?.issuedAt && !isNaN(new Date(log.issuedAt).getTime())
+                        ? new Intl.DateTimeFormat("en-US", {
+                            dateStyle: "long",
+                            timeStyle: "short",
+                          }).format(new Date(log.issuedAt))
+                        : "Invalid Date"}
+                    </p>
                   </div>
+
+
                 </div>
                 <div className={styles["issue-location"]}>
                   <p>Department - {log.department}</p>
-                  <p>Building 18 - 2nd Floor</p>
+                  <p>Location - {log.location} </p>
                 </div>
                 <div className={styles["issue-status"]}>
                   <p>
@@ -214,7 +209,7 @@ function DetailView({ log, onBack }) {
                 <div className={styles["issue-attachments"]}>
                   <h3>
                     <Paperclip className={styles["icon"]} />
-                    Attachments
+                     Attachments
                   </h3>
                   {log.attachments && log.attachments.length > 0 ? (
                     log.attachments.map((attachment) => (
@@ -243,15 +238,14 @@ function DetailView({ log, onBack }) {
           </>
         )}
       </div>
-      {isChatOpen && <LiveChat onClose={handleCloseLiveChat} />}
 
       {isPopupVisible && (
         <div className={styles["popup-overlay"]}>
           <div className={styles["popup-content"]}>
             <p>
               {actionType === "close"
-                ? "Are you sure you want to close this log?"
-                : "Are you sure you want to reopen this log?"}
+                ? "Are you sure you want to close this issue?"
+                : "Are you sure you want to reopen this issue?"}
             </p>
             <div className={styles["popup-buttons"]}>
               <button onClick={handleConfirm}>Yes</button>

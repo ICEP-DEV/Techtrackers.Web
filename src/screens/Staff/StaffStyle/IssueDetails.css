@@ -214,13 +214,23 @@
 }
 
 .close-popup-btn {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
+  width: 30px; /* Width and height should be equal for a perfect circle */
+  height: 30px;
+  background-color: #ee0606; /* Red background */
+  color: #fff; /* White "X" color */
   border: none;
-  border-radius: 4px;
+  border-radius: 50%; /* Makes it circular */
   cursor: pointer;
+  display: flex;
+  align-items: center; /* Center the "X" */
+  justify-content: center; /* Center the "X" */
+  font-size: 18px; /* Font size for the "X" */
+  font-weight: bold; /* Bold text for better visibility */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow effect */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+.close-popup-btn:hover {
+  background-color: #ee0606; /* Darker red on hover */
 }
 
 .ok-btn {

@@ -7,82 +7,6 @@ import SortIcon from "../adminIcons/SortIcon.png";
 import AvatarIcon from "../adminIcons/avatarIcon.png";
 import SearchIcon from "../adminIcons/searchIcon.png";
 
-// Notification Data
-const initialData = [
-  {
-    user: "Lunga Ntshingila",
-    issueId: "HR-P2-1132",
-    status: "RESOLVED",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "John Doe",
-    issueId: "HR-P3-1133",
-    status: "RESOLVED",
-    time: "10:45",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-  {
-    user: "Hamilton Masipa",
-    issueId: "HR-P2-1132",
-    status: "IN PROGRESS",
-    time: "12:09",
-  },
-];
-
 // Status class helper
 const statusClass = (status) => {
   if (status === "RESOLVED") return styles.statusResolved;
@@ -148,8 +72,8 @@ const Header = ({
           {filterDropdownOpen && (
             <ul className={styles.filterDropdown}>
               <li onClick={() => onFilterChange("All")}>All</li>
-              <li onClick={() => onFilterChange("RESOLVED")}>Resolved</li>
-              <li onClick={() => onFilterChange("IN PROGRESS")}>In Progress</li>
+              <li onClick={() => onFilterChange("ALERT")}>Resolved</li>
+              <li onClick={() => onFilterChange("INFORMATION")}>In Progress</li>
             </ul>
           )}
         </div>
@@ -177,26 +101,63 @@ const Header = ({
 
 // Main Notification component
 const Notification = () => {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([]); // State for API data
   const [filterStatus, setFilterStatus] = useState("All");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Fetch notifications from the API
+  const fetchNotifications = async () => {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem("user_info"));
+      const userId = userInfo ? userInfo.userId : null;
+
+      if (!userId) {
+        throw new Error("User ID not found in localStorage.");
+      }
+
+      const response = await fetch(`https://localhost:44328/api/Log/GetNotifications/${userId}?onlyUnread=false`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch notifications from the API.");
+      }
+
+      const data = await response.json();
+      setData(data); // Update state with API data
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   // Sorting function
   const handleSortChange = (sortBy) => {
-    const sortedData = [...data].sort((a, b) => {
-      if (sortBy === "user") return a.user.localeCompare(b.user);
-      if (sortBy === "issueId") return a.issueId.localeCompare(b.issueId);
-      if (sortBy === "time") return a.time.localeCompare(b.time);
-      return 0;
-    });
-    setData(sortedData);
-    setSortDropdownOpen(false); // Close dropdown after sorting
-  };
+  const sortedData = [...data].sort((a, b) => {
+    let compareValueA, compareValueB;
 
-  const navigate = useNavigate();
+    if (sortBy === "user") {
+      compareValueA = a.user || ''; // Default to empty string if undefined or null
+      compareValueB = b.user || ''; // Default to empty string if undefined or null
+    } else if (sortBy === "issueId") {
+      compareValueA = a.issueId || ''; // Default to empty string if undefined or null
+      compareValueB = b.issueId || ''; // Default to empty string if undefined or null
+    } else if (sortBy === "time") {
+      compareValueA = a.time || ''; // Default to empty string if undefined or null
+      compareValueB = b.time || ''; // Default to empty string if undefined or null
+    }
+
+    return compareValueA.localeCompare(compareValueB);
+  });
+
+  setData(sortedData);
+  setSortDropdownOpen(false); // Close dropdown after sorting
+};
+
 
   // Filtering function
   const handleFilterChange = (status) => {
@@ -214,8 +175,8 @@ const Notification = () => {
     if (filterStatus !== "All" && item.status !== filterStatus) return false;
     if (!searchQuery) return true; // Show all if no search query
     return (
-      item.user.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.issueId.toLowerCase().includes(searchQuery.toLowerCase())
+      item.user?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.issueId?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
@@ -265,13 +226,11 @@ const Notification = () => {
               </span>
             </div>
             <div className={styles.userText}>
-              <strong>{row.user}</strong> has marked issue{" "}
-              <strong>{row.issueId}</strong> as{" "}
-              <span className={statusClass(row.status)}>{row.status}</span>
+              <strong>{row.message}</strong> - Type: <span>{row.type}</span>
             </div>
           </div>
           <div className={styles.rowFooter}>
-            <span className={styles.time}>{row.time}</span>
+            <span className={styles.time}>{new Date(row.timestamp).toLocaleString()}</span>
             <button
               className={styles.viewBtn}
               onClick={() =>

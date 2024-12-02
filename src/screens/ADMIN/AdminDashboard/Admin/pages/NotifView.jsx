@@ -5,14 +5,18 @@ import profIcon from "../adminIcons/profile.png";
 
 const NotifView = () => {
   const navigate = useNavigate();
-  const { state: notification } = useLocation(); // Retrieve issue data from route state
+  const { state: notification } = useLocation(); // Retrieve notification data from route state
+
+  // Retrieve the logged-in user's details from localStorage
+  const userInfo = JSON.parse(localStorage.getItem("user_info"));
+  const userName = userInfo ? userInfo.userName : "Unknown User"; // Assuming userName is stored in localStorage
 
   // Handle the Back button click
   const handleBack = () => {
     navigate(-1); // Redirect back to the previous page
   };
 
-  // Check if the issue data is available
+  // Check if the notification data is available
   if (!notification) {
     return <div className={styles.error}>Notification data not found.</div>;
   }
@@ -27,7 +31,7 @@ const NotifView = () => {
 
   return (
     <div className={styles.issueDetailsContainer}>
-      {/* Issue Title */}
+      {/* Issue Status */}
       <div className={styles.issue}>
         <h2>
           Status:{" "}
@@ -35,20 +39,29 @@ const NotifView = () => {
         </h2>
       </div>
 
-      {/* Header Section */}
+      {/* Notification Details Header */}
       <div className={styles.issueHeader}>
-        {/* Requestor Info */}
+        {/* Requested By */}
         <div className={styles.issueRequestor}>
           <p>Requested By:</p>
           <div className={styles.profile}>
             <img src={profIcon} width="50" height="50" alt="Profile Icon" />
-            <p className={styles.name}>{notification.user}</p>
+            <p className={styles.name}>{userName}</p> {/* Display the name from localStorage */}
           </div>
           <div className={styles.issueInfo}>
-            <p className={styles.prio}>User ID: {notification.issueId}</p>
-            <p className={styles.issueDate}>Time: {notification.time}</p>
+            {/* <p className={styles.prio}>
+              Issue Created By: {notification.createdBy} 
+            </p> */}
+            <p className={styles.issueDate}>Time Received: {new Date(notification.timestamp).toLocaleDateString()} {new Date(notification.timestamp).toLocaleTimeString()}</p><br />
+            <p className={styles.notificationType}>Notification Type: {notification.type}</p> {/* Display the notification type */}
           </div>
         </div>
+      </div>
+
+      {/* Full Notification Message */}
+      <div className={styles.notificationMessage}>
+        <h3>Message</h3>
+        <p>{notification.message}</p> {/* Display the full message */}
       </div>
 
       {/* Back Button */}

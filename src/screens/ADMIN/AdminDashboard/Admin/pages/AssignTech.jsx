@@ -123,6 +123,7 @@ const AssignTech = () => {
             <th>Log ID</th> {/* Display the formatted log ID */}
             <th>Issue Title</th>
             <th>Log By</th>
+            <th>Date Issued</th>
             <th>Department</th>
             <th>Priority Level</th>
             <th>Action</th>
@@ -134,6 +135,9 @@ const AssignTech = () => {
               <td>{issue.issueId}</td> {/* Format logId for display */}
               <td>{issue.issueTitle}</td>
               <td>{issue.logBy}</td>
+              <td>
+                {new Date(issue.issuedAt).toLocaleDateString()} {new Date(issue.issuedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>
               <td>

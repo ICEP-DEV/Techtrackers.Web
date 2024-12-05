@@ -38,7 +38,6 @@ const ManageTechniciansTable = () => {
   const [technicians, setTechnicians] = useState([]);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
 
-  // Fetch technicians from the correct API endpoint
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
@@ -47,11 +46,12 @@ const ManageTechniciansTable = () => {
         );
         const technicianData = response.data.map((technician) => ({
           ...technician,
-          name: `${technician.surname} ${technician.initials}`, // Combine surname and initials
+          name: `${technician.surname} ${technician.initials}`, // Combine name
         }));
         setTechnicians(technicianData);
       } catch (error) {
-        console.error("Error fetching technicians:", error);
+        console.error("Error fetching technicians:", error.message);
+        alert("Failed to fetch technicians. Please check the backend.");
       }
     };
 
@@ -64,15 +64,16 @@ const ManageTechniciansTable = () => {
 
   const handleRemoveTechnician = async (technicianId) => {
     try {
-      await axios.delete(
-        `https://localhost:44328/api/TechnicianHandler/DeleteTechnician/${technicianId}`
+      const response = await axios.delete(
+        `http://localhost:44328/api/TechnicianHandler/DeleteTechnician/${technicianId}`
       );
       setTechnicians((prevTechs) =>
         prevTechs.filter((tech) => tech.technicianId !== technicianId)
       );
-      console.log(`Technician with ID: ${technicianId} has been removed.`);
+      alert(response.data.message || `Technician ${technicianId} removed.`);
     } catch (error) {
-      console.error("Error deleting technician:", error);
+      console.error("Error deleting technician:", error.message);
+      alert("Failed to remove technician. Please try again.");
     }
   };
 
@@ -109,11 +110,13 @@ const ManageTechniciansTable = () => {
           {technicians.map((technician) => (
             <tr key={technician.technicianId}>
               <td>{technician.name}</td>
-              <td>{technician.email}</td>
-              <td>{technician.specialization}</td>
-              <td>{technician.contact}</td>
-              <td>{`${technician.fromTime} - ${technician.toTime}`}</td>
-              <td>{technician.activeIssues}</td>
+              <td>{technician.emailAddress || "N/A"}</td>
+              <td>{technician.specialization || "N/A"}</td>
+              <td>{technician.contacts || "N/A"}</td>
+              <td>{`${technician.fromTime || "N/A"} - ${
+                technician.toTime || "N/A"
+              }`}</td>
+              <td>{technician.activeIssues || 0}</td>
               <td>
                 <button
                   className={styles.viewButton}

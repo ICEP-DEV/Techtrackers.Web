@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/Table.module.css";
 import TechnicianDetailView from "./TechnicianDetailView";
-import axios from "axios";  // If you’re using axios for API calls
+import axios from "axios";
 
 const ManageTechniciansHeader = () => {
   const navigate = useNavigate();
@@ -35,16 +35,19 @@ const ManageTechniciansHeader = () => {
 
 const ManageTechniciansTable = () => {
   const navigate = useNavigate();
-  const [technicians, setTechnicians] = useState([]);  // Start with an empty array
+  const [technicians, setTechnicians] = useState([]);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
 
+  // Fetch technicians from the correct API endpoint
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
-        const response = await axios.get("https://localhost:44328/api/Users/GetTechniciansByRole/GetTechniciansByRole/3");  // Use your API endpoint
+        const response = await axios.get(
+          "https://localhost:44328/api/TechnicianHandler/GetTechnicians"
+        );
         const technicianData = response.data.map((technician) => ({
           ...technician,
-          name: `${technician.surname} ${technician.initials}`,  // Combine surname and initials
+          name: `${technician.surname} ${technician.initials}`, // Combine surname and initials
         }));
         setTechnicians(technicianData);
       } catch (error) {
@@ -59,11 +62,18 @@ const ManageTechniciansTable = () => {
     setSelectedTechnician(technician);
   };
 
-  const handleRemoveTechnician = (technicianId) => {
-    setTechnicians((prevTechs) =>
-      prevTechs.filter((tech) => tech.technicianId !== technicianId)
-    );
-    console.log(`Technician with ID: ${technicianId} has been removed.`);
+  const handleRemoveTechnician = async (technicianId) => {
+    try {
+      await axios.delete(
+        `https://localhost:44328/api/TechnicianHandler/DeleteTechnician/${technicianId}`
+      );
+      setTechnicians((prevTechs) =>
+        prevTechs.filter((tech) => tech.technicianId !== technicianId)
+      );
+      console.log(`Technician with ID: ${technicianId} has been removed.`);
+    } catch (error) {
+      console.error("Error deleting technician:", error);
+    }
   };
 
   const handleBackToList = () => {
@@ -98,7 +108,7 @@ const ManageTechniciansTable = () => {
         <tbody>
           {technicians.map((technician) => (
             <tr key={technician.technicianId}>
-              <td>{technician.name}</td>  {/* Using the combined name here */}
+              <td>{technician.name}</td>
               <td>{technician.email}</td>
               <td>{technician.specialization}</td>
               <td>{technician.contact}</td>
@@ -110,6 +120,12 @@ const ManageTechniciansTable = () => {
                   onClick={() => handleViewClick(technician)}
                 >
                   Manage
+                </button>
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveTechnician(technician.technicianId)}
+                >
+                  Remove
                 </button>
               </td>
             </tr>

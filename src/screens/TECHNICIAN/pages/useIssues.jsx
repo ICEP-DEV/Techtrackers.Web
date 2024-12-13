@@ -1,90 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const useIssues = () => {
-  const [issues, setIssues] = useState([
-    {
-      issueId: "IT-P1-1220",
-      name: "John Doe",
-      title: "Computer Screen Not Displaying",
-      date: "19/08/2024",
-      department: "IT",
-      priority: "High",
-      dueDate: "19/08/2024",
-      status: "Pending",
-    },
-    {
-      issueId: "HR-P1-1221",
-      name: "Themba Zwane",
-      title: "Unable to login",
-      date: "19/08/2024",
-      department: "HR",
-      priority: "High",
-      dueDate: "19/08/2024",
-      status: "InProgress",
-    },
-    {
-      issueId: "IT-P1-1222",
-      name: "Andile Zondo",
-      title: "Connectivity Issue",
-      date: "15/08/2024",
-      department: "IT",
-      priority: "High",
-      dueDate: "15/08/2024",
-      status: "InProgress",
-    },
-    {
-      issueId: "FI-P2-1223",
-      name: "Sara Smith",
-      title: "Low Disk Space",
-      date: "11/08/2024",
-      department: "Finance",
-      priority: "Medium",
-      dueDate: "11/08/2024",
-      status: "On Hold",
-    },
-    {
-      issueId: "HR-P3-1224",
-      name: "John Doe",
-      title: "Broken Air Conditioner",
-      date: "02/08/2024",
-      department: "HR",
-      priority: "Low",
-      dueDate: "02/08/2024",
-      status: "Resolved",
-    },
-    {
-      issueId: "IT-P2-1225",
-      name: "Mike Jones",
-      title: "Setup Request",
-      date: "28/07/2024",
-      department: "IT",
-      priority: "Medium",
-      dueDate: "28/07/2024",
-      status: "Resolved",
-    },
-    {
-      issueId: "F1-P1-1226",
-      name: "John Doe",
-      title: "Network Issue",
-      date: "19/07/2024",
-      department: "Finance",
-      priority: "High",
-      dueDate: "19/07/2024",
-      status: "Resolved",
-    },
-    {
-      issueId: "PR-P3-1227",
-      name: "Mbali Kunene",
-      title: "Broken Printer",
-      date: "05/07/2024",
-      department: "Public Relations",
-      priority: "Low",
-      dueDate: "05/07/2024",
-      status: "Resolved",
-    },
-  ]);
+  const [issues, setIssues] = useState([]); // State to hold issues
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
-  return { issues, setIssues };
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        // Get user info from local storage
+        const userInfo = JSON.parse(localStorage.getItem("user_info"));
+        if (!userInfo || !userInfo.userId) {
+          throw new Error("User not logged in or user ID missing.");
+        }
+
+        const userId = userInfo.userId;
+
+        // Fetch issue details from the API
+        const response = await fetch(
+          `https://localhost:44328/api/Log/GetLogsTechnician?userId=${userId}`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (data.length === 0) {
+          toast.warn("No issues found for the technician.");
+          setIssues([]); // Set issues to empty array
+        } else {
+          // Deduplicate issues by `issueId` and merge with predefined issues
+          const uniqueIssues = data.filter(
+            (issue, index, self) =>
+              index === self.findIndex((i) => i.issueId === issue.issueId)
+          );
+
+          setIssues((prevIssues) => [
+            ...prevIssues.filter(
+              (prevIssue) =>
+                !uniqueIssues.some((issue) => issue.issueId === prevIssue.issueId)
+            ),
+            ...uniqueIssues,
+          ]);
+        }
+      } catch (err) {
+        setError(err.message);
+        toast.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIssues();
+  }, []);
+
+  return { issues, setIssues, loading, error };
 };
 
 export default useIssues;

@@ -1,27 +1,57 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Header from "./TableHeader";
 import { sortAndFilterData } from "./Sort";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import styles from "../SidebarCSS/TableAllIssues.module.css";
 
-
-// Include the list of issues and pass them from the parent component
-const Table = ({ issues, setIssues }) => {
-  // issues and setIssues passed as props
+const Table = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
+  const [issues, setIssues] = useState([]); // State to store issues fetched from the API
   const [isTableVisible, setIsTableVisible] = useState(true); // State to control table visibility
-  const [sortConfig, setSortConfig] = React.useState({
+  const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: null,
   });
-  const [filters, setFilters] = React.useState({
+  const [filters, setFilters] = useState({
     date: "",
     status: "",
     department: "",
     urgency: "",
   });
-  const [searchTerm, setSearchTerm] = React.useState("");
+ 
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        // Get logged-on user from local storage
+        const userInfo = JSON.parse(localStorage.getItem("user_info"));
+        if (!userInfo || !userInfo.userId) {
+          console.error("User is not logged in or userId is missing.");
+          return;
+        }
+
+        const userId = userInfo.userId; // Extract userId from local storage
+
+        // Fetch technician-specific logs
+        const response = await fetch(
+          `https://localhost:44328/api/Log/GetLogsTechnician?userId=${userId}`
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched Issues:", data); // Debug fetched data
+          setIssues(data); // Set issues in state
+        } else {
+          console.error("Failed to fetch issues.");
+        }
+      } catch (error) {
+        console.error("Error fetching issues:", error);
+      }
+    };
+
+    fetchIssues();
+  }, []);
 
   // Handle sorting of columns
   const handleSort = (key) => {
@@ -60,12 +90,21 @@ const Table = ({ issues, setIssues }) => {
 
   // Filter and sort issues based on the current filters and sort configuration
   const filteredAndSortedIssues = useMemo(() => {
-    const searchFilteredIssues = issues.filter((issue) =>
-      issue.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+    // Filter issues based on the search term
+    const searchFilteredIssues = issues.filter((issue) => {
+      const title = issue.title || ""; // Default to empty string if `title` is undefined
+      const name = issue.name || ""; // Default to empty string if `name` is undefined
+  
+      return (
+        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  
+    // Sort and filter based on the current configurations
     return sortAndFilterData(searchFilteredIssues, sortConfig, filters);
   }, [issues, sortConfig, filters, searchTerm]);
+  
 
   // Get the color for the status
   const getStatusColor = (status) => {
@@ -85,7 +124,7 @@ const Table = ({ issues, setIssues }) => {
 
   // Function to close the table
   const handleClose = () => {
-    navigate('/techniciandashboard/dashboard');
+    navigate("/techniciandashboard/dashboard");
   };
 
   return (
@@ -101,13 +140,13 @@ const Table = ({ issues, setIssues }) => {
           <table className={styles.issueTable}>
             <thead>
               <tr>
-                <th onClick={() => handleSort("issueId")}>Issue ID</th>
-                <th onClick={() => handleSort("name")}>Name</th>
-                <th onClick={() => handleSort("title")}>Issue title</th>
-                <th onClick={() => handleSort("date")}>Date reported</th>
-                <th onClick={() => handleSort("department")}>Department</th>
-                <th onClick={() => handleSort("priority")}>Priority level</th>
-                <th onClick={() => handleSort("dueDate")}>Due Date</th>
+                <th>Issue ID</th>
+                <th>Issue title</th>
+                <th>Date reported</th>
+                <th>Department</th>
+                <th>Priority level</th>
+
+                {/* <th onClick={() => handleSort("dueDate")}>Due Date</th> */}
                 <th>Action</th>
                 <th></th>
               </tr>
@@ -116,17 +155,20 @@ const Table = ({ issues, setIssues }) => {
               {filteredAndSortedIssues.map((issue) => (
                 <tr key={issue.issueId}>
                   <td>{issue.issueId}</td>
-                  <td>{issue.name}</td>
-                  <td>{issue.title}</td>
-                  <td>{issue.date}</td>
+                  <td>{issue.issueTitle}</td>
+                  <td>{issue.issuedAt}</td>
                   <td>{issue.department}</td>
                   <td>{issue.priority}</td>
-                  <td>{issue.dueDate}</td>
+
                   <td>
                     {/* Add navigation to issue details when clicking the View button */}
                     <button
                       className={styles.viewButton}
-                      onClick={() => navigate(`/techniciandashboard/issues/${issue.issueId}`)} // Navigate to IssueDetails page
+                      onClick={() =>
+                        navigate(
+                          `/techniciandashboard/issues/${issue.issueId}`
+                        )
+                      } // Navigate to IssueDetails page
                     >
                       View
                     </button>
@@ -153,7 +195,9 @@ const Table = ({ issues, setIssues }) => {
             <span id={styles.tableSpan}>You have reached the end</span>
             <div className={styles.line} />
           </div>
-          <button className={styles.closeButton} onClick={handleClose}>CLOSE</button>
+          <button className={styles.closeButton} onClick={handleClose}>
+            CLOSE
+          </button>
         </div>
       )}
     </>

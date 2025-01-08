@@ -17,6 +17,10 @@ const DashboardPage = () => {
     navigate("/admindashboard/in-progress-issues"); // Navigate to the open issues page
   };
 
+  const handleDepartmentsClick = () => {
+    navigate("/admindashboard/Departments"); // Navigate to ManageTech page
+  };
+
   const handleManageTechClick = () => {
     navigate("/admindashboard/ManageTech"); // Navigate to ManageTech page
   };
@@ -72,6 +76,23 @@ const DashboardPage = () => {
           <h2 className={styles.cardTitle}>Manage Technicians</h2>
           <p className={styles.cardDescription}>
             View and manage all technicians.
+          </p>
+        </div>
+      </div>
+
+      {/* Manage Department Section */}
+      <div
+        className={styles.dashboardCard}
+        onClick={handleDepartmentsClick}
+        style={{ cursor: "pointer" }}
+      >
+        <div className={styles.cardIcon}>
+          <FontAwesomeIcon icon={faUsers} className={styles.icon} />
+        </div>
+        <div className={styles.cardContent}>
+          <h2 className={styles.cardTitle}>Departments</h2>
+          <p className={styles.cardDescription}>
+            {/* View and manage departments. */}
           </p>
         </div>
       </div>

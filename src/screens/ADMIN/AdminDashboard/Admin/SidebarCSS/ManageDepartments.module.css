@@ -130,4 +130,17 @@
     color: white;
     border: none;
   }
+  .backButton {
+    background-color: #0c3a3a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .backButton:hover {
+    background-color: #0c3a3a;
+  }
   

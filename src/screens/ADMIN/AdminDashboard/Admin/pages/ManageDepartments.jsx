@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import styles from "../SidebarCSS/ManageDepartments.module.css";
 
 const ManageDepartments = () => {
@@ -9,38 +10,48 @@ const ManageDepartments = () => {
   const [editDescription, setEditDescription] = useState("");
   const [editDepartmentHead, setEditDepartmentHead] = useState("");
   const [editLocation, setEditLocation] = useState("");
-  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false); // State for delete confirmation
-  const [deleteIndex, setDeleteIndex] = useState(null); // Store index of department to delete
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [dropdownVisible, setDropdownVisible] = useState(null); // Track visible dropdown
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const storedDepartments = JSON.parse(localStorage.getItem("departments")) || [];
     setDepartments(storedDepartments);
   }, []);
 
+  const toggleDropdown = (index) => {
+    setDropdownVisible(dropdownVisible === index ? null : index); // Toggle dropdown
+  };
+
+  const closeDropdown = () => {
+    setDropdownVisible(null); // Close dropdown
+  };
+
   const handleDelete = (index) => {
-    setDeleteIndex(index); // Store the index of the department to delete
-    setIsConfirmDeleteOpen(true); // Open the confirmation popup
+    setDeleteIndex(index);
+    setIsConfirmDeleteOpen(true);
   };
 
   const confirmDelete = () => {
     const updatedDepartments = departments.filter((_, i) => i !== deleteIndex);
     localStorage.setItem("departments", JSON.stringify(updatedDepartments));
     setDepartments(updatedDepartments);
-    setIsConfirmDeleteOpen(false); // Close the confirmation popup
-    setDeleteIndex(null); // Reset the delete index
+    setIsConfirmDeleteOpen(false);
+    setDeleteIndex(null);
   };
 
   const cancelDelete = () => {
-    setIsConfirmDeleteOpen(false); // Close the confirmation popup without deleting
-    setDeleteIndex(null); // Reset the delete index
+    setIsConfirmDeleteOpen(false);
+    setDeleteIndex(null);
   };
 
   const handleOpenPopup = (index) => {
     setEditIndex(index);
     setEditName(departments[index].name);
     setEditDescription(departments[index].description);
-    setEditDepartmentHead(departments[index].departmentHead || ""); // Default value if not present
-    setEditLocation(departments[index].location || ""); // Default value if not present
+    setEditDepartmentHead(departments[index].departmentHead || "");
+    setEditLocation(departments[index].location || "");
     setIsPopupOpen(true);
   };
 
@@ -68,7 +79,12 @@ const ManageDepartments = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={closeDropdown}>
+      {/* Back Button */}
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        Back
+      </button>
+
       <h1>Manage Departments</h1>
       {departments.length === 0 ? (
         <p>No departments created yet.</p>
@@ -79,12 +95,19 @@ const ManageDepartments = () => {
               <div className={styles.departmentName}>{department.name}</div>
 
               {/* Dropdown */}
-              <div className={styles.dropdown}>
-                <button className={styles.dropdownButton}>⋮</button>
-                <ul className={styles.dropdownMenu}>
-                  <li onClick={() => handleOpenPopup(index)}>Edit</li>
-                  <li onClick={() => handleDelete(index)}>Delete</li>
-                </ul>
+              <div className={styles.dropdown} onClick={(e) => e.stopPropagation()}>
+                <button
+                  className={styles.dropdownButton}
+                  onClick={() => toggleDropdown(index)}
+                >
+                  ⋮
+                </button>
+                {dropdownVisible === index && (
+                  <ul className={styles.dropdownMenu}>
+                    <li onClick={() => handleOpenPopup(index)}>Edit</li>
+                    <li onClick={() => handleDelete(index)}>Delete</li>
+                  </ul>
+                )}
               </div>
             </div>
           ))}

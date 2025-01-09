@@ -2,11 +2,13 @@
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
   }
   
   .about-section {
     text-align: center;
     margin-top: 50px;
+    color: #333;
   }
   
   .about-header h1 {
@@ -33,6 +35,10 @@
   
   .about-picture {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
   }
   
   .about-img {
@@ -40,7 +46,10 @@
     height: auto;
     border-radius: 10px;
   }
-  
+  .animated-img:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }
   .about-content {
     flex: 1;
     padding-left: 30px;

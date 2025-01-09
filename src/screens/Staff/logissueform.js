@@ -15,10 +15,11 @@ const Logissueform = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
-    attachmentFile: null,
+    buildingNumber: '',
+    attachmentFiles: [], // Updated to support multiple files
   });
   const [errors, setErrors] = useState({});
-  const [filePreview, setFilePreview] = useState(null); // State for storing file URL
+  const [filePreviews, setFilePreviews] = useState([]); // Previews for all files
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,18 +52,15 @@ const Logissueform = () => {
   };
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const files = Array.from(event.target.files); // Convert FileList to Array
     setFormValues((prevValues) => ({
       ...prevValues,
-      attachmentFile: file,
+      attachmentFiles: [...prevValues.attachmentFiles, ...files], // Append new files
     }));
 
-    // Generate file URL for the selected file
-    if (file) {
-      setFilePreview(URL.createObjectURL(file)); // Store the URL for the file
-    } else {
-      setFilePreview(null); // Reset preview if no file
-    }
+    // Generate previews for all files
+    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    setFilePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
   };
 
   const handleSubmit = async (event) => {
@@ -92,14 +90,11 @@ const Logissueform = () => {
     formData.append("Location", fullLocation);
     formData.append("Staff_ID", staffId);
 
-    if (formValues.attachmentFile) {
-      formData.append("AttachmentFile", formValues.attachmentFile);
-    }
-
-    formData.forEach((value, key) => {
-      console.log(key, value);
+    // Append each file to the FormData
+    formValues.attachmentFiles.forEach((file, index) => {
+      formData.append(`AttachmentFiles[${index}]`, file);
     });
-    
+
     try {
       const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
         method: 'POST',
@@ -117,8 +112,9 @@ const Logissueform = () => {
           date: new Date().toISOString().split('T')[0],
           location: '',
           buildingNumber: '',
-          attachmentFile: null,
+          attachmentFiles: [],
         });
+        setFilePreviews([]); // Reset previews
         toast.success("Log submitted successfully!");
       } else {
         const errorData = await response.json();
@@ -262,36 +258,41 @@ const Logissueform = () => {
         </div>
 
         <div className={styles.fileInputWrapper}>
-          <label>Attachments (include screenshots, photos of faulty equipment/documents):</label>
+          <label>Attachments (include screenshots, photos, documents, etc.):</label>
           <div>
             <input 
               type="file" 
-              name="attachmentUrl" 
+              name="attachmentFiles" 
+              multiple // Allow multiple file selection
               onChange={handleFileChange} 
             />
-            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF)</p> 
+            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p> 
 
-            {/* Display file name as a clickable link */}
-            {formValues.attachmentFile && (
+            {/* Display file names as clickable links */}
+            {formValues.attachmentFiles.length > 0 && (
               <div>
-                {/* Use the filePreview URL or fallback to the uploaded file name */}
-                {filePreview ? (
-                  <a 
-                    href={filePreview} 
-                    target="_blank" 
-                    rel="noopener noreferrer">
-                    {formValues.attachmentFile.name}
-                  </a>
-                ) : (
-                  <span>{formValues.attachmentFile.name}</span> // Fallback to file name when no preview is available
-                )}
+                {formValues.attachmentFiles.map((file, index) => (
+                  <div key={index}>
+                    {filePreviews[index] ? (
+                      <a 
+                        href={filePreviews[index]} 
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                        {file.name}
+                      </a>
+                    ) : (
+                      <span>{file.name}</span>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </div>
         </div>
+
         <div className={styles.FformButons}>
-          <button type="submit">Submit</button>
-          <button type="button" className={styles.CcancelButton} onClick={handleCancel}>Cancel</button>
+          <button type="submit" className={styles.submitBtn}>Submit</button>
+          <button type="button" className={styles.cancelBtn} onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

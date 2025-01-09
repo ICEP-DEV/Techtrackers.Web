@@ -25,6 +25,7 @@ const NotificationContainer = () => {
   // Fetch notifications from the API when the component mounts
   const fetchNotifications = async () => {
     try {
+      console.log('Fetching notifications...');
       const userInfo = JSON.parse(localStorage.getItem('user_info'));
       const userId = userInfo ? userInfo.userId : null;
 
@@ -33,17 +34,21 @@ const NotificationContainer = () => {
       }
 
       const response = await fetch(`https://localhost:44328/api/Log/GetNotifications/${userId}?onlyUnread=false`);
+      console.log('Response received:', response);
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
       const data = await response.json();
-      if (data) {
-        setNotificationsState(data);
-      } else {
-        console.error('Failed to fetch notifications: Unexpected response structure.');
-      }
+      console.log('Data received:', data);
+
+      const notificationsWithDefaults = data.map(notification => ({
+        ...notification,
+        message: notification.message || "", // Default to an empty string if `message` is undefined
+      }));
+      setNotificationsState(notificationsWithDefaults);
+      console.log('Notifications state updated');
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -80,7 +85,7 @@ const NotificationContainer = () => {
   };
 
   const formatMessage = (message) => {
-    if (!message) return null; // Check if message exists
+    if (!message) return null; // Check if `message` exists
     const parts = message.split(/(?<=[.,])\s*/);
     return parts.map((part, index) => (
       <p key={index} className="mb-0">
@@ -110,11 +115,12 @@ const NotificationContainer = () => {
     }
   };
 
-  const filteredNotifications = notificationsState.filter((notification) => {
-    const matchesSearchQuery = notification.notification_Message
-      ? notification.notification_Message.toLowerCase().includes(searchQuery.toLowerCase())
-      : false;
-    const isActiveTab = activeTab === 'unread' ? notification.read_Status === false : notification.read_Status === true;
+  const filteredNotifications = notificationsState.filter(notification => {
+    const matchesSearchQuery = notification.message
+      ? notification.message.toLowerCase().includes(searchQuery.toLowerCase())
+      : false; // Safely exclude notifications without `message`
+
+    const isActiveTab = activeTab === 'unread' ? !notification.read_Status : notification.read_Status;
 
     const now = new Date().getTime();
     const notificationDate = new Date(notification.timestamp).getTime();
@@ -156,7 +162,8 @@ const NotificationContainer = () => {
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
-  const noNotificationsMessage = activeTab === 'unread' ? 'No unread notifications available.' : 'No read notifications available.';
+  const noNotificationsMessage =
+    activeTab === 'unread' ? 'No unread notifications available.' : 'No read notifications available.';
 
   return (
     <div className={styles.maiNContent}>
@@ -203,8 +210,12 @@ const NotificationContainer = () => {
               </div>
               {sortOpen && (
                 <div className={`${styles.dropdownMenu} ${styles.show}`}>
-                  <button className={styles.dropdownItem} onClick={() => handleSortChange('asc')}>Sort (Oldest First)</button>
-                  <button className={styles.dropdownItem} onClick={() => handleSortChange('desc')}>Sort (Newest First)</button>
+                  <button className={styles.dropdownItem} onClick={() => handleSortChange('asc')}>
+                    Sort (Oldest First)
+                  </button>
+                  <button className={styles.dropdownItem} onClick={() => handleSortChange('desc')}>
+                    Sort (Newest First)
+                  </button>
                 </div>
               )}
             </div>
@@ -213,12 +224,18 @@ const NotificationContainer = () => {
 
         <ul className={`nav ${styles.navTabs} mb-3`}>
           <li className={styles.navItem}>
-            <button className={`${styles.navLink} ${activeTab === 'allRead' ? 'active' : ''}`} onClick={() => handleTabClick('allRead')}>
+            <button
+              className={`${styles.navLink} ${activeTab === 'allRead' ? 'active' : ''}`}
+              onClick={() => handleTabClick('allRead')}
+            >
               All read issues
             </button>
           </li>
           <li className={styles.navItem}>
-            <button className={`${styles.navLink} ${activeTab === 'unread' ? 'active' : ''}`} onClick={() => handleTabClick('unread')}>
+            <button
+              className={`${styles.navLink} ${activeTab === 'unread' ? 'active' : ''}`}
+              onClick={() => handleTabClick('unread')}
+            >
               Unread issues
             </button>
           </li>
@@ -232,7 +249,7 @@ const NotificationContainer = () => {
                   <td className="d-flex align-items-center">
                     <FaBell className={`${styles.notificationIcons} me-2`} />
                     <div>
-                      {formatMessage(notification.notification_Message)}
+                      {formatMessage(notification.message)}
                       <button onClick={() => markAsRead(notification.notification_ID)}>Mark as Read</button>
                     </div>
                   </td>

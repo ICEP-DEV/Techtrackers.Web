@@ -1,45 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../SidebarCSS/WelcomeTechnician.module.css';
 import arrow from '../images/Arrow.png';
 import check_circle from '../images/Check.png';
 
 const WelcomeTechnician = () => {
-  // State for hardcoded data that will eventually be pulled from the backend
+  // State for dynamic data
+  const [statusCounts, setStatusCounts] = useState({
+    resolved: 0,
+    inProgress: 0,
+    onHold: 0,
+    pending: 0,
+  });
+
   const [tasks, setTasks] = useState([
     { title: "Server Downtime", priority: "HIGH", status: "Pending", time: "09:48" },
     { title: "Unable to Log into HR Portal", priority: "MEDIUM", status: "Pending", time: "09:48" },
     { title: "Printer Not Working", priority: "HIGH", status: "InProgress", time: "Yesterday" },
-    { title: "Low Disk Space", priority: "LOW", status: "Resolved", time: "18/08/2024" }
+    { title: "Low Disk Space", priority: "LOW", status: "Resolved", time: "18/08/2024" },
   ]);
 
-  const [statusCounts, setStatusCounts] = useState({
-    resolved: 25,
-    inProgress: 12,
-    onHold: 2,
-    pending: 2,
-  });
   const [rating, setRating] = useState({
     overall: 3.0,
-    stars: [3, 4, 6, 4, 2]
+    stars: [3, 4, 6, 4, 2],
   });
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStatusCounts = async () => {
+      try {
+        const userInfo = JSON.parse(localStorage.getItem('user_info'));
+        const technicianId = userInfo ? userInfo.userId : null;
+
+        if (!technicianId) {
+          throw new Error("Technician ID is missing");
+        }
+
+        // Fetching data from the backend
+        const resolvedResponse = await fetch(
+          `https://localhost:44328/api/Tech/CountResolvedLogs/${technicianId}/countResolved`
+        );
+        const inProgressResponse = await fetch(
+          `https://localhost:44328/api/Tech/CountInProgressLogs/${technicianId}/countInProgress`
+        );
+        const onHoldResponse = await fetch(
+          `https://localhost:44328/api/Tech/CountOnHoldLogs/${technicianId}/countOnHold`
+        );
+        const pendingResponse = await fetch(
+          `https://localhost:44328/api/Tech/CountPendingLogs/${technicianId}/countPending`
+        );
+
+        if (
+          !resolvedResponse.ok ||
+          !inProgressResponse.ok ||
+          !onHoldResponse.ok ||
+          !pendingResponse.ok
+        ) {
+          throw new Error("Failed to fetch status counts");
+        }
+
+        // Parse JSON responses
+        const resolvedData = await resolvedResponse.json();
+        const inProgressData = await inProgressResponse.json();
+        const onHoldData = await onHoldResponse.json();
+        const pendingData = await pendingResponse.json();
+
+        // Assuming each API returns an object like { status: "Resolved", count: 25 }
+        setStatusCounts({
+          resolved: resolvedData, // Extracting only the count
+          inProgress: inProgressData,
+          onHold: onHoldData,
+          pending: pendingData,
+        });
+
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchStatusCounts();
+  }, []);
+
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className={styles.mainContent1}>
       {/* Top Container */}
       <div className={styles.topContainer}>
         <h2 className={styles.welcomeTitle}>WELCOME, TECHNICIAN!</h2>
-      <div className={styles.cardsLeft}>
+        <div className={styles.cardsLeft}>
           <div className={styles.statusCards}>
             <div className={styles.cardLeft}>
-              <p><strong>{statusCounts.resolved} </strong>  RESOLVED</p>
+              <p><strong>{statusCounts.resolved}</strong> RESOLVED</p> {/* `statusCounts.resolved` is now a number */}
             </div>
             <div className={styles.cardLeft}>
-              <p><strong>{statusCounts.inProgress} </strong> IN PROGRESS</p>
+              <p><strong>{statusCounts.inProgress}</strong> IN PROGRESS</p>
             </div>
           </div>
+
           <div className={styles.statusCards2}>
             <div className={styles.cardLeft}>
-              <p><strong>{statusCounts.onHold} </strong>  ON HOLD</p>
+              <p><strong>{statusCounts.onHold} </strong> ON HOLD</p>
             </div>
             <div className={styles.cardLeft}>
               <p><strong>{statusCounts.pending} </strong> PENDING</p>
@@ -49,13 +120,13 @@ const WelcomeTechnician = () => {
 
         <div className={styles.cardsRight}>
           <div className={styles.upcomingTasks}>
-              <h4><img src={arrow} alt="arrow" height={50} /> UPCOMING TASKS</h4>
-              <br />
-              <p>You have 2 new issues assigned to you.</p>
+            <h4><img src={arrow} alt="arrow" height={50} /> UPCOMING TASKS</h4>
+            <br />
+            <p>You have 2 new issues assigned to you.</p>
           </div>
           <div className={styles.updateStatus}>
-              <h4><img src={check_circle} alt="check" height={50} /> UPDATE STATUS</h4>
-              <p>Update the issue status of pending, ongoing or resolved cases.</p>
+            <h4><img src={check_circle} alt="check" height={50} /> UPDATE STATUS</h4>
+            <p>Update the issue status of pending, ongoing or resolved cases.</p>
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
   // Apply search, filter, and sort to the list of issues
   const filteredAndSortedIssues = issues
     .filter(issue =>
-      issue.priority.toLowerCase().includes(searchTerm)
+      issue.issueTitle.toLowerCase().includes(searchTerm)
     )
     .filter(issue => filterStatus === "All" || (issue.status && issue.status.toLowerCase() === filterStatus.toLowerCase()))
     .sort((a, b) => {
@@ -69,7 +69,7 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
       <div className={styles.controls}>
         <input
           type="text"
-          placeholder="Search by Priority Level..."
+          placeholder="Search by Issue Title"
           value={searchTerm}
           onChange={handleSearchChange}
           className={styles.searchInput}

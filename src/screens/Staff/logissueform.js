@@ -186,6 +186,7 @@ const Logissueform = () => {
               name="department"
               value={formValues.department}
               onChange={handleChange}
+              readOnly
             />
           </div>
 

@@ -137,13 +137,13 @@ const TechnicianHeader = ({ onLogout }) => {
                         className={styles.profileButton}
                     >
                         <img src={ProfileIcon} alt="Profile Icon" />
-                        {user ? `${user.name} ${user.surname}` : 'Technician Name'}
+                        {user ? `${user.name} ` : 'Technician Name'}
                         <ChevronDown />
                     </button>
                 </div>
                 {isDropdownOpen && (
                     <div className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.open : ''}`}>
-                        <p>{user ? `${user.name} ${user.surname}` : 'Name Surname'}</p>
+                        <p>{user ? `${user.name}` : 'Name Surname'}</p>
                         <p className={styles.subText}>{user ? user.email : 'EzraAdmin.com'}</p>
                         <p className={styles.subText}>{user ? user.department : 'ICT'}</p>
                         <button onClick={() => { closeDropdown(); }}>Profile</button>

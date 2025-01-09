@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../SidebarCSS/AddTechnician.css";
@@ -24,19 +25,61 @@ const AddTechnician = () => {
     navigate(-1);
   };
 
-  const submit = () => {
+  const submit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      toast.success("Successfully Added Technician!", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        theme: "dark",
-      });
-      setTimeout(() => navigate("/adminDashboard/TechnicianAdded"), 2000);
+      const technicianPayload = {
+        surname: formData.fullName.split(" ")[1] || "", // Extract last name
+        initials: formData.fullName.split(" ")[0]?.charAt(0) || "", // Extract first letter of first name
+        emailAddress: formData.email,
+        password: formData.password,
+        departmentId: 1, // Replace with dynamic departmentId if applicable
+        availabilityTimes: `${formData.fromTime} - ${formData.toTime}`,
+        fromTime: formData.fromTime,
+        toTime: formData.toTime,
+        specialization: formData.specialization,
+        contacts: formData.contact,
+      };
+  
+      try {
+        const response = await axios.post(
+          "https://localhost:44328/api/TechnicianHandler/AddTechnician/add",
+          technicianPayload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+  
+        if (response.status === 200) {
+          toast.success("Technician added successfully!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            theme: "dark",
+          });
+          setTimeout(() => navigate("/adminDashboard/TechnicianAdded"), 2000);
+        }
+      } catch (error) {
+        console.error("Error adding technician:", error);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to add technician. Please try again.",
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            theme: "dark",
+          }
+        );
+      }
     } else {
       setErrors(validationErrors);
     }

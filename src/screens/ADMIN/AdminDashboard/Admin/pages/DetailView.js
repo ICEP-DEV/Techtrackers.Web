@@ -23,10 +23,11 @@ function DetailView({ log, onBack }) {
   const handleConfirm = () => {
     if (actionType === "close") {
       console.log("Log closed:", log.logId);
-      setStatusMessage("This log has been closed.");
+      setStatusMessage("This issue has been closed.");
     } else if (actionType === "reopen") {
       console.log("Log reopened:", log.logId);
-      setStatusMessage("This log has been reopened.");
+      setStatusMessage("This issue has been reopened.");
+      log.status = "INPROGRESS"; 
     }
     setIsPopupVisible(false);
     setActionType(null);
@@ -61,7 +62,7 @@ function DetailView({ log, onBack }) {
         </button>
       );
     }
-    else
+    else 
     return (
       <div className={styles["action-buttons"]}>
         <button
@@ -128,6 +129,12 @@ function DetailView({ log, onBack }) {
                     }).format(new Date(log.issuedAt))}</p>
                   </div>
                 </div>
+                
+                <div className={styles["issue-location"]}>
+                  <p>Department - {log.department}</p>
+                  <p>Location - {log.location} </p>
+                </div>
+
                 <div className={styles["issue-status"]}>
                   <p>
                     Status:{" "}
@@ -140,7 +147,7 @@ function DetailView({ log, onBack }) {
                     </span>
                   </p>
                 </div>
-                <div>
+                <div className= {styles["description"]}>
                     <h3>Description</h3>
                     <p>{log.description}</p>
                 </div>

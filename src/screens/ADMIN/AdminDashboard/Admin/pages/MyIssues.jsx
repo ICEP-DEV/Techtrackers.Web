@@ -8,7 +8,7 @@ const IssueTableHeader = () => {
   const navigate = useNavigate();
 
   const handleLogIssueClick = () => {
-    navigate('/admindashboard/logIssue'); // Navigate to Log Issue page
+    navigate('/admindashboard/LogIssue'); // Navigate to Log Issue page
   };
 
   return (
@@ -29,6 +29,8 @@ const IssueTableHeader = () => {
     </div>
   );
 };
+
+
 
 const Table = ({adminId}) => {
   const [issues, setIssues] = useState([]); // State to store fetched issues
@@ -60,18 +62,20 @@ const Table = ({adminId}) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Pending':
-        return 'rgb(174, 0, 0)';
-      case 'Ongoing':
+      case 'PENDING':
+        return '#ffa007';
+      case 'ONGOING':
         return '#bfa829';
-      case 'Done':
-        return 'green';
-      case 'On Hold':
-        return '#0a4d4d';
+      case 'INPROGRESS':
+        return '#14788f';
+      case 'ONHOLD':
+        return '#8f9396';
+      case 'ESCALATED':
+        return '#f70000';
       default:
         return 'transparent';
-    }
-  };
+    }
+  };
 
   const handleViewClick = (issue) => {
     setSelectedLog(issue); // Set the selected log to the clicked issue
@@ -115,7 +119,7 @@ const Table = ({adminId}) => {
             <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
               <td>{issue.logBy}</td>
-              <td>{issue.description}</td>
+              <td>{issue.issueTitle}</td>
               <td>{issue.assignedTo}</td>
               <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
               <td>{issue.department}</td>

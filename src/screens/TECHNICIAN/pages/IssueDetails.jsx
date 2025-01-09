@@ -161,7 +161,7 @@ const IssueDetails = ({ issues }) => {
       <div className={styles.issueHeader}>
         {/* Requestor Info */}
         <div className={styles.issueRequestor}>
-          <p>Invite Requested By:</p>
+          <p>Logged By:</p>
           <div className={styles.profile}>
             <img src={profile} width="50" height="50" alt="Profile Icon" />
             <p className={styles.name}>{issue.name}</p>

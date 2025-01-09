@@ -146,7 +146,6 @@ const TechnicianHeader = ({ onLogout }) => {
                         <p>{user ? `${user.name}` : 'Name Surname'}</p>
                         <p className={styles.subText}>{user ? user.email : 'EzraAdmin.com'}</p>
                         <p className={styles.subText}>{user ? user.department : 'ICT'}</p>
-                        <button onClick={() => { closeDropdown(); }}>Profile</button>
                         <button onClick={() => { closeDropdown(); }}>Settings</button>
                         <button className={styles.signoutButton} onClick={handleLogout}>
                             <span className={styles.signoutIcon}>

@@ -21,6 +21,9 @@ import MonthlySummaryReport from "./pages/MonthlySummaryReport";
 import TechnicianPerformanceReport from "./pages/TechnicianPerformanceReport";
 import IssueSummaryPage from "./pages/IssueSummaryPage";
 import InProgressIssuesPage from "./pages/InProgressIssuesPage";
+import Departments from "./pages/Departments";
+import CreateDepartment  from "./pages/CreateDepartment ";
+import ManageDepartments from "./pages/ManageDepartments";
 
 import "./SidebarCSS/SidebarNavStyle.css";
 
@@ -62,13 +65,23 @@ const AdminDashboard = () => {
             path="/issue-details/:issueId"
             element={<IssueDetails issues={useIssues} />}
           />
+      
           <Route path="/notif-view" element={<NotifView />} />
           <Route path="/ManageTech" element={<ManageTech />} />
+          <Route path="/Departments" element={<Departments />} />
           <Route path="/issue-summary" element={<IssueSummaryPage />} />
           <Route
             path="/in-progress-issues"
             element={<InProgressIssuesPage />}
           />
+          <Route
+    path="/CreateDepartment"
+    element={<CreateDepartment />}
+  />
+  <Route
+    path="/ManageDepartments"
+    element={<ManageDepartments />}
+  />
         </Routes>
       </div>
     </div>

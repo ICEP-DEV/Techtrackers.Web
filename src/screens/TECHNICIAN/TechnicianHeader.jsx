@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SidebarCSS/TechnicianHeaderStyle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faExclamation, faL } from '@fortawesome/free-solid-svg-icons';
 import logo from './TechnicianIcons/tut.png';
 import ProfileIcon from './TechnicianIcons/profile_icon.png';
 import { ChevronDown, Bell } from "lucide-react";
+import SettingsModal from './pages/SettingsModal';
 
 const TechnicianHeader = ({ onLogout }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [showReminders, setShowReminders] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [reminders, setReminders] = useState([
         {
@@ -146,7 +148,7 @@ const TechnicianHeader = ({ onLogout }) => {
                         <p>{user ? `${user.name}` : 'Name Surname'}</p>
                         <p className={styles.subText}>{user ? user.email : 'EzraAdmin.com'}</p>
                         <p className={styles.subText}>{user ? user.department : 'ICT'}</p>
-                        <button onClick={() => { closeDropdown(); }}>Settings</button>
+                        <button onClick={() => { closeDropdown(); setIsSettingsOpen(true); }}>Settings</button>
                         <button className={styles.signoutButton} onClick={handleLogout}>
                             <span className={styles.signoutIcon}>
                                 <FontAwesomeIcon icon={faSignOutAlt} />
@@ -155,6 +157,8 @@ const TechnicianHeader = ({ onLogout }) => {
                         </button>
                     </div>
                 )}
+
+                <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
                 {showReminders && (
                     <div className={styles.remindersContainer}>

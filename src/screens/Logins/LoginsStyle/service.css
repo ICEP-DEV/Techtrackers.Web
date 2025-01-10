@@ -1,9 +1,7 @@
 /* General container styling */
 .service-container {
-    background-color: #e6f7f8;
-    text-align: center;
-    padding: 50px 0;
-    font-family: 'Arial', sans-serif;
+   text-align: center;
+   margin: 0 auto;
   }
   
   /* Header section styling */
@@ -28,24 +26,43 @@
     margin: 0 0 10px;
   }
   
-  /* Images container */
   .images-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 50px;
-    flex-wrap: wrap;
+    display: flex; /* Arrange children in a row */
+    flex-wrap: nowrap; /* Prevent wrapping to the next line */
+    gap: 20px; /* Optional: Add space between images */
+    justify-content: center; /* Center align images horizontally */
+    align-items: center; /* Center align images vertically */
+    padding: 10px; /* Optional: Add padding around the container */
   }
   
-  .image-item {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.3s ease;
+  .service-image {
+    width: 150px; /* Adjust image size */
+    height: auto; /* Maintain aspect ratio */
+  }
+  .image-item.active {
+    opacity: 1; /* Make active item visible */
+    transform: translateY(0); /* Move to original position */
+  }
+  
+  .service-image {
+    width: 150px; /* Adjust image size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .centered-caption {
+    font-size: 1em;
+    color: #555;
+  }
+  
+  .image-caption {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .centered-caption {
+    font-size: 1em;
+    color: #555;
   }
   
   .image-item:hover {
@@ -53,22 +70,19 @@
   }
   
   .service-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
+    width: 80%; /* Adjust as needed */
+    max-width: 400px; /* Optional: Set a max width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
   }
-  
   .image-caption {
-    color: #0d766e;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 15px;
+
+    font-size: 1.2em;
+    margin-top: 10px;
   }
   
   .centered-caption {
-    color: #555;
-    font-size: 16px;
+    font-size: 1em;
     margin: 5px 0;
   }
   

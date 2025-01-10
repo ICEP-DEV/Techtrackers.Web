@@ -57,11 +57,22 @@ const TechnicianHeader = ({ onLogout }) => {
     }, []);
 
     useEffect(() => {
+        // Start countdown interval when component mounts
         const countdownInterval = setInterval(() => {
             setReminders((prevReminders) =>
                 prevReminders.map((reminder) => {
                     if (reminder.timeRemaining > 0) {
                         const newTimeRemaining = reminder.timeRemaining - 1000; // decrease by 1 second
+                        const progress = (1 - newTimeRemaining / reminder.dueIn) * 100;
+                        
+                        // Check for alerts based on the progress
+                        if (progress >= 50 && progress < 51) {
+                            alert(`${reminder.title}: Time remaining is 50%`);
+                        } 
+                        if (progress >= 100) {
+                            alert(`${reminder.title}: Time has expired`);
+                        }
+
                         return { ...reminder, timeRemaining: newTimeRemaining };
                     }
                     return reminder; // Keep the expired ones as they are
@@ -70,7 +81,7 @@ const TechnicianHeader = ({ onLogout }) => {
         }, 1000); // update every second
 
         return () => clearInterval(countdownInterval); // cleanup on unmount
-    }, []);
+    }, []); // Empty dependency array, ensuring this effect runs only once
 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
     const closeDropdown = () => setIsDropdownOpen(false);
@@ -80,7 +91,6 @@ const TechnicianHeader = ({ onLogout }) => {
     const handleLogout = () => {
         localStorage.removeItem('user_info');
         closeDropdown();
-        // onLogout();
         navigate('/signIn');
     };
 
@@ -89,6 +99,20 @@ const TechnicianHeader = ({ onLogout }) => {
         const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((time % (1000 * 60)) / 1000);
         return `${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    const renderProgressBar = (reminder) => {
+        const progress = reminder.timeRemaining > 0 ? (1 - reminder.timeRemaining / reminder.dueIn) * 100 : 100;
+        return (
+            <div className={styles.progressBar}>
+                <div
+                    className={styles.progressFill}
+                    style={{ width: `${progress}%` }}
+                >
+                    <span className={styles.progressText}>{Math.floor(progress)}%</span>
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -122,7 +146,6 @@ const TechnicianHeader = ({ onLogout }) => {
                         <p>{user ? `${user.name}` : 'Name Surname'}</p>
                         <p className={styles.subText}>{user ? user.email : 'EzraAdmin.com'}</p>
                         <p className={styles.subText}>{user ? user.department : 'ICT'}</p>
-                        <button onClick={() => { closeDropdown(); }}>Profile</button>
                         <button onClick={() => { closeDropdown(); }}>Settings</button>
                         <button className={styles.signoutButton} onClick={handleLogout}>
                             <span className={styles.signoutIcon}>
@@ -151,6 +174,7 @@ const TechnicianHeader = ({ onLogout }) => {
                                     <span className={styles.reminderTime}>
                                         {reminder.timeRemaining > 0 ? formatTime(reminder.timeRemaining) : 'Expired'}
                                     </span>
+                                    {renderProgressBar(reminder)}
                                 </div>
                             </div>
                         ))}

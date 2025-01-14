@@ -1,5 +1,5 @@
 .notificationsContainer {
-  background-color: #EEF9F9;
+  background-color: #eef9f9;
   padding: 24px;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -42,7 +42,6 @@
 
 .theSearchContainer {
   position: relative;
-  
 }
 
 .theSearchInput {
@@ -50,7 +49,7 @@
   padding-right: 0.5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  border: 1px solid #83FFFF !important;
+  border: 1px solid #83ffff !important;
   border-radius: 30px;
   background-color: #fff;
 }
@@ -58,26 +57,29 @@
 .theSearchIcon {
   position: absolute;
   left: 0.5rem;
-  top: 50% ;
+  top: 50%;
   transform: translateY(-50%);
   color: #a0aec0;
 }
 
-.theSearchFilterButton, .theSortButton {
+.theSearchFilterButton,
+.theSortButton {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background-color: #EEF9F9;
+  background-color: #eef9f9;
   margin-right: 0.5rem;
   border: none;
   color: #000;
 }
 
-.theFilterButton img, .theSortButton img{
+.theFilterButton img,
+.theSortButton img {
   margin-left: 10px;
 }
 
-.theFilterButton svg, .sortButton svg {
+.theFilterButton svg,
+.sortButton svg {
   margin-right: 0.25rem;
 }
 
@@ -97,6 +99,9 @@
   margin-right: 40px;
 }
 
+.notificationId {
+  font-weight: bold;
+}
 .notificationProfile {
   background-color: #edf2f7;
   border-radius: 50%;
@@ -115,7 +120,8 @@
   font-weight: normal;
 }
 
-.notificationSubject, .notificationIssue {
+.notificationSubject,
+.notificationIssue {
   font-size: 14px;
   color: #4a5568;
 }
@@ -132,7 +138,7 @@
 }
 
 .notificationAction:hover {
-  color: #0C3A3A;
+  color: #0c3a3a;
 }
 
 .notificationMeta {
@@ -151,7 +157,7 @@
 
 .notificationViewButton {
   padding: 10px 40px;
-  background-color: #0C3A3A;
+  background-color: #0c3a3a;
   color: white;
   border-radius: 4px;
   border: none;
@@ -160,7 +166,7 @@
 .techChatBtn {
   padding: 10px;
   margin-top: 10px;
-  background-color: #0C3A3A;
+  background-color: #0c3a3a;
   color: white;
   border-radius: 4px;
   border: none;
@@ -171,8 +177,9 @@
   display: grid;
 }
 
-.notificationViewButton:hover, .techChatBtn:hover {
-  background-color: #126868; 
+.notificationViewButton:hover,
+.techChatBtn:hover {
+  background-color: #126868;
 }
 
 /* Dropdown Styles */

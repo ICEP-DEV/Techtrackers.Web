@@ -107,15 +107,17 @@ const Table = () => {
   // Get the color for the status
   const getStatusColor = (status) => {
     switch (status) {
-      case "Pending":
-        return "rgb(174, 0, 0)";
-      case "InProgress":
-        return "#E99A40";
-      case "Resolved":
-        return "green";
-      case "On Hold":
-        return "#0a4d4d";
-      default:
+      case "PENDING":
+        return "#ffa007";
+      case "INPROGRESS":
+        return "#14788f";
+      case "RESOLVED":
+        return "#28a745";
+      case "ON HOLD":
+        return "#8f9396";
+      case "ESCALATED":
+        return "#f70000";
+      default: 
         return "transparent";
     }
   };

@@ -99,7 +99,7 @@ const AddTechnician = () => {
     if (!formData.email) newErrors.email = "Email is required";
 
     // Contact validation for South African 10-digit number
-    const contactPattern = /^0\d{9}$/;
+    const contactPattern = /^[0-9]{10}$/;
     if (!formData.contact) {
       newErrors.contact = "Contact is required";
     } else if (!contactPattern.test(formData.contact)) {
@@ -110,8 +110,8 @@ const AddTechnician = () => {
     if (!formData.password) newErrors.password = "Password is required";
     if (!formData.fromTime)
       newErrors.fromTime = "Availability start time is required";
-    if (!formData.toTime)
-      newErrors.toTime = "Availability end time is required";
+    if (!formData.toTime) newErrors.toTime = "Availability end time is required";
+    
     return newErrors;
   };
 
@@ -125,6 +125,18 @@ const AddTechnician = () => {
       ...errors,
       [e.target.id]: "", // Clear the error message on change
     });
+  };
+
+  // Handle only numeric input and restrict to 10 digits for contact
+  const handleContactChange = (e) => {
+    const value = e.target.value;
+    // Allow only numeric input and ensure it's 10 digits
+    if (/^\d{0,10}$/.test(value)) {
+      setFormData({
+        ...formData,
+        contact: value,
+      });
+    }
   };
 
   return (
@@ -186,7 +198,7 @@ const AddTechnician = () => {
               id="contact"
               placeholder="0123456789"
               value={formData.contact}
-              onChange={handleChange}
+              onChange={handleContactChange} // Use the new handler
             />
             {errors.contact && (
               <div className="error-message">{errors.contact}</div>

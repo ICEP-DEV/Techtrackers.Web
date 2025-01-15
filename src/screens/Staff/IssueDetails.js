@@ -140,7 +140,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
     return (
         <main className="issue-deta">
             <div className="title">
-                <h1>Issue title - {issue.issueTitle}</h1>
+                <h1> {issue.issueTitle}</h1>
             </div>
             <div className="issue-in-fo">
                 <div className="in-fo-group">

@@ -53,14 +53,17 @@
 
 input,
 .textareas {
-  width: 80%;
+  width: 85%;
   padding: 10px;
   font-size: 16px;
   border: none;
   border-radius: 0px;
   background-color: #e0e0e0;
 }
-
+textarea{
+  height: 100px;
+  resize: none;
+}
 .contact-button {
   width: 100px;
   padding: 12px;

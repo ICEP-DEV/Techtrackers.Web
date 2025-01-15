@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faSitemap } from "@fortawesome/free-solid-svg-icons";
 import styles from "../SidebarCSS/DashboardPage.module.css";
 import totalIssuesIcon from "../adminIcons/totalIssuesIcon.png";
 import openIssuesIcon from "../adminIcons/openIssuesIcon.png";
@@ -15,6 +15,10 @@ const DashboardPage = () => {
 
   const handleOpenIssuesClick = () => {
     navigate("/admindashboard/in-progress-issues"); // Navigate to the open issues page
+  };
+
+  const handleDepartmentsClick = () => {
+    navigate("/admindashboard/Departments"); // Navigate to ManageTech page
   };
 
   const handleManageTechClick = () => {
@@ -72,6 +76,23 @@ const DashboardPage = () => {
           <h2 className={styles.cardTitle}>Manage Technicians</h2>
           <p className={styles.cardDescription}>
             View and manage all technicians.
+          </p>
+        </div>
+      </div>
+
+      {/* Manage Department Section */}
+      <div
+        className={styles.dashboardCard}
+        onClick={handleDepartmentsClick}
+        style={{ cursor: "pointer" }}
+      >
+        <div className={styles.cardIcon}>
+          <FontAwesomeIcon icon={faSitemap} className={styles.icon} />
+        </div>
+        <div className={styles.cardContent}>
+          <h2 className={styles.cardTitle}>Management Hub</h2>
+          <p className={styles.cardDescription}>
+            {/* View and manage departments. */}
           </p>
         </div>
       </div>

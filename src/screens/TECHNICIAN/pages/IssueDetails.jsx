@@ -48,9 +48,10 @@ const IssueDetails = ({ issues }) => {
       return;
     }
   
+    const logId = issueId.split('-')[1].replace(/^0+/, '');
     try {
       const response = await fetch(
-        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issueId}/${status}`,
+        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${logId}/${status}`,
         {
           method: "PUT",
           headers: {
@@ -62,16 +63,16 @@ const IssueDetails = ({ issues }) => {
       const data = await response.json(); // Parse the response as JSON
   
       if (response.ok && data.IsSuccess) {
-        const updatedStatus = data.Message.split("'")[3]; // Extract the new status from the message
-        issue[issueIndex].status = updatedStatus; // Update the local issue status
-        toast.success(`Status updated to ${updatedStatus}!`);
+        /*const updatedStatus = data.Message.split("'")[3]; // Extract the new status from the message
+        issue[issueIndex].status = updatedStatus; // Update the local issue status*/
+        toast.success(`Status updated successfully to ${status}!`);
       } else {
         toast.error(`Error: ${data.Message || "Failed to update status"}`);
       }
   
       setShowUpdateModal(false);
     } catch (error) {
-      toast.error(`Error: ${error.message}`);
+      toast.error(`Nettwork error: ${error.message}`);
     }
   };
   

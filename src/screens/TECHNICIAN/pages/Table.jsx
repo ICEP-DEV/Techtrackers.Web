@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Header from "./TableHeader";
 import { sortAndFilterData } from "./Sort";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/TableAllIssues.module.css";
 
 const Table = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [issues, setIssues] = useState([]); // State to store issues fetched from the API
-  const [isTableVisible, setIsTableVisible] = useState(true); // State to control table visibility
+  const navigate = useNavigate();
+  const [issues, setIssues] = useState([]);
+  const [isTableVisible, setIsTableVisible] = useState(true);
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: null,
@@ -17,43 +17,41 @@ const Table = () => {
     date: "",
     status: "",
     department: "",
-    urgency: "",
+    priority: "",
   });
- 
 
+  // Fetch issues on component mount
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        // Get logged-on user from local storage
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         if (!userInfo || !userInfo.userId) {
-          console.error("User is not logged in or userId is missing.");
+          alert("User is not logged in or userId is missing.");
           return;
         }
 
-        const userId = userInfo.userId; // Extract userId from local storage
-
-        // Fetch technician-specific logs
+        const userId = userInfo.userId;
         const response = await fetch(
           `https://localhost:44328/api/Log/GetLogsTechnician?userId=${userId}`
         );
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched Issues:", data); // Debug fetched data
-          setIssues(data); // Set issues in state
+          console.log("Fetched Issues:", data);
+          setIssues(data);
         } else {
-          console.error("Failed to fetch issues.");
+          alert("Failed to fetch issues. Please try again later.");
         }
       } catch (error) {
         console.error("Error fetching issues:", error);
+        alert("An error occurred while fetching issues.");
       }
     };
 
     fetchIssues();
   }, []);
 
-  // Handle sorting of columns
+  // Sort handler
   const handleSort = (key) => {
     let direction = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -62,12 +60,10 @@ const Table = () => {
     setSortConfig({ key, direction });
   };
 
-  // Sort based on selected sort option from Header
   const handleSortOption = (sortOption) => {
     const options = {
-      "date-old-new": { key: "date", direction: "ascending" },
-      "date-new-old": { key: "date", direction: "descending" },
-      alphabetically: { key: "name", direction: "ascending" },
+      "date-old-new": { key: "issuedAt", direction: "ascending" },
+      "date-new-old": { key: "issuedAt", direction: "descending" },
     };
 
     if (options[sortOption]) {
@@ -75,7 +71,7 @@ const Table = () => {
     }
   };
 
-  // Handle filtering of table based on user input
+  // Filter handler
   const handleFilter = (filter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -83,53 +79,79 @@ const Table = () => {
     }));
   };
 
-  // Handle search input
+  // Search handler
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
-  // Filter and sort issues based on the current filters and sort configuration
-  const filteredAndSortedIssues = useMemo(() => {
-    // Filter issues based on the search term
-    const searchFilteredIssues = issues.filter((issue) => {
-      const title = issue.title || ""; // Default to empty string if `title` is undefined
-      const name = issue.name || ""; // Default to empty string if `name` is undefined
-  
-      return (
-        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+  // Show all issues handler
+  const handleShowAllIssues = () => {
+    setSearchTerm("");
+    setFilters({
+      date: "",
+      status: "",
+      department: "",
+      priority: "",
     });
-  
-    // Sort and filter based on the current configurations
-    return sortAndFilterData(searchFilteredIssues, sortConfig, filters);
-  }, [issues, sortConfig, filters, searchTerm]);
-  
+    setSortConfig({
+      key: null,
+      direction: null,
+    });
+  };
 
-  // Get the color for the status
+  // Memoized filtered and sorted issues
+  const filteredAndSortedIssues = useMemo(() => {
+    const filteredIssues = issues.filter((issue) => {
+      const issueId = issue.issueId ? issue.issueId.toString() : "";
+      const issueTitle = issue.issueTitle || "";
+      const department = issue.department || "";
+      const priority = issue.priority || "";
+      const status = issue.status || "";
+
+      const matchesSearchTerm =
+        issueId.includes(searchTerm) ||
+        issueTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        status.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesFilters =
+        (!filters.department || department === filters.department) &&
+        (!filters.priority || priority === filters.priority) &&
+        (!filters.status || status === filters.status);
+
+      return matchesSearchTerm && matchesFilters;
+    });
+
+    return sortAndFilterData(filteredIssues, sortConfig, filters);
+  }, [issues, sortConfig, filters, searchTerm]);
+
+  // Status color handler
   const getStatusColor = (status) => {
     switch (status) {
-      case "Pending":
-        return "rgb(174, 0, 0)";
-      case "InProgress":
-        return "#E99A40";
-      case "Resolved":
-        return "green";
-      case "On Hold":
+      case "ESCALATED":
+        return "#f70000";
+      case "INPROGRESS":
+        return "#14788f";
+      case "RESOLVED":
+        return "#28a745";
+      case "ONHOLD":
         return "#0a4d4d";
+      case "PENDING":
+        return "#ffa007";
       default:
-        return "transparent";
+        return "black";
     }
   };
 
-  // Function to close the table
+  // Close table handler
   const handleClose = () => {
     navigate("/techniciandashboard/dashboard");
   };
 
   return (
     <>
-      {isTableVisible && ( // Render the table only if isTableVisible is true
+      {isTableVisible && (
         <div className={styles.tableContainer}>
           <Header
             handleSort={handleSortOption}
@@ -137,59 +159,75 @@ const Table = () => {
             handleSearch={handleSearch}
           />
 
+          <div className={styles.controls}>
+            <button
+              className={styles.showAllButton}
+              onClick={handleShowAllIssues}
+            >
+              Show All Issues
+            </button>
+          </div>
+
           <table className={styles.issueTable}>
             <thead>
               <tr>
                 <th>Issue ID</th>
-                <th>Issue title</th>
-                <th>Date reported</th>
+                <th>Issue Title</th>
+                <th
+                  onClick={() => handleSortOption("date-new-old")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Date Reported
+                </th>
                 <th>Department</th>
-                <th>Priority level</th>
-
-                {/* <th onClick={() => handleSort("dueDate")}>Due Date</th> */}
+                <th>Priority Level</th>
+                <th>Status</th>
                 <th>Action</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
-              {filteredAndSortedIssues.map((issue) => (
-                <tr key={issue.issueId}>
-                  <td>{issue.issueId}</td>
-                  <td>{issue.issueTitle}</td>
-                  <td>{issue.issuedAt}</td>
-                  <td>{issue.department}</td>
-                  <td>{issue.priority}</td>
-
-                  <td>
-                    {/* Add navigation to issue details when clicking the View button */}
-                    <button
-                      className={styles.viewButton}
-                      onClick={() =>
-                        navigate(
-                          `/techniciandashboard/issues/${issue.issueId}`
-                        )
-                      } // Navigate to IssueDetails page
-                    >
-                      View
-                    </button>
-                  </td>
-                  <td>
-                    <div
-                      className={styles.status}
-                      style={{
-                        color: getStatusColor(issue.status),
-                        display: "inline",
-                      }}
-                    >
-                      {issue.status}
-                    </div>
+              {filteredAndSortedIssues.length > 0 ? (
+                filteredAndSortedIssues.map((issue) => (
+                  <tr key={issue.issueId}>
+                    <td>{issue.issueId}</td>
+                    <td>{issue.issueTitle}</td>
+                    <td>{issue.issuedAt}</td>
+                    <td>{issue.department}</td>
+                    <td>{issue.priority}</td>
+                    <td>
+                      <div
+                        className={styles.status}
+                        style={{
+                          color: getStatusColor(issue.status),
+                        }}
+                      >
+                        {issue.status}
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.viewButton}
+                        onClick={() =>
+                          navigate(
+                            `/techniciandashboard/issues/${issue.issueId}`
+                          )
+                        }
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: "center" }}>
+                    No issues found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 
-          {/* End message with lines on either side */}
           <div className={styles.endMessage}>
             <div className={styles.line} />
             <span id={styles.tableSpan}>You have reached the end</span>
@@ -203,4 +241,5 @@ const Table = () => {
     </>
   );
 };
+
 export default Table;

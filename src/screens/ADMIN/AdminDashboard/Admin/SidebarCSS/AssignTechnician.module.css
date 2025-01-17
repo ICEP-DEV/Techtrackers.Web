@@ -7,11 +7,11 @@
   box-shadow: 10px 2px 6px rgba(0, 0, 0, 0.1);
   margin-top: -10px;
 }
+
 .btnDisabled {
   cursor: not-allowed;
-  opacity: 0,6;
+  opacity: 0.6;
 }
-
 
 /* Header */
 .heading {
@@ -33,26 +33,52 @@
   width: 100%;
   margin-bottom: 20px;
   border-collapse: collapse;
+  background-color: #ffffff; /* Add a white background for clarity */
+  border: 1px solid #ddd; /* Add a border around the entire table */
+  border-radius: 8px; /* Round the table edges */
+  overflow: hidden; /* Ensure border-radius applies to content */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
-.table th,
-.table td {
-  padding: 10px;
+.table th {
+  background-color: #108181; /* Add a standout header background */
+  color: #ffffff; /* Make header text white */
+  text-transform: uppercase; /* Make header text uppercase for style */
+  font-weight: bold; /* Bold header text */
+  padding: 12px 10px; /* Add more padding for better spacing */
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #108181; /* Add a darker bottom border */
 }
 
-.btnAssign {
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
+.table td {
+  padding: 12px 10px; /* Increase padding for better readability */
+  text-align: left;
+  color: #333; /* Dark text for better readability */
+  border-bottom: 1px solid #ddd; /* Subtle row separators */
 }
 
-.btnAssign:hover {
-  background-color: #218838;
+.table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Add alternating row colors */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1; /* Highlight row on hover */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.table th:first-child,
+.table td:first-child {
+  border-left: none; /* Remove left border for the first column */
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none; /* Remove right border for the last column */
+}
+
+.table .highlight {
+  font-weight: bold; /* Highlight specific data */
+  color: #007bff; /* Use the theme color */
 }
 
 /* Modal Overlay */
@@ -71,19 +97,18 @@
 }
 
 /* Modal Content */
-/* Modal Content */
 .modalContent,
 .techDetailsContent {
   background-color: #fff;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
-  padding: 20px; /* Reduced padding for smaller screens */
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  max-height: 80vh; /* Constrain height for larger lists */
-  overflow-y: auto; /* Add scroll if content exceeds modal height */
+  max-height: 80vh;
+  overflow-y: auto;
   margin-top: 100px;
 }
 
@@ -91,33 +116,36 @@
   .modalContent,
   .techDetailsContent {
     width: 100%;
-    max-width: 95%; /* Reduce modal width on smaller screens */
+    max-width: 95%;
     padding: 15px;
     margin-top: 0;
   }
 
   .chevronRight {
-    margin-left: 10px; /* Adjust margin for smaller screens */
+    margin-left: 10px;
   }
 }
 
 .technicianContainer {
   display: flex;
   align-items: center;
-  padding: 8px; /* Adjusted padding for smaller screens */
+  padding: 8px;
   border: 1px solid #eee;
   border-radius: 8px;
   margin-bottom: 10px;
-  background: #fafafa;
+  background: #eef9f9;
   cursor: pointer;
 }
 
 .technicianContainer:hover {
-  background-color: #f0f0f0;
+  background-color: #e1f7f7;
 }
 
 input[type="checkbox"] {
   margin-right: 15px;
+  width: 20px;
+  height: 20px;
+  align-items: center;
 }
 
 .technicianInfo {
@@ -141,14 +169,14 @@ input[type="checkbox"] {
 .userIcon {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* Round the image */
+  border-radius: 50%;
   margin-right: 15px;
 }
 
 .chevronRight {
   font-size: 1.5rem;
   color: #888;
-  margin-left: 15px; /* Reduced margin for better spacing */
+  margin-left: 15px;
 }
 
 .chevronRight:hover {
@@ -172,7 +200,8 @@ input[type="checkbox"] {
 
 /* Assign Button */
 .btnAssign {
-  background-color: #28a745;
+  position:relative;
+  background-color: #108181;
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -182,7 +211,7 @@ input[type="checkbox"] {
 }
 
 .btnAssign:hover {
-  background-color: #218838;
+  background-color: #108181;
 }
 
 .buttonContainer {
@@ -198,10 +227,65 @@ input[type="checkbox"] {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Darken overlay background */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  overflow: hidden; /* Prevent background scroll */
+  overflow: hidden;
+}
+
+/* Table Controls (Search and Sort) */
+.tableControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+/* 
+.searchInput {
+  flex: 1;
+  margin-right: 20px;
+} */
+
+.sortSelect,
+.filterSelect {
+  padding: 6px 10px;  /* Same padding for both */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;     /* Same font size for both */
+  background-color: white;
+  cursor: pointer;
+  width: 180px;        /* Same width for both */
+}
+
+.dropdownGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: white;
+  padding-left: 20px;
+  width: 200px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #17a2b8;
+  box-shadow: 0 0 4px rgba(23, 162, 184, 0.5);
+}
+
+.searchIcon {
+  position: absolute;
+  color: #6c757d;
+  margin-left: 170px;
 }

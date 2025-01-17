@@ -4,41 +4,55 @@ import styles from "../SidebarCSS/TableHeader.module.css";
 const Header = ({ handleSort, handleFilter, handleSearch }) => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
-  const [filterType, setFilterType] = useState(null);
-  const [filterValue, setFilterValue] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterValue, setFilterValue] = useState("All"); // Track the selected filter value
 
   const filterDropdownRef = useRef(null);
   const sortDropdownRef = useRef(null);
 
+  // Toggle filter dropdown
   const toggleFilterDropdown = () => {
-    setShowFilterDropdown(!showFilterDropdown);
+    setShowFilterDropdown((prev) => !prev);
     setShowSortDropdown(false);
   };
 
+  // Toggle sort dropdown
   const toggleSortDropdown = () => {
-    setShowSortDropdown(!showSortDropdown);
+    setShowSortDropdown((prev) => !prev);
     setShowFilterDropdown(false);
   };
 
-  const applyFilter = () => {
-    handleFilter({ key: filterType, value: filterValue });
-    setShowFilterDropdown(false);
-  };
-
-  const handleOptionClick = (sortType) => {
-    handleSort(sortType);
-    setShowSortDropdown(false);
-  };
-
+  // Handle search input changes
   const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-    handleSearch(e.target.value);
+    const value = e.target.value.trim();
+    setSearchTerm(value);
+
+    if (value.toLowerCase() === "show all") {
+      handleFilter({ key: null, value: null });
+      handleSort(null);
+      handleSearch("");
+    } else {
+      handleSearch(value);
+    }
   };
 
+  // Handle filter changes
+  const handleFilterChange = (e) => {
+    const value = e.target.value;
+    setFilterValue(value);
+
+    handleFilter(value === "All" ? { key: null, value: null } : { key: "priority", value });
+  };
+
+  // Handle sorting changes
+  const handleSortingOptionClick = (sortType) => {
+    handleSort(sortType);
+    setShowSortDropdown(false); // Close the sort dropdown after selection
+  };
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if the click is outside both the filter and sort dropdowns
       if (
         filterDropdownRef.current &&
         !filterDropdownRef.current.contains(event.target) &&
@@ -51,116 +65,92 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <div className={styles.headerContainer}>
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-        <i className={`fa-regular fa-clock ${styles.faClock}`} aria-hidden="true"></i>
+          <i
+            className={`fa-regular fa-clock ${styles.faClock}`}
+            aria-hidden="true"
+          ></i>
           <div className={styles.headerText}>
             <h2>ALL ISSUES</h2>
           </div>
         </div>
         <div className={styles.headerRight}>
+          {/* Search Input */}
           <input
             type="text"
             id="searchInput"
             className={styles.searchInput}
-            placeholder="search"
+            placeholder="Search by issue ID or type 'Show All'"
             value={searchTerm}
             onChange={handleSearchInputChange}
+            aria-label="Search issues"
           />
           <i className={`fa fa-search ${styles.search}`} aria-hidden="true"></i>
 
           <div className={styles.filterSortContainer}>
             {/* Filter Dropdown */}
             <div className={styles.filterDropdownContainer} ref={filterDropdownRef}>
-              <button className={styles.filterButton1} onClick={toggleFilterDropdown}>
-              <i className={`fa-solid fa-filter ${styles.filter}`} aria-hidden="true">Filter</i>
+              <button
+                className={styles.filterButton1}
+                onClick={toggleFilterDropdown}
+                aria-expanded={showFilterDropdown ? "true" : "false"}
+                aria-controls="filterDropdown"
+              >
+                <i className={`fa-solid fa-filter ${styles.filter}`} aria-hidden="true"></i> Filter
               </button>
               {showFilterDropdown && (
-                <div className={styles.filterOptions}>
-                  <div>
-                    <label>Date:</label>
-                    <input
-                      type="text"
-                      placeholder="Enter date"
-                      onChange={(e) => setFilterValue(e.target.value)}
-                    />
-                    <button onClick={() => setFilterType("date")}>Apply</button>
-                  </div>
-                  <div>
-                    <label>Status:</label>
-                    <select onChange={(e) => setFilterValue(e.target.value)}>
-                      <option value="">Select Status</option>
-                      <option value="Pending">Pending</option>
-                      <option value="InProgress">In Progress</option>
-                      <option value="On Hold">On Hold</option>
-                      <option value="Resolved">Resolved</option>
-                    </select>
-                    <button onClick={() => setFilterType("status")}>
-                      Apply
-                    </button>
-                  </div>
-                  <div>
-                    <label>Department:</label>
-                    <input
-                      type="text"
-                      placeholder="Enter department"
-                      onChange={(e) => setFilterValue(e.target.value)}
-                    />
-                    <button onClick={() => setFilterType("department")}>
-                      Apply
-                    </button>
-                  </div>
-                  <div>
-                    <label>Priority Level:</label>
-                    <select onChange={(e) => setFilterValue(e.target.value)}>
-                      <option value="">Select Urgency</option>
-                      <option value="High">High</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Low">Low</option>
-                    </select>
-                    <button onClick={() => setFilterType("urgency")}>
-                      Apply
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={applyFilter}>Apply Filter</button>
-                  </div>
+                <div className={styles.filterOptions} id="filterDropdown">
+                  <select
+                    value={filterValue} // Bind to state to track the selected filter value
+                    onChange={handleFilterChange} // This will update the filter state
+                    className={styles.filterSelect}
+                    aria-label="Filter by priority"
+                  >
+                    {/* Filter options for different priority levels */}
+                    <option value="All">All Priority Levels</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                  {/* Show selected filter value */}
+                  {filterValue !== "All" && (
+                    <div className={styles.selectedFilterInfo}>
+                      Selected: {filterValue} {/* Display the selected filter */}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
 
             {/* Sort Dropdown */}
             <div className={styles.sortDropdownContainer} ref={sortDropdownRef}>
-              <button className={styles.sortButton1} onClick={toggleSortDropdown}>
-              <i className={`fa-solid fa-list ${styles.listIcon}`} aria-hidden="true"></i> Sort
+              <button
+                className={styles.sortButton1}
+                onClick={toggleSortDropdown}
+                aria-expanded={showSortDropdown ? "true" : "false"}
+                aria-controls="sortDropdown"
+              >
+                <i className={`fa-solid fa-list ${styles.listIcon}`} aria-hidden="true"></i> Sort
               </button>
               {showSortDropdown && (
-                <div className={styles.sortOptions}>
+                <div className={styles.sortOptions} id="sortDropdown">
                   <div
                     className={styles.sortOption}
-                    onClick={() => handleOptionClick("date-old-new")}
+                    onClick={() => handleSortingOptionClick("date-old-new")} // Sorting option
                   >
-                    By date (old - new)
+                    By date (ascending-order)
                   </div>
                   <div
                     className={styles.sortOption}
-                    onClick={() => handleOptionClick("date-new-old")}
+                    onClick={() => handleSortingOptionClick("date-new-old")} // Sorting option
                   >
-                    By date (new - old)
-                  </div>
-                  <div
-                    className={styles.sortOption}
-                    onClick={() => handleOptionClick("alphabetically")}
-                  >
-                    Alphabetically
+                    By date (descending-order)
                   </div>
                 </div>
               )}

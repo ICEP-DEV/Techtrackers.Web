@@ -58,11 +58,6 @@
   color: white;
 }
 
-/* Card content */
-.cardContent {
-  flex-grow: 1;
-}
-
 /* Card title */
 .cardTitle {
   font-family: "Istok Web", sans-serif;

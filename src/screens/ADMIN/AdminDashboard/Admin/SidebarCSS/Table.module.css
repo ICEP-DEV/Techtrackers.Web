@@ -51,6 +51,12 @@
   border-radius: 5px;
   padding: 15px 25px;
   cursor: pointer;
+  font: 16px sans-serif;
+  /* font-weight: 600; */
+}
+
+.logIssueButton:hover{
+  background-color: #0a4d4d;
 }
 
 /* Table Container Styles */
@@ -63,13 +69,14 @@
 
 .issueTable {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 50px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-top: 20px;
 }
 
 .issueTable th,
 .issueTable td {
-  padding: 12px;
+  padding: 15px;
   text-align: left;
 }
 
@@ -78,11 +85,15 @@
   font-size: 16px;
   color: black;
   font-weight: bold;
+  border-top: 1px solid #589692;
+  border-bottom: 1px solid #589692;
 }
 
 .issueTable td {
   background-color: #f4ffff;
   border-bottom: 1px solid #ddd;
+    border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
   font-size: 14px;
   color: black;
 }
@@ -158,4 +169,75 @@
   padding: 10px 15px;
   cursor: pointer;
   margin-top: 12px;
+}
+
+.selectContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+}
+
+.filterSelect,
+.sortSelect {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 200px; /* Adjust width as needed */
+}
+
+.filterSelect option,
+.sortSelect option {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+
+.filterSelect option:not(:last-child),
+.sortSelect option:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0; /* Separate options visually */
+}
+
+.filterSelect:focus,
+.sortSelect:focus {
+  outline: 2px solid #0c3a3a; /* Highlight when focused */
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.filterDropdown, .sortDropdown, .searchBar{
+  height: 40px;
+}
+
+.controls button{
+  width: 300px;
+  height: 40px;
+}
+
+.searchBar {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filterDropdown,
+.sortDropdown  {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filterDropdown option, .sortDropdown option {
+  display: flex;
+  flex-direction: column;
+  color: #1d1d1d;
+  font-weight: 600;
 }

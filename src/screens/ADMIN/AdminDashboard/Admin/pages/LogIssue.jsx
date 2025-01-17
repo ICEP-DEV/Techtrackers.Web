@@ -122,7 +122,7 @@ const Logissueform = () => {
   };
 
   const handleCancel = () => {
-    navigate("/adminDashboard/WelcomeAdmin"); // Changed to AdminDashboard
+    navigate(-1); // Changed to AdminDashboard
   };
 
   const handleView = () => {

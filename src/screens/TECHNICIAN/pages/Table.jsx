@@ -20,6 +20,7 @@ const Table = () => {
     priority: "",
   });
 
+
   // Fetch issues on component mount
   useEffect(() => {
     const fetchIssues = async () => {
@@ -144,7 +145,7 @@ const Table = () => {
     }
   };
 
-  // Close table handler
+  // Function to close the table
   const handleClose = () => {
     navigate("/techniciandashboard/dashboard");
   };
@@ -186,45 +187,32 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredAndSortedIssues.length > 0 ? (
-                filteredAndSortedIssues.map((issue) => (
-                  <tr key={issue.issueId}>
-                    <td>{issue.issueId}</td>
-                    <td>{issue.issueTitle}</td>
-                    <td>{issue.issuedAt}</td>
-                    <td>{issue.department}</td>
-                    <td>{issue.priority}</td>
-                    <td>
-                      <div
-                        className={styles.status}
-                        style={{
-                          color: getStatusColor(issue.status),
-                        }}
-                      >
-                        {issue.status}
-                      </div>
-                    </td>
-                    <td>
-                      <button
-                        className={styles.viewButton}
-                        onClick={() =>
-                          navigate(
-                            `/techniciandashboard/issues/${issue.issueId}`
-                          )
-                        }
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: "center" }}>
-                    No issues found.
+              {filteredAndSortedIssues.map((issue) => (
+                <tr key={issue.issueId}>
+                  <td>{issue.issueId}</td>
+                  <td>{issue.issueTitle}</td>
+                  <td>{issue.issuedAt}</td>
+                  <td>{issue.department}</td>
+                  <td>{issue.priority}</td>
+                  <td>
+                    <div
+                      className={styles.status}
+                      style={{ color: getStatusColor(issue.status) }}
+                    >
+                      {issue.status}
+                    </div>
+                  </td>
+                  <td>
+                    {/* Add navigation to issue details when clicking the View button */}
+                    <button
+                      className={styles.viewButton}
+                      onClick={() => handleViewClick(issue.issueId)}
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
 

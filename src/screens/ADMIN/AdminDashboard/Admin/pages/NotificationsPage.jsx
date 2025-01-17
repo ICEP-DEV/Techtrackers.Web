@@ -57,9 +57,6 @@ const Header = ({
             className={styles.searchIcon}
           />
         </div>
-        <button className={styles.archivedBtn}>
-          <h2>Archived</h2>
-        </button>
 
         {/* Filter Button with Dropdown */}
         <div className={styles.filterContainer}>

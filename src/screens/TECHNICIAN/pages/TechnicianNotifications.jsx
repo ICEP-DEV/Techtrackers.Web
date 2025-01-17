@@ -32,6 +32,7 @@ const NotificationsPage = () => {
 
         const data = await response.json();
         setNotifications(data); // Update state with API data
+
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -95,8 +96,13 @@ const NotificationsPage = () => {
     }
   };
 
+  // const handleIssueClick = (issueId) => {
+  //   navigate(`/techniciandashboard/issues/${issueId}`);
+  // };
+
   const handleIssueClick = (issueId) => {
-    navigate(`/techniciandashboard/issues/${issueId}`);
+    localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
+    navigate(`/techniciandashboard/issues/${issueId}`); // Navigate to IssueDetails page
   };
 
   return (

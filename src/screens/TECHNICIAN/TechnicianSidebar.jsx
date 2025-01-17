@@ -72,7 +72,7 @@ const Sidebar = () => {
                 </li>
             </ul>
             <div className='log-out'>
-                <li onClick={() => handleOptionClick("logout")} className={`list`}>
+                <li onClick={() => handleOptionClick("logout", "/login")} className={`list`}>
                     <img src={logIcon} alt="logout" />
                     {isMenuOpen && <span></span>}
                 </li>

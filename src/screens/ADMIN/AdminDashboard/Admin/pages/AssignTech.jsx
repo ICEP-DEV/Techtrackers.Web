@@ -41,6 +41,11 @@ const AssignTech = () => {
           const sortedIssues = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
           setIssues(sortedIssues);
           setFilteredIssues(sortedIssues);
+
+          // Sort issues by date in descending order
+       
+          console.log("Fetched issues:", sortedIssues); // Debug
+          setIssues(sortedIssues); // Save sorted issues to state
         } else {
           console.error("Failed to fetch issues.");
         }

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
-import styles from "../SidebarCSS/IssueDetails.module.css"; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import styles from "../SidebarCSS/IssueDetails.module.css";
 import desc from "../images/desc.png";
 import attachme from "../images/attachme.png";
 import image from "../images/image.png";
 import chat from "../images/chat.png";
-import profile from "../images/profileAllIssue.png"; 
+import profile from "../images/profileAllIssue.png";
 import tickIcon from "../images/tickIcon.png";
 import CollabArrow from "../images/CollabArrow.png";
 
@@ -19,12 +19,13 @@ const IssueDetails = ({ issues }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false); 
-  const [selectedTechnician, setSelectedTechnician] = useState(null); 
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedTechnician, setSelectedTechnician] = useState(null);
   const [note, setNote] = useState("");
 
   const issueIndex = issues.findIndex((i) => i.issueId === issueId);
   const issue = issues[issueIndex];
+
 
   if (!issue) {
     return <div>Issue not found</div>;
@@ -41,41 +42,57 @@ const IssueDetails = ({ issues }) => {
     setShowModal(true);
   };
 
+
+
   const handleUpdateStatus = async (status) => {
-    if (issue.status === "Resolved") {
-      toast.error("Cannot update status. The issue is already resolved.");
-      setShowUpdateModal(false);
-      return;
+    if (issue.status === "RESOLVED") {
+        toast.error("Cannot update status. The issue is already resolved.");
+        return;
     }
-  
+
     try {
-      const response = await fetch(
-        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issueId}/${status}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        if (!issueId || issueId.trim() === "") {
+            toast.error("Invalid issue ID. Cannot update status.");
+            return;
         }
-      );
-  
-      const data = await response.json(); // Parse the response as JSON
-  
-      if (response.ok && data.IsSuccess) {
-        const updatedStatus = data.Message.split("'")[3]; // Extract the new status from the message
-        issue[issueIndex].status = updatedStatus; // Update the local issue status
-        toast.success(`Status updated to ${updatedStatus}!`);
-      } else {
-        toast.error(`Error: ${data.Message || "Failed to update status"}`);
-      }
-  
-      setShowUpdateModal(false);
+
+        console.log("Issue Id to be updated: ", issueId);       
+       
+
+        console.log("Updating status to:", status);
+        const response = await fetch(
+            `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issueId}/${status}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        
+
+        const data = await response.json();
+
+        console.log("Response: ", data);
+        
+
+        if (response.ok) {
+            // Update local issue status only if the backend update was successful
+            issue.status = status;
+            toast.success(`Status updated to ${status}!`);
+        } else {
+            // Handle different error responses
+            console.error("API Error:", data);
+            toast.error(data.message || "Failed to update status.");
+        }
     } catch (error) {
-      toast.error(`Error: ${error.message}`);
+        console.error("Request Error:", error);
+        toast.error("An error occurred while updating the status.");
     }
-  };
-  
-  
+};
+
+
 
   const handleAddNoteClick = () => {
     setShowAddNoteModal(true);
@@ -83,37 +100,42 @@ const IssueDetails = ({ issues }) => {
 
   const handleNoteSubmit = () => {
     if (issue.status === "RESOLVED") {
-      toast.error("Cannot update status. The issue is already RESOLVED."); 
+      toast.error("Cannot update status. The issue is already RESOLVED.");
       return;
     }
-    if (!note.trim()) { 
+
+    if (!note.trim()) {
       toast.error("Please enter a note before submitting.");
       return;
     }
 
-    issue[issueIndex].status = "ONHOLD"; 
-    console.log(`Note added: ${note}`);
-    toast.success("Note successfully added and status updated to 'On Hold'!");
+    // Update the issue status immutably
+    const updatedIssues = issues.map((item, index) =>
+      index === issueIndex ? { ...item, status: "ONHOLD" } : item
+    );
+
     setNote("");
     setShowAddNoteModal(false);
     setShowUpdateModal(false);
+    toast.success("Note successfully added and status updated to 'ONHOLD'!");
   };
+
 
   const handleBack = () => {
     if (window.history.length > 2) {
-      navigate(-1); 
+      navigate(-1);
     } else {
-      navigate("/techniciandashboard/tbl"); 
+      navigate("/techniciandashboard/tbl");
     }
   };
 
   const handleCollabArrowClick = () => {
     if (selectedTechnician) {
-        setShowModal(false);
-        setShowSuccess(true); 
-        toast.success(`Invitation sent to ${selectedTechnician}`); 
+      setShowModal(false);
+      setShowSuccess(true);
+      toast.success(`Invitation sent to ${selectedTechnician}`);
     } else {
-        toast.error("Please select a technician to invite."); 
+      toast.error("Please select a technician to invite.");
     }
   };
 
@@ -124,17 +146,17 @@ const IssueDetails = ({ issues }) => {
   const handleAssignClick = () => {
     const selectedCheckbox = document.querySelector('input[type="checkbox"]:checked');
     if (selectedCheckbox) {
-        const technicianIndex = Array.from(document.querySelectorAll('.technician-checkbox')).indexOf(selectedCheckbox);
-        const assignedTech = technicians[technicianIndex];
+      const technicianIndex = Array.from(document.querySelectorAll('.technician-checkbox')).indexOf(selectedCheckbox);
+      const assignedTech = technicians[technicianIndex];
 
-        toast.success(`You have assigned ${assignedTech.name} to a task!`);
+      toast.success(`You have assigned ${assignedTech.name} to a task!`);
     } else {
-        toast.error("Please select a technician to assign.");
+      toast.error("Please select a technician to assign.");
     }
-};
+  };
 
   const handleSuccessOk = () => {
-    setShowSuccess(false); 
+    setShowSuccess(false);
   };
 
   const filteredTechnicians = technicians.filter((tech) =>
@@ -146,7 +168,7 @@ const IssueDetails = ({ issues }) => {
   };
 
   const handleUpdateClick = () => {
-    setShowUpdateModal(true); 
+    setShowUpdateModal(true);
   };
 
   return (
@@ -154,14 +176,14 @@ const IssueDetails = ({ issues }) => {
       <div className={styles.issue}>
         <h2>Issue title: {issue.issueTitle}</h2>
         <a href="#">
-          <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat}/>
+          <img src={chat} width="40" height="40" alt="Chat Icon" onClick={handleChat} />
         </a>
       </div>
       {/* Header Section */}
       <div className={styles.issueHeader}>
         {/* Requestor Info */}
         <div className={styles.issueRequestor}>
-          <p>Invite Requested By:</p>
+          <p>Logged By:</p>
           <div className={styles.profile}>
             <img src={profile} width="50" height="50" alt="Profile Icon" />
             <p className={styles.name}>{issue.name}</p>
@@ -175,13 +197,12 @@ const IssueDetails = ({ issues }) => {
             <p>
               Priority:{" "}
               <span
-                className={`${styles['priorityText']} ${
-                  issue.priority === "High"
-                    ? styles['priorityHigh']
-                    : issue.priority === "Medium"
+                className={`${styles['priorityText']} ${issue.priority === "High"
+                  ? styles['priorityHigh']
+                  : issue.priority === "Medium"
                     ? styles['priorityMedium']
                     : styles['priorityLow']
-                }`}
+                  }`}
               >
                 {issue.priority.toUpperCase()}
               </span>
@@ -197,7 +218,7 @@ const IssueDetails = ({ issues }) => {
       <div className={styles.issueDetails}>
         <h3><img src={desc} width="25" height="30" alt="Description Icon" /> Description</h3>
         <p className={styles.descriptionText}>
-         {issue.description}
+          {issue.description}
         </p>
       </div>
 
@@ -223,9 +244,8 @@ const IssueDetails = ({ issues }) => {
         <h3>Status:</h3>
         <p>
           <span
-            className={`${styles.statusText} ${
-              styles[issue.status.toLowerCase()] || ''
-            }`}
+            className={`${styles.statusText} ${styles[issue.status.toLowerCase()] || ''
+              }`}
           >
             {issue.status}
           </span>
@@ -262,9 +282,8 @@ const IssueDetails = ({ issues }) => {
               {filteredTechnicians.map((tech, index) => (
                 <div
                   key={index}
-                  className={`${styles.technicianContainer} ${
-                    selectedTechnician === tech.name ? "selected" : ""
-                  }`}
+                  className={`${styles.technicianContainer} ${selectedTechnician === tech.name ? "selected" : ""
+                    }`}
                 >
                   <div className={styles.technicianInfo}>
                     <input
@@ -299,19 +318,19 @@ const IssueDetails = ({ issues }) => {
                 style={{ backgroundColor: "#0C4643" }}
                 onClick={() => handleAddNoteClick()}
               >
-                On Hold
+                ON HOLD
               </button>
               <button
-                style={{ backgroundColor: "#B08D0F"}}
+                style={{ backgroundColor: "#B08D0F" }}
                 onClick={() => handleUpdateStatus("INPROGRESS")}
               >
-                In Progress
+                IN PROGRESS
               </button>
               <button
-                style={{ backgroundColor: "#2FB00F", color: "white"}}
-                onClick={() => handleUpdateStatus("Resolved")}
+                style={{ backgroundColor: "#2FB00F", color: "white" }}
+                onClick={() => handleUpdateStatus("RESOLVED")}
               >
-                Resolved
+                RESOLVED
               </button>
             </div>
           </div>

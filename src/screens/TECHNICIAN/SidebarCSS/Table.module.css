@@ -131,3 +131,17 @@
   cursor: pointer;
   margin-top: 12px;
 }
+.showAllButton {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.showAllButton:hover {
+  background-color: #0056b3;
+}

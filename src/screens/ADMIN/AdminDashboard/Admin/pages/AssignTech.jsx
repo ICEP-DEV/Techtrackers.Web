@@ -44,8 +44,14 @@ const AssignTech = () => {
             (a, b) => new Date(b.issuedAt) - new Date(a.issuedAt)
           );
 
-          console.log("Fetched issues:", sortedIssues); // Debug
           setIssues(sortedIssues); // Save sorted issues to state
+
+          // Track assigned issues
+          const assigned = sortedIssues
+            .filter((issue) => issue.technicianAssigned) // Assuming the backend provides this field
+            .map((issue) => issue.logId);
+
+          setAssignedIssues(assigned);
         } else {
           console.error("Failed to fetch issues.");
         }
@@ -89,7 +95,12 @@ const AssignTech = () => {
           ]);
           setSelectedCheckbox(null); // Reset selected checkbox
         } else {
-          toast.error(responseData.title || "Failed to assign technician.");
+          // Backend response for already assigned technician
+          if (responseData.message?.includes("technician has already been assigned")) {
+            toast.error("Technician already assigned to this task.");
+          } else {
+            toast.error(responseData.title || "Failed to assign technician.");
+          }
         }
       } catch (error) {
         console.error("Error assigning technician:", error);
@@ -122,7 +133,7 @@ const AssignTech = () => {
       <table className={`${styles.table} table table-striped`}>
         <thead>
           <tr>
-            <th>Log ID</th> {/* Display the formatted log ID */}
+            <th>Log ID</th>
             <th>Issue Title</th>
             <th>Log By</th>
             <th>Date Issued</th>
@@ -134,7 +145,7 @@ const AssignTech = () => {
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.logId}>
-              <td>{issue.issueId}</td> {/* Format logId for display */}
+              <td>{issue.issueId}</td>
               <td>{issue.issueTitle}</td>
               <td>{issue.logBy}</td>
               <td>
@@ -175,7 +186,7 @@ const AssignTech = () => {
             <h3>SELECT TECHNICIAN</h3>
             {technicians.map((tech, index) => (
               <div
-                key={tech.technicianId}
+                key={tech.userId}
                 className={styles.technicianContainer}
               >
                 <input

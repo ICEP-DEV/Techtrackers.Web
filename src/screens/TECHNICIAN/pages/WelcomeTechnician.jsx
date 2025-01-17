@@ -16,9 +16,9 @@ const WelcomeTechnician = () => {
 
   const [tasks, setTasks] = useState([
     { title: "Server Downtime", priority: "HIGH", status: "Pending", time: "09:48" },
-    { title: "Unable to Log into HR Portal", priority: "MEDIUM", status: "Pending", time: "09:48" },
-    { title: "Printer Not Working", priority: "HIGH", status: "InProgress", time: "Yesterday" },
-    { title: "Low Disk Space", priority: "LOW", status: "Resolved", time: "18/08/2024" },
+    // { title: "Unable to Log into HR Portal", priority: "MEDIUM", status: "Pending", time: "09:48" },
+    // { title: "Printer Not Working", priority: "HIGH", status: "InProgress", time: "Yesterday" },
+    // { title: "Low Disk Space", priority: "LOW", status: "Resolved", time: "18/08/2024" },
   ]);
 
   const [rating, setRating] = useState({

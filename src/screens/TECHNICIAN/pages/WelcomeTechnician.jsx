@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from '../SidebarCSS/WelcomeTechnician.module.css';
 import arrow from '../images/Arrow.png';
 import check_circle from '../images/Check.png';
+import { useNavigate } from 'react-router-dom';
 
 const WelcomeTechnician = () => {
   // State for dynamic data
+  const navigate = useNavigate();
   const [statusCounts, setStatusCounts] = useState({
     resolved: 0,
     inProgress: 0,
@@ -92,6 +94,11 @@ const WelcomeTechnician = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
+
+  const handleViewClick = (issueId) => {
+    localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
+    navigate(`/techniciandashboard/issues/${issueId}`); // Navigate to IssueDetails page
+  };
 
   return (
     <div className={styles.mainContent1}>

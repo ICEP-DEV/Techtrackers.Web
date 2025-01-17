@@ -24,6 +24,8 @@ import InProgressIssuesPage from "./pages/InProgressIssuesPage";
 import Departments from "./pages/Departments";
 import CreateDepartment  from "./pages/CreateDepartment ";
 import ManageDepartments from "./pages/ManageDepartments";
+import CreateCategory from "./pages/CreateCategory";
+import ManageCategories from "./pages/ManageCategories";
 
 import "./SidebarCSS/SidebarNavStyle.css";
 
@@ -82,6 +84,8 @@ const AdminDashboard = () => {
     path="/ManageDepartments"
     element={<ManageDepartments />}
   />
+          <Route path="/createCategory" element={<CreateCategory />} />
+          <Route path="/manageCategories" element={<ManageCategories />} />
         </Routes>
       </div>
     </div>

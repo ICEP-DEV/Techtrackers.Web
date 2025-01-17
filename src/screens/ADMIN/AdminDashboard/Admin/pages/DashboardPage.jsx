@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faSitemap } from "@fortawesome/free-solid-svg-icons";
 import styles from "../SidebarCSS/DashboardPage.module.css";
 import totalIssuesIcon from "../adminIcons/totalIssuesIcon.png";
 import openIssuesIcon from "../adminIcons/openIssuesIcon.png";
@@ -87,10 +87,10 @@ const DashboardPage = () => {
         style={{ cursor: "pointer" }}
       >
         <div className={styles.cardIcon}>
-          <FontAwesomeIcon icon={faUsers} className={styles.icon} />
+          <FontAwesomeIcon icon={faSitemap} className={styles.icon} />
         </div>
         <div className={styles.cardContent}>
-          <h2 className={styles.cardTitle}>Departments</h2>
+          <h2 className={styles.cardTitle}>Management Hub</h2>
           <p className={styles.cardDescription}>
             {/* View and manage departments. */}
           </p>

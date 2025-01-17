@@ -19,7 +19,6 @@ const Table = () => {
     department: "",
     urgency: "",
   });
- 
 
   useEffect(() => {
     const fetchIssues = async () => {
@@ -94,17 +93,16 @@ const Table = () => {
     const searchFilteredIssues = issues.filter((issue) => {
       const title = issue.title || ""; // Default to empty string if `title` is undefined
       const name = issue.name || ""; // Default to empty string if `name` is undefined
-  
+
       return (
         title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
-  
+
     // Sort and filter based on the current configurations
     return sortAndFilterData(searchFilteredIssues, sortConfig, filters);
   }, [issues, sortConfig, filters, searchTerm]);
-  
 
   // Get the color for the status
   const getStatusColor = (status) => {
@@ -122,6 +120,12 @@ const Table = () => {
       default: 
         return "transparent";
     }
+  };
+
+  // Function to handle "View" button click
+  const handleViewClick = (issueId) => {
+    localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
+    navigate(`/techniciandashboard/issues/${issueId}`); // Navigate to IssueDetails page
   };
 
   // Function to close the table
@@ -147,8 +151,8 @@ const Table = () => {
                 <th>Date reported</th>
                 <th>Department</th>
                 <th>Priority level</th>
+                <th>Issue Status</th>
 
-                {/* <th onClick={() => handleSort("dueDate")}>Due Date</th> */}
                 <th>Action</th>
                 <th></th>
               </tr>
@@ -161,30 +165,22 @@ const Table = () => {
                   <td>{issue.issuedAt}</td>
                   <td>{issue.department}</td>
                   <td>{issue.priority}</td>
-
+                  <td>
+                    <div
+                      className={styles.status}
+                      style={{ color: getStatusColor(issue.status) }}
+                    >
+                      {issue.status}
+                    </div>
+                  </td>
                   <td>
                     {/* Add navigation to issue details when clicking the View button */}
                     <button
                       className={styles.viewButton}
-                      onClick={() =>
-                        navigate(
-                          `/techniciandashboard/issues/${issue.issueId}`
-                        )
-                      } // Navigate to IssueDetails page
+                      onClick={() => handleViewClick(issue.issueId)}
                     >
                       View
                     </button>
-                  </td>
-                  <td>
-                    <div
-                      className={styles.status}
-                      style={{
-                        color: getStatusColor(issue.status),
-                        display: "inline",
-                      }}
-                    >
-                      {issue.status}
-                    </div>
                   </td>
                 </tr>
               ))}

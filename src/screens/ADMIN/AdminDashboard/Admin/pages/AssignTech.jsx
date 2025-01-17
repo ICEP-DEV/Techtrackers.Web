@@ -38,10 +38,12 @@ const AssignTech = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          
+
           // Sort issues by date in descending order
-          const sortedIssues = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
-    
+          const sortedIssues = data.sort(
+            (a, b) => new Date(b.issuedAt) - new Date(a.issuedAt)
+          );
+
           console.log("Fetched issues:", sortedIssues); // Debug
           setIssues(sortedIssues); // Save sorted issues to state
         } else {
@@ -51,7 +53,6 @@ const AssignTech = () => {
         console.error("Error fetching issues:", error);
       }
     };
-    
 
     fetchTechnicians();
     fetchIssues();
@@ -86,6 +87,7 @@ const AssignTech = () => {
             ...prevAssignedIssues,
             selectedIssueId,
           ]);
+          setSelectedCheckbox(null); // Reset selected checkbox
         } else {
           toast.error(responseData.title || "Failed to assign technician.");
         }
@@ -136,7 +138,11 @@ const AssignTech = () => {
               <td>{issue.issueTitle}</td>
               <td>{issue.logBy}</td>
               <td>
-                {new Date(issue.issuedAt).toLocaleDateString()} {new Date(issue.issuedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {new Date(issue.issuedAt).toLocaleDateString()}{" "}
+                {new Date(issue.issuedAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </td>
               <td>{issue.department}</td>
               <td>{issue.priority}</td>

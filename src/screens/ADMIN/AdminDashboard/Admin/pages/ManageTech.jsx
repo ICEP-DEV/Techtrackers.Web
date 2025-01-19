@@ -42,6 +42,7 @@ const ManageTechniciansTable = () => {
     const fetchTechnicians = async () => {
       try {
         const response = await axios.get("https://localhost:44328/api/Users/GetTechniciansByRole/GetTechniciansByRole/3");  // Use your API endpoint
+        //const response = await axios.get("https://localhost:44328/api/Technician/GetAll");
         const technicianData = response.data.map((technician) => ({
           ...technician,
           name: `${technician.surname} ${technician.initials}`,  // Combine surname and initials

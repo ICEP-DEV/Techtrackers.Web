@@ -4,37 +4,17 @@ import styles from '../SidebarCSS/Table.module.css';
 import PropTypes from 'prop-types';
 import DetailView from './DetailView'; // Ensure this import is correct for DetailView
 
-const IssueTableHeader = () => {
-  const navigate = useNavigate();
 
-  const handleLogIssueClick = () => {
-    navigate('/admindashboard/logIssue'); // Navigate to Log Issue page
-  };
-
-  return (
-    <div className={styles.headerContainer}>
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <i className="fa-regular fa-clock" aria-hidden="true"></i>
-          <div className={styles.headerText}>
-            <h2>My Issues</h2>
-          </div>
-        </div>
-        <div className={styles.headerRight}>
-          <button className={styles.logIssueButton} onClick={handleLogIssueClick}>
-            LOG ISSUE
-          </button>
-        </div>
-      </header>
-    </div>
-  );
-};
-
-const Table = ({adminId}) => {
+const Table = ({ adminId }) => {
   const [issues, setIssues] = useState([]); // State to store fetched issues
   const [selectedLog, setSelectedLog] = useState(null); // State to store selected log
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [filterStatus, setFilterStatus] = useState(''); // State for filter
+  const [sortOrder, setSortOrder] = useState('newest'); // State for sort order
+
+  const navigate = useNavigate();
 
   // Fetch issues from the API
   useEffect(() => {
@@ -42,10 +22,12 @@ const Table = ({adminId}) => {
       try {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
         const userId = userInfo ? userInfo.userId : null;
-        const response = await fetch(`https://localhost:44328/api/AdminLog/GetAdminLoggedIssues/GetAdminLoggedIssues/admin/${userId}`);
+        const response = await fetch(
+          `https://localhost:44328/api/AdminLog/GetAdminLoggedIssues/GetAdminLoggedIssues/admin/${userId}`
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
-        } 
+        }
         const data = await response.json();
         setIssues(data);
         setLoading(false);
@@ -60,17 +42,54 @@ const Table = ({adminId}) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Pending':
-        return 'rgb(174, 0, 0)';
-      case 'Ongoing':
-        return '#bfa829';
-      case 'Done':
-        return 'green';
-      case 'On Hold':
-        return '#0a4d4d';
+      case "ESCALATED":
+        return "#f70000";
+      case "INPROGRESS":
+        return "#14788f";
+      case "RESOLVED":
+        return "#28a745";
+      case "ONHOLD":
+        return "#0a4d4d";
+      case "PENDING":
+        return '#ffa007';
       default:
-        return 'transparent';
-    }
+        return "black";
+    }
+  };
+
+  // Apply search, filter, and sort
+  const filteredAndSortedIssues = issues
+    .filter((issue) => {
+      // Filter issues by search query
+      return (
+        issue.issueTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        issue.assignedTo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        issue.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        issue.priority.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        issue.status.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    })
+    .filter((issue) => {
+      // Filter by selected status
+      return filterStatus ? issue.status.toLowerCase() === filterStatus.toLowerCase() : true;
+    })
+    .sort((a, b) => {
+      // Sort issues by date
+      const dateA = new Date(a.issuedAt);
+      const dateB = new Date(b.issuedAt);
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value); // Update search query
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterStatus(event.target.value); // Update filter status
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value); // Update sort order
   };
 
   const handleViewClick = (issue) => {
@@ -95,7 +114,49 @@ const Table = ({adminId}) => {
 
   return (
     <div className={styles.tableContainer}>
-      <IssueTableHeader />
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          <i className="fa-regular fa-clock" aria-hidden="true"></i>
+          <div className={styles.headerText}>
+            <h2>My Issues</h2>
+          </div>
+        </div>
+        <div className={styles.controls}>
+          <input
+            type="text"
+            placeholder="Search..."
+            className={styles.searchBar}
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+          <select
+            className={styles.filterDropdown}
+            value={filterStatus}
+            onChange={handleFilterChange}
+          >
+            <option value="">Filter by Status</option>
+            <option value="PENDING">Pending</option>
+            <option value="Resolved">Resolved</option>
+            <option value="INPROGRESS">In Progress</option>
+            <option value="ONHOLD">On Hold</option>
+            <option value="ESCALATED">Escalated</option>
+          </select>
+          <select
+            className={styles.sortDropdown}
+            value={sortOrder}
+            onChange={handleSortChange}
+          >
+            <option value="newest">Sort by Newest</option>
+            <option value="oldest">Sort by Oldest</option>
+          </select>
+          <button
+            className={styles.logIssueButton}
+            onClick={() => navigate('/admindashboard/LogIssue')}
+          >
+            LOG ISSUE
+          </button>
+        </div>
+      </header>
       <table className={styles.issueTable}>
         <thead>
           <tr>
@@ -111,11 +172,11 @@ const Table = ({adminId}) => {
           </tr>
         </thead>
         <tbody>
-          {issues.map((issue) => (
+          {filteredAndSortedIssues.map((issue) => (
             <tr key={issue.issueId}>
               <td>{issue.issueId}</td>
               <td>{issue.logBy}</td>
-              <td>{issue.description}</td>
+              <td>{issue.issueTitle}</td>
               <td>{issue.assignedTo}</td>
               <td>{new Date(issue.issuedAt).toLocaleDateString()}</td>
               <td>{issue.department}</td>

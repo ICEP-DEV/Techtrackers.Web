@@ -65,7 +65,7 @@ const ReportPage = () => {
         <h3 style={{ color: "#000", fontWeight: "bold" }}>Report Type:</h3>
         <div style={{ display: "flex", alignItems: "center" }}>
           <img src={vectorImage} alt="Vector Icon" style={iconStyle} />
-          <h3 style={{ color: "#000", fontWeight: "bold" }}>Preview</h3>
+          <h3 style={{ color: "#000", fontWeight: "bold" }}>Description</h3>
         </div>
       </div>
 

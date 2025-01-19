@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/Table.module.css";
 import TechnicianDetailView from "./TechnicianDetailView";
-import axios from "axios";  // If you’re using axios for API calls
+import axios from "axios";
 
 const ManageTechniciansHeader = () => {
   const navigate = useNavigate();
@@ -35,21 +35,21 @@ const ManageTechniciansHeader = () => {
 
 const ManageTechniciansTable = () => {
   const navigate = useNavigate();
-  const [technicians, setTechnicians] = useState([]);  // Start with an empty array
+  const [technicians, setTechnicians] = useState([]);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
 
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
         const response = await axios.get("https://localhost:44328/api/Users/GetTechniciansByRole/GetTechniciansByRole/3");  // Use your API endpoint
-        //const response = await axios.get("https://localhost:44328/api/Technician/GetAll");
         const technicianData = response.data.map((technician) => ({
           ...technician,
-          name: `${technician.surname} ${technician.initials}`,  // Combine surname and initials
+          name: `${technician.surname} ${technician.initials}`, // Combine name
         }));
         setTechnicians(technicianData);
       } catch (error) {
-        console.error("Error fetching technicians:", error);
+        console.error("Error fetching technicians:", error.message);
+        alert("Failed to fetch technicians. Please check the backend.");
       }
     };
 
@@ -60,11 +60,19 @@ const ManageTechniciansTable = () => {
     setSelectedTechnician(technician);
   };
 
-  const handleRemoveTechnician = (technicianId) => {
-    setTechnicians((prevTechs) =>
-      prevTechs.filter((tech) => tech.technicianId !== technicianId)
-    );
-    console.log(`Technician with ID: ${technicianId} has been removed.`);
+  const handleRemoveTechnician = async (technicianId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:44328/api/TechnicianHandler/DeleteTechnician/${technicianId}`
+      );
+      setTechnicians((prevTechs) =>
+        prevTechs.filter((tech) => tech.technicianId !== technicianId)
+      );
+      alert(response.data.message || `Technician ${technicianId} removed.`);
+    } catch (error) {
+      console.error("Error deleting technician:", error.message);
+      alert("Failed to remove technician. Please try again.");
+    }
   };
 
   const handleBackToList = () => {
@@ -99,18 +107,26 @@ const ManageTechniciansTable = () => {
         <tbody>
           {technicians.map((technician) => (
             <tr key={technician.technicianId}>
-              <td>{technician.name}</td>  {/* Using the combined name here */}
-              <td>{technician.email}</td>
-              <td>{technician.specialization}</td>
-              <td>{technician.contact}</td>
-              <td>{`${technician.fromTime} - ${technician.toTime}`}</td>
-              <td>{technician.activeIssues}</td>
+              <td>{technician.name}</td>
+              <td>{technician.emailAddress || "N/A"}</td>
+              <td>{technician.specialization || "N/A"}</td>
+              <td>{technician.contacts || "N/A"}</td>
+              <td>{`${technician.fromTime || "N/A"} - ${
+                technician.toTime || "N/A"
+              }`}</td>
+              <td>{technician.activeIssues || 0}</td>
               <td>
                 <button
                   className={styles.viewButton}
                   onClick={() => handleViewClick(technician)}
                 >
                   Manage
+                </button>
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveTechnician(technician.technicianId)}
+                >
+                  Remove
                 </button>
               </td>
             </tr>

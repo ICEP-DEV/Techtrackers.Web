@@ -276,14 +276,14 @@
   margin-bottom: 10px;
 }
 
-.issue-description {
+.issue-description, .description {
   background-color: #f9f9f9;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 8px;
 }
 
-.issue-description h3, .issue-attachments h3{
+.issue-description h3, .issue-attachments h3, .description{
   font-weight: 700;
   color: #2c2c2c;
 }

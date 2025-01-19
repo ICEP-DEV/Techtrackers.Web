@@ -32,11 +32,11 @@
     color: white;
   }
   
-  .pending { background-color: red; }
-  .ongoing { background-color: #ffa500; }
-  .resolved { background-color: green; }
-  .on-hold {background-color: gray;}
-  .escalated { background-color: #148fd6;}
+  .pending { background-color: #ffa007; }
+  .inprogress { background-color: #14788f; }
+  .resolved { background-color: #28a745; }
+  .onhold {background-color: #8f9396;}
+  .escalated { background-color: #f70000;}
   
   .viewButton {
     background-color: #1a3c40;

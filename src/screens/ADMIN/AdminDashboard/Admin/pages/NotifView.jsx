@@ -43,7 +43,7 @@ const NotifView = () => {
       <div className={styles.issueHeader}>
         {/* Requested By */}
         <div className={styles.issueRequestor}>
-          <p>Requested By:</p>
+          {/* <p>Requested By:</p> */}
           <div className={styles.profile}>
             <img src={profIcon} width="50" height="50" alt="Profile Icon" />
             <p className={styles.name}>{userName}</p> {/* Display the name from localStorage */}

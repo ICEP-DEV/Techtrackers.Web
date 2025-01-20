@@ -65,14 +65,15 @@ function DetailView({ log, onBack }) {
     else 
     return (
       <div className={styles["action-buttons"]}>
-        <button
+       
+        <button className={styles["back-button-d"]} onClick={onBack}>
+          BACK
+        </button>
+         <button
           className={styles["reopen-button"]}
           onClick={() => handleOpenPopup("reopen")}
         >
           RE-OPEN
-        </button>
-        <button className={styles["back-button-d"]} onClick={onBack}>
-          BACK
         </button>
       </div>
     );
@@ -197,18 +198,7 @@ function DetailView({ log, onBack }) {
                   <p>Department - {log.department}</p>
                   <p>Location - {log.location} </p>
                 </div>
-                <div className={styles["issue-status"]}>
-                  <p>
-                    Status:{" "}
-                    <span
-                      className={`${styles["status"]} ${
-                        styles[log.status ? log.status.toLowerCase() : ""]
-                      }`}
-                    >
-                      {log.status}
-                    </span>
-                  </p>
-                </div>
+                
                 <div className={styles["issue-description"]}>
                   <h3>Description</h3>
                   <p>{log.description}</p>
@@ -238,6 +228,18 @@ function DetailView({ log, onBack }) {
                   ) : (
                     <p>No attachments available.</p>
                   )}
+                </div>
+                <div className={styles["issue-status"]}>
+                  <p>
+                    Status:{" "}
+                    <span
+                      className={`${styles["status"]} ${
+                        styles[log.status ? log.status.toLowerCase() : ""]
+                      }`}
+                    >
+                      {log.status}
+                    </span>
+                  </p>
                 </div>
                 {renderActionButtons()}
               </>

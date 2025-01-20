@@ -190,6 +190,36 @@ function ViewAllLogs() {
                   onChange={() => handleFilter("pending")}
                 />
                 <label htmlFor="pending">Pending</label>
+
+                <input
+                  type="radio"
+                  id="inprogress"
+                  name="status"
+                  value="inprogress"
+                  checked={filterStatus === "inprogress"}
+                  onChange={() => handleFilter("inprogress")}
+                />
+                <label htmlFor="inprogress">In Progress</label>
+
+                <input
+                  type="radio"
+                  id="on hold"
+                  name="status"
+                  value="on hold"
+                  checked={filterStatus === "on hold"}
+                  onChange={() => handleFilter("on hold")}
+                />
+                <label htmlFor="on hold">Oh Hold</label>
+
+                <input
+                  type="radio"
+                  id="resolved"
+                  name="status"
+                  value="resolved"
+                  checked={filterStatus === "resolved"}
+                  onChange={() => handleFilter("resolved")}
+                />
+                <label htmlFor="resolved">Resolved</label>
               </div>
             </div>
           )}

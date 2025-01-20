@@ -6,7 +6,7 @@ import attachIcon from "../adminIcons/attachme.png";
 import profIcon from "../adminIcons/profile.png";
 import image from "../adminIcons/image.png";
 import dots from "../adminIcons/dots.png";
-import LiveChat from "./LiveChat";
+import LiveChat from "./LiveChat"; // Ensure LiveChat is imported correctly
 
 const IssueDetails = ({ issues }) => {
   const { issueId } = useParams();
@@ -35,7 +35,9 @@ const IssueDetails = ({ issues }) => {
       <div className={styles.issue}>
         <h2>Internal Issue: {issue.title}</h2>
         <div className={styles.rightHeader}>
-          <button className={styles.chatButton}>Chat</button>
+          <button className={styles.chatButton} onClick={() => setIsChatOpen(!isChatOpen)}>
+            Chat
+          </button>
           <button
             className={styles.moreButton}
             onClick={() => setIsChatOpen(true)}
@@ -92,16 +94,33 @@ const IssueDetails = ({ issues }) => {
       </div>
 
       {/* Attachments Section */}
-      <div className={styles.attachments}>
-        <h3>
-          <img src={attachIcon} width="15" height="25" alt="Attachment Icon" />
-          <h4>Attachments</h4>
-        </h3>
-        <div className={styles.attachment}>
-          <img src={image} width="30" height="25" alt="Image Attachment" />{" "}
-          <p>image.jpeg 12 KB</p>
+      {issue.attachmentUrl && (
+        <div className={styles.attachments}>
+          <h3>
+            <img src={attachIcon} width="15" height="25" alt="Attachment Icon" />
+            <h4>Attachments</h4>
+          </h3>
+          <div className={styles.attachment}>
+            {/* If the attachment is an image, render it as an image */}
+            {issue.attachmentUrl.type && issue.attachmentUrl.type.startsWith("image") ? (
+              <img
+                src={URL.createObjectURL(issue.attachmentUrl)}
+                alt="Uploaded attachment"
+                width="100"
+                height="100"
+              />
+            ) : (
+              <a
+                href={URL.createObjectURL(issue.attachmentUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {issue.attachmentUrl.name}
+              </a>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Additional Information */}
       <div className={styles.additionalInfo}>
@@ -129,6 +148,9 @@ const IssueDetails = ({ issues }) => {
           Close
         </button>
       </div>
+
+      {/* Conditionally Render Live Chat */}
+      {isChatOpen && <LiveChat onClose={handleCloseLiveChat} />}
     </div>
   );
 };

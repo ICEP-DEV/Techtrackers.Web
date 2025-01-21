@@ -159,13 +159,16 @@ const WelcomeTechnician = () => {
         {/* Reviews Section */}
         <div className={styles.myReviews}>
           <div className={styles.reviewBox}>
-            <h3 className={styles.reviewTitle}>My Reviews</h3>
             <div className={styles.rating}>
-              <h4 className={styles.ratingTitle}>{rating.overall} Rating</h4>
+            <h4 className={styles.reviewTitle}>My Reviews</h4>
               <div className={styles.stars}>
-                {Array(5).fill().map((_, i) => (
-                  <span key={i}>{i < Math.round(rating.overall) ? '★' : '☆'}</span>
-                ))}
+                <h3>{rating.overall} </h3>
+                  <div>
+                  {Array(5).fill().map((_, i) => (
+                    <span key={i}>{i < Math.round(rating.overall) ? '★' : '☆'}</span>
+                  ))}
+                  
+                  </div>
               </div>
               <div className={styles.ratingBreakdown}>
                 {rating.stars.map((count, index) => (

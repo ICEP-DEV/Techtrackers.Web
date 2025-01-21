@@ -196,11 +196,12 @@
   transition: background-color 0.3s ease;
 }
 .reopen-button {
-  background-color: #1c8013; /* Primary color */
+  background-color: #20930D; /* Primary color */
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 10px 12px;
+  margin-left: 40px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -215,21 +216,27 @@
   transition: background-color 0.3s ease;
 }
 .back-button-d {
-  background-color: #007bff; /* Primary color */
+  background-color: #108484; /* Primary color */
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 10px 25px;
+  margin-left: 900px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+/* .reopen-button,
+.back-button-d{
+  margin-left: 70px;
+
+} */
 
 .live-chat-button:hover,
 .more-button:hover,
 .close-button:hover,
 .reopen-button:hover,
 .back-button-d:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #232724; /* Darker shade on hover */
 }
 
 .detail-content {
@@ -253,10 +260,15 @@
   font-weight: 700;
   color: #2c2c2c;
 }
+.issue-status{
+  margin-left: 85%;
+  font-size: 19px;
+}
 
 .issue-location, .issue-status {
   font-weight: 700;
   color: #2c2c2c;
+  padding: 20px;
 }
 
 .avatar {
@@ -278,7 +290,7 @@
 
 .issue-description, .description {
   background-color: #f9f9f9;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
 }
@@ -292,7 +304,7 @@
   margin-bottom: 20px;
   cursor: pointer;
   background-color: #f9f9f9;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
 }

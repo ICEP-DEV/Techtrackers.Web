@@ -151,7 +151,7 @@ const Table = () => {
   const handleViewClick =(issueId) =>{
     localStorage.setItem("selected_issue_id", issueId);
     navigate(`/techniciandashboard/issues/${issueId}`);
-  };
+  };
 
   // Function to close the table
   const handleClose = () => {

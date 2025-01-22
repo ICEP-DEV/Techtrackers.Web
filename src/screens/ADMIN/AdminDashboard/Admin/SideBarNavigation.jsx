@@ -26,6 +26,8 @@ import CreateDepartment  from "./pages/CreateDepartment ";
 import ManageDepartments from "./pages/ManageDepartments";
 import CreateCategory from "./pages/CreateCategory";
 import ManageCategories from "./pages/ManageCategories";
+import CreateUserRole from "./pages/CreateUserRole";
+import ManageUserRoles from "./pages/ManagUserRoles";
 
 import "./SidebarCSS/SidebarNavStyle.css";
 
@@ -86,6 +88,8 @@ const AdminDashboard = () => {
   />
           <Route path="/createCategory" element={<CreateCategory />} />
           <Route path="/manageCategories" element={<ManageCategories />} />
+          <Route path="/createUserRole" element={<CreateUserRole />} />
+          <Route path="/manageUserRoles" element={<ManageUserRoles />} />
         </Routes>
       </div>
     </div>

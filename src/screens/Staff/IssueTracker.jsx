@@ -11,15 +11,49 @@ const NotificationContainer = () => {
   const [sortOpen, setSortOpen] = useState(false);
   const [notificationsState, setNotificationsState] = useState([]);
 
+  // Filter options with time-based conditions
   const filterOptions = {
-    all: { label: 'All' },
-    '1min': { label: 'Last 1 minute' },
-    '1h': { label: 'Last 1 hour' },
-    '1d': { label: 'Last 1 day' },
-    '2d': { label: 'Last 2 days' },
-    '1w': { label: 'Last 1 week' },
-    '2w': { label: 'Last 2 weeks' },
-    '1m': { label: 'Last 1 month' },
+    all: { label: 'All', filter: () => true },
+    today: {
+      label: 'Today',
+      filter: (notification) => {
+        const now = new Date();
+        const notificationDate = new Date(notification.timestamp);
+        return (
+          notificationDate.getDate() === now.getDate() &&
+          notificationDate.getMonth() === now.getMonth() &&
+          notificationDate.getFullYear() === now.getFullYear()
+        );
+      },
+    },
+    thisWeek: {
+      label: 'This Week',
+      filter: (notification) => {
+        const now = new Date();
+        const notificationDate = new Date(notification.timestamp);
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+        return notificationDate >= startOfWeek;
+      },
+    },
+    thisMonth: {
+      label: 'This Month',
+      filter: (notification) => {
+        const now = new Date();
+        const notificationDate = new Date(notification.timestamp);
+        return (
+          notificationDate.getMonth() === now.getMonth() &&
+          notificationDate.getFullYear() === now.getFullYear()
+        );
+      },
+    },
+    older: {
+      label: 'Older',
+      filter: (notification) => {
+        const now = new Date();
+        const notificationDate = new Date(notification.timestamp);
+        return notificationDate < new Date(now.setDate(now.getDate() - 30));
+      },
+    },
   };
 
   // Fetch notifications from the API when the component mounts
@@ -85,7 +119,7 @@ const NotificationContainer = () => {
   };
 
   const formatMessage = (message) => {
-    if (!message) return null; // Check if `message` exists
+    if (!message) return null;
     const parts = message.split(/(?<=[.,])\s*/);
     return parts.map((part, index) => (
       <p key={index} className="mb-0">
@@ -115,45 +149,16 @@ const NotificationContainer = () => {
     }
   };
 
-  const filteredNotifications = notificationsState.filter(notification => {
+  const filteredNotifications = notificationsState.filter((notification) => {
     const matchesSearchQuery = notification.message
       ? notification.message.toLowerCase().includes(searchQuery.toLowerCase())
-      : false; // Safely exclude notifications without `message`
+      : false;
 
     const isActiveTab = activeTab === 'unread' ? !notification.read_Status : notification.read_Status;
 
-    const now = new Date().getTime();
-    const notificationDate = new Date(notification.timestamp).getTime();
-    let filterThreshold;
+    const matchesTimeFilter = filterOptions[filterOption]?.filter(notification);
 
-    switch (filterOption) {
-      case '1min':
-        filterThreshold = now - 1 * 60 * 1000;
-        break;
-      case '1h':
-        filterThreshold = now - 1 * 60 * 60 * 1000;
-        break;
-      case '1d':
-        filterThreshold = now - 1 * 24 * 60 * 60 * 1000;
-        break;
-      case '2d':
-        filterThreshold = now - 2 * 24 * 60 * 60 * 1000;
-        break;
-      case '1w':
-        filterThreshold = now - 7 * 24 * 60 * 60 * 1000;
-        break;
-      case '2w':
-        filterThreshold = now - 14 * 24 * 60 * 60 * 1000;
-        break;
-      case '1m':
-        filterThreshold = now - 30 * 24 * 60 * 60 * 1000;
-        break;
-      default:
-        filterThreshold = 0;
-    }
-
-    const isInTimeFrame = notificationDate >= filterThreshold;
-    return matchesSearchQuery && isActiveTab && isInTimeFrame;
+    return matchesSearchQuery && isActiveTab && matchesTimeFilter;
   });
 
   const sortedNotifications = [...filteredNotifications].sort((a, b) => {

@@ -34,12 +34,12 @@ const DashboardPage = () => {
   };
     // Navigate to the "Create Department" page
     const handleCreateUserRolesClick = () => {
-      navigate("/admindashboard/CreateDepartment");
+      navigate("/admindashboard/createUserRole");
     };
   
     // Navigate to the "Manage Departments" page
     const handleManageUserRolesClick = () => {
-      navigate("/admindashboard/ManageDepartments");
+      navigate("/admindashboard/manageUserRoles");
     };
   
   return (
@@ -161,7 +161,7 @@ const DashboardPage = () => {
           {/* Create Department Section */}
           <div
             className={styles.dashboardCard}
-            onClick={handleCreateDepartmentClick}
+            onClick={handleCreateUserRolesClick}
             style={{ cursor: "pointer" }}
           >
             <div className={styles.cardIcon}>
@@ -178,7 +178,7 @@ const DashboardPage = () => {
           {/* Manage Departments Section */}
           <div
             className={styles.dashboardCard}
-            onClick={handleManageDepartmentsClick}
+            onClick={handleManageUserRolesClick}
             style={{ cursor: "pointer" }}
           >
             <div className={styles.cardIcon}>

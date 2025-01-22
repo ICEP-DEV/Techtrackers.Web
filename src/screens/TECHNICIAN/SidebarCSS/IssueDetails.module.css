@@ -245,17 +245,23 @@
 }
 
 .statusText.pending {
-  color: red;
+  color: #ffa007;
 }
 
 .statusText.resolved {
-  color: green;
+  color: #28a745;
 }
 
 .statusText.inprogress {
-  color: orange;
+  color: #14788f;
 }
 
+.statusText.escalated {
+  color: #f70000;
+}
+.statusText.onhold {
+  color: #0a4d4d;
+}
 /* Actions */
 .actions1 {
   display: flex; /* Use flexbox for layout */

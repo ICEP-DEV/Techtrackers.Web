@@ -41,7 +41,9 @@ const ManageTechniciansTable = () => {
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
-        const response = await axios.get("https://localhost:44328/api/TechnicianHandler/GetTechnician/3");  // Use your API endpoint
+        const response = await axios.get(
+          "https://localhost:44328/api/TechnicianHandler/GetTechnicians"
+        );
         const technicianData = response.data.map((technician) => ({
           ...technician,
           name: `${technician.surname} ${technician.initials}`, // Combine name
@@ -122,12 +124,7 @@ const ManageTechniciansTable = () => {
                 >
                   Manage
                 </button>
-                {/* <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemoveTechnician(technician.technicianId)}
-                >
-                  Remove
-                </button> */}
+                
               </td>
             </tr>
           ))}

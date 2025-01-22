@@ -39,6 +39,9 @@ const Table = () => {
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched Issues:", data);
+
+          localStorage.setItem("Tech Issues", JSON.stringify(data));
+
           setIssues(data);
         } else {
           alert("Failed to fetch issues. Please try again later.");

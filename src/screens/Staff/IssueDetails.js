@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function IssueDetails({ issue, onClose, onOpenChat }) {
+
     const [isAttachmentOpen, setIsAttachmentOpen] = useState(false);
     const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false);
     const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
@@ -13,6 +14,10 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [isRatingPopupOpen, setIsRatingPopupOpen] = useState(false);
+
+    //  const issueId = issue;
+
+    //  console.log(issueId);
 
     const handleRating = (value) => setRating(value);
 
@@ -71,13 +76,24 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
             setIsErrorPopupOpen(true);
             return;
         }
+        const userInfo = JSON.parse(localStorage.getItem("user_info"));
+        const logs = JSON.parse(localStorage.getItem("staff logs"));
+        // const logId = JSON.parse(localStorage.getItem("logId"));
+
+        const log = logs[0];
+
+        const logid = log.logId;
+
+        console.log("Log ID: ", logid);
 
         const feedbackData = {
-            Log_ID: issue.logId,
-            User_ID: issue.userId,
+            Log_ID: logid,
+            User_ID: userInfo.userId,
             Rating: rating,
             Comment: comment,
         };
+
+        console.log("Submitting Feedback Data:", feedbackData);
 
         try {
             const response = await fetch('https://localhost:44328/api/Feedback/SubmitFeedback', {
@@ -88,19 +104,26 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 body: JSON.stringify(feedbackData),
             });
 
+            console.log("Response Status:", response.status);
+
             if (response.ok) {
+                const newFeedback = await response.json();
+                console.log("Server Response:", newFeedback);
                 setIsRatingPopupOpen(false);
-                toast.success('Feedback submitted successfully');
+                setComment('');
+                setRating(0);
+                toast.success('Feedback submitted successfully!');
             } else {
-                const errorData = await response.json();
-                console.error('Failed to submit feedback:', errorData);
-                toast.error(`Failed to submit feedback: ${errorData.message || 'Unknown error'}`);
+                const errorText = await response.text();
+                console.error("Error Text from Server:", errorText);
+                toast.error(`Failed to submit feedback: ${errorText}`);
             }
         } catch (error) {
-            console.error('Error submitting feedback:', error);
-            toast.error('Error submitting feedback');
+            console.error("Error Submitting Feedback:", error);
+            toast.error('An unexpected error occurred while submitting feedback.');
         }
     };
+
 
     const formatDateTime = (dateString) => {
         if (!dateString) return 'N/A';
@@ -159,7 +182,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 </div>
                 <div className="in-fo-group">
                     <p>Date of Issue: {formatDateTime(issue.issuedAt)}</p>
-                   
+
                     <button className="live-chat-btn" onClick={onOpenChat}>Live Chat</button>
                 </div>
             </div>
@@ -224,7 +247,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <span
                                     key={star}
-                                    onClick={() => handleRating(star)}
+                                    onClick={() => handleRating(star)} // This updates the rating state
                                     style={{
                                         cursor: 'pointer',
                                         fontSize: '24px',

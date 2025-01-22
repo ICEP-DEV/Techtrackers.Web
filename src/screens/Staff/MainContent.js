@@ -19,6 +19,8 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
           const data = await response.json();
           console.log('Fetched logs:', data); // Log the fetched data for debugging
 
+          localStorage.setItem('staff logs', JSON.stringify(data));
+
           // Sort the issues by date in descending order (latest first)
           const sortedData = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));
 

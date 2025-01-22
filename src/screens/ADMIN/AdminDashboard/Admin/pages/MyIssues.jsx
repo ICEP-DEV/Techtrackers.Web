@@ -62,18 +62,18 @@ const Table = ({adminId}) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'PENDING':
+      case "ESCALATED":
+        return "#f70000";
+      case "NPROGRESS":
+        return "#14788f";
+      case "RESOLVED":
+        return "#28a745";
+      case "ONHOLD":
+        return "#0a4d4d";
+      case "PENDING":
         return '#ffa007';
-      case 'ONGOING':
-        return '#bfa829';
-      case 'INPROGRESS':
-        return '#14788f';
-      case 'ONHOLD':
-        return '#8f9396';
-      case 'ESCALATED':
-        return '#f70000';
       default:
-        return 'transparent';
+        return "black";
     }
   };
 

@@ -124,12 +124,7 @@ const ManageTechniciansTable = () => {
                 >
                   Manage
                 </button>
-                <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemoveTechnician(technician.technicianId)}
-                >
-                  Remove
-                </button>
+                
               </td>
             </tr>
           ))}

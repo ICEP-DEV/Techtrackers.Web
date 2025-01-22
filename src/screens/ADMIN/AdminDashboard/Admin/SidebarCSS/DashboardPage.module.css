@@ -37,6 +37,7 @@
   transition: transform 0.3s ease;
   margin-top: 10px;
   margin-left: 50px;
+  cursor: pointer;
 }
 
 /* Card hover effect */
@@ -56,11 +57,6 @@
 .icon {
   font-size: 64px;
   color: white;
-}
-
-/* Card content */
-.cardContent {
-  flex-grow: 1;
 }
 
 /* Card title */

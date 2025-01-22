@@ -44,8 +44,14 @@ const AssignTech = () => {
 
           // Sort issues by date in descending order
        
-          console.log("Fetched issues:", sortedIssues); // Debug
           setIssues(sortedIssues); // Save sorted issues to state
+
+          // Track assigned issues
+          const assigned = sortedIssues
+            .filter((issue) => issue.technicianAssigned) // Assuming the backend provides this field
+            .map((issue) => issue.logId);
+
+          setAssignedIssues(assigned);
         } else {
           console.error("Failed to fetch issues.");
         }
@@ -80,7 +86,12 @@ const AssignTech = () => {
           setShowModal(false);
           setAssignedIssues((prev) => [...prev, selectedIssueId]);
         } else {
-          toast.error(responseData.title || "Failed to assign technician.");
+          // Backend response for already assigned technician
+          if (responseData.message?.includes("technician has already been assigned")) {
+            toast.error("Technician already assigned to this task.");
+          } else {
+            toast.error(responseData.title || "Failed to assign technician.");
+          }
         }
       } catch (error) {
         console.error("Error assigning technician:", error);
@@ -237,7 +248,10 @@ const AssignTech = () => {
           <div className={styles.modalContent}>
             <h3>SELECT TECHNICIAN</h3>
             {technicians.map((tech, index) => (
-              <div key={tech.technicianId} className={styles.technicianContainer}>
+              <div
+                key={tech.userId}
+                className={styles.technicianContainer}
+              >
                 <input
                   type="checkbox"
                   className={styles.technicianCheckbox}

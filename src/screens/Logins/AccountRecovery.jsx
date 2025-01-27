@@ -104,10 +104,9 @@ function AccountRecovery() {
             console.log('Verifying OTP:', enteredOtp);
             console.log('Email:', Email);
 
-            axios.post('https://localhost:44328/api/Account/ResetPassword/reset-password', {
+            axios.post('https://localhost:44328/api/Account/VerifyOtp/verify-otp', {
                 Email,
                 Otp: enteredOtp,
-                NewPassword: Password // You can include a placeholder if the backend expects this now
             })
             .then((response) => {
                 toast.success('OTP verified successfully!');
@@ -154,7 +153,23 @@ function AccountRecovery() {
             return;
         }
 
-        verifyOtp(); // Proceed to verify OTP and reset password
+        //Submit the new password
+        axios.post('https://localhost:44328/api/Account/ResetPassword/reset-password', {
+            Email,
+            Otp: otp.join(''), // Combine the OTP digits into a string
+            NewPassword: Password,  
+        })
+        .then((response) => {
+            toast.success('Password reset successful!');
+            console.log('Password reset successful:', response.data);
+            setTimeout(() => navigate('/login'), 2000);
+        })
+        .catch((error) => {
+            toast.error(error.response?.data || 'An error occurred while resetting password.');
+            console.log('Error response:', error.response?.data);
+        });
+        
+        //verifyOtp(); // Proceed to verify OTP and reset password
         
         /*if (Password === '') {
             toast.error('Enter a new password');

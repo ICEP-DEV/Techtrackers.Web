@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from './Header';
 import Sidebar from './Sidebar';
 import HODDashboard from './HODDashboard';
-import LogIssueForm from './LogIssueFormFolder/LogIssueForm';
-import ManageLogs from './ManageLogsFolder/ManageLogs';
-import GenerateReport from '../HOD/GenerateReport/Report';
-import Notification from '../screens/Notification Page/Notification';
-import IssueReport from '../HOD/GenerateReport/Report';
-import MonthlyReprt from '../HOD/GenerateReport/MonthlySummaryReport';
-import TechnicianReport from '../HOD/GenerateReport/TechnicianPerformanceReport';
+import LogIssueForm from './LogIssueForm';
+import ManageLogs from './ManageLogs';
+import GenerateReport from './GenerateReport/Report';
+import Notification from '../Notification Page/Notification';
+import IssueReport from './GenerateReport/Report';
+import MonthlyReprt from './GenerateReport/MonthlySummaryReport';
+import TechnicianReport from './GenerateReport/TechnicianPerformanceReport';
 
 import MainContent from './MainContent';
 function HeadDepartment() {
@@ -20,17 +20,14 @@ function HeadDepartment() {
   };
 
   return (
-    <Router>
+
       <div className="app">
         <Header />
         <div className="main-content">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <div className="content">
             <Routes>
-              <Route path="/" element={<HODDashboard isSidebarOpen={isSidebarOpen} />} />
-              
-
-              
+            <Route path="/hod-dashboard" element={<HODDashboard isSidebarOpen={isSidebarOpen} />} />
               <Route path="/manage-logs" element={<ManageLogs isSidebarOpen={isSidebarOpen} />} />
               <Route path="/log-issue" element={<LogIssueForm isSidebarOpen={isSidebarOpen} />} />
               <Route path="/all-issues" element={<MainContent isSidebarOpen={isSidebarOpen}/>} />
@@ -44,7 +41,6 @@ function HeadDepartment() {
           </div>
         </div>
       </div>
-    </Router>
   );
 }
 

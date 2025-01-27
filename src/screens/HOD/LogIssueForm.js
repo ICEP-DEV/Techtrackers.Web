@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./LogIssueForm.css"; // Importing the CSS file
+import "../HOD/LogIssueForm.css"; // Importing the CSS file
 
 function LogIssueForm({ isSidebarOpen }) { // Receive isSidebarOpen as a prop
   const [formData, setFormData] = useState({

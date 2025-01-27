@@ -21,31 +21,31 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             </Link>
           </li>
           <li className={location.pathname === "/log-issue" ? "active" : ""}>
-            <Link to="/log-issue" className="menu-link">
+            <Link to="/headdepartment/log-issue" className="menu-link">
               <i className="fas fa-plus-circle"></i>
               <span className="menu-text">Log Issue</span>
             </Link>
           </li>
           <li className={location.pathname === "/all-issues" ? "active" : ""}>
-            <Link to="/all-issues" className="menu-link">
+            <Link to="/headdepartment/all-issues" className="menu-link">
               <i className="fas fa-list"></i>
               <span className="menu-text">All Issues</span>
             </Link>
           </li>
           <li className={location.pathname === "/manage-logs" ? "active" : ""}>
-            <Link to="/manage-logs" className="menu-link">
+            <Link to="/headdepartment/manage-logs" className="menu-link">
               <i className="fas fa-tasks"></i>
               <span className="menu-text">Manage Logs</span>
             </Link>
           </li>
           <li className={location.pathname === "/generate-report" ? "active" : ""}>
-            <Link to="/generate-report" className="menu-link">
+            <Link to="/headdepartment/generate-report" className="menu-link">
               <i className="fas fa-chart-line"></i>
               <span className="menu-text">Generate Report</span>
             </Link>
           </li>
           <li className={location.pathname === "/notifications" ? "active" : ""}>
-            <Link to="/notifications" className="menu-link">
+            <Link to="/headdepartment/notifications" className="menu-link">
               <i className="fas fa-bell"></i>
               <span className="menu-text">Notifications</span>
             </Link>

@@ -1,0 +1,224 @@
+.notificationContainer {
+  max-width: 100%;
+  margin: 150px;
+  margin-left: 60px;
+  padding: 30px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  transition: margin-left 0.2s ease;
+
+}
+/* Adjusting margin-left for when sidebar is toggled */
+.sidebarOpen {
+  margin-left: 250px; /* Adjust based on your sidebar width */
+}
+/* When the sidebar is closed */
+.sidebarClosed {
+  margin-left: 80px; /* Adjust based on collapsed sidebar width */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin-left: 10px;
+}
+
+.icon {
+  font-size: 24px;
+  color: #15959d;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 250px; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Round the container edges */
+  background-color: #fff;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 35px 8px 15px; /* Adds extra padding for the icon */
+  border: none;
+  outline: none;
+  border-radius: 20px; /* Rounded corners */
+  font-size: 14px;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px; /* Position the icon inside the search box */
+  font-size: 16px;
+  color: #15959d;
+  cursor: pointer;
+}
+
+.filterButton,
+.sortButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.filterIcon,
+.sortIcon {
+  font-size: 16px;
+  margin-right: 8px; /* Space between the icon and text */
+  color: #2e3030; /* Icon color */
+}
+
+.dropdownIcon {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #555;
+}
+
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 150px;
+}
+
+.dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.tab {
+  flex: 0;
+  padding: 5px 20px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f7f0f0;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.active {
+  background-color: rgb(155, 153, 153);
+  color: black;
+  
+}
+
+.content {
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  color: #555;
+}
+.notification {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0; /* Light divider between notifications */
+}
+
+.notification:last-child {
+  border-bottom: none; /* Remove border for the last notification */
+}
+
+.notificationText {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.notificationIcon {
+  font-size: 16px;
+  color: #15959d;
+  margin-right: 10px; /* Spacing between the icon and text */
+}
+
+.notificationTime {
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+.readIcon {
+  color: grey; /* Read notification icon */
+}
+
+.unreadIcon {
+  color: blue; /* Unread notification icon */
+}
+
+.notificationItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.notificationItem:hover {
+  background-color: #f9f9f9;
+}
+
+.notificationText {
+  margin-left: 10px;
+}
+
+.notificationTime {
+  font-size: 12px;
+  color: #888;
+}
+
+

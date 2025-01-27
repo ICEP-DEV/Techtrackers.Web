@@ -1,10 +1,10 @@
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ReportPage from "./Report";
-import IssuesStatusReport from "./IssuesStatusReport";
-import MonthlySummaryReport from "./MonthlySummaryReport";
-import TechnicianPerformanceReport from "./TechnicianPerformanceReport";
+import ReportPage from "./GenerateReport/Report";
+import IssuesStatusReport from "./GenerateReport/IssuesStatusReport";
+import MonthlySummaryReport from "./GenerateReport/MonthlySummaryReport";
+import TechnicianPerformanceReport from "./GenerateReport/TechnicianPerformanceReport";
 
 function App() {
   return (

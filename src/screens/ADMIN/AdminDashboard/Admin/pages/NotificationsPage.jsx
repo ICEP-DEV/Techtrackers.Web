@@ -1,20 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import styles from "../SidebarCSS/NotificationPage.module.css"; // Import the CSS module
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import styles from "../SidebarCSS/NotificationPage.module.css";
 import { useNavigate } from "react-router-dom";
 import NotifiIcon from "../adminIcons/notifMainIcon.png";
 import FiltIcon from "../adminIcons/FiltIcon.png";
 import SortIcon from "../adminIcons/SortIcon.png";
 import AvatarIcon from "../adminIcons/avatarIcon.png";
 import SearchIcon from "../adminIcons/searchIcon.png";
+import debounce from "lodash.debounce";
 
-// Status class helper
-const statusClass = (status) => {
-  if (status === "RESOLVED") return styles.statusResolved;
-  if (status === "IN PROGRESS") return styles.statusInProgress;
-  return "";
-};
-
-// Header component
 const Header = ({
   onSortChange,
   onFilterChange,
@@ -29,14 +22,7 @@ const Header = ({
     <div className={styles.header}>
       <div className={styles.headerLeft}>
         <div className={styles.notificationIcon}>
-          <span role="img" aria-label="bell">
-            <img
-              src={NotifiIcon}
-              width="30"
-              height="30"
-              alt="Notification Icon"
-            />
-          </span>
+          <img src={NotifiIcon} width="30" height="30" alt="Notification Icon" />
         </div>
         <h2>NOTIFICATIONS</h2>
       </div>
@@ -44,10 +30,11 @@ const Header = ({
         <div className={styles.searchContainer}>
           <input
             type="text"
-            placeholder="search"
+            placeholder="Search"
             className={styles.searchInput}
             value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)} // Update search in real-time
+            onChange={(e) => onSearchChange(e.target.value)}
+            aria-label="Search Notifications"
           />
           <img
             src={SearchIcon}
@@ -57,37 +44,36 @@ const Header = ({
             className={styles.searchIcon}
           />
         </div>
-
-        {/* Filter Button with Dropdown */}
         <div className={styles.filterContainer}>
-          <button className={styles.filterBtn} onClick={toggleFilterDropdown}>
-            <span role="img" aria-label="filter">
-              <img src={FiltIcon} width="15" height="15" alt="Filter Icon" />
-            </span>{" "}
-            Filter
+          <button
+            className={styles.filterBtn}
+            onClick={toggleFilterDropdown}
+            aria-expanded={filterDropdownOpen}
+          >
+            <img src={FiltIcon} width="15" height="15" alt="Filter Icon" /> Filter
           </button>
           {filterDropdownOpen && (
             <ul className={styles.filterDropdown}>
               <li onClick={() => onFilterChange("All")}>All</li>
-              <li onClick={() => onFilterChange("ALERT")}>Resolved</li>
-              <li onClick={() => onFilterChange("INFORMATION")}>In Progress</li>
+              <li onClick={() => onFilterChange("ALERT")}>ALERT</li>
+              <li onClick={() => onFilterChange("INFORMATION")}>INFORMATION</li>
+              <li onClick={() => onFilterChange("WARNING")}>WARNING</li>
             </ul>
           )}
         </div>
-
-        {/* Sort Dropdown */}
         <div className={styles.sortContainer}>
-          <button className={styles.sortBtn} onClick={toggleSortDropdown}>
-            <span role="img" aria-label="sort">
-              <img src={SortIcon} width="15" height="15" alt="Sort Icon" />
-            </span>{" "}
-            Sort
+          <button
+            className={styles.sortBtn}
+            onClick={toggleSortDropdown}
+            aria-expanded={sortDropdownOpen}
+          >
+            <img src={SortIcon} width="15" height="15" alt="Sort Icon" /> Sort
           </button>
           {sortDropdownOpen && (
             <ul className={styles.sortDropdown}>
-              <li onClick={() => onSortChange("user")}>Name</li>
-              <li onClick={() => onSortChange("issueId")}>Issue ID</li>
-              <li onClick={() => onSortChange("time")}>Time</li>
+              <li onClick={() => onSortChange("recent")}>Recent</li>
+              <li onClick={() => onSortChange("asc")}>Ascending Date</li>
+              <li onClick={() => onSortChange("desc")}>Descending Date</li>
             </ul>
           )}
         </div>
@@ -96,17 +82,16 @@ const Header = ({
   );
 };
 
-// Main Notification component
 const Notification = () => {
-  const [data, setData] = useState([]); // State for API data
+  const [data, setData] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  // Fetch notifications from the API
   const fetchNotifications = async () => {
     try {
       const userInfo = JSON.parse(localStorage.getItem("user_info"));
@@ -116,15 +101,18 @@ const Notification = () => {
         throw new Error("User ID not found in localStorage.");
       }
 
-      const response = await fetch(`https://localhost:44328/api/Log/GetNotifications/${userId}?onlyUnread=false`);
+      const response = await fetch(
+        `https://localhost:44328/api/Log/GetNotifications/${userId}?onlyUnread=false`
+      );
+
       if (!response.ok) {
         throw new Error("Failed to fetch notifications from the API.");
       }
 
       const data = await response.json();
-      setData(data); // Update state with API data
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
+      setData(data);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -132,52 +120,63 @@ const Notification = () => {
     fetchNotifications();
   }, []);
 
-  // Sorting function
   const handleSortChange = (sortBy) => {
-  const sortedData = [...data].sort((a, b) => {
-    let compareValueA, compareValueB;
+    const sortedData = [...data].sort((a, b) => {
+      const dateA = new Date(a.timestamp);
+      const dateB = new Date(b.timestamp);
 
-    if (sortBy === "user") {
-      compareValueA = a.user || ''; // Default to empty string if undefined or null
-      compareValueB = b.user || ''; // Default to empty string if undefined or null
-    } else if (sortBy === "issueId") {
-      compareValueA = a.issueId || ''; // Default to empty string if undefined or null
-      compareValueB = b.issueId || ''; // Default to empty string if undefined or null
-    } else if (sortBy === "time") {
-      compareValueA = a.time || ''; // Default to empty string if undefined or null
-      compareValueB = b.time || ''; // Default to empty string if undefined or null
-    }
+      return sortBy === "asc"
+        ? dateA - dateB
+        : sortBy === "desc"
+        ? dateB - dateA
+        : 0;
+    });
 
-    return compareValueA.localeCompare(compareValueB);
-  });
+    setData(sortedData);
+    setSortDropdownOpen(false);
+  };
 
-  setData(sortedData);
-  setSortDropdownOpen(false); // Close dropdown after sorting
-};
-
-
-  // Filtering function
   const handleFilterChange = (status) => {
     setFilterStatus(status);
-    setFilterDropdownOpen(false); // Close the dropdown after selecting
+    setFilterDropdownOpen(false);
   };
 
-  // Handle search in real-time
-  const handleSearchChange = (query) => {
-    setSearchQuery(query);
+
+
+  const debouncedSearchChange = useMemo(
+    () => debounce((query) => setSearchQuery(query), ),
+    []
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedSearchChange.cancel();
+    };
+  }, [debouncedSearchChange]);
+
+  const filteredData = useMemo(
+    () =>
+      data.filter((item) => {
+        if (filterStatus !== "All" && item.type !== filterStatus) return false;
+        if (!searchQuery) return true;
+        return (
+          item.message?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.type?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }),
+    [data, filterStatus, searchQuery]
+  );
+
+  const toggleSortDropdown = () => {
+    setSortDropdownOpen((prev) => !prev);
+    setFilterDropdownOpen(false);
   };
 
-  // Filter the data based on selected filter status and search query
-  const filteredData = data.filter((item) => {
-    if (filterStatus !== "All" && item.status !== filterStatus) return false;
-    if (!searchQuery) return true; // Show all if no search query
-    return (
-      item.user?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.issueId?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
+  const toggleFilterDropdown = () => {
+    setFilterDropdownOpen((prev) => !prev);
+    setSortDropdownOpen(false);
+  };
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -192,47 +191,40 @@ const Notification = () => {
     };
   }, []);
 
-  const toggleSortDropdown = () => {
-    setSortDropdownOpen((prev) => !prev);
-    setFilterDropdownOpen(false); // Close filter dropdown if sort is opened
-  };
-
-  const toggleFilterDropdown = () => {
-    setFilterDropdownOpen((prev) => !prev);
-    setSortDropdownOpen(false); // Close sort dropdown if filter is opened
-  };
-
   return (
     <div className={styles.container} ref={dropdownRef}>
       <Header
         onSortChange={handleSortChange}
         onFilterChange={handleFilterChange}
-        onSearchChange={handleSearchChange}
+        onSearchChange={debouncedSearchChange}
         searchQuery={searchQuery}
         filterDropdownOpen={filterDropdownOpen}
         sortDropdownOpen={sortDropdownOpen}
         toggleSortDropdown={toggleSortDropdown}
         toggleFilterDropdown={toggleFilterDropdown}
       />
+      {error && <div className={styles.error}>{error}</div>}
+      {filteredData.length === 0 && !error && (
+        <div className={styles.noResults}>No notifications found.</div>
+      )}
       {filteredData.map((row, index) => (
         <div key={index} className={styles.row}>
           <div className={styles.userInfo}>
-            <div className={styles.userIcon}>
-              <span role="img" aria-label="user">
-                <img src={AvatarIcon} width="44" height="44" alt="User Icon" />
-              </span>
-            </div>
+            <img src={AvatarIcon} width="44" height="44" alt="User Icon" />
             <div className={styles.userText}>
               <strong>{row.message}</strong> - Type: <span>{row.type}</span>
             </div>
           </div>
           <div className={styles.rowFooter}>
-            <span className={styles.time}>{new Date(row.timestamp).toLocaleString()}</span>
+            <span className={styles.time}>
+              {new Intl.DateTimeFormat("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              }).format(new Date(row.timestamp))}
+            </span>
             <button
               className={styles.viewBtn}
-              onClick={() =>
-                navigate("/admindashboard/notif-view", { state: row })
-              }
+              onClick={() => navigate(`/admindashboard/notification/${row.id}`)}
             >
               View
             </button>

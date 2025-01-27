@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
+import Header2 from './Header2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginsStyle/VerifyEmail.css';
 import './LoginsStyle/otpStyle.css';
@@ -224,7 +224,7 @@ function AccountRecovery() {
     return (
         <div>
             <ToastContainer />
-            <Header />
+            <Header2 />
             {step === 'verifyEmail' && (
                 <div className="verify-email-container">
                     <div className="verify-box">
@@ -333,7 +333,7 @@ function AccountRecovery() {
                             </span>
                         </div>
                         <div className="form-group">
-                            <button onClick={submitPassword} className="reset-password-button">Reset Password</button>
+                            <button onClick={handlePasswordChange} className="reset-password-button">Reset Password</button>
                         </div>
                     </div>
                 </div>

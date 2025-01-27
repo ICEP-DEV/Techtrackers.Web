@@ -30,6 +30,15 @@ const WelcomeTechnician = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
+    const storedTasks = JSON.parse(localStorage.getItem('Tech Issues')) || [];
+
+    // Access the last task in the array
+    const lastTask = storedTasks[storedTasks.length - 1];
+
+    // Set tasks to include only the last task
+    setTasks(lastTask ? [lastTask] : []);
+
     const fetchStatusCounts = async () => {
       try {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
@@ -100,6 +109,9 @@ const WelcomeTechnician = () => {
     navigate(`/techniciandashboard/issues/${issueId}`); // Navigate to IssueDetails page
   };
 
+  const task = localStorage.getItem("Tech Issues");
+  console.log(JSON.stringify(task));
+
   return (
     <div className={styles.mainContent1}>
       {/* Top Container */}
@@ -145,30 +157,34 @@ const WelcomeTechnician = () => {
           <h3 className={styles.activeTitle}>Active Tasks</h3>
           <div className={styles.taskCards}>
             {tasks.map((task, index) => (
-              <div key={index} className={`${styles.taskCard} ${styles[task.priority.toLowerCase()]}`}>
-                <h4 className={styles.issuesTitle}>{task.title}</h4>
-                <div><p>Priority: {task.priority}</p></div>
-                <p>{task.status}</p>
-                <div className={`${styles.dashboardProgressBar} ${styles[task.status.toLowerCase().replace(' ', '-')]}`}></div>
-                <p className={styles.time}>{task.time}</p>
+              <div
+                key={index}
+                className={`${styles.taskCard} ${styles[task.priority.toLowerCase()]}`}
+                onClick={() => handleViewClick(`${task.issueId}`)}
+              >
+                <h4 className={styles.issuesTitle}>{task.issueTitle}</h4>
+                <p>Priority: {task.priority}</p>
+                <p>Status: {task.status}</p>
+                <p className={styles.date}>{task.issuedAt}</p>
               </div>
             ))}
           </div>
+
         </div>
 
         {/* Reviews Section */}
         <div className={styles.myReviews}>
           <div className={styles.reviewBox}>
             <div className={styles.rating}>
-            <h4 className={styles.reviewTitle}>My Reviews</h4>
+              <h4 className={styles.reviewTitle}>My Reviews</h4>
               <div className={styles.stars}>
                 <h3>{rating.overall} </h3>
-                  <div>
+                <div>
                   {Array(5).fill().map((_, i) => (
                     <span key={i}>{i < Math.round(rating.overall) ? '★' : '☆'}</span>
                   ))}
-                  
-                  </div>
+
+                </div>
               </div>
               <div className={styles.ratingBreakdown}>
                 {rating.stars.map((count, index) => (

@@ -12,6 +12,7 @@ import StaffDashboard from './screens/Staff/StaffDashboard';
 import AccountRecovery from './screens/Logins/AccountRecovery';
 import AdminDashboard from './screens/ADMIN/AdminDashboard/Admin/SideBarNavigation';
 import TechnicianDashboard from './screens/TECHNICIAN/SideBarNavigation';
+import HODDashboard from './screens/HOD/HeadDepartment';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/staffdashboard/*" element={<StaffDashboard />} />
         <Route path="/techniciandashboard/*" element={<TechnicianDashboard />} />
         <Route path="/admindashboard/*" element={<AdminDashboard/>} />
+        <Route path="/headdepartment/*" element={<HODDashboard/>} />
         <Route path="/ReportButtons/issueReport" element={<issueReport />} />
         <Route path="/ReportButtons/monthlyReport" element={<monthlyReport />} />
         <Route path="/ReportButtons/technicianReport" element={<technicianReport />} />

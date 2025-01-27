@@ -48,7 +48,7 @@ function SignIn() {
                             navigate('/admindashboard/dashboard');
                             break;
                         case 'hod':
-                            navigate('/hoddashboard');
+                            navigate('/headdepartment/HODDepartment');
                             break;
                         default:
                             toast.error("Unknown role.");

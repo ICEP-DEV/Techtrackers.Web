@@ -1,0 +1,118 @@
+/* src/components/ManageLogs.css */
+
+.manage-logs-container {
+  font-family: Arial, sans-serif;
+  background-color: #eaf0f1;
+  padding: 5%;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 100px;
+  border-radius: 8px;
+  transition: margin-left 0.2s ease; /* Smooth transition for dynamic margin */
+
+}
+/* Adjusting margin-left for when sidebar is toggled */
+.manage-logs-container.sidebar-open {
+  margin-left: 250px; /* Adjust based on your sidebar width */
+}
+
+.manage-logs-container.sidebar-closed {
+  margin-left: 80px; /* Adjust based on your sidebar width when closed */
+}
+
+h1 {
+  font-size: 24px;
+  margin-top: 5px;
+}
+
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+ 
+}
+
+.logs-table th, .logs-table td {
+  padding: 15px 12px;
+  text-align: left;
+  border: 1px solid #d3d3d3;
+  font-size: small;
+}
+
+.logs-table th {
+  background-color: #9CC3B3;
+  color: #000000;
+  font-weight: bold;
+}
+
+.logs-table td {
+  background-color: #f8f9fa;
+}
+
+.view-button, .action-button {
+  background-color: #16A1AA;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+}
+
+.close-button:hover {
+  background-color: #c9302c;
+}
+/* Action Dropdown Styling */
+.action-dropdown {
+position: relative;
+display: inline-block;
+}
+
+.action-button {
+background-color: #f3f7f5;
+color: #0C3A3A;
+border: none;
+padding: 8px 12px;
+border-radius: 4px;
+cursor: pointer;
+}
+
+
+
+.dropdown-menu {
+position: absolute;
+top: 100%;
+left: 0;
+background-color: white;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 4px;
+overflow: hidden;
+z-index: 1;
+min-width: 100px;
+}
+
+.dropdown-menu button {
+background-color: white;
+color: #333;
+padding: 10px;
+width: 100%;
+border: none;
+text-align: left;
+cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+background-color: #f0f0f0;
+}

@@ -1,0 +1,116 @@
+/* Sidebar */
+.sidebar {
+  position: fixed;  /* Fix the sidebar to the left */
+  top: 80px;        /* Offset from the top to account for header */
+  left: 0;
+  width: 210px;
+  height: calc(100vh - 80px);  /* Take full viewport height minus the header */
+  background-color: #0C3A3A;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+  z-index: 1000;   /* Ensure it stays above other content */
+  padding-top: 20px;  /* Add padding for spacing from top */
+}
+
+/* Sidebar when closed */
+.sidebar.closed {
+  width: 60px;  /* Minimized sidebar width */
+}
+
+/* Menu icon styles */
+.menu-icon {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.menu-icon:hover {
+  color: #6ff1f1;
+}
+
+/* Links for navigation */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px; /* Add space from the top */
+}
+
+.sidebar-nav li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav li:hover {
+  background-color: #195353;
+}
+
+/* Menu link styling */
+.menu-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+}
+
+.menu-link i {
+  font-size: 18px;
+}
+
+.menu-text {
+  margin-left: 10px;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+
+/* When sidebar is closed, hide menu text */
+.sidebar.closed .menu-text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.notification-count {
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.sidebar.closed .notification-count {
+  display: none;
+}
+
+/* Logout section at the bottom */
+.logout-section {
+  padding: 15px;
+  display: flex;
+  cursor: pointer;
+  margin-top: auto; /* Push logout to the bottom */
+  margin-bottom: 20px;
+}
+
+.logout-icon {
+  font-size: 24px;
+  transition: color 0.3s;
+  display: block;
+}
+
+.logout-icon:hover {
+  color: #4ed6ff;
+  cursor: pointer;
+}
+
+/* Style for the active menu item */
+.sidebar-nav li.active {
+  background-color: #108484;
+}
+
+.sidebar-nav li.active .menu-link {
+  color: #ffffff;
+  font-weight: bold;
+}

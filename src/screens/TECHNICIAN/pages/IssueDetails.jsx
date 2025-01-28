@@ -64,6 +64,13 @@ const IssueDetails = ({ issues }) => {
       return;
     }
 
+    console.log("Issue Id to be updated: ", issueId);       
+       
+
+    console.log("Updating status to:", status);
+
+    
+
     try {
       if (!issueId || issueId.trim() === "") {
         toast.error("Invalid issue ID. Cannot update status.");
@@ -81,6 +88,8 @@ const IssueDetails = ({ issues }) => {
       );
 
       const data = await response.json();
+
+      console.log("Response: ", data);
 
       if (response.ok) {
         issue.status = status;
@@ -292,6 +301,55 @@ const IssueDetails = ({ issues }) => {
               style={{ cursor: "pointer", marginTop: "15px" }}
             >
               <img src={CollabArrow} alt="Collab Arrow Icon" className={styles.tickIcon} />
+            </div>
+          </div>
+        </div>
+      )}
+
+{showUpdateModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>&times;</button>
+            <h4>Update Issue Status</h4>
+            <div className={styles.statusButtons}>
+              <button
+                style={{ backgroundColor: "#0C4643" }}
+                onClick={() => handleAddNoteClick()}
+              >
+                ON HOLD
+              </button>
+              <button
+                style={{ backgroundColor: "#B08D0F" }}
+                onClick={() => handleUpdateStatus("INPROGRESS")}
+              >
+                IN PROGRESS
+              </button>
+              <button
+                style={{ backgroundColor: "#2FB00F", color: "white" }}
+                onClick={() => handleUpdateStatus("RESOLVED")}
+              >
+                RESOLVED
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showAddNoteModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button className={styles.modalClose} onClick={() => setShowAddNoteModal(false)}>&times;</button>
+            <h3>Add Note:</h3>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Type a message..."
+              rows="4"
+              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+            />
+            <div className={styles.modalActions}>
+              <button className={styles.cancelButton} onClick={() => setShowAddNoteModal(false)}>Cancel</button>
+              <button className={styles.updateButton} onClick={handleNoteSubmit}>Update</button>
             </div>
           </div>
         </div>

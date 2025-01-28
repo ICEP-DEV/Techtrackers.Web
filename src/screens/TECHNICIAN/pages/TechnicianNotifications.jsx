@@ -100,6 +100,10 @@ const NotificationsPage = () => {
   //   navigate(`/techniciandashboard/issues/${issueId}`);
   // };
 
+  
+  const viewId = localStorage.getItem("selected_issue_id");
+
+
   const handleIssueClick = (issueId) => {
     localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
     navigate(`/techniciandashboard/issues/${issueId}`); // Navigate to IssueDetails page
@@ -173,7 +177,7 @@ const NotificationsPage = () => {
             </div>
             <div className={styles.notificationMeta}>
               <span className={styles.notificationTime}>{notification.time}</span>
-              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(notification.issueId)}>
+              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(viewId)}>
                 View
               </button>
             </div>

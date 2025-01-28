@@ -45,7 +45,7 @@ const HODHeader = ({ onLogout }) => {
           className="profile-button"
         >
           <FontAwesomeIcon icon={faUser} />
-          {user ? `${user.name} ${user.surname}` : 'HOD Name'}
+          {user ? `${user.name || 'HOD'} ${user.surname || ''}` : 'HOD Name'}
         </button>
         {isDropdownOpen && (
           <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>

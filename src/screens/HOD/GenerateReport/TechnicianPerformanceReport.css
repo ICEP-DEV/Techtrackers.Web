@@ -1,0 +1,109 @@
+/* Report Container */
+.technician-report-container {
+    margin-top: 100px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #e5f0ec;
+    transition: margin-left 0.3s ease; /* Smooth transition for sidebar movement */
+  }
+  
+  .technician-report-container.sidebar-open {
+    margin-left: 250px; /* Adjust to the width of your open sidebar */
+  }
+  
+  .technician-report-container.sidebar-closed {
+    margin-left: 0;
+  }
+  
+  /* Typography */
+  .report-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .report-subtitle {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+  
+  /* Table Styles */
+  .report-table-container {
+    margin: 40px auto; /* Center horizontally and add vertical spacing */
+    max-width: 90%; /* Optional: Restrict the table's maximum width */
+    display: flex;
+    justify-content: center; /* Center the table horizontally */
+  }
+  
+  .report-table {
+    width: 100%; /* Ensure the table fills its container */
+  }
+  
+  .report-table-head {
+    background-color: #6da397;
+    color: white;
+  }
+  
+  .report-table-row:nth-child(even) {
+    background-color: #f0f5f4;
+  }
+  
+  .report-table-row:nth-child(odd) {
+    background-color: white;
+  }
+  
+  /* Chart Section */
+  .chart-container {
+    padding: 10px;
+    background-color: #dbe7e4;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Ensure the title is above the chart */
+    align-items: center; /* Center the content horizontally */
+  }
+  
+  .chart-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 15px; /* Adjust the spacing between the title and chart */
+  }
+  
+  
+  /* Buttons Section */
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  .back-button {
+    background-color: #b71c1c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .download-pdf-button {
+    background-color: #005a50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .export-excel-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  

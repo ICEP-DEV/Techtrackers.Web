@@ -1,0 +1,112 @@
+/* ReportPage.css */
+.ReportContainer {
+    margin-top: 100px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: margin-left 0.3s ease; /* Add smooth animation */
+  }
+  
+  /* Adjust the container position based on the sidebar state */
+  .ReportContainer.sidebar-open {
+    margin-left: 250px; /* Assume sidebar width is 250px */
+  }
+  
+  .ReportContainer.sidebar-closed {
+    margin-left: 70px;
+  }
+  
+  .ReportHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .title-image {
+    max-width: 100px;
+    margin-right: 20px;
+  }
+  
+  .report-type-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .icon {
+    max-width: 20px;
+    margin-right: 10px;
+  }
+  
+  .button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+  }
+  
+  .preview-box {
+    width: 50%;
+    margin-left: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 150px;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .date-input-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+  }
+
+  .date-input-container .input{
+    padding: 15px;
+    border-radius: 9px;
+  }
+  .action-button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #15959d;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .button:hover {
+    background-color: #127982;
+  }
+  
+  .button.selected {
+    background-color: #3f9421;
+  }
+  
+  .chevron {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+  
+  .input {
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  

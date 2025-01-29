@@ -41,31 +41,26 @@ const NotificationsPage = () => {
     fetchNotifications();
   }, []);
 
-  const formatDate = (timeString) => {
-    if (!timeString) {
-      // Return a default date or handle the missing time appropriately
-      return new Date(0); // Default to epoch time (January 1, 1970)
-    }
+  const formatDate = (timestamp) => {
+    if (!timestamp) {
+      return new Date(0); // Default to epoch time if missing
+  }
+    // if (timestamp.toLowerCase() === "yesterday") {
+    //   const yesterday = new Date();
+    //   yesterday.setDate(yesterday.getDate() - 1);
+    //   return yesterday;
+    // }
   
-    // Handle "Yesterday" explicitly
-    if (timeString.toLowerCase() === "yesterday") {
-      const date = new Date();
-      date.setDate(date.getDate() - 1);
-      return date;
-    }
+    // if (/^\d{2}:\d{2}$/.test(timestamp)) {
+    //   const today = new Date();
+    //   const [hours, minutes] = timestamp.split(":").map(Number);
+    //   today.setHours(hours, minutes, 0, 0);
+    //   return today;
+    // }
   
-    // Handle time-only formats by assuming today's date
-    const timeOnlyPattern = /^\d{2}:\d{2}$/;
-    if (timeOnlyPattern.test(timeString)) {
-      const today = new Date();
-      const [hours, minutes] = timeString.split(":").map(Number);
-      today.setHours(hours, minutes, 0, 0);
-      return today;
-    }
-  
-    // Handle full date strings in standard formats
-    return new Date(timeString);
+    return new Date(timestamp); // Fallback for standard date strings
   };
+  
   
 
   const filteredNotifications = notifications.filter(notification => {
@@ -75,14 +70,15 @@ const NotificationsPage = () => {
   });
 
   const sortedNotifications = filteredNotifications.sort((a, b) => {
-    const dateA = formatDate(a.time);
-    const dateB = formatDate(b.time);
+    const dateA = formatDate(a.timestamp); // Ensure you use the correct field name for the date
+    const dateB = formatDate(b.timestamp);
+  
     if (sortOrder === 'newest') {
       return dateB - dateA;
     } else if (sortOrder === 'oldest') {
       return dateA - dateB;
     }
-    return 0;
+    return 0; // Default
   });
 
   const getStatusColor = (status) => {
@@ -99,6 +95,10 @@ const NotificationsPage = () => {
   // const handleIssueClick = (issueId) => {
   //   navigate(`/techniciandashboard/issues/${issueId}`);
   // };
+
+  
+  const viewId = localStorage.getItem("selected_issue_id");
+
 
   const handleIssueClick = (issueId) => {
     localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
@@ -125,10 +125,14 @@ const NotificationsPage = () => {
           <div className={styles.notificationDropdown}>
             <button className={styles.theSearchFilterButton}>Filter <img src={filter} alt="Filter" /></button>
             <div className={styles.notificationDropdownContent}>
+            <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('assignment')}>Assignment</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('resolution')}>Resolution</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('collaboration')}>Collaboration</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('ALERT')}>Alert</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('INFORMATION')}>Information</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('WARNING')}>Warning</div>
+              
             </div>
           </div>
           <div className={styles.notificationDropdown}>
@@ -172,7 +176,11 @@ const NotificationsPage = () => {
               )}
             </div>
             <div className={styles.notificationMeta}>
-              <span className={styles.notificationTime}>{notification.time}</span>
+              <span className={styles.notificationTime}>
+                {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit',
+                }).format(formatDate(notification.timestamp))}
+              </span>
               <button className={styles.notificationViewButton} onClick={() => handleIssueClick(notification.issueId)}>
                 View
               </button>

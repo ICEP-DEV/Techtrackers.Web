@@ -86,15 +86,15 @@ const HODDashboard = ({ isSidebarOpen }) => {
       <div className="overview">
         <div className="stats-card">
           <h3>All Issues</h3>
-          <p>48</p>
+          <p>4</p>
         </div>
         <div className="stats-card">
           <h3>Open Issues</h3>
-          <p>16</p>
+          <p>3</p>
         </div>
         <div className="stats-card">
           <h3>Closed Issues</h3>
-          <p>48</p>
+          <p>1</p>
         </div>
         <div className="stats-card">
           <h3>Human Resources Department</h3>

@@ -4,7 +4,7 @@ import styles from '../SidebarCSS/TechRatings.module.css';
 
 const TechnicianDashboard = () => {
   const [technician, setTechnician] = useState({
-    name: 'John Doe',
+    name: '', // Dynamically set from localStorage
     reviewPeriod: '2024-01-01 to 2024-09-30',
     totalReviews: 0,
     averageRating: 0,
@@ -14,53 +14,92 @@ const TechnicianDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const logs = JSON.parse(localStorage.getItem("Tech Issues"));
-    const logId = logs?.[0]?.logId || 3; // Default to 3 if logs or logId is unavailable
-  
+    // Retrieve logged-in technician's details
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    const loggedInTechnicianName = userInfo?.name;
+    const loggedInTechnicianId = userInfo?.userId;
+
+    // Retrieve logs from localStorage
+    const logs = JSON.parse(localStorage.getItem('Tech Issues'));
+
+    // Filter logs assigned to the logged-in technician
+    const assignedLogs = logs?.filter((log) => log.assignedTo === loggedInTechnicianName) || [];
+    const logIds = assignedLogs.map((log) => log.logId); // Array of logIds
+
+    // Set technician details
+    setTechnician((prev) => ({
+      ...prev,
+      name: loggedInTechnicianName,
+    }));
+
     const fetchFeedback = async () => {
+      if (logIds.length === 0) {
+        console.warn('No logs found for this technician.');
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(
-          `https://localhost:44328/api/Feedback/GetFeedbackByLog/${logId}`
+        const feedbackLists = await Promise.all(
+          logIds.map(async (logId) => {
+            const response = await fetch(`https://localhost:44328/api/Feedback/GetFeedbackByLog/${logId}`);
+            if (response.ok) {
+              return await response.json();
+            } else {
+              console.error(`Failed to fetch feedback for logId: ${logId}`);
+              return [];
+            }
+          })
         );
-        if (response.ok) {
-          let feedbackList = await response.json();
-  
-          // Sort feedbackList by FeedbackTimestamp in descending order
-          feedbackList = feedbackList.sort(
-            (a, b) => new Date(b.feedbackTimestamp) - new Date(a.feedbackTimestamp)
-          );
-  
-          const totalReviews = feedbackList.length;
-          const averageRating = (
-            feedbackList.reduce((sum, item) => sum + item.rating, 0) / totalReviews
-          ).toFixed(1);
-  
-          const ratingsDistribution = [5, 4, 3, 2, 1].map((rating) => {
-            const count = feedbackList.filter((item) => item.rating === rating).length;
-            const percentage = ((count / totalReviews) * 100).toFixed(0);
-            return { rating, percentage, count };
-          });
-  
-          setTechnician((prev) => ({
-            ...prev,
+
+        // Combine feedback from all logs into a single array
+        const combinedFeedback = feedbackLists.flat();
+
+        // Sort combined feedback by FeedbackTimestamp in descending order
+        const sortedFeedback = combinedFeedback.sort(
+          (a, b) => new Date(b.feedbackTimestamp) - new Date(a.feedbackTimestamp)
+        );
+
+        // Calculate total reviews, average rating, and ratings distribution
+        const totalReviews = sortedFeedback.length;
+        const averageRating = (
+          sortedFeedback.reduce((sum, item) => sum + item.rating, 0) / totalReviews
+        ).toFixed(1);
+
+        const ratingsDistribution = [5, 4, 3, 2, 1].map((rating) => {
+          const count = sortedFeedback.filter((item) => item.rating === rating).length;
+          const percentage = ((count / totalReviews) * 100).toFixed(0);
+
+          return { rating, percentage, count };
+        });
+
+        // Save feedback data to localStorage (optional)
+        localStorage.setItem(
+          'tech_feedback',
+          JSON.stringify({
             totalReviews,
             averageRating,
             ratingsDistribution,
-          }));
-          setReviews(feedbackList); // Update state with sorted reviews
-        } else {
-          console.error("Failed to fetch feedback.");
-        }
+          })
+        );
+
+        // Update state with the feedback data
+        setTechnician((prev) => ({
+          ...prev,
+          totalReviews,
+          averageRating,
+          ratingsDistribution,
+        }));
+        setReviews(sortedFeedback); // Update state with combined reviews
       } catch (error) {
-        console.error("Error fetching feedback:", error);
+        console.error('Error fetching feedback:', error);
       } finally {
         setIsLoading(false);
       }
     };
-  
+
     fetchFeedback();
   }, []);
-  
 
   return (
     <div className={styles.dashboardContainer}>

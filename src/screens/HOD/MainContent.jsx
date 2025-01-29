@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DetailView from './DetailView'; // Ensure you have the correct path
 import styles from './HOD styles/Table.module.css';
-import './HOD styles/AllIssues.css';
+import './HOD styles/AllIssues.module.css';
 import { Clock } from "lucide-react";
 import FiltIcon from './HODIcons/FiltIcon.png';
 import SortIcon from './HODIcons/SortIcon.png';

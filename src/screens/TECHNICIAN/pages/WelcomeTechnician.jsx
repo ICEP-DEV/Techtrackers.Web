@@ -110,7 +110,7 @@ const WelcomeTechnician = () => {
   };
 
   const task = localStorage.getItem("Tech Issues");
-  console.log(JSON.stringify(task));
+
 
   return (
     <div className={styles.mainContent1}>
@@ -141,7 +141,7 @@ const WelcomeTechnician = () => {
           <div className={styles.upcomingTasks}>
             <h4><img src={arrow} alt="arrow" height={50} /> UPCOMING TASKS</h4>
             <br />
-            <p>You have 2 new issues assigned to you.</p>
+            <p>You have {statusCounts.pending} new issues assigned to you.</p>
           </div>
           <div className={styles.updateStatus}>
             <h4><img src={check_circle} alt="check" height={50} /> UPDATE STATUS</h4>
@@ -177,26 +177,41 @@ const WelcomeTechnician = () => {
           <div className={styles.reviewBox}>
             <div className={styles.rating}>
               <h4 className={styles.reviewTitle}>My Reviews</h4>
-              <div className={styles.stars}>
-                <h3>{rating.overall} </h3>
-                <div>
-                  {Array(5).fill().map((_, i) => (
-                    <span key={i}>{i < Math.round(rating.overall) ? '★' : '☆'}</span>
-                  ))}
-
-                </div>
-              </div>
-              <div className={styles.ratingBreakdown}>
-                {rating.stars.map((count, index) => (
-                  <div className={styles.ratingItem} key={index}>
-                    <span>{5 - index}</span>
-                    <div className={styles.bar}>
-                      <div className={styles.filled} style={{ width: `${count * 10}%` }}></div>
-                    </div>
-                    <span>{count}</span>
-                  </div>
-                ))}
-              </div>
+              {(() => {
+                const feedback = JSON.parse(localStorage.getItem("tech_feedback"));
+                if (feedback) {
+                  return (
+                    <>
+                      <div className={styles.stars}>
+                        <h3>{feedback.averageRating} </h3>
+                        <div>
+                          {Array(5).fill().map((_, i) => (
+                            <span key={i}>
+                              {i < Math.round(feedback.averageRating) ? "★" : "☆"}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className={styles.ratingBreakdown}>
+                        {feedback.ratingsDistribution.map((item) => (
+                          <div className={styles.ratingItem} key={item.rating}>
+                            <span>{item.rating}</span>
+                            <div className={styles.bar}>
+                              <div
+                                className={styles.filled}
+                                style={{ width: `${item.percentage}%` }}
+                              ></div>
+                            </div>
+                            <span>{item.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  );
+                } /*else {
+                  return <p>No reviews available.</p>;
+                }*/
+              })()}
             </div>
           </div>
         </div>

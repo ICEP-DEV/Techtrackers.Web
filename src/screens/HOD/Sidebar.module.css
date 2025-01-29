@@ -1,3 +1,111 @@
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 210px;
+  height: calc(100vh - 80px);
+  background-color: #0C3A3A;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+  z-index: 1000;
+  padding-top: 20px;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.menuIcon {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.menuIcon:hover {
+  color: #6ff1f1;
+}
+
+.sidebarNav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.sidebarNav li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebarNav li:hover {
+  background-color: #195353;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+}
+
+.menuLink i {
+  font-size: 18px;
+}
+
+.menuText {
+  margin-left: 10px;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+
+.sidebar.closed .menuText {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.notificationCount {
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.sidebar.closed .notificationCount {
+  display: none;
+}
+
+.logoutSection {
+  padding: 15px;
+  display: flex;
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.logoutIcon {
+  font-size: 24px;
+  transition: color 0.3s;
+  display: block;
+}
+
+.logoutIcon:hover {
+  color: #4ed6ff;
+  cursor: pointer;
+}
+
+.sidebarNav li.active {
+  background-color: #108484;
+}
+
+.sidebarNav li.active .menuLink {
+  color: #ffffff;
+  font-weight: bold;
+}
 /* Sidebar */
 .sidebar {
   position: fixed;  /* Fix the sidebar to the left */

@@ -134,6 +134,10 @@ function AccountRecovery() {
 
     // Password Reset Step - and validate password and submit
     const submitPassword = () => {
+        console.log('Email:', Email);
+        console.log('Otp:', otp.join(''));
+        console.log('Password:', Password);
+        console.log('ConfirmPassword:', ConfirmPassword);
         const validPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
 
         if (Password === '') {
@@ -333,7 +337,7 @@ function AccountRecovery() {
                             </span>
                         </div>
                         <div className="form-group">
-                            <button onClick={handlePasswordChange} className="reset-password-button">Reset Password</button>
+                            <button onClick={submitPassword} className="reset-password-button">Reset Password</button>
                         </div>
                     </div>
                 </div>

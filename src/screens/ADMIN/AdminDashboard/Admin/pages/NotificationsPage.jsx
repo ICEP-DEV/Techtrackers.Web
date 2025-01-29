@@ -128,8 +128,8 @@ const Notification = () => {
       return sortBy === "asc"
         ? dateA - dateB
         : sortBy === "desc"
-        ? dateB - dateA
-        : 0;
+          ? dateB - dateA
+          : 0;
     });
 
     setData(sortedData);
@@ -144,7 +144,7 @@ const Notification = () => {
 
 
   const debouncedSearchChange = useMemo(
-    () => debounce((query) => setSearchQuery(query), ),
+    () => debounce((query) => setSearchQuery(query),),
     []
   );
 
@@ -224,7 +224,9 @@ const Notification = () => {
             </span>
             <button
               className={styles.viewBtn}
-              onClick={() => navigate(`/admindashboard/notification/${row.id}`)}
+              onClick={() =>
+                navigate("/admindashboard/notif-view", { state: row })
+              }
             >
               View
             </button>

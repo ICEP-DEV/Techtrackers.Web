@@ -181,7 +181,7 @@ const NotificationsPage = () => {
                   year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit',
                 }).format(formatDate(notification.timestamp))}
               </span>
-              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(notification.issueId)}>
+              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(viewId)}>
                 View
               </button>
             </div>

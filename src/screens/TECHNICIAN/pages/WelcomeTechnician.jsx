@@ -14,17 +14,7 @@ const WelcomeTechnician = () => {
     pending: 0,
   });
 
-  const [tasks, setTasks] = useState([
-    { title: "Server Downtime", priority: "HIGH", status: "Pending", time: "09:48" },
-    // { title: "Unable to Log into HR Portal", priority: "MEDIUM", status: "Pending", time: "09:48" },
-    // { title: "Printer Not Working", priority: "HIGH", status: "InProgress", time: "Yesterday" },
-    // { title: "Low Disk Space", priority: "LOW", status: "Resolved", time: "18/08/2024" },
-  ]);
-
-  const [rating, setRating] = useState({
-    overall: 3.0,
-    stars: [3, 4, 6, 4, 2],
-  });
+  const [tasks, setTasks] = useState();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,11 +23,9 @@ const WelcomeTechnician = () => {
 
     const storedTasks = JSON.parse(localStorage.getItem('Tech Issues')) || [];
 
-    // Access the last task in the array
-    const lastTask = storedTasks[storedTasks.length - 1];
+    const lastTask = storedTasks[storedTasks.length - 1];  //Last task in the array
 
-    // Set tasks to include only the last task
-    setTasks(lastTask ? [lastTask] : []);
+    setTasks(lastTask ? [lastTask] : []);   //Set tasks to the last task
 
     const fetchStatusCounts = async () => {
       try {
@@ -71,21 +59,20 @@ const WelcomeTechnician = () => {
           throw new Error("Failed to fetch status counts");
         }
 
-        // Parse JSON responses
         const resolvedData = await resolvedResponse.json();
         const inProgressData = await inProgressResponse.json();
         const onHoldData = await onHoldResponse.json();
         const pendingData = await pendingResponse.json();
 
-        // Assuming each API returns an object like { status: "Resolved", count: 25 }
         setStatusCounts({
-          resolved: resolvedData, // Extracting only the count
+          resolved: resolvedData,
           inProgress: inProgressData,
           onHold: onHoldData,
           pending: pendingData,
         });
 
         setLoading(false);
+
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -166,6 +153,47 @@ const WelcomeTechnician = () => {
                 <p>Priority: {task.priority}</p>
                 <p>Status: {task.status}</p>
                 <p className={styles.date}>{task.issuedAt}</p>
+
+                {/* Progress Bar */}
+                <div className={styles.progressBarContainer}>
+                  <div className={styles.progressBar}
+                    style={{
+                      width:
+                        task.status === "ESCALATED"
+                          ? "100%"
+                          : task.status === "INPROGRESS"
+                            ? "50%"
+                            : task.status === "PENDING"
+                              ? "25%"
+                              : task.status === "RESOLVED"
+                                ? "100%"
+                                : "20%",
+                      backgroundColor:
+                        task.status === "ESCALATED"
+                          ? "red"
+                          : task.status === "INPROGRESS"
+                            ? "#14788f"
+                            : task.status === "PENDING"
+                              ? "#ffa007"
+                              : task.status === "RESOLVED"
+                                ? "#28a745"
+                                : "#ccc",
+                    }}
+                  >
+                    {/* Percentage Text */}
+                    <span className={styles.progressText}>
+                      {task.status === "ESCALATED"
+                        ? "100%"
+                        : task.status === "INPROGRESS"
+                          ? "70%"
+                          : task.status === "PENDING"
+                            ? "50%"
+                            : task.status === "RESOLVED"
+                              ? "100%"
+                              : "20%"}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

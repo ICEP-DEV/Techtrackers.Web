@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -36,55 +36,88 @@ ChartJS.register(
 
 const IssueReport = () => {
   const { state } = useLocation();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const { startDate, endDate } = state || {};
 
-  const tableData = [
-    {
-      logID: "LOG-001",
-      description: "Internal Issue",
-      priority: "High",
-      technician: "Lunga Ntshingila",
-      status: "In Progress",
-      dateCreated: "25-08-2024",
-      dueDate: "25-08-2024",
-      dateClosed: "25-08-2024",
-    },
-    {
-      logID: "LOG-002",
-      description: "External Issue",
-      priority: "Low",
-      technician: "Hamilton Masipa",
-      status: "Resolved",
-      dateCreated: "15-08-2024",
-      dueDate: "20-08-2024",
-      dateClosed: "20-08-2024",
-    },
-    // Additional table data rows here
-  ];
-
-  const barChartData = {
-    labels: ["OPEN", "IN PROGRESS", "COMPLETED"],
-    datasets: [
-      {
-        label: "Number of Issues",
-        data: [30, 20, 50],
-        backgroundColor: ["#AECFD6", "#5DADEC", "#005A50"],
-      },
-    ],
-  };
-
-  const pieChartData = {
-    labels: ["COMPLETED", "OPEN", "IN PROGRESS"],
+  const [tableData, setTableData] = useState([]); // Holds issue reports
+  const [chartData, setChartData] = useState({
+    labels: ["Open", "In Progress", "Resolved", "Escalated", "On Hold"],
     datasets: [
       {
         label: "Issue Status Distribution",
-        data: [30, 40, 30],
-        backgroundColor: ["#8FD3DF", "#56A9CB", "#023030"],
+        data: [0, 0, 0, 0, 0], // Initial empty values
+        backgroundColor: ["#8FD3DF", "#56A9CB", "#023030", "#FFC107", "#E91E63"],
       },
     ],
-  };
+  });
 
+  // Fetch Issue Report Data
+  useEffect(() => {
+    const fetchIssueReport = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:44328/api/GenerateReport/GetIssueByStatusReport"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setTableData(data);
+        } else {
+          console.error("Failed to fetch issue report.");
+        }
+      } catch (error) {
+        console.error("Error fetching issue report:", error);
+      }
+    };
+
+    fetchIssueReport();
+  }, []);
+
+  // Fetch Issue Status Count Data (for Graphs)
+  useEffect(() => {
+    const fetchIssueStatusCount = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:44328/api/GenerateReport/GetIssueStatusCount"
+        );
+        if (response.ok) {
+          const data = await response.json();
+
+          console.log(data);
+
+          setChartData({
+            labels: ["Open", "In Progress", "Resolved", "Escalated", "On Hold"],
+            datasets: [
+              {
+                label: "Issue Status Distribution",
+                data: [
+                  data.open || 0,
+                  data.inProgress || 0,
+                  data.completed || 0,
+                  data.escalated || 0,
+                  data.onHold || 0,
+                ],
+                backgroundColor: [
+                  "#8FD3DF",
+                  "#56A9CB",
+                  "#023030",
+                  "#FFC107",
+                  "#E91E63",
+                ],
+              },
+            ],
+          });
+        } else {
+          console.error("Failed to fetch issue status count.");
+        }
+      } catch (error) {
+        console.error("Error fetching issue status count:", error);
+      }
+    };
+
+    fetchIssueStatusCount();
+  }, []);
+
+  // Export Report as PDF
   const exportPDF = () => {
     const doc = new jsPDF();
     doc.text("Issue Report", 20, 10);
@@ -93,7 +126,7 @@ const IssueReport = () => {
       head: [
         [
           "Log ID",
-          "Description",
+          "Issue Title",
           "Priority",
           "Technician",
           "Status",
@@ -107,6 +140,7 @@ const IssueReport = () => {
     doc.save("issue_report.pdf");
   };
 
+  // Export Report as Excel
   const exportExcel = () => {
     const ws = XLSX.utils.json_to_sheet(tableData);
     const wb = XLSX.utils.book_new();
@@ -121,12 +155,13 @@ const IssueReport = () => {
         Date report was generated: {startDate || "N/A"} to {endDate || "N/A"}
       </p>
 
+      {/* Table Section */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Log ID</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell>Issue Title</TableCell>
               <TableCell>Priority</TableCell>
               <TableCell>Technician</TableCell>
               <TableCell>Status</TableCell>
@@ -140,12 +175,11 @@ const IssueReport = () => {
               <TableRow
                 key={index}
                 style={{
-                  backgroundColor:
-                    row.logID === "LOG-002" ? "#E2F0D9" : "white",
+                  backgroundColor: row.status === "RESOLVED" ? "#E2F0D9" : "white",
                 }}
               >
-                <TableCell>{row.logID}</TableCell>
-                <TableCell>{row.description}</TableCell>
+                <TableCell>{row.logId}</TableCell>
+                <TableCell>{row.issueTitle}</TableCell>
                 <TableCell>{row.priority}</TableCell>
                 <TableCell>{row.technician}</TableCell>
                 <TableCell>{row.status}</TableCell>
@@ -158,6 +192,7 @@ const IssueReport = () => {
         </Table>
       </TableContainer>
 
+      {/* Charts Section */}
       <div
         style={{
           display: "flex",
@@ -166,13 +201,14 @@ const IssueReport = () => {
         }}
       >
         <div style={{ width: "45%" }}>
-          <Bar data={barChartData} />
+          <Bar data={chartData} />
         </div>
         <div>
-          <Pie data={pieChartData} />
+          <Pie data={chartData} />
         </div>
       </div>
 
+      {/* Export & Navigation Buttons */}
       <div
         style={{
           display: "flex",

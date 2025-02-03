@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css"; // Import CSS module
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
   const location = useLocation(); // Get current route path
-
+  const navigate = useNavigate(); 
   return (
     <div className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
       <div className={styles.menuIcon} onClick={toggleSidebar}>
@@ -53,8 +53,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         </ul>
       </nav>
 
-      <div className={styles.logoutSection} onClick={() => console.log('Logging out...')}>
-        <i className={`fas fa-sign-out-alt ${styles.logoutIcon}`}></i>
+      <div className={styles.logoutSection} >
+        <i className={`fas fa-sign-out-alt ${styles.logoutIcon}`} onClick={() => navigate("/login")}></i>
       </div>
     </div>
   );

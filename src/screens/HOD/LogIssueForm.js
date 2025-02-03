@@ -1,199 +1,273 @@
-import React, { useState } from "react";
-import "../HOD/LogIssueForm.css"; // Importing the CSS file
+import React, { useState, useEffect } from 'react';
+import { FaPlusCircle } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import styles from '../HOD/LogIssueForm.module.css';
 
-function LogIssueForm({ isSidebarOpen }) { // Receive isSidebarOpen as a prop
-  const [formData, setFormData] = useState({
-    issueTitle: "",
-    category: "",
-    department: "Human Resources (HR)", // Default department
-    priority: "",
-    description: "",
-    date: new Date().toLocaleDateString("en-GB"), // Automatically set today's date
-    location: "",
-    attachment: null,
+const Logissueform = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [formValues, setFormValues] = useState({
+    title: '',
+    category: '',
+    department: 'Human Resource (HR)', // default value
+    priority: '',
+    description: '',
+    date: new Date().toISOString().split('T')[0],
+    location: '',
+    buildingNumber: '',
+    attachmentFiles: [], // Updated to support multiple files
   });
-
   const [errors, setErrors] = useState({});
+  const [filePreviews, setFilePreviews] = useState([]); // Previews for all files
+  const navigate = useNavigate();
 
-  // Handle input change to update form data state
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+
+    if (userInfo && userInfo.department) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: userInfo.department, // Set the department
+      }));
+    } else {
+      console.warn("No department found in user_info.");
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department: "Unknown Department", // Fallback if department is missing
+      }));
+    }
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: name === "category" ? parseInt(value) : value, // Convert category to integer
     }));
-    // Remove error message as the user types
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "",
+      [name]: '',
     }));
   };
 
-  // Handle cancel button click to reset form
-  const handleCancel = () => {
-    setFormData({
-      issueTitle: "",
-      category: "",
-      department: "Human Resources (HR)",
-      priority: "",
-      description: "",
-      date: new Date().toLocaleDateString("en-GB"),
-      location: "",
-      attachment: null,
-    });
-    setErrors({}); // Clear all errors
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Convert FileList to Array
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      attachmentFiles: [...prevValues.attachmentFiles, ...files], // Append new files
+    }));
+
+    // Generate previews for all files
+    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    setFilePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
   };
 
-  // Handle submit button click with validation for required fields
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // Validate required fields
-    let newErrors = {};
-    if (!formData.issueTitle) newErrors.issueTitle = "This field is required";
-    if (!formData.category) newErrors.category = "Please select one";
-    if (!formData.priority) newErrors.priority = "Please select one";
-    if (!formData.description) newErrors.description = "This field is required";
-    if (!formData.location) newErrors.location = "Please select one";
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    const staffId = userInfo?.userId;
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors); // Set error messages
-    } else {
-      // Form submission logic can be added here
-      alert("Form submitted successfully!");
+    if (!staffId) {
+      toast.error("User ID is missing. Please log in again.");
+      return;
     }
+
+    const fullLocation = formValues.location 
+      ? formValues.buildingNumber 
+        ? `${formValues.location}-${formValues.buildingNumber}`
+        : formValues.location
+      : "Location not specified";
+
+    // Simulate successful submission
+    setSubmitted(true);
+    setFormValues({
+      title: '',
+      category: '',
+      department: '',
+      priority: '',
+      description: '',
+      date: new Date().toISOString().split('T')[0],
+      location: '',
+      buildingNumber: '',
+      attachmentFiles: [],
+    });
+    setFilePreviews([]); // Reset previews
+    toast.success("Log submitted successfully!");
+  };
+
+  const handleCancel = () => {
+    navigate('/headdepartment/hod-dashboard');
+  };
+
+  const handleView = () => {
+    navigate('/headdepartment/all-issues');
   };
 
   return (
-    <div
-      className={`form-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
-    >
-      <h2 className="form-header">
-        <span className="form-icon">+</span> LOG ISSUE
-      </h2>
-      <form className="log-issue-form" onSubmit={handleSubmit}>
-        <div className="form-row">
-          <div className="form-field">
-            <label>
-              Issue title <span className="required">*</span>
-            </label>
+    <div className={styles.mainContent}>
+      <ToastContainer />
+      {submitted && (
+        <div className={styles.successMessage}>
+          Thank you for reporting this issue. Your log has been submitted successfully. You can <a href="#" onClick={handleView}>View</a> it in your logged issues.
+        </div>
+      )}
+      <form className={styles.logIssueForm} onSubmit={handleSubmit}>
+        <h2><FaPlusCircle /> LOG ISSUE</h2>
+        
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
+            <label>Issue title<span className={styles.Required}>*</span></label>
             <input
+              id='issue-title'
               type="text"
-              name="issueTitle"
-              value={formData.issueTitle}
+              name="title"
+              placeholder="Internal Issue"
+              value={formValues.title}
               onChange={handleChange}
-              className={errors.issueTitle ? "error-field" : ""}
             />
-            {errors.issueTitle && <small className="error-message">{errors.issueTitle}</small>}
+            {errors.title && <p className={styles.errorMessage}>{errors.title}</p>}
           </div>
-          <div className="form-field">
-            <label>
-              Category <span className="required">*</span>
-            </label>
+
+          <div className='box'>
+            <label>Category<span className={styles.Required}>*</span></label>
             <select
               name="category"
-              value={formData.category}
+              value={formValues.category}
               onChange={handleChange}
-              className={errors.category ? "error-field" : ""}
             >
               <option value="">Select Category</option>
-              <option value="Network Issue">Network Issue</option>
-              <option value="Hardware Issue">Hardware Issue</option>
-              <option value="Software Issue">Software Issue</option>
-              <option value="Infrastructure Issue">Infrastructure Issue</option>
-              <option value="Security Issue">Security Issue</option>
-              <option value="Facilities Management">Facilities Management</option>
+              <option value={1}>Hardware Issue</option>
+              <option value={2}>Software Issue</option>
+              <option value={3}>Network Issue</option>
+              <option value={4}>Account Management</option>
+              <option value={5}>General Inquiry</option>
             </select>
-            {errors.category && <small className="error-message">{errors.category}</small>}
+            {errors.category && <p className={styles.errorMessage}>{errors.category}</p>}
           </div>
         </div>
 
-        <div className="form-row">
-          <div className="form-field">
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
             <label>Department</label>
-            <input type="text" value={formData.department} readOnly />
+            <input
+              type="text"
+              name="department"
+              value={formValues.department}
+              onChange={handleChange}
+              readOnly
+            />
           </div>
-          <div className="form-field">
-            <label>
-              Priority level <span className="required">*</span>
-            </label>
+
+          <div className={styles.Box}>
+            <label>Priority level<span className={styles.Required}>*</span></label>
             <select
               name="priority"
-              value={formData.priority}
+              value={formValues.priority}
               onChange={handleChange}
-              className={errors.priority ? "error-field" : ""}
             >
-              <option value="">Select priority level</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="">Select Priority</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
             </select>
-            {errors.priority && <small className="error-message">{errors.priority}</small>}
+            {errors.priority && <p className={styles.errorMessage}>{errors.priority}</p>}
           </div>
         </div>
 
-        <div className="form-field">
-          <label>
-            Description <span className="required">*</span>
-          </label>
-          <textarea
-            rows="4"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Describe the issue in detail"
-            className={errors.description ? "error-field" : ""}
-          />
-          {errors.description && <small className="error-message">{errors.description}</small>}
-        </div>
+        <label>Description<span className={styles.Required}>*</span></label>
+        <textarea
+          name="description"
+          placeholder="Describe the issue here..."
+          rows="4"
+          value={formValues.description}
+          onChange={handleChange}
+        ></textarea>
+        {errors.description && <p className={styles.errorMessage}>{errors.description}</p>}
 
-        <div className="form-row">
-          <div className="form-field">
-            <label>
-              Date <span className="required">*</span>
-            </label>
-            <input type="text" value={formData.date} readOnly />
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
+            <label>Date</label>
+            <input
+              type="date"
+              name="date"
+              readOnly
+              value={formValues.date}
+            />
           </div>
-          <div className="form-field">
-            <label>
-              Location <span className="required">*</span>
-            </label>
+          
+          <div className={styles.Box}>
+            <label>Location<span className={styles.Required}>*</span></label>
             <select
               name="location"
-              value={formData.location}
+              value={formValues.location}
               onChange={handleChange}
-              className={errors.location ? "error-field" : ""}
             >
               <option value="">Select Location</option>
-              <option value="Main Building">Main Building</option>
-              <option value="Building 18-112">Building 18-112</option>
-              <option value="Building 10-G42">Building 10-G42</option>
+              <option>TUT Building 18</option>
+              <option>Main Office</option>
+              <option>Remote Site</option>
             </select>
-            {errors.location && <small className="error-message">{errors.location}</small>}
+            {errors.location && <p className={styles.errorMessage}>{errors.location}</p>}
+          </div>
+          <div className={styles.Box}>
+            <label>Building Number</label>
+            <select
+              name="buildingNumber"
+              value={formValues.buildingNumber}
+              onChange={handleChange}
+            >
+              <option value="">Select Building Number</option>
+              <option value="G45H">G45H</option>
+              <option value="F23B">F23B</option>
+              <option value="D12C">D12C</option>
+              <option value="A1">A1</option>
+              <option value="B2">B2</option>
+            </select>
           </div>
         </div>
 
-        <div className="form-field">
-          <label>Attachments (include screenshots, photos of faulty equipment/documents)</label>
-          <input
-            type="file"
-            accept=".jpeg, .png, .pdf"
-            onChange={(e) => setFormData({ ...formData, attachment: e.target.files[0] })}
-          />
-          <small className="attachment-note">(JPEG, PNG, PDF)</small>
+        <div className={styles.fileInputWrapper}>
+          <label>Attachments (include screenshots, photos, documents, etc.):</label>
+          <div>
+            <input 
+              type="file" 
+              name="attachmentFiles" 
+              multiple // Allow multiple file selection
+              onChange={handleFileChange} 
+            />
+            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p> 
+
+            {/* Display file names as clickable links */}
+            {formValues.attachmentFiles.length > 0 && (
+              <div>
+                {formValues.attachmentFiles.map((file, index) => (
+                  <div key={index}>
+                    {filePreviews[index] ? (
+                      <a 
+                        href={filePreviews[index]} 
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                        {file.name}
+                      </a>
+                    ) : (
+                      <span>{file.name}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="form-buttons">
-          <button type="button" className="cancel-button" onClick={handleCancel}>
-            Cancel
-          </button>
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
+        <div className={styles.FformButons}>
+          <button type="submit" className={styles.submitBtn}>Submit</button>
+          <button type="button" className={styles.cancelBtn} onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>
   );
-}
+};
 
-export default LogIssueForm;
+export default Logissueform;

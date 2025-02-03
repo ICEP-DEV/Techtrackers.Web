@@ -14,8 +14,9 @@ const AssignTech = () => {
   const [filteredIssues, setFilteredIssues] = useState([]);
   const [selectedIssueId, setSelectedIssueId] = useState(null);
   const [assignedIssues, setAssignedIssues] = useState([]);
+  const [assignedTechnicians, setAssignedTechnicians] = useState({}); // New state to track technician assignments
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("date-asc"); // Default to "date-asc"
+  const [sortOption, setSortOption] = useState("date-asc");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
   useEffect(() => {
@@ -42,16 +43,15 @@ const AssignTech = () => {
           setIssues(sortedIssues);
           setFilteredIssues(sortedIssues);
 
-          // Sort issues by date in descending order
-       
-          setIssues(sortedIssues); // Save sorted issues to state
-
-          // Track assigned issues
           const assigned = sortedIssues
-            .filter((issue) => issue.technicianAssigned) // Assuming the backend provides this field
+            .filter((issue) => issue.technicianAssigned)
             .map((issue) => issue.logId);
 
           setAssignedIssues(assigned);
+
+          // Load persisted assignments from localStorage
+          const persistedAssignments = JSON.parse(localStorage.getItem("assignedTechnicians")) || {};
+          setAssignedTechnicians(persistedAssignments);
         } else {
           console.error("Failed to fetch issues.");
         }
@@ -67,7 +67,6 @@ const AssignTech = () => {
   const handleAssignClick = async () => {
     if (selectedCheckbox !== null && selectedIssueId !== null) {
       const assignedTech = technicians[selectedCheckbox];
-
       const payload = {
         logId: parseInt(selectedIssueId, 10),
         technicianId: assignedTech.userId,
@@ -85,8 +84,14 @@ const AssignTech = () => {
           toast.success(`You have assigned ${assignedTech.name} to the task!`);
           setShowModal(false);
           setAssignedIssues((prev) => [...prev, selectedIssueId]);
+
+          // Persist the assignment in localStorage
+          setAssignedTechnicians((prevAssignments) => {
+            const newAssignments = { ...prevAssignments, [selectedIssueId]: assignedTech.name };
+            localStorage.setItem("assignedTechnicians", JSON.stringify(newAssignments));
+            return newAssignments;
+          });
         } else {
-          // Backend response for already assigned technician
           if (responseData.message?.includes("technician has already been assigned")) {
             toast.error("Technician already assigned to this task.");
           } else {
@@ -128,22 +133,19 @@ const AssignTech = () => {
   const filterIssues = (query, sortOption, priority) => {
     let filtered = [...issues];
 
-    // Filter by priority
     if (priority !== "All") {
       filtered = filtered.filter((issue) => issue.priority === priority);
     }
 
-    // Filter by search query (logId, department, issueTitle, priority)
     if (query) {
       filtered = filtered.filter((issue) => 
         issue.issueTitle.toLowerCase().includes(query) ||
-        issue.logId.toString().toLowerCase().includes(query) || // Search by logId
-        issue.department.toLowerCase().includes(query) || // Search by department
-        issue.priority.toLowerCase().includes(query) // Search by priority level
+        issue.logId.toString().toLowerCase().includes(query) ||
+        issue.department.toLowerCase().includes(query) ||
+        issue.priority.toLowerCase().includes(query)
       );
     }
 
-    // Sorting issues
     if (sortOption === "date-asc") {
       filtered.sort((a, b) => new Date(a.issuedAt) - new Date(b.issuedAt));
     } else if (sortOption === "date-desc") {
@@ -201,6 +203,7 @@ const AssignTech = () => {
             <th>Log By</th>
             <th>Date Issued</th>
             <th>Department</th>
+            <th>Assigned To</th>
             <th>Priority Level</th>
             <th>Action</th>
           </tr>
@@ -219,6 +222,7 @@ const AssignTech = () => {
                 })}
               </td>
               <td>{issue.department}</td>
+              <td>{assignedTechnicians[issue.logId] || "Not Assigned"}</td> {/* Display technician name from local state */}
               <td>{issue.priority}</td>
               <td>
                 <button
@@ -325,4 +329,3 @@ const AssignTech = () => {
 };
 
 export default AssignTech;
-

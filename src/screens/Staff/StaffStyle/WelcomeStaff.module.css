@@ -47,6 +47,9 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
+.cardsContent h2 {
+    color: white; /* Change text color to white */
+}
 
 /* Hover effect for cards */
 .cards:hover {

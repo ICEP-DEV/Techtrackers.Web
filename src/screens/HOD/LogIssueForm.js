@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import styles from '../HOD/LogIssueForm.module.css';
 
-const Logissueform = () => {
+const Logissueform = ({ isSidebarOpen }) => {
   const [submitted, setSubmitted] = useState(false);
   const [formValues, setFormValues] = useState({
     title: '',
@@ -106,7 +106,7 @@ const Logissueform = () => {
   };
 
   return (
-    <div className={styles.mainContent}>
+    <div className={`${styles["mainContent"]} ${isSidebarOpen ? styles["sidebar-open"] : styles["sidebar-closed"]}`}>
       <ToastContainer />
       {submitted && (
         <div className={styles.successMessage}>

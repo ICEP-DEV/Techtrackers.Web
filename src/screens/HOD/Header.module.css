@@ -14,6 +14,18 @@
   z-index: 1000;
 }
 
+.profileButton {
+  background-color: #0C3A3A; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.profileButton:hover {
+  background-color: #0C3A3A;
+}
+
 .headerLogo {
   display: flex;
   justify-content: center;

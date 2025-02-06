@@ -23,7 +23,7 @@ import {
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
-import "./MonthlyGenerateReport.css"; // Import the CSS file
+import styles from "./MonthlyGenerateReport.module.css"; // Import the module CSS
 
 ChartJS.register(
   CategoryScale,
@@ -62,7 +62,6 @@ const MonthlyGenerateReport = ({ isSidebarOpen }) => {
       issuesOpen: 5,
       avgResolution: "3.0 days",
     },
-    // Add more rows as needed...
   ];
 
   const barChartData = {
@@ -123,8 +122,8 @@ const MonthlyGenerateReport = ({ isSidebarOpen }) => {
 
   return (
     <div
-      className={`monthly-report-container ${
-        isSidebarOpen ? "sidebar-open" : "sidebar-closed"
+      className={`${styles.monthlyReportContainer} ${
+        isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed
       }`}
     >
       <h1>Monthly Issue Report</h1>
@@ -133,8 +132,8 @@ const MonthlyGenerateReport = ({ isSidebarOpen }) => {
       </p>
 
       {/* Table Section */}
-      <TableContainer component={Paper} className="report-table-container">
-        <Table className="report-table">
+      <TableContainer component={Paper} className={styles.reportTableContainer}>
+        <Table className={styles.reportTable}>
           <TableHead>
             <TableRow>
               <TableCell>Month</TableCell>
@@ -159,27 +158,27 @@ const MonthlyGenerateReport = ({ isSidebarOpen }) => {
       </TableContainer>
 
       {/* Chart Section */}
-      <div className="chart-container">
-        <div className="chart-bar">
+      <div className={styles.chartContainer}>
+        <div className={styles.chartBar}>
           <h3>Number of Issues Logged per Category</h3>
           <Bar data={barChartData} options={{ responsive: true }} />
         </div>
-        <div className="chart-pie">
+        <div className={styles.chartPie}>
           <h3>Distribution of Issues by Department</h3>
           <Pie data={pieChartData} options={{ responsive: true }} />
         </div>
       </div>
 
       {/* Buttons */}
-      <div className="buttons-container">
-        <button onClick={() => navigate(-1)} className="back-button">
+      <div className={styles.buttonsContainer}>
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
           BACK
         </button>
-        <div className="action-buttons">
-          <button onClick={downloadPDF} className="download-pdf">
+        <div className={styles.actionButtons}>
+          <button onClick={downloadPDF} className={styles.downloadPdf}>
             DOWNLOAD PDF
           </button>
-          <button onClick={exportToExcel} className="export-excel">
+          <button onClick={exportToExcel} className={styles.exportExcel}>
             EXPORT TO EXCEL
           </button>
         </div>

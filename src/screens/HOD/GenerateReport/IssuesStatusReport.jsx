@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -23,7 +23,7 @@ import {
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
-import "./IssueReport.css"; // Importing the CSS for IssueReport
+import styles from "./IssueReport.module.css"; // Importing the module-based CSS
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +36,7 @@ ChartJS.register(
 );
 
 const IssueReport = ({ isSidebarOpen }) => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { startDate, endDate } = state || {};
 
@@ -106,7 +106,7 @@ const IssueReport = ({ isSidebarOpen }) => {
   };
 
   return (
-    <div className={`issue-report-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+    <div className={`${styles.issueReportContainer} ${isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
       <h1>Issue By Status Report</h1>
       <p>Date report was generated: {startDate || "N/A"} to {endDate || "N/A"}</p>
 
@@ -141,25 +141,23 @@ const IssueReport = ({ isSidebarOpen }) => {
         </Table>
       </TableContainer>
 
-      <div className="chart-container">
-        <div style={{width: "45%"}}>
+      <div className={styles.chartContainer}>
+        <div className={styles.chart}>
           <Bar data={barChartData} />
         </div>
-        <div className="chart">
+        <div className={styles.chart}>
           <Pie data={pieChartData} />
         </div>
       </div>
 
-      <div className="buttons-container">
-    
-
-      <button onClick={() => navigate(-1)} className="backbutton1">
+      <div className={styles.buttonsContainer}>
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
           BACK
         </button>
-        <div className="buttons">
-        <button className="exportButton" onClick={exportPDF}>Export Excel</button>
-        <button className="downloadButton" onClick={exportExcel}>Download PDF</button>
-      </div>
+        <div className={styles.buttons}>
+          <button className={styles.exportButton} onClick={exportPDF}>Export Excel</button>
+          <button className={styles.downloadButton} onClick={exportExcel}>Download PDF</button>
+        </div>
       </div>
     </div>
   );

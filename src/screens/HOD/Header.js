@@ -42,7 +42,7 @@ const HODHeader = ({ onLogout }) => {
         <button
           id="profile-button"
           onClick={toggleDropdown}
-          className="profile-button"
+          className={styles.profileButton}
         >
           <FontAwesomeIcon icon={faUser} />
           {user ? `${user.name || 'HOD'} ${user.surname || ''}` : 'HOD Name'}
@@ -57,8 +57,6 @@ const HODHeader = ({ onLogout }) => {
             <button
               className="signout-button"
               onClick={() => {
-                closeDropdown();
-                onLogout();
                 navigate('/login');
               }}
             >

@@ -1,6 +1,5 @@
 /* Report Container */
 .technician-report-container {
-    margin-top: 100px;
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #e5f0ec;
@@ -8,7 +7,7 @@
   }
   
   .technician-report-container.sidebar-open {
-    margin-left: 250px; /* Adjust to the width of your open sidebar */
+    margin-left: 80px;
   }
   
   .technician-report-container.sidebar-closed {
@@ -55,7 +54,9 @@
   
   /* Chart Section */
   .chart-container {
-    padding: 10px;
+    margin: 80px;
+    margin-top: 10px;
+    padding: 160px;
     background-color: #dbe7e4;
     border-radius: 8px;
     margin-bottom: 20px;

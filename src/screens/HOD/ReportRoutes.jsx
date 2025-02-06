@@ -6,9 +6,8 @@ import IssuesStatusReport from "./GenerateReport/IssuesStatusReport";
 import MonthlySummaryReport from "./GenerateReport/MonthlySummaryReport";
 import TechnicianPerformanceReport from "./GenerateReport/TechnicianPerformanceReport";
 
-function App() {
+function ReportRoutes() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<ReportPage />} />
         <Route path="/status-report" element={<IssuesStatusReport />} />
@@ -21,8 +20,7 @@ function App() {
           element={<TechnicianPerformanceReport />}
         />
       </Routes>
-    </Router>
   );
 }
 
-export default App;
+export default ReportRoutes;

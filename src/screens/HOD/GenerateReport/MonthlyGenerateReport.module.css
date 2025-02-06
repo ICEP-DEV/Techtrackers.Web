@@ -1,0 +1,106 @@
+/* Container Styles */
+.monthlyReportContainer {
+  padding: 20px;
+  transition: margin-left 0.3s ease, padding-left 0.3s ease;
+}
+
+.sidebarClosed {
+  margin-left: 0px; 
+}
+
+.sidebarOpen {
+  margin-left: 80px;
+}
+
+/* Heading Styles */
+.monthlyReportContainer h1 {
+  text-align: center;
+}
+
+.monthlyReportContainer p {
+  text-align: center;
+}
+
+/* Table Styles */
+.reportTableContainer {
+  margin: 20px auto;
+  max-width: 90%;
+}
+
+.reportTable thead tr {
+  background-color: #5c9a3a;
+}
+
+.reportTable th {
+  color: rgb(59, 57, 57);
+  font-weight: bold;
+}
+
+.reportTable tbody tr:nth-child(even) {
+  background-color: #e2f0d9;
+}
+
+.reportTable tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+/* Chart Styles */
+.chartContainer {
+  display: flex;
+  padding: 100px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  flex-direction: row;  /* Ensures side-by-side layout */
+  justify-content: space-between; /* Spaces them apart */
+  align-items: center;
+  width: 90%; /* Ensures full width */
+  margin: auto;
+}
+
+.chartBar, 
+.chartPie {
+  width: 40%; /* Each takes up half the space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chartBar {
+  width: 55%;
+}
+
+/* Buttons Styles */
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.backButton {
+  background-color: #b71c1c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.actionButtons button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.downloadPdf {
+  background-color: #005a50;
+  color: white;
+}
+
+.exportExcel {
+  background-color: #333;
+  color: white;
+}

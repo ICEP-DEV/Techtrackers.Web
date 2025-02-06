@@ -5,6 +5,7 @@
   height: 100vh;
 }
 
+
 /* Header */
 .header {
   display: flex;
@@ -34,7 +35,17 @@
   padding: 10px;
   flex: 1;
   overflow-y: auto;
+  transition: margin-left 0.2s ease;
+  margin-bottom: 20px;
 
+}
+/* Adjusting margin-left for when sidebar is toggled */
+.mainContent.sidebar-open {
+  margin-left: 90px; /* Adjust based on your sidebar width */
+}
+
+.mainContent.sidebar-closed {
+  margin-left: 70px; /* Adjust based on your sidebar width when closed */
 }
 
 /* Success Message */

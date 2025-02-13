@@ -79,8 +79,15 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         const logs = JSON.parse(localStorage.getItem("staff logs"));
         // const logId = JSON.parse(localStorage.getItem("logId"));
+        let log = 0;
 
-        const log = logs[0];
+        for (let index = 0; index < logs.length; index++) {
+            log = logs[index];
+            const logid = log.logId;
+
+            console.log("Log ID: ", logid);
+        }
+        //   const log = logs[0];
 
         const logid = log.logId;
 
@@ -183,8 +190,9 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 <div className="in-fo-group">
                     <p>Date of Issue: {formatDateTime(issue.issuedAt)}</p>
 
-                    <button className="live-chat-btn" onClick={onOpenChat}>Live Chat</button>
-                </div>
+                    <button className="live-chat-btn" onClick={onOpenChat}>
+                        Live Chat
+                    </button>                </div>
             </div>
             <div className="descrip-section">
                 <h3><FileText /> Description</h3>

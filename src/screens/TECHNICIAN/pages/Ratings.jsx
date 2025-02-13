@@ -154,7 +154,7 @@ const TechnicianDashboard = () => {
                 <div className={styles.userDetails}>
                   <img src={logo} alt={`User ${index + 1}`} className={styles.userImage} />
                   <div className={styles.userInfo}>
-                    <p>User {review.userId}</p>
+                  <p>  {/*review.userId*/}</p>
                   </div>
                 </div>
                 <div className={styles.divider}></div>

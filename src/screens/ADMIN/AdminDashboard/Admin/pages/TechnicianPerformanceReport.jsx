@@ -119,7 +119,7 @@ const TechnicianPerformanceReport = () => {
           "Total Issues Assigned",
           "Issues Resolved",
           "Average Resolution Time",
-          "Pending Issues",
+          "In Progress Issues",
           "Performance Rating",
         ],
       ],
@@ -142,8 +142,8 @@ const TechnicianPerformanceReport = () => {
         "Technician Name": row.technicianName,
         "Total Issues Assigned": row.assignedIssues,
         "Issues Resolved": row.resolvedIssues,
-        "Average Resolution Time": `${row.avgResolutionTime.toFixed(1)} days`,
-        "Pending Issues": row.pendingIssues,
+        "Average Resolution Time": `${row.avgResolutionTime.toFixed(1)} hours`,
+        "In Progress Issues": row.pendingIssues,
         "Performance Rating": `${row.performanceRating.toFixed(1)}/5`,
       }))
     );
@@ -187,7 +187,7 @@ const TechnicianPerformanceReport = () => {
                   <TableCell>Total Issues Assigned</TableCell>
                   <TableCell>Issues Resolved</TableCell>
                   <TableCell>Average Resolution Time</TableCell>
-                  <TableCell>Pending Issues</TableCell>
+                  <TableCell>In Progress Issues</TableCell>
                   <TableCell>Performance Rating</TableCell>
                 </TableRow>
               </TableHead>
@@ -202,7 +202,7 @@ const TechnicianPerformanceReport = () => {
                     <TableCell>{row.technicianName}</TableCell>
                     <TableCell>{row.assignedIssues}</TableCell>
                     <TableCell>{row.resolvedIssues}</TableCell>
-                    <TableCell>{row.avgResolutionTime.toFixed(1)} days</TableCell>
+                    <TableCell>{row.avgResolutionTime.toFixed(1)} hours</TableCell>
                     <TableCell>{row.pendingIssues}</TableCell>
                     <TableCell>{row.performanceRating.toFixed(1)}/5</TableCell>
                   </TableRow>

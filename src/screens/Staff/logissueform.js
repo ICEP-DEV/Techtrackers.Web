@@ -74,8 +74,8 @@ const Logissueform = () => {
       return;
     }
 
-    const fullLocation = formValues.location 
-      ? formValues.buildingNumber 
+    const fullLocation = formValues.location
+      ? formValues.buildingNumber
         ? `${formValues.location}-${formValues.buildingNumber}`
         : formValues.location
       : "Location not specified";
@@ -145,7 +145,7 @@ const Logissueform = () => {
       )}
       <form className={styles.logIssueForm} onSubmit={handleSubmit}>
         <h2><FaPlusCircle /> LOG ISSUE</h2>
-        
+
         <div className={styles.formRow}>
           <div className={styles.Box}>
             <label>Issue title<span className={styles.Required}>*</span></label>
@@ -226,7 +226,7 @@ const Logissueform = () => {
               value={formValues.date}
             />
           </div>
-          
+
           <div className={styles.Box}>
             <label>Location<span className={styles.Required}>*</span></label>
             <select
@@ -261,13 +261,13 @@ const Logissueform = () => {
         <div className={styles.fileInputWrapper}>
           <label>Attachments (include screenshots, photos, documents, etc.):</label>
           <div>
-            <input 
-              type="file" 
-              name="attachmentFiles" 
+            <input
+              type="file"
+              name="attachmentFiles"
               multiple // Allow multiple file selection
-              onChange={handleFileChange} 
+              onChange={handleFileChange}
             />
-            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p> 
+            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p>
 
             {/* Display file names as clickable links */}
             {formValues.attachmentFiles.length > 0 && (
@@ -275,9 +275,9 @@ const Logissueform = () => {
                 {formValues.attachmentFiles.map((file, index) => (
                   <div key={index}>
                     {filePreviews[index] ? (
-                      <a 
-                        href={filePreviews[index]} 
-                        target="_blank" 
+                      <a
+                        href={filePreviews[index]}
+                        target="_blank"
                         rel="noopener noreferrer">
                         {file.name}
                       </a>

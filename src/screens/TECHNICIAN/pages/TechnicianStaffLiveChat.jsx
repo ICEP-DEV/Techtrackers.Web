@@ -124,7 +124,7 @@ function TechncianLiveChat() {
                 {/* Chat Header */}
                 <div className={styles.chatHeader}>
                     <h4 className={styles.technicianName}>
-                        <img src={ProfileIcon} alt="Profile" height={45} className={styles.profileImage} /> {staffName}
+                        <img src={ProfileIcon} alt="Profile" height={45} className={styles.profileImage} /> {relevantLog.issueTitle}
                     </h4>
                     <div className={styles.closeIcon} onClick={() => navigate(-1)}>✖</div>
                 </div>

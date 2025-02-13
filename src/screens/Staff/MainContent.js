@@ -117,8 +117,17 @@ export default function MainContent({ onSelectIssue, onOpenChat }) {
                   {issue.status || 'Unknown'}
                 </span>
               </td>
-              <td><button className={styles.viewButton} onClick={() => onSelectIssue(issue)}>View</button></td>
-            </tr>
+              <td>
+                <button
+                  className={styles.viewButton}
+                  onClick={() => {
+                    onSelectIssue(issue);
+                    localStorage.setItem("selected_log_id", issue.logId); // ✅ Store logId
+                  }}
+                >
+                  View
+                </button>
+              </td>            </tr>
           ))}
         </tbody>
       </table>

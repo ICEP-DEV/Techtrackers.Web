@@ -73,63 +73,48 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
 
     const handleSubmitRating = async () => {
         if (rating === 0) {
-            setIsErrorPopupOpen(true);
-            return;
+          setIsErrorPopupOpen(true);
+          return;
         }
+      
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
-        const logs = JSON.parse(localStorage.getItem("staff logs"));
-        // const logId = JSON.parse(localStorage.getItem("logId"));
-        let log = 0;
-
-        for (let index = 0; index < logs.length; index++) {
-            log = logs[index];
-            const logid = log.logId;
-
-            console.log("Log ID: ", logid);
+        
+        // ✅ Get logId from localStorage (set when issue was selected)
+        const logId = localStorage.getItem("selected_log_id");
+        
+        if (!logId) {
+          toast.error("No issue selected. Cannot submit feedback.");
+          return;
         }
-        //   const log = logs[0];
-
-        const logid = log.logId;
-
-        console.log("Log ID: ", logid);
-
+      
         const feedbackData = {
-            Log_ID: logid,
-            User_ID: userInfo.userId,
-            Rating: rating,
-            Comment: comment,
+          Log_ID: parseInt(logId, 10), // Ensure it's parsed as integer
+          User_ID: userInfo.userId,
+          Rating: rating,
+          Comment: comment,
         };
-
-        console.log("Submitting Feedback Data:", feedbackData);
-
+      
         try {
-            const response = await fetch('https://localhost:44328/api/Feedback/SubmitFeedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(feedbackData),
-            });
-
-            console.log("Response Status:", response.status);
-
-            if (response.ok) {
-                const newFeedback = await response.json();
-                console.log("Server Response:", newFeedback);
-                setIsRatingPopupOpen(false);
-                setComment('');
-                setRating(0);
-                toast.success('Feedback submitted successfully!');
-            } else {
-                const errorText = await response.text();
-                console.error("Error Text from Server:", errorText);
-                toast.error(`Failed to submit feedback: ${errorText}`);
-            }
+          const response = await fetch('https://localhost:44328/api/Feedback/SubmitFeedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(feedbackData),
+          });
+      
+          if (response.ok) {
+            const newFeedback = await response.json();
+            setIsRatingPopupOpen(false);
+            setComment('');
+            setRating(0);
+            toast.success('Feedback submitted successfully!');
+          } else {
+            const errorText = await response.text();
+            toast.error(`Failed to submit feedback: ${errorText}`);
+          }
         } catch (error) {
-            console.error("Error Submitting Feedback:", error);
-            toast.error('An unexpected error occurred while submitting feedback.');
+          toast.error('An unexpected error occurred.');
         }
-    };
+      };
 
 
     const formatDateTime = (dateString) => {

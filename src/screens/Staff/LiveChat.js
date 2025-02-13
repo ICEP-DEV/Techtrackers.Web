@@ -140,7 +140,7 @@ function LiveChat({ onClose, selectedIssue }) {
       <div className={styles.chatContainer}>
         <div className={styles.chatHeader}>
           <h4 className={styles.technicianName}>
-            <img src={ProfileIcon} alt="Profile" height={45} /> {staffName}
+            <img src={ProfileIcon} alt="Profile" height={45} /> {selectedIssue.issueTitle}
           </h4>
           <div className={styles.icon} onClick={onClose}>
             <h1 className={styles.closeIcon}>x</h1>

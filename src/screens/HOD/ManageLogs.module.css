@@ -1,28 +1,26 @@
 /* src/components/ManageLogs.css */
-
 .manage-logs-container {
   font-family: Arial, sans-serif;
   background-color: #eaf0f1;
-  padding: 5%;
-  max-width: 1000px;
+  padding: 40px;
+  max-width: 100%;
   margin: auto;
-  margin-top: 100px;
   border-radius: 8px;
-  transition: margin-left 0.2s ease; /* Smooth transition for dynamic margin */
-
+  transition: margin-left 0.3s ease;
 }
 /* Adjusting margin-left for when sidebar is toggled */
 .manage-logs-container.sidebar-open {
-  margin-left: 250px; /* Adjust based on your sidebar width */
+  margin-left: 80px; /* Adjust based on your sidebar width */
 }
 
 .manage-logs-container.sidebar-closed {
-  margin-left: 80px; /* Adjust based on your sidebar width when closed */
+  margin-left: 0px; /* Adjust based on your sidebar width when closed */
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 26px;
   margin-top: 5px;
+  color: #2C2C2C
 }
 
 
@@ -58,17 +56,6 @@ h1 {
   margin-right: 5px;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.close-button {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: block;
 }
 
 .close-button:hover {

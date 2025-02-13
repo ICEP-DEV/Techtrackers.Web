@@ -28,15 +28,15 @@ const ReportPage = ({ isSidebarOpen }) => {
 
   const handleGenerateReport = () => {
     if (reportType === "Issues of Status Report") {
-      navigate("/status-report", {
+      navigate("/headdepartment/status-report", {
         state: { reportType, startDate, endDate },
       });
     } else if (reportType === "Monthly Summary Report") {
-      navigate("/monthly-summary-report", {
+      navigate("/headdepartment/monthly-summary-report", {
         state: { reportType, startDate, endDate },
       });
     } else if (reportType === "Technician Performance Report") {
-      navigate("/technician-performance-report", {
+      navigate("/headdepartment/technician-performance-report", {
         state: { reportType, startDate, endDate },
       });
     }
@@ -62,8 +62,7 @@ const ReportPage = ({ isSidebarOpen }) => {
       <div className="report-type-preview">
         <h3>Report Type:</h3>
         <div>
-          <img src={vectorImage} alt="Vector Icon" className="icon" />
-          <h3>Preview</h3>
+          <h3><img src={vectorImage} alt="Vector Icon" className="icon" />Description</h3>
         </div>
       </div>
 

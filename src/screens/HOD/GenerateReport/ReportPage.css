@@ -1,21 +1,20 @@
 /* ReportPage.css */
 .ReportContainer {
-    margin-top: 100px;
-    padding: 20px;
+    padding: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     border-radius: 8px;
+    max-width: 90%;
     transition: margin-left 0.3s ease; /* Add smooth animation */
   }
   
   /* Adjust the container position based on the sidebar state */
   .ReportContainer.sidebar-open {
-    margin-left: 250px; /* Assume sidebar width is 250px */
+    margin-left: 80px; /* Assume sidebar width is 250px */
   }
   
-  .ReportContainer.sidebar-closed {
-    margin-left: 70px;
-  }
   
   .ReportHeader {
     display: flex;
@@ -44,12 +43,18 @@
   .button-column {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 200px;
+    gap: 14px;
+    width: 400px;
+  }
+
+  .button-column button{
+    height: 80px;
+    font-weight: 700;
+    font-size: 18px;
   }
   
   .preview-box {
-    width: 50%;
+    width: 55%;
     margin-left: auto;
     border: 1px solid #ccc;
     padding: 10px;

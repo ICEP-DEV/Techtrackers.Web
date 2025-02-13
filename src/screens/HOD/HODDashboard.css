@@ -1,16 +1,17 @@
 /* Dashboard content */
 .dashboard-content {
-  padding: 10px; /* Increased padding for spacious layout */
-  margin-left: 100px; /* Adjust for sidebar width */
-  margin-top: 20px; /* Align below the header */
+  padding: 10px; 
+  margin-left: 50px; 
+  /* margin-top: 20px;  */
   transition: margin-left 0.3s ease;
   background-color: #e6f7f7;
   color: #3a3a3a;
+  margin-right: 20px;
 }
 
 /* When the sidebar is closed */
 .dashboard-content.sidebar-closed {
-  margin-left: 70px; /* Adjust based on collapsed sidebar width */
+  margin-left: 0; 
 }
 
 /* Welcome text */

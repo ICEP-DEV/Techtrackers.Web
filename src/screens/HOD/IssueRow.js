@@ -1,6 +1,5 @@
-// src/components/IssueRow.js
-
 import React, { useState } from "react";
+import styles from './ManageLogs.module.css'; // Import the same module
 
 const IssueRow = ({ log }) => {
   const [action, setAction] = useState("Action"); // Initial button text
@@ -19,12 +18,12 @@ const IssueRow = ({ log }) => {
       <td>{log.assignedTo}</td>
       <td>{log.loggedDate}</td>
       <td>
-        <button className="view-button">View</button>
-        
+        <button className={styles["view-button"]}>View</button>
+
         {/* Action Button with Dropdown */}
-        <div className="action-dropdown">
+        <div className={styles["action-dropdown"]}>
           <button
-            className="action-button"
+            className={styles["action-button"]}
             onClick={() => setDropdownOpen(!isDropdownOpen)}
           >
             {action} ▼
@@ -32,7 +31,7 @@ const IssueRow = ({ log }) => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="dropdown-menu">
+            <div className={styles["dropdown-menu"]}>
               <button onClick={() => handleActionSelect("Open")}>
                 Re-open
               </button>

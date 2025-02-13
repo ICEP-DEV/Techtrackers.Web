@@ -6,7 +6,6 @@ import profile from '../images/profile_icon.png';
 import search from '../images/search.png';
 import styles from '../SidebarCSS/NotificationsStyle.module.css';
 import { useNavigate } from "react-router-dom";
-import chatIcon from "../images/chatIcon.png";
 
 const NotificationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,42 +43,9 @@ const NotificationsPage = () => {
   const formatDate = (timestamp) => {
     if (!timestamp) {
       return new Date(0); // Default to epoch time if missing
-  }
-    // if (timestamp.toLowerCase() === "yesterday") {
-    //   const yesterday = new Date();
-    //   yesterday.setDate(yesterday.getDate() - 1);
-    //   return yesterday;
-    // }
-  
-    // if (/^\d{2}:\d{2}$/.test(timestamp)) {
-    //   const today = new Date();
-    //   const [hours, minutes] = timestamp.split(":").map(Number);
-    //   today.setHours(hours, minutes, 0, 0);
-    //   return today;
-    // }
-  
+    }
     return new Date(timestamp); // Fallback for standard date strings
   };
-  
-  
-
-  const filteredNotifications = notifications.filter(notification => {
-    const fullContent = `${notification.sender} ${notification.content || ''} ${notification.staffName || ''} ${notification.issue || ''}`.toLowerCase();
-    return fullContent.includes(searchQuery.toLowerCase()) && 
-           (filterType ? notification.type === filterType : true);
-  });
-
-  const sortedNotifications = filteredNotifications.sort((a, b) => {
-    const dateA = formatDate(a.timestamp); // Ensure you use the correct field name for the date
-    const dateB = formatDate(b.timestamp);
-  
-    if (sortOrder === 'newest') {
-      return dateB - dateA;
-    } else if (sortOrder === 'oldest') {
-      return dateA - dateB;
-    }
-    return 0; // Default
-  });
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -92,13 +58,37 @@ const NotificationsPage = () => {
     }
   };
 
-  // const handleIssueClick = (issueId) => {
-  //   navigate(`/techniciandashboard/issues/${issueId}`);
-  // };
+  // Combine filter, search, and sort logic in one place
+  const filteredNotifications = notifications
+    .filter(notification => {
+      // Concatenate the necessary fields for searching
+      const fullContent = [
+        notification.issueId,
+        notification.issueTitle,
+        notification.type,
+        notification.notificationType,  // Adding notificationType as well
+        notification.location,            // Add location to the search fields
+        notification.priority,            // Add priority to the search fields
+      ]
+        .filter(Boolean) // Remove undefined/null values
+        .join(' ') // Join the fields into one string
+        .toLowerCase(); // Convert to lowercase for case-insensitive search
 
-  
-  const viewId = localStorage.getItem("selected_issue_id");
+      // Check if the search query is a substring of the concatenated fields
+      return fullContent.includes(searchQuery.toLowerCase()) && 
+             (filterType ? notification.type === filterType : true);
+    })
+    .sort((a, b) => {
+      const dateA = formatDate(a.timestamp);
+      const dateB = formatDate(b.timestamp);
 
+      if (sortOrder === 'newest') {
+        return dateB - dateA;
+      } else if (sortOrder === 'oldest') {
+        return dateA - dateB;
+      }
+      return 0; // Default
+    });
 
   const handleIssueClick = (issueId) => {
     localStorage.setItem("selected_log_id", issueId); // Store the issueId in local storage
@@ -125,14 +115,13 @@ const NotificationsPage = () => {
           <div className={styles.notificationDropdown}>
             <button className={styles.theSearchFilterButton}>Filter <img src={filter} alt="Filter" /></button>
             <div className={styles.notificationDropdownContent}>
-            <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
+              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('assignment')}>Assignment</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('resolution')}>Resolution</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('collaboration')}>Collaboration</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('ALERT')}>Alert</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('INFORMATION')}>Information</div>
               <div className={styles.notificationDropdownItem} onClick={() => setFilterType('WARNING')}>Warning</div>
-              
             </div>
           </div>
           <div className={styles.notificationDropdown}>
@@ -147,7 +136,7 @@ const NotificationsPage = () => {
       </div>
 
       <div className={styles.notificationsList}>
-        {sortedNotifications.map((notification) => (
+        {filteredNotifications.map((notification) => (
           <div key={notification.id} className={styles.notificationItem}>
             <div className={styles.notificationProfile}>
               <img src={profile} alt="Profile" />
@@ -181,7 +170,7 @@ const NotificationsPage = () => {
                   year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit',
                 }).format(formatDate(notification.timestamp))}
               </span>
-              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(viewId)}>
+              <button className={styles.notificationViewButton} onClick={() => handleIssueClick(notification.issueId)}>
                 View
               </button>
             </div>

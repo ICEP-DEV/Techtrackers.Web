@@ -1,0 +1,34 @@
+.mainContent {
+    /* display: flex; */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure it takes up the full viewport height */
+    padding: 20px;
+    margin-left: 140px;
+    transition: margin-left 0.3s ease;
+    max-width: 100%;
+    margin-top: 0;
+}
+
+.content {
+    margin-top: 0;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Adjust spacing when sidebar toggles */
+.mainContent.sidebarClosed {
+    margin-left: 100px;
+}
+
+.mainContent.sidebarOpen {
+    margin-left: 250px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mainContent {
+        margin-left: 0;
+    }
+}

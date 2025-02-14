@@ -177,7 +177,7 @@ const IssueDetails = ({ issues }) => {
           <p>Logged By:</p>
           <div className={styles.profile}>
             <img src={profile} width="50" height="50" alt="Profile Icon" />
-            <p className={styles.name}>{issue.name}</p>
+            <p className={styles.name}>{issue.issueId}</p>
           </div>
           <p className={styles.issueId}>{issue.issueId}</p>
         </div>

@@ -98,7 +98,7 @@ function LiveChat({ onClose, selectedIssue }) {
       return;
     }
 
-   // const token = userInfo?.token; // Ensure token is stored in user_info
+    // const token = userInfo?.token; // Ensure token is stored in user_info
 
     try {
       const response = await fetch("https://localhost:44328/api/LiveChat/SendMessage", {
@@ -111,7 +111,7 @@ function LiveChat({ onClose, selectedIssue }) {
           senderId: userId,
           message: text,
         }),
-    
+
       });
 
       console.log();
@@ -120,7 +120,7 @@ function LiveChat({ onClose, selectedIssue }) {
         const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         setChatLog(prev => [
           ...prev,
-          { logId, senderId:userId, message:text , currentTime},
+          { logId, senderId: userId, message: text, currentTime },
         ]);
         setText('');
         toast.success("✅ Message sent!");
@@ -140,7 +140,7 @@ function LiveChat({ onClose, selectedIssue }) {
       <div className={styles.chatContainer}>
         <div className={styles.chatHeader}>
           <h4 className={styles.technicianName}>
-            <img src={ProfileIcon} alt="Profile" height={45} /> {selectedIssue.issueTitle}
+            <img src={ProfileIcon} alt="Profile" height={45} /> {selectedIssue.assignedTo} - {selectedIssue.issueTitle} 
           </h4>
           <div className={styles.icon} onClick={onClose}>
             <h1 className={styles.closeIcon}>x</h1>
@@ -165,9 +165,8 @@ function LiveChat({ onClose, selectedIssue }) {
             onChange={(e) => setText(e.target.value)}
             placeholder="Type a message..."
           />
-          <button className={styles.sendButton} onClick={handleSendText}>
-            Send
-          </button>
+          <button className={styles.sendButton} onClick={handleSendText}>📩</button>
+
         </div>
       </div>
       <ToastContainer />

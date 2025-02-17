@@ -57,9 +57,11 @@ function DetailView({ log, onBack }) {
   const renderActionButtons = () => {
     if (log.status && log.status.toLowerCase() != "resolved") {
       return (
+        <div className="action-buttons">
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
+        </div>
       );
     }
     else 

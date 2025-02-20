@@ -2,13 +2,14 @@
   background-color: #EEF9F9;
   padding: 24px;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-left: none; border-right: none;
+  /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); */
 }
 
 .notificationsHeader {
   display: flex;
-  margin-left: 40px;
-  margin-right: 40px;
+  /* margin-left: 40px;
+  margin-right: 40px; */
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
@@ -28,7 +29,7 @@
   font-weight: 600;
   display: flex;
   align-items: center;
-  margin-left: 40px;
+  /* margin-left: 40px; */
 }
 
 .notificationsTitleSvg {
@@ -71,6 +72,12 @@
   margin-right: 0.5rem;
   border: none;
   color: #000;
+  gap: 5px;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: row;
 }
 
 .theFilterButton img, .theSortButton img{
@@ -90,11 +97,15 @@
 .notificationItem {
   display: flex;
   align-items: flex-start;
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 1rem;
-  padding-left: 20px;
-  margin-left: 40px;
-  margin-right: 40px;
+  border-bottom: 2px solid #e2e8f0;
+  /* padding-bottom: 1rem; */
+  /* padding-left: 20px; */
+  /* margin-left: 40px; */
+  /* margin-right: 40px; */
+}
+
+.notificationItem p{
+  font-size: 14px;
 }
 
 .notificationProfile {
@@ -145,10 +156,14 @@
   max-width: 250px;
 }
 
-.notificationTime {
+.notificationTime, .notificationTime2 {
   font-size: 0.875rem;
   color: #718096;
   margin-bottom: 0.5rem;
+}
+
+.notificationTime2 {
+  display: none;
 }
 
 .notificationViewButton {
@@ -205,4 +220,87 @@
 .notificationDropdownItem:hover {
   background-color: #a1d1d1;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .notificationsContainer {
+    padding: 5px;
+  }
+  .notificationMeta {
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+  }
+  .notificationViewButton {
+    padding: 10px 25px;
+  }
+  .notificationTime {
+    display: none;
+  }
+  .notificationTime2 {
+    display: block;
+    display: flex;
+    flex-direction: column;
+  }
+  .notificationProfile {
+    display: none;
+  }
+  .notificationsHeader {
+    display: flex;
+    flex-direction: column;
+  }
+  .notificationsTitle {
+    margin-right: auto;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .notificationsHeader {
+    flex-direction: column;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .theSortButton, .theSearchFilterButton {
+    margin: 0;
+    padding: 5px;
+  }
+  
+  .filterContainer {
+    margin-bottom: 1rem;
+  }
+
+  .notificationDropdownContent {
+    min-width: 100px;
+  }
+
+  .notificationItem {
+    flex-direction: column;
+  }
+
+  .notificationContent {
+    max-width: 100%;
+  }
+
+  .notificationMeta {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    min-width: 100%;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .notificationTime2 {
+    font-size: smaller;
+  }
+  .notificationViewButton {
+    width: 60%;
+    height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+  }
 }

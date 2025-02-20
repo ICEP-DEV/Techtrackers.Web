@@ -212,3 +212,32 @@
     margin-left: 200px; /* Main content adjusts for expanded sidebar */
   }
 }
+
+@media (max-width: 480px) {
+  .sidebar-container.open {
+    width: 100%;
+  }
+  .sidebar-container:not(.open) + .main-content {
+    margin-left: 60px;
+  }
+  .sidebar-container.open + .main-content {
+    display: none;
+  }
+  .sidebar-container.open ul {
+    list-style-type: none;
+    padding: 0; 
+    font-size: 80px;
+    margin-top: -20px;
+    width: 100%;
+  }
+  .menu-icon {
+    margin-right: auto;
+    margin-left: 2%;
+  }
+  .sidebar-container .list.selected{
+    background-color: #108484;
+  }
+  .sidebar-container li:hover {
+    width: 100%;
+  }
+}

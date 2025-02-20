@@ -139,8 +139,12 @@ const TechnicianHeader = ({ onLogout }) => {
                         className={styles.profileButton}
                     >
                         <img src={ProfileIcon} alt="Profile Icon" />
-                        {user ? `${user.name} ` : 'Technician Name'}
-                        <ChevronDown />
+                        <span className={styles.profileText}>
+                            {user ? `${user.name} ` : 'Technician Name'}
+                        </span>
+                        <span className={styles.chevronIcon}>
+                            <ChevronDown />
+                        </span>
                     </button>
                 </div>
                 {isDropdownOpen && (

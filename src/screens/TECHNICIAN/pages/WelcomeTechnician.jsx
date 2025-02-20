@@ -127,7 +127,6 @@ const WelcomeTechnician = () => {
         <div className={styles.cardsRight}>
           <div className={styles.upcomingTasks}>
             <h4><img src={arrow} alt="arrow" height={50} /> UPCOMING TASKS</h4>
-            <br />
             <p>You have {statusCounts.pending} new issues assigned to you.</p>
           </div>
           <div className={styles.updateStatus}>

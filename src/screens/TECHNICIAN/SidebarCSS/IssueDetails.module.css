@@ -24,7 +24,7 @@
 .issueDetailsContainer .issue h2 {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 0; /* Removed px to avoid error */
+  margin: 0;
   color: #555;
 }
 
@@ -78,16 +78,15 @@
 .prio1 {
   display: flex;
   align-items: center;
-  margin-right: 0; /* Ensures no extra space on the right */
+  margin: 0;
+  justify-content: space-between;
 }
-
-
 .priorityText {
   margin-right: 10px; /* Add some space between the priority text and date */
 }
 
 .dateIssue {
-  margin-left: 250px; /* Pushes the date to the right */
+  margin-left: 100px; 
 }
 
 
@@ -101,17 +100,16 @@
 .issueRequestor p {
   font-size: 14px;
   color: #888;
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
 .profile {
   display: flex;
-  align-items: center;
+  align-items: center; /* Aligns items vertically */
+  justify-content: center; /* Aligns items horizontally */
+  gap: 8px;
 }
 
-.profile .name {
-  margin-left: 10px;
-}
 
 .name {
   font-size: 16px;
@@ -219,7 +217,6 @@
 .additionalInfo p {
   font-size: 14px;
   color: #888;
-  margin: 5px 0;
 }
 
 /* Status Section */
@@ -336,10 +333,10 @@
   .status {
     margin-right: 12px;
   }
-
-  .statusText {
-    margin-left: 320px;
+  .dateIssue {
+    max-width: 30%;
   }
+
 
   .issueInfo .prio {
     display: flex;
@@ -348,16 +345,16 @@
     margin-top: 10px;
     font-size: 14px;
     color: #666;
-    margin-right: 340px;
   }
 
-  .priorityText {
-    margin-top: 5px;
-    margin-left: 75px;
-    padding-left: 1px;
-    padding-right: 1px;
+  .issueHeader {
+    margin-top: 20px;
   }
 
+  .dateIssue {
+    margin: 0;
+  }
+  
   .closeButton1 {
     padding: 9px 15px;
     border: none;
@@ -369,7 +366,6 @@
     text-align: center;
     background-color: #b02a37;
     transition: background-color 0.3s ease;
-    margin: 0 -230px 0 172px;
     margin-bottom: 12px;
   }
 }
@@ -387,11 +383,52 @@
   .issue-DetailsContainer {
     padding: 10px;
   }
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 60px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+  }
+  .modalContent button{
+    padding: 10px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .statusButtons {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .modalClose {
+    font-size: larger;
+  }
+
+  .statusButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 10px;
+  }
 
   .actions button {
     padding: 10px;
     font-size: 12px;
     width: 100%;
+  }
+
+  .closeButton1{
+    margin: 0 -230px 0 172px;
+  }
+  .actions1 {
+    flex-direction: row;
+    max-width: 50%;
+    padding-right: 15px;
   }
 }
 /* Modal Overlay */

@@ -9,6 +9,7 @@ const Escalations = ({ logId }) => {
   const [escalationLevel, setEscalationLevel] = useState(0);
   const [logStatus, setLogStatus] = useState("PENDING"); // Default status
   const [logDetails, setLogDetails] = useState(null); // Store log details
+  const [firstReplyGiven, setFirstReplyGiven] = useState(false); // Track if first reply is given
 
   // Fetch log details from localStorage
   useEffect(() => {
@@ -23,6 +24,11 @@ const Escalations = ({ logId }) => {
     if (currentLog) {
       setLogDetails(currentLog);
       setLogStatus(currentLog.status || "PENDING"); // Set log status from localStorage
+
+      // Check if the status has changed from PENDING
+      if (currentLog.status !== "PENDING") {
+        setFirstReplyGiven(true); // First reply is given
+      }
     } else {
       console.error("Log not found in Admin Logs.");
     }
@@ -122,11 +128,17 @@ const Escalations = ({ logId }) => {
           <p>Created On: {logDetails?.issuedAt || "N/A"}</p>
           <p>Created By: {logDetails?.logBy || "N/A"}</p>
         </div>
+        {/* SLA Countdown and Escalation Level */}
+        <div className="sla-escalation">
+          <h4>Escalation Level: {escalationLevel}</h4>
+          <div>Response Due In: {formatTime(countdown.response)}</div>
+          <div>Resolution Due In: {formatTime(countdown.resolution)}</div>
+        </div>
       </div>
 
       {/* Status Section */}
       <div className="status-section">
-        <h2 className="status-label">Issue Status:</h2>
+        <h2 className="status-label">Issue Progress:</h2>
         <div className="progress-container">
           {/* Progress Bar */}
           <div className="progress-bar-container">
@@ -162,23 +174,18 @@ const Escalations = ({ logId }) => {
               />
               <h5>Resolved</h5>
             </div>
-            <div className={`step ${logStatus === "ESCALATED" ? "active" : ""}`}>
-              <img
-                src={logStatus === "ESCALATED" ? checkedIcon : incompleteIcon}
-                alt={logStatus === "ESCALATED" ? "Completed" : "Incomplete"}
-              />
-              <h5>Escalated</h5>
-            </div>
+            {/* Conditionally render Escalated step */}
+            {logStatus === "ESCALATED" && (
+              <div className="step active">
+                <img src={checkedIcon} alt="Completed" />
+                <h5>Escalated</h5>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* SLA Countdown and Escalation Level */}
-      <div className="sla-escalation">
-        <h4>Escalation Level: {escalationLevel}</h4>
-        <div>Response Due In: {formatTime(countdown.response)}</div>
-        <div>Resolution Due In: {formatTime(countdown.resolution)}</div>
-      </div>
+
 
       {/* Tabs Section */}
       <div className="tabs">
@@ -273,7 +280,7 @@ const Escalations = ({ logId }) => {
               <tbody>
                 <tr>
                   <td>First Reply Given</td>
-                  <td>No</td>
+                  <td>{firstReplyGiven ? "Yes" : "No"}</td>
                 </tr>
                 <tr>
                   <td>Follow-Up Action</td>
@@ -285,7 +292,7 @@ const Escalations = ({ logId }) => {
                 </tr>
                 <tr>
                   <td>Resolved By</td>
-                  <td>----</td>
+                  <td>{logStatus === "RESOLVED" ? logDetails?.assignedTo || "N/A" : "----"}</td>
                 </tr>
               </tbody>
             </table>

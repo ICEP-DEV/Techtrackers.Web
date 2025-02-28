@@ -98,9 +98,9 @@ const NotificationsPage = () => {
   return (
     <div className={styles.notificationsContainer}>
       <div className={styles.notificationsHeader}>
-        <h1 className={styles.notificationsTitle}>
-          <img src={bell} alt="Bell" /> NOTIFICATIONS
-        </h1>
+        <h2 className={styles.notificationsTitle}>
+          <img src={bell} alt="Bell" height={30}/> NOTIFICATIONS
+        </h2>
         <div className={styles.filterContainer}>
           <div className={styles.theSearchContainer}>
             <input 
@@ -112,24 +112,26 @@ const NotificationsPage = () => {
             />
             <img src={search} className={styles.theSearchIcon} alt="Search" />
           </div>
-          <div className={styles.notificationDropdown}>
-            <button className={styles.theSearchFilterButton}>Filter <img src={filter} alt="Filter" /></button>
-            <div className={styles.notificationDropdownContent}>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('assignment')}>Assignment</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('resolution')}>Resolution</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('collaboration')}>Collaboration</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('ALERT')}>Alert</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('INFORMATION')}>Information</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setFilterType('WARNING')}>Warning</div>
+          <div className={styles.headerRight}>
+            <div className={styles.notificationDropdown}>
+              <button className={styles.theSearchFilterButton}><img src={filter} alt="Filter" height={15} /> Filter </button>
+              <div className={styles.notificationDropdownContent}>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('')}>All</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('assignment')}>Assignment</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('resolution')}>Resolution</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('collaboration')}>Collaboration</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('ALERT')}>Alert</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('INFORMATION')}>Information</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setFilterType('WARNING')}>Warning</div>
+              </div>
             </div>
-          </div>
-          <div className={styles.notificationDropdown}>
-            <button className={styles.theSortButton}>Sort <img src={list} alt="Sort" /></button>
-            <div className={styles.notificationDropdownContent}>
-              <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('newest')}>Newest First</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('oldest')}>Oldest First</div>
-              <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('')}>Default</div>
+            <div className={styles.notificationDropdown}>
+              <button className={styles.theSortButton}><img src={list} alt="Sort" height={15}/> Sort</button>
+              <div className={styles.notificationDropdownContent}>
+                <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('newest')}>Newest First</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('oldest')}>Oldest First</div>
+                <div className={styles.notificationDropdownItem} onClick={() => setSortOrder('')}>Default</div>
+              </div>
             </div>
           </div>
         </div>
@@ -139,7 +141,7 @@ const NotificationsPage = () => {
         {filteredNotifications.map((notification) => (
           <div key={notification.id} className={styles.notificationItem}>
             <div className={styles.notificationProfile}>
-              <img src={profile} alt="Profile" />
+              <img src={profile} alt="Profile" height={50}/>
             </div>
             <div className={styles.notificationContent}>
               <p className={styles.notificationCender}>
@@ -173,6 +175,15 @@ const NotificationsPage = () => {
               <button className={styles.notificationViewButton} onClick={() => handleIssueClick(notification.issueId)}>
                 View
               </button>
+              <span className={styles.notificationTime2}>
+                {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric', month: 'short', day: '2-digit'
+                }).format(formatDate(notification.timestamp))}
+                <br />
+                {new Intl.DateTimeFormat('en-US', {
+                  hour: '2-digit', minute: '2-digit'
+                }).format(formatDate(notification.timestamp))}
+              </span>
             </div>
           </div>
         ))}

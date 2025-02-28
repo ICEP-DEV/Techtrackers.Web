@@ -127,4 +127,26 @@
     color: #ffffff; /* Text color for dark mode */
   }
   
+  @media (max-width: 480px) {
+    .settings-modal {
+      padding: 10px;
+    }
+  
+    .settings-option button {
+      margin: 5px;
+      padding: 5px 8px;
+    }
+  
+    .settings-option label {
+      font-size: 0.875rem;
+    }
+
+    .settings-modal {
+      max-width: 60%;
+    }
+
+    h3, h2 {
+      font-size: 1.5rem;
+    }
+  }
   

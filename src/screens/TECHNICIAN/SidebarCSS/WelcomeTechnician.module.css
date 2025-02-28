@@ -17,6 +17,7 @@
 .activeTitle {
   font-weight: 600;
   margin: 10px;
+  color: #333;
 }
 
 .time {
@@ -236,17 +237,35 @@
 }
 
 /* Media Queries for responsiveness */
-@media (max-width: 1024px) {
+@media (max-width: 1250px) {
   .statusCards,
   .statusCards2 {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 20px;
+  }
+
+  .upcomingTasks {
+    margin-top: 20px;
+  } 
+
+  .activeTitle {
+    text-align: center;
   }
 
   .cardsLeft,
   .cardsRight {
     float: none;
     width: 100%;
+    flex-direction: column; /* Stack items in column layout */
+  }
+
+  .cardsRight {
+    margin-bottom: 20px;
+  }
+
+  .upcomingTasks, 
+  .updateStatus {
+    width: 100%; /* Ensure full width on smaller screens */
   }
 
   .bottomContainer {
@@ -262,8 +281,10 @@
   .myReviews,
   .reviewBox {
     padding: 30px;
+    width: 100%;
   }
 }
+
 
 @media (max-width: 768px) {
   .taskCards {
@@ -302,6 +323,11 @@
     flex-direction: column;
     gap: 10px;
   }
+
+  .myReviews{
+    margin: 0px;
+  }
+
 }
 .progressBarContainer {
   width: 100%;

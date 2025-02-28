@@ -200,3 +200,39 @@
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+
+@media (max-width: 786px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .columnDivider {
+    display: none;
+  }
+
+  .progressBar {
+    width: 100%;
+  }
+
+  .userRating {
+    font-size: 1em;
+  }
+
+  .thirdCol h2 {
+    font-size: 1.5em;
+  }
+
+  .thirdCol p {
+    font-size: 1.2em;
+  }
+
+  .userImage {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0;
+  }
+
+  .userFeedback {
+    margin-left: 0;
+  }
+}

@@ -129,9 +129,13 @@ function TechncianLiveChat() {
             <div className={styles.chatContainer}>
                 {/* Chat Header */}
                 <div className={styles.chatHeader}>
-                    <h4 className={styles.technicianName}>
-                        <img src={ProfileIcon} alt="Profile" height={45} className={styles.profileImage} /> {relevantLog.issueTitle}
-                    </h4>
+                    <div className={styles.issueProfile}>
+                        <img src={ProfileIcon} alt="Profile" height={60} className={styles.profileImage} />
+                        <div className={styles.titleId}>
+                            <h4 className={styles.technicianName}>{relevantLog.issueTitle}</h4> 
+                            <p>{relevantLog.issueId}</p>
+                         </div>
+                    </div>
                     <div className={styles.closeIcon} onClick={() => navigate(-1)}>✖</div>
                 </div>
 

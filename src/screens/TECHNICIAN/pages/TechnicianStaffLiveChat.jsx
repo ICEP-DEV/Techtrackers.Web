@@ -98,19 +98,25 @@ function TechncianLiveChat() {
         }
 
         try {
+            // Optimistically update the chat log with the new message
+            const newMessage = {
+                senderId: userId,
+                text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            };
+            setChatLog(prev => [...prev, newMessage]);
+            setText('');
+
+            // Send the message to the server
             const response = await fetch("https://localhost:44328/api/LiveChat/SendMessage", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ logId: parseInt(logId, 10), senderId: parseInt(userId, 10), message: text }),
             });
 
-            if (response.ok) {
-                setChatLog(prev => [
-                    ...prev,
-                    { senderId: userId, text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
-                ]);
-                setText('');
-            } else {
+            if (!response.ok) {
+                // If the message fails to send, remove it from the chat log
+                setChatLog(prev => prev.filter(msg => msg !== newMessage));
                 toast.error("Failed to send message.");
             }
         } catch (error) {

@@ -18,25 +18,24 @@ const ReportPage = () => {
     updatePreviewContent(type, startDate, endDate);
   };
 
-  const updatePreviewContent = (type, start, end) => {
-    const content = `Preview of ${type} from ${start || "Start Date"} to ${
-      end || "End Date"
-    }.`;
+  const updatePreviewContent = (type) => {
+    const content = `Preview of ${type} 
+    .`;
     setPreviewContent(content);
   };
 
   const handleGenerateReport = () => {
     if (reportType === "Issues of Status Report") {
       navigate("/admindashboard/status-report", {
-        state: { reportType, startDate, endDate },
+        state: { reportType },
       });
     } else if (reportType === "Monthly Summary Report") {
       navigate("/admindashboard/monthly-summary-report", {
-        state: { reportType, startDate, endDate },
+        state: { reportType },
       });
     } else if (reportType === "Technician Performance Report") {
       navigate("/admindashboard/technician-performance-report", {
-        state: { reportType, startDate, endDate },
+        state: { reportType },
       });
     }
   };
@@ -105,7 +104,7 @@ const ReportPage = () => {
         </div>
       </div>
 
-      <div style={dateInputContainerStyle}>
+      {/* <div style={dateInputContainerStyle}>
         <div style={{ flex: 1 }}>
           <label>
             Start Date:
@@ -134,7 +133,7 @@ const ReportPage = () => {
             />
           </label>
         </div>
-      </div>
+      </div> */}
 
       <div style={actionButtonContainerStyle}>
         <button

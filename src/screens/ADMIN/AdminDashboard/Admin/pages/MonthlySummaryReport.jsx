@@ -98,9 +98,9 @@ const MonthlyGenerateReport = () => {
           <TableContainer component={Paper} style={{ margin: "20px auto", maxWidth: 800 }}>
             <Table>
               <TableHead>
-                <TableRow style={{ backgroundColor: "#5C9A3A" }}>
+                <TableRow style={{ backgroundColor: "#666" }}>
                   {["Month", "Total Issues", "Issues Closed", "Issues Open", "Average Resolution Time"].map((header) => (
-                    <TableCell key={header} style={{ color: "white", fontWeight: "bold" }}>{header}</TableCell>
+                    <TableCell key={header} style={{ color: "black", fontWeight: "bold" }}>{header}</TableCell>
                   ))}
                 </TableRow>
               </TableHead>

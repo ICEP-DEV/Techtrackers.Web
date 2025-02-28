@@ -29,6 +29,10 @@ function ViewAllLogs() {
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched logs:", data); // Debug: Log fetched data
+
+          localStorage.setItem("Admin Logs", JSON.stringify(data));
+
+          
           
           // Sort logs by `issuedAt` date in descending order
           const sortedLogs = data.sort((a, b) => new Date(b.issuedAt) - new Date(a.issuedAt));

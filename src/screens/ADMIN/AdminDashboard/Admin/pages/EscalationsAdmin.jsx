@@ -7,10 +7,28 @@ const Escalations = ({ logId }) => {
   const [activeTab, setActiveTab] = useState("summary");
   const [countdown, setCountdown] = useState({ response: 0, resolution: 0 });
   const [escalationLevel, setEscalationLevel] = useState(0);
-  const [progressStep, setProgressStep] = useState(2);
+  const [logStatus, setLogStatus] = useState("PENDING"); // Default status
+  const [logDetails, setLogDetails] = useState(null); // Store log details
 
-  console.log("EscalationsAdmin - Received Log ID:", logId);
+  // Fetch log details from localStorage
+  useEffect(() => {
+    if (!logId) {
+      console.error("Log ID is missing.");
+      return;
+    }
 
+    const adminLogs = JSON.parse(localStorage.getItem("Admin Logs")) || [];
+    const currentLog = adminLogs.find(log => log.logId === logId);
+
+    if (currentLog) {
+      setLogDetails(currentLog);
+      setLogStatus(currentLog.status || "PENDING"); // Set log status from localStorage
+    } else {
+      console.error("Log not found in Admin Logs.");
+    }
+  }, [logId]);
+
+  // Fetch escalation data from API
   useEffect(() => {
     if (!logId) {
       console.error("Log ID is missing.");
@@ -31,10 +49,6 @@ const Escalations = ({ logId }) => {
           response: data.responseDueInSeconds,
           resolution: data.resolutionDueInSeconds,
         });
-        const handleEscalationChange = () => {
-          
-          setEscalationLevel(prevLevel => prevLevel + 1);
-        };
         setEscalationLevel(data.escalationLevel);
       } catch (error) {
         console.error("Error fetching escalation data:", error);
@@ -53,6 +67,38 @@ const Escalations = ({ logId }) => {
     return () => clearInterval(timer);
   }, [logId]);
 
+  // Map log status to progress percentage
+  const getProgressPercentage = (status) => {
+    switch (status) {
+      case "PENDING":
+        return 25; // 25% for Pending
+      case "INPROGRESS":
+        return 50; // 50% for In Progress
+      case "RESOLVED":
+        return 100; // 100% for Resolved
+      case "ESCALATED":
+        return 100; // 100% for Escalated
+      default:
+        return 0; // Default to 0%
+    }
+  };
+
+  // Get progress bar color based on log status
+  const getProgressBarColor = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "#ffcc00"; // Yellow for Pending
+      case "INPROGRESS":
+        return "#007bff"; // Blue for In Progress
+      case "RESOLVED":
+        return "#28a745"; // Green for Resolved
+      case "ESCALATED":
+        return "#ff0000"; // Red for Escalated
+      default:
+        return "#0C4643"; // Default color
+    }
+  };
+
   const formatTime = (seconds) => {
     if (seconds < 0) {
       return "Deadline Missed";
@@ -67,89 +113,71 @@ const Escalations = ({ logId }) => {
     setActiveTab(tabName);
   };
 
-  const handleProgressClick = (step) => {
-    setProgressStep(step);
-  };
-
   return (
     <div className="container-fluid bg-light p-3">
       {/* Header Section */}
       <div className="header">
         <div className="issue-info">
           <p>Issue ID: {logId}</p>
-          <p>Created On: 20/09/2024 08:57 AM</p>
-          <p>Created By: E Magagane</p>
+          <p>Created On: {logDetails?.issuedAt || "N/A"}</p>
+          <p>Created By: {logDetails?.logBy || "N/A"}</p>
         </div>
       </div>
 
       {/* Status Section */}
       <div className="status-section">
         <h2 className="status-label">Issue Status:</h2>
-        <div className="status-steps">
-          <div className="step" onClick={() => handleProgressClick(1)}>
-            <img
-              src={progressStep >= 1 ? checkedIcon : incompleteIcon}
-              alt="Completed"
-            />
-            <h5>Get Case Details</h5>
-          </div>
-
-          {/* Additional Progress Steps Here */}
-
-          {/* SLA Countdown and Escalation Level */}
-          <div>
-            <h4>Escalation Level: {escalationLevel}</h4>
-            <div>Response Due In: {formatTime(countdown.response)}</div>
-            <div>Resolution Due In: {formatTime(countdown.resolution)}</div>
-          </div>
-          {/* Progress Bar Between Steps */}
-          <div className="progress-bar-between">
+        <div className="progress-container">
+          {/* Progress Bar */}
+          <div className="progress-bar-container">
             <div
-              className="progress"
-              style={{ width: `${progressStep >= 2 ? 100 : 0}%` }}
+              className="progress-bar"
+              style={{
+                width: `${getProgressPercentage(logStatus)}%`,
+                backgroundColor: getProgressBarColor(logStatus), // Dynamic color
+              }}
             ></div>
           </div>
 
-          <div className="step" onClick={() => handleProgressClick(2)}>
-            <img
-              src={progressStep >= 2 ? checkedIcon : incompleteIcon}
-              alt="Completed"
-            />
-            <h5>Check Issue</h5>
-          </div>
-
-          {/* Progress Bar Between Steps */}
-          <div className="progress-bar-between">
-            <div
-              className="progress"
-              style={{ width: `${progressStep >= 3 ? 100 : 0}%` }}
-            ></div>
-          </div>
-
-          <div className="step" onClick={() => handleProgressClick(3)}>
-            <img
-              src={progressStep >= 3 ? checkedIcon : incompleteIcon}
-              alt="Completed"
-            />
-            <h5>Fix the Issue</h5>
-          </div>
-
-          {/* Progress Bar Between Steps */}
-          <div className="progress-bar-between">
-            <div
-              className="progress"
-              style={{ width: `${progressStep >= 4 ? 100 : 0}%` }}
-            ></div>
-          </div>
-
-          <div className="step" onClick={() => handleProgressClick(4)}>
-            <img
-              src={progressStep >= 4 ? checkedIcon : incompleteIcon}
-              alt="Completed"
-            />
-            <h5>Complete the Issue</h5>
+          {/* Progress Steps */}
+          <div className="progress-steps">
+            <div className={`step ${logStatus === "PENDING" ? "active" : ""}`}>
+              <img
+                src={logStatus === "PENDING" ? checkedIcon : incompleteIcon}
+                alt={logStatus === "PENDING" ? "Completed" : "Incomplete"}
+              />
+              <h5>Pending</h5>
+            </div>
+            <div className={`step ${logStatus === "INPROGRESS" ? "active" : ""}`}>
+              <img
+                src={logStatus === "INPROGRESS" ? checkedIcon : incompleteIcon}
+                alt={logStatus === "INPROGRESS" ? "Completed" : "Incomplete"}
+              />
+              <h5>In Progress</h5>
+            </div>
+            <div className={`step ${logStatus === "RESOLVED" ? "active" : ""}`}>
+              <img
+                src={logStatus === "RESOLVED" ? checkedIcon : incompleteIcon}
+                alt={logStatus === "RESOLVED" ? "Completed" : "Incomplete"}
+              />
+              <h5>Resolved</h5>
+            </div>
+            <div className={`step ${logStatus === "ESCALATED" ? "active" : ""}`}>
+              <img
+                src={logStatus === "ESCALATED" ? checkedIcon : incompleteIcon}
+                alt={logStatus === "ESCALATED" ? "Completed" : "Incomplete"}
+              />
+              <h5>Escalated</h5>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* SLA Countdown and Escalation Level */}
+      <div className="sla-escalation">
+        <h4>Escalation Level: {escalationLevel}</h4>
+        <div>Response Due In: {formatTime(countdown.response)}</div>
+        <div>Resolution Due In: {formatTime(countdown.resolution)}</div>
       </div>
 
       {/* Tabs Section */}
@@ -183,19 +211,19 @@ const Escalations = ({ logId }) => {
               <tbody>
                 <tr>
                   <td>Main Issue</td>
-                  <td>---</td>
+                  <td>{logDetails?.issueTitle || "---"}</td>
                 </tr>
                 <tr>
                   <td>Category</td>
-                  <td>---</td>
+                  <td>{logDetails?.category || "---"}</td>
                 </tr>
                 <tr>
                   <td>Raised</td>
-                  <td>---</td>
+                  <td>{logDetails?.issuedAt || "---"}</td>
                 </tr>
                 <tr>
                   <td>Escalated At</td>
-                  <td>---</td>
+                  <td>{logDetails?.escalatedAt || "---"}</td>
                 </tr>
               </tbody>
             </table>
@@ -220,19 +248,19 @@ const Escalations = ({ logId }) => {
               <tbody>
                 <tr>
                   <td>Main Issue</td>
-                  <td>---</td>
+                  <td>{logDetails?.issueTitle || "---"}</td>
                 </tr>
                 <tr>
                   <td>Category</td>
-                  <td>---</td>
+                  <td>{logDetails?.category || "---"}</td>
                 </tr>
                 <tr>
                   <td>Raised</td>
-                  <td>---</td>
+                  <td>{logDetails?.issuedAt || "---"}</td>
                 </tr>
                 <tr>
                   <td>Escalated At</td>
-                  <td>---</td>
+                  <td>{logDetails?.escalatedAt || "---"}</td>
                 </tr>
               </tbody>
             </table>

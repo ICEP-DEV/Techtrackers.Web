@@ -4,8 +4,9 @@ body {
 }
 
 .collabTableContainer {
-  width: 70%;
+  width: 100%;
   margin: 50px auto;
+  padding: 0px 20px;
 }
 
 .collabHeader {
@@ -13,6 +14,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: 20px;
+  margin-right: 18%;
 }
 
 .collabHeaderTitle {
@@ -60,7 +62,8 @@ body {
   border-radius: 10px; /* Rounded corners */
   position: relative;
   padding: 20px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
+  border-top: 1px solid #ddd;
 }
 
 .collabRow::after {
@@ -84,7 +87,7 @@ body {
   height: 40px;
   background-color: rgb(143, 143, 190);
   /* margin-right: 10px; */
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 
@@ -164,6 +167,10 @@ body {
 .collabTime {
   margin-right: 20px;
   color: gray;
+}
+
+.collabTime2{
+  display: none;
 }
 
 .collabSortButton {
@@ -293,4 +300,121 @@ body {
 
 .popupClose:hover {
   background: #0056b3;
+}
+
+@media (max-width: 1040px) {
+  .collabTableContainer {
+    width: 100%;
+  }
+  .collabRow {
+    /* padding: 10px;
+    margin: 10px; */
+    align-items: flex-start;
+  }
+  .collabHeaderTitle {
+    font-size: 22px;
+  }
+  .collabButtons .collabBtn {
+    padding: 15px 20px;
+    font-size: 14px;
+  }
+  .collabButtons {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+  }
+  .collabBtns {
+    display: flex;
+    /* flex-direction: row; */
+    /* gap: 10px; */
+  }
+  .collabTime {
+    display: none;
+  }
+  .collabTime2 {
+    display: block;
+    margin-right: 20px;
+    color: gray;
+    margin-left: auto;
+  }
+  .collabDetails {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .collabTableContainer {
+  width: 100%;
+  }
+  .collabButtons {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+  }
+  .collabBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  .collabButtons .collabBtn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  .collabRow {
+    padding: 10px;
+    margin: 10px;
+    align-items: flex-start;
+  }
+  .collabTime2 {
+    display: block;
+  }
+  .collabTime {
+    display: none;
+  }
+  .collabProfileIcon {
+    display: none;
+  }
+}
+
+@media (max-width: 685px) {
+  .collabRow {
+    flex-direction: column;
+  }
+.collabBtns{
+  /* flex-direction: column; */
+  gap: 2px;
+}
+.collabButtons .collabBtn {
+  padding: 5px 15px;
+  font-size: 14px;
+}
+.collabButtons {
+  flex-direction: row;
+}
+}
+
+@media (max-width: 480px) {
+  .collabTableContainer {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .collabHeaderTitle {
+    font-size: 16px;
+    width:100%;
+    margin-bottom: 10px;
+  }
+  .collabHeader {
+    flex-direction: column;
+  }
+  .collabHeaderActions {
+    margin-right: auto;
+    border-bottom: none;
+  }
+  .popupContainer {
+    max-width: 70%;
+  }
 }

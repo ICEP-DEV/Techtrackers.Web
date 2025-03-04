@@ -183,15 +183,17 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                 <h3><FileText /> Description</h3>
                 <p>{issue.description}</p>
             </div>
-
-            <div className="attach-section">
-                <h3><FaPaperclip /> Attachments</h3>
-                <div className="attach">
-                    <a href="#" onClick={handleAttachmentClick}>View attachment (image.jpeg, 12 KB)</a>
+            
+            {issue.attachmentBase64 && (
+                <div className="attach-section">
+                    <h3><FaPaperclip /> Attachments</h3>
+                    <div className="attach">
+                        <a href="#" onClick={handleAttachmentClick}>View attachment</a>
+                    </div>
                 </div>
-            </div>
+            )}
 
-            {isAttachmentOpen && (
+            {isAttachmentOpen && issue.attachmentBase64 && (
                 <div className="attachment-modal">
                     <div className="attachment-modal-content">
                         <span className="close-modal" onClick={closeAttachment}>&times;</span>
@@ -199,6 +201,7 @@ export default function IssueDetails({ issue, onClose, onOpenChat }) {
                     </div>
                 </div>
             )}
+
 
             <div className="close-btn">
                 <button className="c-btn" onClick={onClose}>Close</button>

@@ -177,7 +177,7 @@ const Table = () => {
   {/* Table Content */}
   <div className={styles.collabTable}>
     {displayedIssues.map((issue, index) => (
-      <div className={styles.collabRow} key={index}>
+      <div className={styles.collabRow} key={index}>      
         <div className={styles.collabProfileInfo}>
           <div className={styles.collabProfileIcon}>
             <img src={AvatarIcon} width="50" height="50" alt="Avatar Icon" />
@@ -197,12 +197,15 @@ const Table = () => {
 
         <div className={styles.collabButtons}>
           <div className={styles.collabTime}>{issue.time}</div>
-          <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`} onClick={handleDecline}>
+          <div className={styles.collabBtns}>
+            <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`} onClick={handleDecline}>
                 Decline
             </button>
             <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`} onClick={handleAccept}>
                 Accept
             </button>
+            </div>
+            <div className={styles.collabTime2}>{issue.time}</div>
         </div>
 
         {/* Popup for showing accept/decline messages */}

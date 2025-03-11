@@ -40,7 +40,8 @@ const useIssues = () => {
       issueId: "HR-P1-1236",
       name: "Sara Smith",
       title: "Printer Not Working",
-      description: "Office printer unable to print, likely due to a hardware issue.",
+      description:
+        "Office printer unable to print, likely due to a hardware issue.",
       date: "22/07/2024",
       department: "Human Resources (HR)",
       priority: "Low",

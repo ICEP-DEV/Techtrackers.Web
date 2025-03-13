@@ -4,6 +4,7 @@ import { Paperclip, MoreVertical, MessageCircle } from "lucide-react";
 import EscalationPage from "./EscalationsAdmin"; // Import the EscalationPage component
 import styles from "../SidebarCSS/DetailView.module.css";
 import userAvatar from "../adminIcons/images/user.jpg";
+import { toast } from 'react-toastify';
 
 function DetailView({ log, onBack }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -20,19 +21,39 @@ function DetailView({ log, onBack }) {
     setIsPopupVisible(true);
   };
 
-  const handleConfirm = () => {
-    if (actionType === "close") {
-      console.log("Log closed:", log.logId);
-      setStatusMessage("This issue has been closed.");
-    } else if (actionType === "reopen") {
-      console.log("Log reopened:", log.logId);
-      setStatusMessage("This issue has been reopened.");
-      log.status = "INPROGRESS"; 
+  const handleConfirm = async () => {
+    if (actionType === "reopen") {
+      console.log("Reopening log:", log.logId);
+
+      try {
+        const response = await fetch(`https://localhost:44328/api/ManageLogs/OpenLog/${log.logId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.IsSuccess) {
+          setStatusMessage(data.Message);
+          log.status = "PENDING"; // Update UI
+          toast.success("✅ Issue reopened! The technician has been notified.");
+        } else {
+          toast.error(`❌ Failed to reopen issue: ${data.Message}`);
+        }
+      } catch (error) {
+        console.error("Error reopening log:", error);
+        toast.error("❌ Network error! Could not reopen issue.");
+      }
     }
+
     setIsPopupVisible(false);
     setActionType(null);
     setIsConfirmed(true);
   };
+
+
 
   const handleCancel = () => {
     setIsPopupVisible(false);
@@ -57,28 +78,26 @@ function DetailView({ log, onBack }) {
   const renderActionButtons = () => {
     if (log.status && log.status.toLowerCase() != "resolved") {
       return (
-        <div className="action-buttons">
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
-        </div>
       );
     }
-    else 
-    return (
-      <div className={styles["action-buttons"]}>
-       
-        <button className={styles["back-button-d"]} onClick={onBack}>
-          BACK
-        </button>
-         <button
-          className={styles["reopen-button"]}
-          onClick={() => handleOpenPopup("reopen")}
-        >
-          RE-OPEN
-        </button>
-      </div>
-    );
+    else
+      return (
+        <div className={styles["action-buttons"]}>
+
+          <button className={styles["back-button-d"]} onClick={onBack}>
+            BACK
+          </button>
+          <button
+            className={styles["reopen-button"]}
+            onClick={() => handleOpenPopup("reopen")}
+          >
+            RE-OPEN
+          </button>
+        </div>
+      );
   };
 
   return (
@@ -117,22 +136,21 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${
-                          styles[log.priority ? log.priority.toLowerCase() : ""]
-                        }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]
+                          }`}
                       >
                         {log.priority}
                       </span>
                     </p>
                   </div>
                   <div className={styles["issue-date"]}>
-                    <p>{new Intl.DateTimeFormat("en-US", { 
-                      dateStyle: "long", 
-                      timeStyle: "short" 
+                    <p>{new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short"
                     }).format(new Date(log.issuedAt))}</p>
                   </div>
                 </div>
-                
+
                 <div className={styles["issue-location"]}>
                   <p>Department - {log.department}</p>
                   <p>Location - {log.location} </p>
@@ -142,17 +160,16 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${
-                        styles[log.status ? log.status.toLowerCase() : ""]
-                      }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]
+                        }`}
                     >
                       {log.status}
                     </span>
                   </p>
                 </div>
-                <div className= {styles["description"]}>
-                    <h3>Description</h3>
-                    <p>{log.description}</p>
+                <div className={styles["description"]}>
+                  <h3>Description</h3>
+                  <p>{log.description}</p>
                 </div>
                 <button className={styles["back-button-d"]} onClick={onBack}>
                   BACK
@@ -175,9 +192,8 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${
-                          styles[log.priority ? log.priority.toLowerCase() : ""]
-                        }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]
+                          }`}
                       >
                         {log.priority}
                       </span>
@@ -187,9 +203,9 @@ function DetailView({ log, onBack }) {
                     <p>
                       {log?.issuedAt && !isNaN(new Date(log.issuedAt).getTime())
                         ? new Intl.DateTimeFormat("en-US", {
-                            dateStyle: "long",
-                            timeStyle: "short",
-                          }).format(new Date(log.issuedAt))
+                          dateStyle: "long",
+                          timeStyle: "short",
+                        }).format(new Date(log.issuedAt))
                         : "Invalid Date"}
                     </p>
                   </div>
@@ -200,7 +216,7 @@ function DetailView({ log, onBack }) {
                   <p>Department - {log.department}</p>
                   <p>Location - {log.location} </p>
                 </div>
-                
+
                 <div className={styles["issue-description"]}>
                   <h3>Description</h3>
                   <p>{log.description}</p>
@@ -208,25 +224,19 @@ function DetailView({ log, onBack }) {
                 <div className={styles["issue-attachments"]}>
                   <h3>
                     <Paperclip className={styles["icon"]} />
-                     Attachments
+                    Attachments
                   </h3>
-                  {log.attachments && log.attachments.length > 0 ? (
-                    log.attachments.map((attachment) => (
-                      <div
-                        className={styles["attachment"]}
-                        key={attachment.filename}
-                        onClick={() =>
-                          handleOpenImageViewer(attachment.imageUrl)
-                        }
-                      >
-                        <img
-                          src={attachment.imageUrl}
-                          alt={attachment.filename}
-                        />
-                        <span>{attachment.filename}</span>
-                        <span className={styles["file-size"]}>12 KB</span>
-                      </div>
-                    ))
+                  {log.attachmentBase64 ? (
+                    <div
+                      className={styles["attachment"]}
+                      onClick={() => handleOpenImageViewer(`data:image/jpeg;base64,${log.attachmentBase64}`)}
+                    >
+                      <img
+                        src={`data:image/jpeg;base64,${log.attachmentBase64}`}
+                        alt="Uploaded Attachment"
+                      />
+                      <span>Uploaded Image</span>
+                    </div>
                   ) : (
                     <p>No attachments available.</p>
                   )}
@@ -235,9 +245,8 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${
-                        styles[log.status ? log.status.toLowerCase() : ""]
-                      }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]
+                        }`}
                     >
                       {log.status}
                     </span>
@@ -295,7 +304,7 @@ function DetailView({ log, onBack }) {
 
 DetailView.propTypes = {
   log: PropTypes.shape({
-    logId: PropTypes.number.isRequired, // Updated to match `log.logId`
+    logId: PropTypes.number.isRequired,
     issueId: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
@@ -303,12 +312,7 @@ DetailView.propTypes = {
     department: PropTypes.string,
     assigned: PropTypes.string,
     date: PropTypes.string,
-    attachments: PropTypes.arrayOf(
-      PropTypes.shape({
-        filename: PropTypes.string.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-      })
-    ),
+    attachmentBase64: PropTypes.string, // Add this line
   }).isRequired,
   onBack: PropTypes.func.isRequired,
 };

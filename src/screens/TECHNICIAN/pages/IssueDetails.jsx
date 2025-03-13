@@ -213,18 +213,21 @@ const IssueDetails = ({ issues }) => {
         <p className={styles.descriptionText}>{issue.description}</p>
       </div>
 
-      {issue.attachment && (
-        <div className={styles.attachments}>
-          <h3>
-            <img src={attachme} width="15" height="25" alt="Attachment Icon" />
-            <h4>Attachments</h4>
-            <p>{issue.attachment}</p>
-          </h3>
-          <div className={styles.attachment}>
-            <img src={issue.attachment} width="30" height="25" alt="Image Attachment" />{" "}
-          </div>
-        </div>
-      )}
+      {issue.attachmentBase64 && (
+  <div className={styles.attachments}>
+    <h3>
+      <img src={attachme} width="15" height="15" alt="Attachment Icon" />
+      <h4>Attachments</h4>
+    </h3>
+    <div className={styles.attachment}>
+      <img
+        src={`data:image/jpeg;base64,${issue.attachmentBase64}`}
+        alt="Uploaded Attachment"
+        style={{ maxWidth: "50%", height: "auto" }}
+      />
+    </div>
+  </div>
+)}
 
       <div className={styles.additionalInfo}>
         <p>Department - {issue.department}</p>

@@ -106,7 +106,7 @@ function DetailView({ log, onBack }) {
         <h2>{log.issueId}</h2>
         <div className={styles["header-actions"]}>
           <button className={styles["more-button"]} onClick={toggleEscalation}>
-            <MoreVertical size={20} /> More
+            <MoreVertical size={20} />  {isEscalationVisible ? "Back" : "More"}
           </button>
         </div>
       </div>

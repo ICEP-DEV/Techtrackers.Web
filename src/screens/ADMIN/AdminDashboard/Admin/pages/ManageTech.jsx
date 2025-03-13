@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/Table.module.css";
 import TechnicianDetailView from "./TechnicianDetailView";
+import VectorIcon from "../adminIcons/Vector.png"
 import axios from "axios";
 
 const ManageTechniciansHeader = () => {
@@ -15,7 +16,7 @@ const ManageTechniciansHeader = () => {
     <div className={styles.headerContainer}>
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-          <i className="fa-regular fa-users" aria-hidden="true"></i>
+        <img src={VectorIcon} className={styles.manageicons} alt="Technicians Icon" />
           <div className={styles.headerText}>
             <h2>Manage Technicians</h2>
           </div>

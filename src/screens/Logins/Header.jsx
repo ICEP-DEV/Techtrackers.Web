@@ -49,6 +49,7 @@ function Header() {
             duration={200}
             activeClass="active"
             className="nav_button"
+            onClick={() => setMenuOpen(false)}
           >
             Home
           </ScrollLink>
@@ -60,6 +61,7 @@ function Header() {
             duration={200}
             activeClass="active"
             className="nav_button"
+            onClick={() => setMenuOpen(false)}
           >
             About
           </ScrollLink>
@@ -71,6 +73,7 @@ function Header() {
             duration={200}
             activeClass="active"
             className="nav_button"
+            onClick={() => setMenuOpen(false)}
           >
             Service
           </ScrollLink>
@@ -82,6 +85,7 @@ function Header() {
             duration={200}
             activeClass="active"
             className="nav_button"
+            onClick={() => setMenuOpen(false)}
           >
             Login
           </ScrollLink>
@@ -93,7 +97,7 @@ function Header() {
             duration={200}
             activeClass="active"
             className="nav_button"
-            onSetActive={() => console.log("Contact is active!")}
+            onClick={() => setMenuOpen(false)}
           >
             Contact
           </ScrollLink>

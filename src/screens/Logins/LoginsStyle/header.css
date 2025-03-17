@@ -25,10 +25,11 @@
     border-radius: 4px;
     background-color: #0C3A3A; /* Button background color */
     font-weight: bold;
+    cursor: pointer;
 }
 
 .nav_button:hover {
-    background-color: #45a049; /* Button hover effect */
+    background-color: #0b4242; /* Button hover effect */
 }
 
 /* Header container */
@@ -70,8 +71,12 @@
     display: block;
 }
 
+.hamburger-icon {
+    margin-right: 10px;
+}
+
 /* Media query for responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 905px) {
     /* Show the hamburger menu on small screens */
     .hamburger-menu {
         display: block;
@@ -105,4 +110,14 @@
     .nav_button:hover {
         background-color: #45a049;
     }
+}
+
+@media (max-width: 480px) { 
+    .logos {
+        height: 3.4rem;
+    }
+    #header {
+        height: 10%;
+    }
+    
 }

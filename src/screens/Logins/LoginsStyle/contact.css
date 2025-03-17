@@ -106,8 +106,38 @@ textarea{
 }
 
 .footer {
-  margin-top: 240px;
+  margin-top: 50px;
   text-align: center;
   color: #ffffff;
   font-size: 14px;
+}
+
+@media (max-width: 925px) {
+  .contact-details {
+    width: fit-content; 
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-container {
+    height: fit-content;
+  }
+
+  .contact-form, .contact-details {
+    width: 100%;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .form-group {
+      margin-left: 16%;
+    }
+  }
 }

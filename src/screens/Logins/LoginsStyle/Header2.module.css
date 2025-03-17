@@ -44,6 +44,10 @@
     display: block;
 }
 
+.hamburgerIcon {
+    margin-right: 10px;
+}
+
 /* Media query for responsiveness */
 @media (max-width: 768px) {
     /* Show the hamburger menu on small screens */
@@ -80,3 +84,14 @@
         background-color: #45a049;
     }
 }
+
+@media (max-width: 480px) {
+    #header {
+        height: 10%;
+    }
+
+    .logos {
+        height: 3.5rem;
+    }
+
+}             

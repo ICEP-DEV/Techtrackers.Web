@@ -1,10 +1,12 @@
+/* .dashboardContainer */
 .dashboardContainer {
   padding: 20px;
   background-color: white;
-  margin: 20px;
+  margin: 0 auto;
   margin-top: -10px;
   border-radius: 8px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* Ensure the container doesn't stretch too wide on large screens */
 }
 
 .logsHeader {
@@ -12,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .logsTitle {
@@ -19,12 +22,15 @@
   font-size: 24px;
   font-weight: bold;
   align-items: center;
+  flex: 1; /* Allow title to take available space */
 }
 
 .searchBar {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%; /* Ensure search bar takes full width */
+  position: relative; /* To position the icon inside the input */
 }
 
 .searchInput {
@@ -33,6 +39,7 @@
   background-color: white;
   padding-left: 20px;
   width: 200px;
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
 }
 
 .searchInput:focus {
@@ -44,13 +51,18 @@
 .searchIcon {
   position: absolute;
   color: #6c757d;
-  margin-left: 170px;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .filterSort {
   display: flex;
   justify-content: flex-end;
   margin-top: -50px;
+  width: 100%;
+  gap: 10px; /* Add space between filter and sort buttons */
+  flex-wrap: wrap; /* Allow wrapping */
 }
 
 .filterButtonContainer,
@@ -78,17 +90,23 @@
   transform: scale(1.1);
 }
 
+/* Table Styles */
 .logsTable {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 10px;
   margin-top: 20px;
+  table-layout: fixed; /* Fix the table layout */
+  word-wrap: break-word; /* Ensure words break and wrap within table cells */
+  overflow-wrap: break-word; /* Support for long words */
 }
 
 .logsTable th,
 .logsTable td {
   padding: 15px;
   text-align: left;
+  word-wrap: break-word; /* Ensures text wraps within cells */
+  overflow-wrap: break-word; /* Allow word breaking if text is too long */
 }
 
 .logsTable th {
@@ -162,170 +180,39 @@
   color: #8f9396;
 }
 
-
-.viewButton {
-  background-color: #17a2b8;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.viewButton:hover {
-  background-color: #0d6efd;
-  transform: scale(1.1);
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  background: none;
-  border: 1px solid #dee2e6;
-  cursor: pointer;
-  margin: 0 5px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination button.active {
-  background-color: #17a2b8;
-  color: white;
-  border-color: #17a2b8;
-}
-
-.pagination button:hover {
-  background-color: #e9ecef;
-  color: #495057;
-}
-
-.iconButton {
-  display: flex;
-  align-items: center;
-  background: #dc3545;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  color: white;
-  padding: 8px 12px;
-}
-
-.iconButton svg {
-  margin-right: 5px;
-}
-
-/* Modal styles */
-.modal {
-  position: absolute;
-  top: 100%;
-  left: -40px;
-  margin-top: 10px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 200px;
-}
-
-.modal h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #495057;
-}
-
-.filterOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.filterOptions label {
-  display: block;
-  padding: 10px;
-  font-size: 14px;
-  text-align: center;
-  background-color: #f5f5f5;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.filterOptions label:hover {
-  background-color: #e0e0e0;
-}
-
-.filterOptions input[type="radio"] {
-  display: none;
-}
-
-.filterOptions input[type="radio"]:checked + label {
-  background-color: #17a2b8;
-  color: white;
-  border-color: #0d6efd;
-}
-
-.sortModal {
-  position: absolute;
-  top: 100%;
-  left: -110px;
-  margin-top: 10px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 200px;
-}
-
-.sortModal h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #495057;
-}
-.sortOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.sortOptions button {
-  display: block;
-  padding: 10px;
-  font-size: 14px;
-  text-align: center;
-  color: black;
-  background-color: #f5f5f5;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.sortOptions button:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-.sortOptions button.activeSort, /* New style for active sort */
-.sortOptions button.activeSort:hover {
-  background-color: #17a2b8;
-  color: white;
-  border-color: #0d6efd;
-}
+/* Responsive Adjustments for the Table */
 @media (max-width: 768px) {
-  .filterSort {
-    margin-left: 30px;
+  .logsTable {
+    table-layout: auto; /* Allow table to adjust width based on content */
+  }
+
+  .logsTable th, .logsTable td {
+    padding: 12px; /* Decrease padding for smaller screens */
+    font-size: 12px; /* Adjust font size to prevent overflow */
+  }
+
+  .logsTable th {
+    font-size: 14px; /* Make headers slightly larger */
+  }
+
+  .logsTable td {
+    font-size: 12px; /* Ensure data text size is smaller */
+  }
+
+  .logsTable td,
+  .logsTable th {
+    white-space: normal; /* Allow text to wrap and not overflow */
+    word-wrap: break-word; /* Allow wrapping of long words */
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .logsTable {
+    font-size: 12px; /* Reduce font size on extra small screens */
+  }
+
+  .logsTable th, .logsTable td {
+    padding: 10px; /* Reduce padding for better fit */
   }
 }

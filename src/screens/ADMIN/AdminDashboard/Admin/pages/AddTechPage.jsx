@@ -195,7 +195,7 @@ const AddTechnician = () => {
             <input
               type="text"
               className="form-control"
-              id="contact"
+              id="contact1"
               placeholder="0123456789"
               value={formData.contact}
               onChange={handleContactChange} // Use the new handler

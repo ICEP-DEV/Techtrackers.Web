@@ -114,6 +114,11 @@
   @media (max-width: 480px) {
     .service-container {
       padding: 15px;
+      padding-top: 60px;
+    }
+
+    #services {
+      margin-bottom: -90px;
     }
   }
 

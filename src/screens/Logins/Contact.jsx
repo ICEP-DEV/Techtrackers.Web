@@ -25,7 +25,7 @@ const Contact = () => {
             <div className="contact-item">
               <img src={require('../../Images/message.jpg')} alt="Logo 1" className="contact-image" />
               <div className="contact-message">
-                <p>Chat to us<br/>Our friendly team is here to help<br/><span className="color-email">hi@techtrackers.com</span></p>
+                <p>Chat to us<br/>Our friendly team is here to help: <span className="color-email">help@fixflow.com</span></p>
               </div>
             </div>
 
@@ -45,7 +45,7 @@ const Contact = () => {
           </div>
       </div>
       <div className="footer">
-            <span>© Copyright Tech Tracker All Rights Reserved</span>
+            <span>© Copyright FixFlow All Rights Reserved</span>
       </div>
     </div>
   </div>

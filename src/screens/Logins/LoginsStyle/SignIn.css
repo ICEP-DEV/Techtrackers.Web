@@ -168,3 +168,13 @@
     z-index: -1; /* Puts the shadow behind the image */
     opacity: 0.7; /* Adjust opacity for a more subtle effect */
 }
+
+@media (max-width: 580px) {
+    .image-section {
+        display: none;
+    }
+    
+    .signin-cot {
+        width: 100%;
+    }
+}

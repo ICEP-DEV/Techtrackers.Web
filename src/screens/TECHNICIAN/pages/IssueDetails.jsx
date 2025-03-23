@@ -292,7 +292,7 @@ const IssueDetails = ({ issues }) => {
                       checked={selectedTechnician === tech.name}
                       onChange={() => handleCheckboxChange(tech)}
                     />
-                    <img src={profile} alt="User Icon" className="userIcon" />
+                    <img src={profile} alt="User Icon" className="userIcon" height={40}/>
                     <div className={styles.technicianDetails}>
                       <p>{tech.name}</p>
                       <p>{tech.role}</p>

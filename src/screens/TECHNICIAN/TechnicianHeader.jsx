@@ -91,10 +91,14 @@ const TechnicianHeader = ({ onLogout }) => {
     const handleBellClick = () => setShowReminders(!showReminders);
 
     const handleLogout = () => {
-        localStorage.removeItem('user_info');
-        closeDropdown();
-        navigate('/signIn');
+        const isConfirmed = window.confirm("Are you sure you want to log out?");
+        if (isConfirmed) {
+            localStorage.removeItem('user_info');
+            closeDropdown();
+            navigate('/login');
+        }
     };
+    
 
     const formatTime = (time) => {
         const hours = Math.floor(time / (1000 * 60 * 60));

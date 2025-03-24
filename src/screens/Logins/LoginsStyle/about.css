@@ -97,7 +97,21 @@
     .about-picture, .about-content {
       margin-bottom: 20px;
     }
+
+    .contact-Us {
+      display: flex;
+      justify-content: center;
+      margin: auto;
+    }
+
+    .about-content-wrapper {
+      padding: 15px;
+    }
   }
+  
+
+
+
 /*.about-picture{
     float: left;
   }

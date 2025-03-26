@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Paperclip, MoreVertical, MessageCircle } from "lucide-react";
+import { Paperclip, MoreVertical } from "lucide-react";
 import EscalationPage from "./EscalationsAdmin"; // Import the EscalationPage component
 import styles from "../SidebarCSS/DetailView.module.css";
 import userAvatar from "../adminIcons/images/user.jpg";
@@ -13,8 +13,10 @@ function DetailView({ log, onBack }) {
   const [statusMessage, setStatusMessage] = useState(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(""); // State for department selection
   const [isEscalationVisible, setIsEscalationVisible] = useState(false); // State to control EscalationPage visibility
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(true); // State to control dropdown visibility
 
   const handleOpenPopup = (action) => {
     setActionType(action);
@@ -53,8 +55,6 @@ function DetailView({ log, onBack }) {
     setIsConfirmed(true);
   };
 
-
-
   const handleCancel = () => {
     setIsPopupVisible(false);
     setActionType(null);
@@ -73,20 +73,22 @@ function DetailView({ log, onBack }) {
   const toggleEscalation = () => {
     setIsEscalationVisible((prevState) => !prevState); // Toggle the visibility of EscalationPage
   };
-  console.log("DetailView - Log ID passed to EscalationPage:", log.logId);
+
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+    setIsDropdownVisible(false); // Hide dropdown after selection
+  };
 
   const renderActionButtons = () => {
-    if (log.status && log.status.toLowerCase() != "resolved") {
+    if (log.status && log.status.toLowerCase() !== "resolved") {
       return (
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
       );
-    }
-    else
+    } else {
       return (
         <div className={styles["action-buttons"]}>
-
           <button className={styles["back-button-d"]} onClick={onBack}>
             BACK
           </button>
@@ -98,6 +100,7 @@ function DetailView({ log, onBack }) {
           </button>
         </div>
       );
+    }
   };
 
   return (
@@ -105,11 +108,52 @@ function DetailView({ log, onBack }) {
       <div className={styles["detail-header"]}>
         <h2>{log.issueId}</h2>
         <div className={styles["header-actions"]}>
+          {/* Department Dropdown (Visible) */}
+          {isDropdownVisible && (
+            <select
+              className={styles["department-dropdown"]}
+              value={selectedDepartment}
+              onChange={handleDepartmentChange}
+            >
+              <option value="">Select Department</option>
+              <option value="Facilities Management / Maintenance Department">
+                Facilities Management / Maintenance Department
+              </option>
+              <option value="Technical Services / IT Support">
+                Technical Services / IT Support
+              </option>
+              <option value="Engineering / Utilities Department">
+                Engineering / Utilities Department
+              </option>
+              <option value="Security & Surveillance">
+                Security & Surveillance
+              </option>
+              <option value="Customer Support / Helpdesk">
+                Customer Support / Helpdesk
+              </option>
+              <option value="Logistics & Fleet Management">
+                Logistics & Fleet Management
+              </option>
+              <option value="Housekeeping & Janitorial Services">
+                Housekeeping & Janitorial Services
+              </option>
+            </select>
+          )}
+
+          {/* Display selected department as label */}
+          {selectedDepartment && (
+            <div className={styles["department-label"]}>
+            <span> {selectedDepartment}</span>
+          </div>
+          
+          )}
+
           <button className={styles["more-button"]} onClick={toggleEscalation}>
-            <MoreVertical size={20} />  {isEscalationVisible ? "Back" : "More"}
+            <MoreVertical size={20} /> {isEscalationVisible ? "Back" : "More"}
           </button>
         </div>
       </div>
+      
       <div className={styles["detail-content"]}>
         {isEscalationVisible ? (
           <EscalationPage logId={log.logId} /> // Render EscalationPage when isEscalationVisible is true
@@ -136,18 +180,14 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]
-                          }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]}`}
                       >
                         {log.priority}
                       </span>
                     </p>
                   </div>
                   <div className={styles["issue-date"]}>
-                    <p>{new Intl.DateTimeFormat("en-US", {
-                      dateStyle: "long",
-                      timeStyle: "short"
-                    }).format(new Date(log.issuedAt))}</p>
+                    <p>{new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeStyle: "short" }).format(new Date(log.issuedAt))}</p>
                   </div>
                 </div>
 
@@ -160,8 +200,7 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]
-                        }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]}`}
                     >
                       {log.status}
                     </span>
@@ -192,8 +231,7 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]
-                          }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]}`}
                       >
                         {log.priority}
                       </span>
@@ -209,8 +247,6 @@ function DetailView({ log, onBack }) {
                         : "Invalid Date"}
                     </p>
                   </div>
-
-
                 </div>
                 <div className={styles["issue-location"]}>
                   <p>Department - {log.department}</p>
@@ -245,13 +281,13 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]
-                        }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]}`}
                     >
                       {log.status}
                     </span>
                   </p>
                 </div>
+
                 {renderActionButtons()}
               </>
             )}
@@ -259,42 +295,25 @@ function DetailView({ log, onBack }) {
         )}
       </div>
 
+      {/* Confirmation Popup */}
       {isPopupVisible && (
-        <div className={styles["popup-overlay"]}>
+        <div className={styles["popup"]}>
           <div className={styles["popup-content"]}>
-            <p>
-              {actionType === "close"
-                ? "Are you sure you want to close this issue?"
-                : "Are you sure you want to reopen this issue?"}
-            </p>
+            <h3>Are you sure you want to {actionType} this log?</h3>
             <div className={styles["popup-buttons"]}>
-              <button onClick={handleConfirm}>Yes</button>
-              <button onClick={handleCancel}>No</button>
+              <button onClick={handleConfirm}>Confirm</button>
+              <button onClick={handleCancel}>Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      {isImageViewerOpen && (
-        <div
-          className={styles["image-viewer-overlay"]}
-          onClick={handleCloseImageViewer}
-        >
-          <div
-            className={styles["image-viewer-content"]}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={selectedImage}
-              alt="Attachment"
-              className={styles["viewed-image"]}
-            />
-            <button
-              className={styles["close-image-button"]}
-              onClick={handleCloseImageViewer}
-            >
-              Close
-            </button>
+      {/* Image Viewer */}
+      {isImageViewerOpen && selectedImage && (
+        <div className={styles["image-viewer"]}>
+          <div className={styles["image-viewer-content"]}>
+            <button onClick={handleCloseImageViewer}>Close</button>
+            <img src={selectedImage} alt="Attachment" />
           </div>
         </div>
       )}
@@ -306,13 +325,14 @@ DetailView.propTypes = {
   log: PropTypes.shape({
     logId: PropTypes.number.isRequired,
     issueId: PropTypes.string.isRequired,
+    logBy: PropTypes.string.isRequired,
+    priority: PropTypes.string,
+    issuedAt: PropTypes.string,
+    department: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    priority: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    department: PropTypes.string,
-    assigned: PropTypes.string,
-    date: PropTypes.string,
-    attachmentBase64: PropTypes.string, // Add this line
+    attachmentBase64: PropTypes.string,
+    status: PropTypes.string,
+    location: PropTypes.string,
   }).isRequired,
   onBack: PropTypes.func.isRequired,
 };

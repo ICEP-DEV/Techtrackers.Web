@@ -1,125 +1,125 @@
 /* AdminHeader.module.css */
 
 .body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
+  margin: 0;
+  font-family: "Arial", sans-serif;
 }
 
 .dashboardHeader {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 10px 20px;
-    background-color: #0C3A3A;
-    color: white;
-    position: fixed; /* Fix the header to the top */
-    top: 0; /* Align it to the top */
-    left: 0; /* Align it to the left */
-    right: 0; /* Align it to the right */
-    z-index: 1000; /* Ensure it stays above other content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0c3a3a;
+  color: white;
+  position: fixed; /* Fix the header to the top */
+  top: 0; /* Align it to the top */
+  left: 0; /* Align it to the left */
+  right: 0; /* Align it to the right */
+  z-index: 1000; /* Ensure it stays above other content */
 }
 
 .headerLeft {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
 }
 
 .logo {
-    height: 65px; 
-    margin-right: 10px;
+  height: 65px;
+  margin-right: 10px;
 }
 
 .headerRight {
-    position: relative; 
-    overflow: visible;
+  position: relative;
+  overflow: visible;
 }
 
 button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    margin-left: 10px;
-    cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 button:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .profileButton {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .dropdownMenu {
-    position: absolute;
-    top: 50px; 
-    right: 0;
-    background-color: white;
-    color: #0C3A3A; 
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    padding: 15px;
-    width: 180px; 
-    text-align: left;
-    z-index: 1;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  color: #0c3a3a;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  width: 180px;
+  text-align: left;
+  z-index: 1;
 }
 
 .dropdownMenu.open {
-    display: block; 
+  display: block;
 }
 
 .dropdownMenu p {
-    font-size: 16px; 
-    font-weight: bold;
-    margin: 0;
-    padding: 5px 0;
-    color: #0C3A3A;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px 0;
+  color: #0c3a3a;
 }
 
 .dropdownMenu .subText {
-    font-size: 14px; 
-    color: #0C3A3A; 
-    font-weight: normal;
+  font-size: 14px;
+  color: #0c3a3a;
+  font-weight: normal;
 }
 
 .dropdownMenu .signoutButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px; 
-    border: none;
-    background-color: transparent;
-    color: #0C3A3A;
-    cursor: pointer;
-    font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+  color: #0c3a3a;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .dropdownMenu .signoutButton:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .dropdownMenu .signoutIcon {
-    margin-right: 10px;
-    color: #0C3A3A; 
+  margin-right: 10px;
+  color: #0c3a3a;
 }
 
 .dropdownMenu button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #777777;
-    color: white;
-    cursor: pointer;
-    text-align: left;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #777777;
+  color: white;
+  cursor: pointer;
+  text-align: left;
 }
 
 .dropdownMenu button:hover {
-    background-color: #d32f2f;
+  background-color: #d32f2f;
 }

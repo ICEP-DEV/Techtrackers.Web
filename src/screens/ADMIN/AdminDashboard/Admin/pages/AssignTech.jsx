@@ -222,7 +222,7 @@ const AssignTech = () => {
                 })}
               </td>
               <td>{issue.department}</td>
-              <td>{assignedTechnicians[issue.logId] || "Not Assigned"}</td> {/* Display technician name from local state */}
+              <td>{issue.assignedTo || "Not Assigned"}</td> {/* Display technician name from local state */}
               <td>{issue.priority}</td>
               <td>
                 <button

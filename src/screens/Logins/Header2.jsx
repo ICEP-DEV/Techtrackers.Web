@@ -21,6 +21,7 @@ function Header() {
             alt="logo"
             className={styles.logos}
             height={70}
+            onClick={() =>navigate("/")}
           />
         </div>
 

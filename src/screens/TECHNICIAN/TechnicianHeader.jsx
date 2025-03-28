@@ -7,11 +7,21 @@ import logo from './TechnicianIcons/tut.png';
 import ProfileIcon from './TechnicianIcons/profile_icon.png';
 import { ChevronDown, Bell } from "lucide-react";
 import SettingsModal from './pages/SettingsModal';
+import { FaBars } from "react-icons/fa";
+
+import dashboard from './TechnicianIcons/dashIcon.png';
+import notifications from './TechnicianIcons/notifIcon.png';
+import allIssue from './TechnicianIcons/allIssue.png';
+import collaborationRequests from './TechnicianIcons/collaborationRequests.png';
+import reviews from './TechnicianIcons/reviews.png';
+import logIcon from './TechnicianIcons/logIcon.png';
 
 const TechnicianHeader = ({ onLogout }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [showReminders, setShowReminders] = useState(false);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // New state for menu dropdown
+    const [selectedOption, setSelectedOption] = useState('dashboard'); // Track selected menu item
     const [user, setUser] = useState(null);
     const [reminders, setReminders] = useState([
         {
@@ -38,6 +48,7 @@ const TechnicianHeader = ({ onLogout }) => {
     ]);
     
     const dropdownRef = useRef(null);
+    const menuRef = useRef(null); // New ref for menu dropdown
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,6 +61,9 @@ const TechnicianHeader = ({ onLogout }) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
                 setShowReminders(false);
+            }
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -91,10 +105,14 @@ const TechnicianHeader = ({ onLogout }) => {
     const handleBellClick = () => setShowReminders(!showReminders);
 
     const handleLogout = () => {
-        localStorage.removeItem('user_info');
-        closeDropdown();
-        navigate('/signIn');
+        const isConfirmed = window.confirm("Are you sure you want to log out?");
+        if (isConfirmed) {
+            localStorage.removeItem('user_info');
+            closeDropdown();
+            navigate('/login');
+        }
     };
+    
 
     const formatTime = (time) => {
         const hours = Math.floor(time / (1000 * 60 * 60));
@@ -115,6 +133,24 @@ const TechnicianHeader = ({ onLogout }) => {
                 </div>
             </div>
         );
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleMenuOptionClick = (option, path) => {
+        setSelectedOption(option);
+        setIsMenuOpen(false);
+
+        if (option === "logout") {
+            const confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (!confirmLogout) return;
+            navigate('/login');
+            return;
+        }
+
+        navigate(path);
     };
 
     return (
@@ -188,6 +224,60 @@ const TechnicianHeader = ({ onLogout }) => {
                         ))}
                     </div>
                 )}
+                        <FaBars onClick={toggleMenu} className={styles.menuIcon1} />
+                        {isMenuOpen && (
+                        <div className={styles.dropdownMenuContent}>
+                            
+                            <ul className={styles.menuList}>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("dashboard", "/techniciandashboard/dashboard")} 
+                                    className={`${styles.menuItem} ${selectedOption === 'dashboard' ? styles.selected : ''}`}
+                                >
+                                    <img src={dashboard} alt="Dashboard" className={styles.menuIcon} />
+                                    <span>DASHBOARD</span>
+                                </li>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("notifications", "/techniciandashboard/notifications")} 
+                                    className={`${styles.menuItem} ${selectedOption === 'notifications' ? styles.selected : ''}`}
+                                >
+                                    <img src={notifications} alt="Notifications" className={styles.menuIcon} />
+                                    <span>NOTIFICATIONS</span>
+                                </li>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("tbl", "/techniciandashboard/tbl")} 
+                                    className={`${styles.menuItem} ${selectedOption === 'tbl' ? styles.selected : ''}`}
+                                >
+                                    <img src={allIssue} alt="All Issues" className={styles.menuIcon} />
+                                    <span>ALL ISSUES</span>
+                                </li>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("collab", "/techniciandashboard/collab")} 
+                                    className={`${styles.menuItem} ${selectedOption === 'collab' ? styles.selected : ''}`}
+                                >
+                                    <img src={collaborationRequests} alt="Collaboration" className={styles.menuIcon} />
+                                    <span>COLLABORATION REQUESTS</span>
+                                </li>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("reviews", "/techniciandashboard/reviews")} 
+                                    className={`${styles.menuItem} ${selectedOption === 'reviews' ? styles.selected : ''}`}
+                                >
+                                    <img src={reviews} alt="Reviews" className={styles.menuIcon} />
+                                    <span>REVIEWS</span>
+                                </li>
+                            </ul>
+                            
+                            <div className={styles.menuFooter}>
+                                <li 
+                                    onClick={() => handleMenuOptionClick("logout", "/login")} 
+                                    className={styles.menuItem}
+                                >
+                                    <img src={logIcon} alt="Logout" className={styles.menuIcon} />
+                                    <span>LOGOUT</span>
+                                </li>
+                            </div>
+                        </div>
+                    )}
+                
             </div>
         </header>
     );

@@ -5,6 +5,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   position: relative;
+  font-family: Arial, sans-serif;
 }
 
 .title {
@@ -13,17 +14,14 @@
   margin-bottom: 20px;
 }
 
+.title h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
 .title span {
   font-size: 24px;
   font-weight: bold;
-}
-.close-popup-btn {
-  color: red;
-  font-size: 24px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
 .issue-in-fo {
@@ -45,25 +43,32 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1;
+  padding: 10px;
+}
+
+.in-fo-group p {
+  margin: 5px 0;
 }
 
 .prioritx {
   font-weight: bold;
   padding: 5px;
   border-radius: 4px;
-}
-.priority-low {
-  background-color: #28a745; /* Green - Low priority */
-}
-
-.priority-medium {
-  background-color: #ffa007; /* Orange - Medium priority */
+  color: white;
 }
 
 .priority-high {
   background-color: #f70000; /* Red - High priority */
 }
 
+.priority-medium {
+  background-color: #ffa007; /* Orange - Medium priority */
+}
+
+.priority-low {
+  background-color: #28a745; /* Green - Low priority */
+}
 
 .issue-status {
   color: white; /* Ensure text color is always white */
@@ -71,41 +76,54 @@
   border-radius: 4px;
   display: inline-block;
 }
+
 .status-resolved {
   background-color: #28a745; /* Green - Resolved */
 }
+
 .status-inprogress {
   background-color: #14788f; /* Blue - InProgress */
-  
 }
 
 .status-pending {
   background-color: #ffa007; /* Orange - Pending */
-  
 }
 
 .status-escalated {
   background-color: #f70000; /* Red - Escalated */
-  
 }
 
 .status-onhold {
   background-color: #8f9396; /* Gray - OnHold */
-  
 }
 
-.descrip-section, .attach-section {
+.descrip-section,
+.attach-section {
   background-color: #f9f9f9;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 8px;
 }
 
-.descrip-section h3, .attach-section h3 {
+.descrip-section h3 {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.attach-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.attach a {
+  color: blue;
+  text-decoration: none;
 }
 
 .attach {
@@ -114,25 +132,17 @@
   gap: 10px;
 }
 
-.live-chat-btn {
-  background-color: #1a3c40;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 4px;
-  width: 150px;
-  height: 50px;
-}
-
 .close-btn {
   display: flex;
   gap: 10px;
   justify-content: right;
   padding-top: 10px;
+  text-align: right;
 }
 
-.c-btn, .Unresolved-btn, .Resolved-btn {
+.c-btn,
+.Unresolved-btn,
+.Resolved-btn {
   color: white;
   border: none;
   padding: 10px 20px;
@@ -145,15 +155,118 @@
   background-color: #ee0606;
 }
 
-.Unresolved-btn {
-  background-color: #e48c08;
-}
-
 .Resolved-btn {
   background-color: #06ee67;
 }
 
-/* Attachment modal styling */
+.Unresolved-btn {
+  background-color: #e48c08;
+}
+
+/* Disabled button style */
+.disabled-btn {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.feedback-popup,
+.confirmation-popup,
+.rating-popup,
+.error-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.feedback-popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  position: relative; /* To position the close icon correctly */
+  padding: 30px;
+}
+
+.confirmation-popup-content {
+  position: relative;
+  background: white; /* Popup background color */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px; /* Set a max width for the popup */
+  text-align: center; /* Center align text */
+}
+
+.rating-popup-content {
+  position: relative;
+  background: white; /* Popup background color */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px; /* Set a max width for the popup */
+  text-align: center; /* Center align text */
+}
+
+.error-popup-content {
+  background-color: white; /* Popup background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-align: center; /* Center text */
+}
+
+.close-popup-btn {
+  width: 30px; /* Width and height should be equal for a perfect circle */
+  height: 30px;
+  background-color: #ee0606; /* Red background */
+  color: #fff; /* White "X" color */
+  border: none;
+  border-radius: 50%; /* Makes it circular */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Center the "X" */
+  justify-content: center; /* Center the "X" */
+  font-size: 18px; /* Font size for the "X" */
+  font-weight: bold; /* Bold text for better visibility */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow effect */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.close-popup-btn:hover {
+  background-color: #ee0606; /* Darker red on hover */
+}
+
+.ok-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #6b6160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space between stars and textarea */
+}
+
 .attachment-modal {
   position: fixed;
   top: 0;
@@ -176,12 +289,6 @@
   max-height: 90%;
 }
 
-.attachment-image {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
 .close-modal {
   position: absolute;
   top: 10px;
@@ -191,56 +298,21 @@
   cursor: pointer;
 }
 
-/* Feedback popup styling */
-.feedback-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
+.attachment-image {
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.feedback-popup-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  text-align: center;
-}
-
-.close-popup-btn {
-  width: 30px; /* Width and height should be equal for a perfect circle */
-  height: 30px;
-  background-color: #ee0606; /* Red background */
-  color: #fff; /* White "X" color */
-  border: none;
-  border-radius: 50%; /* Makes it circular */
-  cursor: pointer;
-  display: flex;
-  align-items: center; /* Center the "X" */
-  justify-content: center; /* Center the "X" */
-  font-size: 18px; /* Font size for the "X" */
-  font-weight: bold; /* Bold text for better visibility */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow effect */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-.close-popup-btn:hover {
-  background-color: #ee0606; /* Darker red on hover */
-}
-
-.ok-btn {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #6B6160;
-  color: #fff;
-  border: none;
+  height: auto;
   border-radius: 4px;
+}
+
+.live-chat-btn {
+  background-color: #1a3c40;
+  color: white;
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 4px;
+  width: 150px;
+  height: 50px;
 }
 
 .feedback-popup-content {
@@ -298,12 +370,8 @@
   text-align: center; /* Center align text */
 }
 
-.star-rating {
-  margin-bottom: 10px; /* Space between stars and textarea */
-}
-
 .submit-rating-btn {
-  background-color: #0B5050;
+  background-color: #0b5050;
   color: white;
   border: none;
   border-radius: 5px;
@@ -314,7 +382,7 @@
 }
 
 .rating-popup-close {
-  background-color: #6B6160;
+  background-color: #6b6160;
   color: white;
   border: none;
   border-radius: 5px;
@@ -348,3 +416,4 @@
 .error-popup h2 {
   margin: 0 0 10px; /* Add margin */
 }
+

@@ -171,6 +171,7 @@
 /* Attachments section */
 .attachments {
   margin-top: -15px;
+  margin-bottom: 15px;
 }
 
 .attachments h3 {
@@ -198,9 +199,10 @@
   margin-top: 10px;
   font-size: 12px;
   color: #666;
-  height: 43px;
-  width: 140px;
+  height: 100%;
+  width: 100%;
   padding-right: 40px;
+  border: none;
 }
 
 .attachment p {
@@ -386,13 +388,18 @@
   .modalContent {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    max-width: 60px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    height: 25vh;
+    height: 40vh;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto;
   }
+
+  .modalContent2 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .modalContent button{
     padding: 10px;
     font-size: 12px;
@@ -445,7 +452,7 @@
   background-color: rgba(0, 0, 0, 0.2);;
 }
 /* Modal Content */
-.modalContent {
+.modalContent, .modalContent2 {
   width: 80%; /* Width of the modal */
   max-width: 400px; /* Maximum width */
   background: white; /* Background color */
@@ -494,8 +501,8 @@
   height: 10px; /* Adjust size as needed */
 }
 .technicianList {
-  max-height: 500px; /* Limit the height of the list */
-  overflow-y: hidden; /* Enable scrolling if the list exceeds the height */
+  max-height: 30vh; /* Limit the height of the list */
+  overflow-y: auto; /* Enable scrolling if the list exceeds the height */
   margin-top: 10px; /* Space above the list */
 }
 

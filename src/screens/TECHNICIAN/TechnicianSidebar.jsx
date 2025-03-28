@@ -23,11 +23,13 @@ const Sidebar = () => {
     };
 
     const handleOptionClick = (option, path) => {
-        setSelectedOption(option); // Set the selected option
-        const dropdownOptions = ['viewAllLogs', 'logIssue', 'assignTech', 'myIssues'];
-        if (!dropdownOptions.includes(option)) {
-            setIssueDropdownOpen(false);
+        setSelectedOption(option);
+
+        if (option === "logout") {
+            const confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (!confirmLogout) return; // Stop if user cancels
         }
+
         navigate(path);
     };
 
@@ -58,22 +60,22 @@ const Sidebar = () => {
                 </li>
 
                 <li onClick={() => handleOptionClick("tbl", "/techniciandashboard/tbl")} className={`list ${selectedOption === 'tbl' ? 'selected' : ''}`}>
-                    <img src={allIssue} alt="tbl" className="sidebar-container-icon" />
+                    <img src={allIssue} alt="All Issues" className="sidebar-container-icon" />
                     {isMenuOpen && <span>ALL ISSUES</span>}
                 </li>
 
                 <li onClick={() => handleOptionClick("collab", "/techniciandashboard/collab")} className={`list ${selectedOption === 'collab' ? 'selected' : ''}`}>
-                    <img src={collaborationRequests} alt="tech" className="sidebar-container-icon" height={40}/>
+                    <img src={collaborationRequests} alt="Collaboration" className="sidebar-container-icon" height={40} />
                     {isMenuOpen && <span>COLLABORATION REQUESTS</span>}
                 </li>
                 <li onClick={() => handleOptionClick("reviews", "/techniciandashboard/reviews")} className={`list ${selectedOption === 'reviews' ? 'selected' : ''}`}>
-                    <img src={reviews} alt="report" className="sidebar-container-icon" />
+                    <img src={reviews} alt="Reviews" className="sidebar-container-icon" />
                     {isMenuOpen && <span>REVIEWS</span>}
                 </li>
             </ul>
             <div className='log-out'>
                 <li onClick={() => handleOptionClick("logout", "/login")} className={`list`}>
-                    <img src={logIcon} alt="logout" />
+                    <img src={logIcon} alt="Logout" />
                     {isMenuOpen && <span></span>}
                 </li>
             </div>

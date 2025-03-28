@@ -89,7 +89,7 @@ const IssueDetails = () => {
         <div className={styles.issueRequestor}>
           <p>Requested By:</p>
           <div className={styles.profile}>
-            <img src={profIcon} width="50" height="50" alt="Profile Icon" />
+            <img src={profIcon} width="40" height="40" alt="Profile Icon" />
             <p className={styles.name}>{issue.name}</p>
           </div>
           <div className={styles.issueInfo}>
@@ -103,8 +103,7 @@ const IssueDetails = () => {
 
       <div className={styles.issueDetails}>
         <h3>
-          <img src={descIcon} width="25" height="30" alt="Description Icon" />
-          <h4>Description</h4>
+          <h4><img src={descIcon} width="25" height="30" alt="Description Icon"/> Description</h4>
         </h3>
         <p className={styles.descriptionText}>
         I'm experiencing an issue where I cannot log into the system. After entering my username and password and hitting the login button, the system either displays an error message saying "Invalid credentials" or simply reloads the login page without any notification. I've double-checked my credentials and even tried resetting my password, but the problem persists. This issue is preventing access to the main dashboard and all features tied to the user account.
@@ -113,9 +112,11 @@ const IssueDetails = () => {
 
       {/* Action Buttons */}
       <div className={styles.actions}>
-        <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
-        <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
-        <button className={styles.closeButton2} onClick={handleClose}>
+          <div className={styles.collabBtns}>
+            <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
+            <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
+          </div>
+          <button className={styles.closeButton2} onClick={handleClose}>
           Close
         </button>
       </div>  

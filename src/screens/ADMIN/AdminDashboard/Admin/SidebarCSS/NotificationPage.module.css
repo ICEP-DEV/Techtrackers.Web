@@ -26,6 +26,7 @@ body {
   padding: 10px;
   background-color: #eaf5f5; /* Match the full-page background */
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .headerLeft {

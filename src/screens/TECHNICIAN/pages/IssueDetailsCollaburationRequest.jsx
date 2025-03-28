@@ -131,17 +131,11 @@ const IssueDetails = () => {
 
       {/* Action Buttons */}
       <div className={styles.actions}>
-<<<<<<< HEAD
-        <button className={styles.acceptButton} onClick={() => handleRespondToCollab(issue.collaboratedId, "ACCEPTED")}>Accept</button>
-        <button className={styles.declineButton} onClick={() => handleRespondToCollab(issue.collaboratedId, "DECLINED")}>Decline</button>
-        <button className={styles.closeButton2} onClick={handleClose}>
-=======
           <div className={styles.collabBtns}>
             <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
             <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
           </div>
           <button className={styles.closeButton2} onClick={handleClose}>
->>>>>>> 06d7cdcdb6cc0defa498bfd8452700a177f8391e
           Close
         </button>
       </div>  

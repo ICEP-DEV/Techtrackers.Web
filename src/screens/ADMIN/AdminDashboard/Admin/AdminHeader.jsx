@@ -66,13 +66,7 @@ const AdminHeader = ({ onLogout }) => {
               {user ? user.email : "EzraAdmin.com"}
             </p>
             <p className={styles.subText}>{user ? user.department : "ICT"}</p>
-            <button
-              onClick={() => {
-                closeDropdown(); /* Navigate to profile */
-              }}
-            >
-              Profile
-            </button>
+            
             <button
               onClick={() => {
                 closeDropdown();

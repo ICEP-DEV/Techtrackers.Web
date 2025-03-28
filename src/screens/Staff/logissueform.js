@@ -70,15 +70,15 @@ const Logissueform = () => {
     const staffId = userInfo?.userId;
 
     if (!staffId) {
-      toast.error("User ID is missing. Please log in again.");
-      return;
+        toast.error("User ID is missing. Please log in again.");
+        return;
     }
 
-    const fullLocation = formValues.location 
-      ? formValues.buildingNumber 
-        ? `${formValues.location}-${formValues.buildingNumber}`
-        : formValues.location
-      : "Location not specified";
+    const fullLocation = formValues.location
+        ? formValues.buildingNumber
+            ? `${formValues.location}-${formValues.buildingNumber}`
+            : formValues.location
+        : "Location not specified";
 
     const formData = new FormData();
     formData.append("Issue_Title", formValues.title);
@@ -92,40 +92,40 @@ const Logissueform = () => {
 
     // Append each file to the FormData
     formValues.attachmentFiles.forEach((file, index) => {
-      formData.append(`AttachmentFiles[${index}]`, file);
+        formData.append(`AttachmentFile`, file); // Use "AttachmentFile" as the key
     });
 
     try {
-      const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setFormValues({
-          title: '',
-          category: '',
-          department: '',
-          priority: '',
-          description: '',
-          date: new Date().toISOString().split('T')[0],
-          location: '',
-          buildingNumber: '',
-          attachmentFiles: [],
+        const response = await fetch('https://localhost:44328/api/Log/CreateLog', {
+            method: 'POST',
+            body: formData,
         });
-        setFilePreviews([]); // Reset previews
-        toast.success("Log submitted successfully!");
-      } else {
-        const errorData = await response.json();
-        console.error("Error details from server:", errorData);
-        toast.error(`Failed to submit the log: ${errorData.title || "Validation error"}`);
-      }
+
+        if (response.ok) {
+            setSubmitted(true);
+            setFormValues({
+                title: '',
+                category: '',
+                department: '',
+                priority: '',
+                description: '',
+                date: new Date().toISOString().split('T')[0],
+                location: '',
+                buildingNumber: '',
+                attachmentFiles: [],
+            });
+            setFilePreviews([]); // Reset previews
+            toast.success("Log submitted successfully!");
+        } else {
+            const errorData = await response.json();
+            console.error("Error details from server:", errorData);
+            toast.error(`Failed to submit the log: ${errorData.title || "Validation error"}`);
+        }
     } catch (error) {
-      console.error("Network or server error:", error);
-      toast.error("An error occurred while submitting the log.");
+        console.error("Network or server error:", error);
+        toast.error("An error occurred while submitting the log.");
     }
-  };
+};
 
   const handleCancel = () => {
     navigate('/staffdashboard/WelcomeStaff');
@@ -145,7 +145,7 @@ const Logissueform = () => {
       )}
       <form className={styles.logIssueForm} onSubmit={handleSubmit}>
         <h2><FaPlusCircle /> LOG ISSUE</h2>
-        
+
         <div className={styles.formRow}>
           <div className={styles.Box}>
             <label>Issue title<span className={styles.Required}>*</span></label>
@@ -168,11 +168,16 @@ const Logissueform = () => {
               onChange={handleChange}
             >
               <option value="">Select Category</option>
-              <option value={1}>Hardware Issue</option>
-              <option value={2}>Software Issue</option>
-              <option value={3}>Network Issue</option>
-              <option value={4}>Account Management</option>
-              <option value={5}>General Inquiry</option>
+              <option value={1}>CARPENTRY</option>
+              <option value={2}>ELECTRICAL</option>
+              <option value={3}>ENGRAVING</option>
+              <option value={4}>GENERAL (Water Proofing, Blinds, and Glass Replacement).</option>
+              <option value={5}>LIFTS</option>
+              <option value={6}>AIR CONDITIONER</option>
+              <option value={7}>BUILDING</option>
+              <option value={8}>METALWORK </option>
+              <option value={9}>PAINTING</option>
+
             </select>
             {errors.category && <p className={styles.errorMessage}>{errors.category}</p>}
           </div>
@@ -226,7 +231,7 @@ const Logissueform = () => {
               value={formValues.date}
             />
           </div>
-          
+
           <div className={styles.Box}>
             <label>Location<span className={styles.Required}>*</span></label>
             <select
@@ -261,13 +266,13 @@ const Logissueform = () => {
         <div className={styles.fileInputWrapper}>
           <label>Attachments (include screenshots, photos, documents, etc.):</label>
           <div>
-            <input 
-              type="file" 
-              name="attachmentFiles" 
+            <input
+              type="file"
+              name="attachmentFiles"
               multiple // Allow multiple file selection
-              onChange={handleFileChange} 
+              onChange={handleFileChange}
             />
-            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p> 
+            <p className={styles.fileFormatHint}>(JPEG, PNG, PDF, DOCX, etc.)</p>
 
             {/* Display file names as clickable links */}
             {formValues.attachmentFiles.length > 0 && (
@@ -275,9 +280,9 @@ const Logissueform = () => {
                 {formValues.attachmentFiles.map((file, index) => (
                   <div key={index}>
                     {filePreviews[index] ? (
-                      <a 
-                        href={filePreviews[index]} 
-                        target="_blank" 
+                      <a
+                        href={filePreviews[index]}
+                        target="_blank"
                         rel="noopener noreferrer">
                         {file.name}
                       </a>

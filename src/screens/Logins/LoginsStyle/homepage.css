@@ -23,7 +23,7 @@
   .hero-content {
     text-align: start;
     color: white;
-    margin-top: 50px;
+    margin: 50px;
   }
   
   .first-title p {
@@ -88,3 +88,10 @@
   .home-button{
     padding-right:1225px;
   } */
+
+  @media (max-width: 530px) {
+    .start-button {
+      width: 40%;
+      font-size: 18px;
+    }
+  }

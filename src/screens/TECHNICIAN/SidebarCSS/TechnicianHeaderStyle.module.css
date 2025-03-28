@@ -228,3 +228,119 @@ button:hover {
     color: white;
     font-size: 12px;
 }
+
+@media screen and (max-width: 1250px) {
+    .dashboardHeader {
+        padding: 10px 15px;
+    }
+
+    .logo {
+        height: 55px;
+    }
+
+    .headerRight button {
+        font-size: 18px;
+    }
+
+    .remindersContainer {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        height: 50px;
+    }
+
+    .remindersContainer {
+        width: 350px;
+        top: 70px;
+    }
+
+    .reminderCount {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+
+    .headerRight {
+        gap: 5px;
+    }
+
+    .headerRight button {
+        font-size: 16px;
+    }
+
+    .dropdownMenu {
+        width: 160px;
+        padding: 10px;
+    }
+
+    .dropdownMenu p {
+        font-size: 14px;
+    }
+
+    .dropdownMenu button {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .dashboardHeader {
+        flex-direction: row;
+        align-items: center;
+        /* padding: 8px; */
+    }
+
+    /* .logo {
+        display: none;
+    } */
+
+    .headerLeft {
+        flex: none;
+    }
+
+    .logo {
+        height: 45px;
+    }
+
+    .headerRight {
+        gap: 5px;
+    }
+
+    .headerRight button {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+    /* .headerRight .bellButton {
+        display: none;
+    } */
+
+    .profileButton .profileText, .chevronIcon {
+        display: none;
+    }
+    .remindersContainer {
+        width: 280px;
+        top: 65px;
+        padding: 8px;
+    }
+
+    .reminderItem {
+        font-size: 12px;
+    }
+
+    .dropdownMenu {
+        width: 140px;
+        padding: 8px;
+    }
+
+    .dropdownMenu p {
+        font-size: 12px;
+    }
+
+    .dropdownMenu button {
+        font-size: 12px;
+        padding: 6px;
+    }
+}

@@ -1,11 +1,31 @@
 /* * {
   background-color: #f4ffff;
 } */
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1%;
+}
+
+.controls button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  color: #333;
+}
+
+.controls button:hover{
+  background-color: #277777;
+  color: white;
+}
+
 .tableContainer {
   width: 100%;
   max-width: 98%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .issueTable {
@@ -22,7 +42,7 @@
 .issueTable th {
   background-color: #9fc1b3;
   font-size: 16px;
-  color: black;
+  color: #333;
   font-weight: bold;
 }
 
@@ -129,4 +149,20 @@
   cursor: pointer;
   margin-top: 12px;
   margin-left: 1px;
+}
+
+@media (max-width: 768px) {
+  .issueTable th,
+  .issueTable td {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .viewButton {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+  .closeButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }

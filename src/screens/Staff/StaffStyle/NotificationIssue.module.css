@@ -1,177 +1,209 @@
-/* Main container styles */
+/* Main Content */
 .maiNContent {
-  padding: 20px;
-  background-color: #f8f9fa;
-  overflow: hidden;
-}
-
-.contners {
-  background-color: #fff;
+  padding: 15px;
+  background-color: #f5f5f5;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* Notification icon styles */
+/* Notification container */
+.contners {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mb-3 {
+  margin-bottom: 15px;
+}
+
+/* Notification Icon & Title */
 .notificationIcons {
-  font-size: 20px;
-  color: #495057;
+  font-size: 24px;
+  color: #15959d;
 }
 
-/* Search bar styles */
+h2 {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+}
+
+/* Search Bar */
 .searchBarContainers {
   position: relative;
-  width: 200px;
+  width: 100%; /* Full width for better responsiveness */
+  max-width: 300px; /* Prevents stretching on larger screens */
 }
 
 .searchInputs {
-  padding-right: 30px;
+  width: 100%;
+  padding: 8px 35px 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
 }
 
 .searchIcons {
   position: absolute;
-  top: 50%;
   right: 10px;
+  top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
-  color: #17a2b8;
-}
-
-/* Filter and sort styles aligned with tabs */
-.filterSortsTabsContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.filterSortsContainers {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.filterContainer {
-  position: relative;
-  display: inline-block;
-  min-width: 140px;
-  max-width: 200px;
-}
-
-.filterSortToggle {
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  padding: 0.25rem;
+  font-size: 16px;
+  color: #15959d;
   cursor: pointer;
-  display: contents;
-  margin: 0;
-  align-items: center;
-  font-size: 0.75rem;
-  width: 100%;
 }
 
-.filterSortIcon {
-  margin-right: 5px;
-}
-
-/* Dropdown menu styles */
-.dropdownMenu {
-  display: block;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  z-index: 10;
-  top: 100%;
-  left: 0;
-  margin-top: 5px;
-  max-width: 100%;
-  width: 100%;
-  overflow: auto;
-}
-
-.dropdownItem {
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #000;
-}
-
-.dropdownItem:hover {
-  background-color: #e9ecef;
-}
-
-/* Tabs styles */
+/* Tabs */
 .navTabs {
   display: flex;
-  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* Wrap tabs to fit smaller screens */
 }
 
-.navLink {
-  color: #495057;
-  font-size: 16px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.navLinkActive {
-  background-color: #6c757d;
-  color: #fff;
+.navItem button {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  background: #fff;
+  color: #15959d;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-/* Notification list styles */
+.navItem button.active {
+  background: #15959d;
+  color: #fff;
+}
+
+/* Filter and Sort Buttons */
+.filterSortButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.filterButton,
+.sortButton {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.filterButton:hover,
+.sortButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* Notification List */
 .notificationRows {
-  border-bottom: 1px solid #e9ecef;
-  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
 }
 
-.notificationRowsLastChild {
+.notificationRows:last-child {
   border-bottom: none;
 }
 
+/* Notification Message */
 .notificationTimestamps {
   font-size: 12px;
-  color: #6c757d;
+  color: #888;
 }
 
-.indent {
-  margin-left: 10px;
-  color: #212529;
-}
-
-.textPrimary {
-  color: #007bff;
+/* Mark as Read Button */
+.markAsReadButton {
+  background-color: #15959d;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.textPrimary:hover {
-  text-decoration: underline;
+.markAsReadButton:hover {
+  background-color: #117a82;
 }
 
-/* Responsive styles */
+/* Responsive Design */
 @media (max-width: 768px) {
   .searchBarContainers {
     width: 100%;
   }
 
-  .filterSortsTabsContainer {
+  .filterSortButtons {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 
-  .filterSortsContainers {
+  .filterButton,
+  .sortButton {
     width: 100%;
-    margin-top: 10px;
-  }
-
-  .filterSortToggle {
-    width: 100%;
+    font-size: 12px;
   }
 
   .navTabs {
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .notificationIcons {
+    font-size: 20px;
+  }
+
+  .searchInputs {
+    padding: 6px 30px 6px 12px;
+    font-size: 12px;
+  }
+
+  .markAsReadButton {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* Extra Small Screens (Phones) */
+@media (max-width: 480px) {
+  .maiNContent {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .filterSortButtons {
+    align-items: center;
+  }
+
+  .filterButton,
+  .sortButton {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .markAsReadButton {
+    padding: 5px 8px;
+    font-size: 10px;
   }
 }

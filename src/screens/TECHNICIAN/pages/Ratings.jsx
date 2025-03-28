@@ -40,6 +40,7 @@ const TechnicianDashboard = () => {
       }
 
       try {
+        // Fetch feedback for each logId assigned to the technician
         const feedbackLists = await Promise.all(
           logIds.map(async (logId) => {
             const response = await fetch(`https://localhost:44328/api/Feedback/GetFeedbackByLog/${logId}`);
@@ -154,7 +155,7 @@ const TechnicianDashboard = () => {
                 <div className={styles.userDetails}>
                   <img src={logo} alt={`User ${index + 1}`} className={styles.userImage} />
                   <div className={styles.userInfo}>
-                    <p>User {review.userId}</p>
+                  <p>  {/*review.userId*/}</p>
                   </div>
                 </div>
                 <div className={styles.divider}></div>

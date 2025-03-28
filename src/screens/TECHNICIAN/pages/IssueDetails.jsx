@@ -21,9 +21,9 @@ const IssueDetails = ({ issues }) => {
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
   const [note, setNote] = useState("");
-
   const issueIndex = issues.findIndex((i) => i.issueId === issueId);
   const issue = issues[issueIndex];
 
@@ -31,20 +31,17 @@ const IssueDetails = ({ issues }) => {
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
-        const response = await fetch("https://localhost:44328/api/Technician/GetAll");
-        if (response.ok) {
-          const data = await response.json();
-          setTechnicians(data);
-        } else {
-          console.error("Failed to fetch technicians.");
-          toast.error("Failed to fetch technicians.");
+        const response = await fetch("https://localhost:44328/api/Technician/GetAll"); // Change https to http if needed
+        if (!response.ok) {  // Fix: Check for failure, not success
+          throw new Error("Failed to fetch technicians");
         }
+        const data = await response.json();
+        setTechnicians(data);
       } catch (error) {
+        toast.error(error.message);
         console.error("Error fetching technicians:", error);
-        toast.error("An error occurred while fetching technicians.");
       }
     };
-
     fetchTechnicians();
   }, []);
 
@@ -64,13 +61,8 @@ const IssueDetails = ({ issues }) => {
       return;
     }
 
-    console.log("Issue Id to be updated: ", issueId);       
-       
-
+    console.log("Issue Id to be updated: ", issueId);      
     console.log("Updating status to:", status);
-
-    
-
     try {
       if (!issueId || issueId.trim() === "") {
         toast.error("Invalid issue ID. Cannot update status.");
@@ -137,13 +129,45 @@ const IssueDetails = ({ issues }) => {
     }
   };
 
-  const handleCollabArrowClick = () => {
-    if (selectedTechnician) {
-      setShowModal(false);
-      setShowSuccess(true);
-      toast.success(`Invitation sent to ${selectedTechnician}`);
-    } else {
+  const handleCollabArrowClick = async () => {
+    if (!selectedTechnician) {
       toast.error("Please select a technician to invite.");
+      return;
+    }
+
+    console.log("Issue:", issue); // Debugging log
+    console.log("Selected Technician:", selectedTechnician); // Debugging log
+
+    setIsLoading(true);
+    const requestData = {
+      logId: issue.issueId, // Backend expects 'logId'
+      requestingTechnicianId: issue.technicianId, // Technician requesting the collaboration
+      invitedTechnicianId: selectedTechnician.id, // Invited technician's ID
+    };
+  
+    console.log("Sending Request Data:", requestData);
+
+    try {
+      const response = await fetch("https://localhost:44328/api/Collaboration/Request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
+  
+      if (response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to send request");
+      }
+
+      const data = await response.json();
+      console.log("Response Data:", data); // Debugging log
+      toast.success("Collaboration request sent successfully!");
+      setShowModal(false);
+    } catch (error) {
+      toast.error(error.message);
+      console.error("Error sending request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -156,7 +180,7 @@ const IssueDetails = ({ issues }) => {
   );
 
   const handleCheckboxChange = (tech) => {
-    setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
+   setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
   };
 
   const handleUpdateClick = () => {
@@ -174,12 +198,13 @@ const IssueDetails = ({ issues }) => {
 
       <div className={styles.issueHeader}>
         <div className={styles.issueRequestor}>
-          <p>Logged By:</p>
+          {/* <p>Logged By:</p> */}
           <div className={styles.profile}>
-            <img src={profile} width="50" height="50" alt="Profile Icon" />
-            <p className={styles.name}>{issue.name}</p>
+            {/* <img src={profile} width="50" height="50" alt="Profile Icon" /> */}
+            <h6 className={styles.name}>Issue ID: </h6>
+            <p className={styles.name}>{issue.issueId}</p>
           </div>
-          <p className={styles.issueId}>{issue.issueId}</p>
+          {/* <p className={styles.issueId}>{issue.issueId}</p> */}
         </div>
 
         <div className={styles.issueInfo}>
@@ -212,16 +237,21 @@ const IssueDetails = ({ issues }) => {
         <p className={styles.descriptionText}>{issue.description}</p>
       </div>
 
-      <div className={styles.attachments}>
-        <h3>
-          <img src={attachme} width="15" height="25" alt="Attachment Icon" />
-          <h4>Attachments</h4>
-          <p>{issue.attachment}</p>
-        </h3>
-        <div className={styles.attachment}>
-          <img src={issue.attachment} width="30" height="25" alt="Image Attachment" />{" "}
-        </div>
-      </div>
+      {issue.attachmentBase64 && (
+  <div className={styles.attachments}>
+    <h3>
+      <img src={attachme} width="15" height="15" alt="Attachment Icon" />
+      <h4>Attachments</h4>
+    </h3>
+    <div className={styles.attachment}>
+      <img
+        src={`data:image/jpeg;base64,${issue.attachmentBase64}`}
+        alt="Uploaded Attachment"
+        style={{ maxWidth: "50%", height: "auto" }}
+      />
+    </div>
+  </div>
+)}
 
       <div className={styles.additionalInfo}>
         <p>Department - {issue.department}</p>
@@ -276,7 +306,7 @@ const IssueDetails = ({ issues }) => {
                 <div
                   key={index}
                   className={`${styles.technicianContainer} ${
-                    selectedTechnician === tech.name ? "selected" : ""
+                    selectedTechnician === tech.id ?  "selected" : ""
                   }`}
                 >
                   <div className={styles.technicianInfo}>
@@ -286,7 +316,7 @@ const IssueDetails = ({ issues }) => {
                       checked={selectedTechnician === tech.name}
                       onChange={() => handleCheckboxChange(tech)}
                     />
-                    <img src={profile} alt="User Icon" className="userIcon" />
+                    <img src={profile} alt="User Icon" className="userIcon" height={40}/>
                     <div className={styles.technicianDetails}>
                       <p>{tech.name}</p>
                       <p>{tech.role}</p>

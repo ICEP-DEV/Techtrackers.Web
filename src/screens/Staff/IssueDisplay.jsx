@@ -39,7 +39,10 @@ export default function IssueDisplay() {
           />
         )}
       </div>
-      {isChatOpen && <LiveChat onClose={handleCloseChat} />} {/* Render LiveChat if isChatOpen is true */}
+      {isChatOpen && <LiveChat
+          onClose={handleCloseChat}
+          selectedIssue={selectedIssue} // Pass selectedIssue to LiveChat
+        />} {/* Render LiveChat if isChatOpen is true */}
     </div>
   )
 }

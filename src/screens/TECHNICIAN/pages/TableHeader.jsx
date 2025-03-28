@@ -86,7 +86,7 @@ const Header = ({ handleSort, handleFilter, handleSearch }) => {
             type="text"
             id="searchInput"
             className={styles.searchInput}
-            placeholder="Search by issue ID or type 'Show All'"
+            placeholder="Enter text..."
             value={searchTerm}
             onChange={handleSearchInputChange}
             aria-label="Search issues"

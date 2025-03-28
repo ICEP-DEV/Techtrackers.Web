@@ -1,119 +1,204 @@
 .cup {
   display: flex;
+  margin-top: 100px;
 }
 
+/* Sidebar (Desktop View) */
 .sidebar {
-  background-color: #0C3A3A; /* Dark background color */
-  color: white; /* White text for contrast */
-  height: 100vh; /* Full height */
-  width: 250px; /* Set a fixed width */
-  transition: width 0.3s ease; /* Smooth width transition */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  width: 100px;
+  height: calc(100vh - 10px);
+  background: #0c3a3a;
+  color: white;
   display: flex;
-  flex-direction: column; /* Align items in a column */
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  overflow-y: auto;
 }
 
 .topSection {
   display: flex;
   align-items: center;
   padding: 20px 15px;
-  background-color: #0C3A3A; /* Top section color */
+  background-color: #0c3a3a;
 }
 
 .logo {
   font-size: 24px;
-  font-weight: bold; /* Make the logo bold */
+  font-weight: bold;
   margin: 0;
 }
 
 .bars {
   font-size: 25px;
   cursor: pointer;
-  margin-left: auto; /* Push to the right */
-  transition: color 0.3s; /* Smooth color transition */
+  margin-left: auto;
+  transition: color 0.3s;
 }
 
 .bars:hover {
-  color: #00b3b3; /* Change color on hover */
+  color: #00b3b3;
 }
 
+/* Default state */
 .Link {
   display: flex;
   align-items: center;
-  padding: 15px;
   text-decoration: none;
+  padding: 12px;
   color: white;
-  transition: background-color 0.3s;
-  border-radius: 5px; /* Rounded corners */
-  margin: 5px 0; /* Spacing between links */
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: 0.3s ease, transform 0.2s ease;
 }
 
-.Link.active {
-  background-color: #00b3b3; /* Active link color */
-  transition-duration: 0.1s;
+.staffTitle {
+  color: white;
+  margin-top: 20px;
+  margin-left: -30px;
 }
 
+.menuIcon {
+  height: 60px;
+  width: 20px;
+  margin-left: 1px;
+}
+/* Hover effect */
 .Link:hover {
-  background-color: #114949; /* Background color on hover */
+  background: #105656;
+  transform: scale(1.05);
+}
+
+/* Active state: Remains highlighted when selected */
+.Link.active {
+  background: #197272; /* Change to your theme color */
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Icons inside the active link */
+.Link.active .sidebarIcons {
+  filter: brightness(0) invert(1); /* Makes the icon white */
+}
+
+/* Active sidebar text */
+.Link.active .NavItem {
+  font-weight: bold;
 }
 
 .icon {
   font-size: 20px;
-  margin-right: 10px; /* Space between icon and text */
+  margin-right: 10px;
 }
 
 .link_text {
-  white-space: nowrap; /* Prevent text from wrapping */
-  font-size: 16px; /* Text size */
+  white-space: nowrap;
+  font-size: 16px;
 }
 
 main {
   flex: 1;
-  padding: 20px; /* Main content padding */
+  padding: 20px;
+  transition: margin-left 0.2s ease-in-out;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    z-index: 999;
-    width: 200px; /* Adjust width for mobile */
-  }
-  
-  main {
-    margin-left: 200px; /* Adjust main margin */
-  }
-}
-.staffTitle {
-  font-size: 34px; /* Adjust this size as needed */
-  font-weight: bold; /* Make the title bold for emphasis */
-  color: white; /* Ensure the title color contrasts with the background */
-  margin: 0; /* Remove default margin */
+.dropdownMenu {
+  position: fixed;
+  margin-top: -6px; /* Adjust as needed */
+  background-color: #0c3a3a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
 }
 
-.Link {
+.dropdownLink {
   display: flex;
   align-items: center;
-  padding: 15px;
   text-decoration: none;
-  color: white; /* Keep text color white */
-  transition: background-color 0.3s;
-  border-radius: 5px; /* Rounded corners */
-  margin: 20px 0; /* Spacing between links */
-  font-size: 18px; /* Adjust font size for navigation items */
+  padding: 18px 15px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: 0.3s ease, transform 0.2s ease;
 }
 
-.Icon {
-  font-size: 30px; /* Icon size */
-  margin-right: 10px; /* Space between icon and text */
+.dropdownLink:hover {
+  background: #105656;
+  transform: scale(1.05);
 }
 
 .NavItem {
-  font-size: 18px; /* Adjust this size for navigation item text */
-  white-space: nowrap; /* Prevent text from wrapping */
+  margin-left: 10px;
+  margin-top: 5px;
 }
-.sidebarIcons {
-  width: 29px; /* Set width */
-  height: 29px; /* Set height */
-  margin-right: 10px; /* Space between icon and text */
+/* Mobile View */
+@media (max-width: 768px) {
+  .cup {
+    flex-direction: column;
+  }
+
+  /* Menu Icon in Header */
+  .menuIcon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: -10px;
+    background-color: white;
+  }
+
+  .bars {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* Sidebar (Hidden by Default) */
+  .sidebar {
+    position: absolute;
+    top: 60px; /* Positioned below the header */
+    left: 10px;
+    width: 180px;
+    height: auto;
+    background: #0c3a3a;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+  }
+
+  /* Show sidebar when active */
+  .sidebar.active {
+    display: flex;
+  }
+
+  /* Sidebar Items */
+  .Link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .sidebarIcons {
+    width: 24px;
+    height: 24px;
+  }
+
+  main {
+    margin-left: 0; /* No sidebar pushing content */
+  }
 }

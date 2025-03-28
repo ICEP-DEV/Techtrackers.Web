@@ -32,6 +32,25 @@ const IssueDetails = () => {
     navigate("/techniciandashboard/collab"); // Navigate back to the table route
   };
 
+  const handleRespondToCollab = async (collaborationId, status) => {
+    try {
+      const response = await fetch(`https://localhost:44328/api/Collaboration/Respond/${collaborationId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+  
+      if (response.ok) {
+        toast.success("Collaboration response updated!");
+      } else {
+        const data = await response.json();
+        toast.error(data.message || "Failed to update collaboration.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating collaboration.");
+    }
+  };
+
   const handleChat = () => {
     navigate("/techniciandashboard/techChat");
   };
@@ -89,7 +108,7 @@ const IssueDetails = () => {
         <div className={styles.issueRequestor}>
           <p>Requested By:</p>
           <div className={styles.profile}>
-            <img src={profIcon} width="50" height="50" alt="Profile Icon" />
+            <img src={profIcon} width="40" height="40" alt="Profile Icon" />
             <p className={styles.name}>{issue.name}</p>
           </div>
           <div className={styles.issueInfo}>
@@ -103,8 +122,7 @@ const IssueDetails = () => {
 
       <div className={styles.issueDetails}>
         <h3>
-          <img src={descIcon} width="25" height="30" alt="Description Icon" />
-          <h4>Description</h4>
+          <h4><img src={descIcon} width="25" height="30" alt="Description Icon"/> Description</h4>
         </h3>
         <p className={styles.descriptionText}>
         I'm experiencing an issue where I cannot log into the system. After entering my username and password and hitting the login button, the system either displays an error message saying "Invalid credentials" or simply reloads the login page without any notification. I've double-checked my credentials and even tried resetting my password, but the problem persists. This issue is preventing access to the main dashboard and all features tied to the user account.
@@ -113,9 +131,17 @@ const IssueDetails = () => {
 
       {/* Action Buttons */}
       <div className={styles.actions}>
-        <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
-        <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
+<<<<<<< HEAD
+        <button className={styles.acceptButton} onClick={() => handleRespondToCollab(issue.collaboratedId, "ACCEPTED")}>Accept</button>
+        <button className={styles.declineButton} onClick={() => handleRespondToCollab(issue.collaboratedId, "DECLINED")}>Decline</button>
         <button className={styles.closeButton2} onClick={handleClose}>
+=======
+          <div className={styles.collabBtns}>
+            <button className={styles.acceptButton} onClick={handleAccept}>Accept</button>
+            <button className={styles.declineButton} onClick={handleDecline}>Decline</button>
+          </div>
+          <button className={styles.closeButton2} onClick={handleClose}>
+>>>>>>> 06d7cdcdb6cc0defa498bfd8452700a177f8391e
           Close
         </button>
       </div>  

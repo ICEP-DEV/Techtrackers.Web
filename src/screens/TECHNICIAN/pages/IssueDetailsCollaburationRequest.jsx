@@ -7,6 +7,7 @@ import profIcon from "../images/profileCollaborationRequest.png";
 import image from "../images/imageCollaborationRequest.png";
 import chat from "../images/chatCollaborationRequest.png";
 import acceptIcon from "../images/acceptIcon.png";
+import { toast } from 'react-toastify';
 import declineIcon from "../images/declineIcon.png";
 
 // Popup component for displaying message

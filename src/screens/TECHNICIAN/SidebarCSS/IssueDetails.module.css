@@ -392,6 +392,14 @@
     overflow-x: hidden; /* Prevent horizontal scrolling */
     overflow-y: auto;
   }
+
+  .modalContent2 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .modalContent button{
     padding: 10px;
     font-size: 12px;
@@ -444,7 +452,7 @@
   background-color: rgba(0, 0, 0, 0.2);;
 }
 /* Modal Content */
-.modalContent {
+.modalContent, .modalContent2 {
   width: 80%; /* Width of the modal */
   max-width: 400px; /* Maximum width */
   background: white; /* Background color */

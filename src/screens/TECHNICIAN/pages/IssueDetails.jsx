@@ -314,7 +314,7 @@ const IssueDetails = ({ issues }) => {
 
 {showUpdateModal && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
+          <div className={styles.modalContent2}>
             <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>&times;</button>
             <h4>Update Issue Status</h4>
             <div className={styles.statusButtons}>
@@ -343,7 +343,7 @@ const IssueDetails = ({ issues }) => {
 
       {showAddNoteModal && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
+          <div className={styles.modalContent2}>
             <button className={styles.modalClose} onClick={() => setShowAddNoteModal(false)}>&times;</button>
             <h3>Add Note:</h3>
             <textarea

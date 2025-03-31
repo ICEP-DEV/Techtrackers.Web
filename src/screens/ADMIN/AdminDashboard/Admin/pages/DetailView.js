@@ -143,7 +143,7 @@ function DetailView({ log, onBack }) {
           {/* Display selected department as label */}
           {selectedDepartment && (
             <div className={styles["department-label"]}>
-            <span> {selectedDepartment}</span>
+            {selectedDepartment}
           </div>
           
           )}

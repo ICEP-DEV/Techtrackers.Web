@@ -42,11 +42,12 @@
 .department-label {
   font-size: 20px;
   color: #000000;
-  margin-left: 10px;
+  margin-right: 140px;
   font-weight: 500;
   font-weight: bold;
   text-align: center; 
   justify-content: center;
+  padding: 20px;
 }
 .leftColumn {
   display: flex;

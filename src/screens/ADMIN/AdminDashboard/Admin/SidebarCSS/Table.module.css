@@ -24,11 +24,17 @@
   margin-bottom: 4px;
   margin-left: 12px;
 }
+.manageicons {
+  width: 66px;  /* Adjust size as needed */
+  height: 55px;
+  margin-right: 8px; /* Adds spacing between the icon and text */
+}
+
 
 .headerText h2 {
   margin: 0;
-  font-size: 25px;
-  color: black;
+  font-size: 36px;
+  color: #2C2C2C;
 }
 
 .headerText p {

@@ -4,6 +4,7 @@ import Service from './Service';
 import Contact from './Contact';
 import Login from './SignIn';
 import About from './About';
+import "./LoginsStyle/LandingPage.css";
 
 const Main = () => {
     return (

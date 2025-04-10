@@ -3,7 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    max-height: 100vh;
+    min-height: 90vh;
     background-color: #f5f5f5;
     overflow-y: auto; /* Make page scrollable */
     padding: 20px; /* Added padding for spacing */
@@ -167,4 +168,14 @@
     filter: blur(10px); /* Blurs to give a soft reflection effect */
     z-index: -1; /* Puts the shadow behind the image */
     opacity: 0.7; /* Adjust opacity for a more subtle effect */
+}
+
+@media (max-width: 580px) {
+    .image-section {
+        display: none;
+    }
+    
+    .signin-cot {
+        width: 100%;
+    }
 }

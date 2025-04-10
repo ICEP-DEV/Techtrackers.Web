@@ -1,122 +1,145 @@
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
+  margin: 0;
+  font-family: "Arial", sans-serif;
 }
 
 .dashboard-header {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 10px 20px;
-    background-color: #0C3A3A;
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0c3a3a;
+  color: white;
+  position: fixed; /* Fix the header to the top */
+  top: 0; /* Align it to the top */
+  left: 0; /* Align it to the left */
+  right: 0; /* Align it to the right */
+  z-index: 1000; /* Ensure it stays above other content */
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
 }
 
 .logo {
-    height: 65px; 
-    margin-right: 10px;
+  height: 65px;
+  margin-right: 10px;
 }
 
 .header-right {
-    position: relative; 
-    overflow: visible;
+  position: relative;
+  overflow: visible;
 }
 
 button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    margin-left: 10px;
-    cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 button:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .profile-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background-color: #ffffff; 
-    color: #0C3A3A;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    padding: 20px;
-    width: 220px;
-    text-align: left;
-    z-index: 1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #ffffff;
+  color: #0c3a3a;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 220px;
+  text-align: left;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .dropdown-menu.open {
-    display: block; /* Show the menu when dropdown is open */
+  display: block; /* Show the menu when dropdown is open */
 }
 
 .dropdown-menu p {
-    font-size: 16px; /* Adjust text size */
-    font-weight: bold;
-    margin: 0;
-    padding: 5px 0;
-    color: #0C3A3A;
+  font-size: 16px; /* Adjust text size */
+  font-weight: bold;
+  margin: 0;
+  padding: 5px 0;
+  color: #0c3a3a;
 }
 
 .dropdown-menu .sub-text {
-    font-size: 14px; /* Smaller font for subtext */
-    color: #0C3A3A; /* Match color to screenshot */
-    font-weight: normal;
+  font-size: 14px; /* Smaller font for subtext */
+  color: #0c3a3a; /* Match color to screenshot */
+  font-weight: normal;
 }
 
 .dropdown-menu .signout-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px; /* Space above the button */
-    border: none;
-    background-color: transparent;
-    color: #0C3A3A;
-    cursor: pointer;
-    font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px; /* Space above the button */
+  border: none;
+  background-color: transparent;
+  color: #0c3a3a;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .dropdown-menu .signout-button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .dropdown-menu .signout-icon {
-    margin-right: 10px;
-    color: #0C3A3A; /* Icon color */
+  margin-right: 10px;
+  color: #0c3a3a; /* Icon color */
 }
 
 .dropdown-menu button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    text-align: center;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  text-align: center;
 }
 
 .dropdown-menu button:hover {
-    background-color: #0C3A3A;
+  background-color: #0c3a3a;
+}
+/* Style for the Menu Icon in Mobile */
+.menuIcon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px; /* Spacing after faUser icon */
 }
 
+/* Ensure the header adjusts for mobile */
+@media (max-width: 768px) {
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Space between icons */
+  }
+  .logo {
+    margin-left: -30px;
+  }
+}

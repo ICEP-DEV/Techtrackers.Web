@@ -165,9 +165,9 @@ const TechnicianPerformanceReport = () => {
       <Typography variant="h4" align="center" gutterBottom>
         Technician Performance Report
       </Typography>
-      <Typography variant="subtitle1" align="center" gutterBottom>
+      {/* <Typography variant="subtitle1" align="center" gutterBottom>
         Date report was generated: {startDate || "N/A"} - {endDate || "N/A"}
-      </Typography>
+      </Typography> */}
 
       {isLoading ? (
         <Box display="flex" justifyContent="center" alignItems="center">

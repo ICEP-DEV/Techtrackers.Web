@@ -229,6 +229,10 @@ button:hover {
     font-size: 12px;
 }
 
+.dropdownMenuContent {
+    display: none;
+}
+
 @media screen and (max-width: 1250px) {
     .dashboardHeader {
         padding: 10px 15px;
@@ -343,4 +347,122 @@ button:hover {
         font-size: 12px;
         padding: 6px;
     }
+}
+
+.menuIcon1
+{
+    display: none;
+}
+
+@media (max-width: 768px) {
+/* Add these styles to your existing CSS file */
+.dropdownMenuContent {
+    display: block;
+    width: 100vw; /* Full viewport width */
+    left: 0;
+    right: 0;
+    min-width: 100vw;
+    border-radius: 0;
+    max-width: 100vw;
+    margin-left: calc(-50vw + (50%));
+}
+.menuContainer {
+    display: flex;
+    position: relative;
+    display: inline-block;
+    margin-right: 0px;
+    width: 100%;
+}
+
+.menuIcon1
+{
+    display: block;
+}
+
+.menuIcon1 {
+    font-size: 43px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.menuIcon:hover {
+    color: #108484
+}
+
+.dropdownMenuContent {
+    position: fixed;
+    top: 8.5%; /* Adjust as needed */
+    background-color: #0c3a3a;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+    border-radius: 0px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuHeader {
+    padding: 15px;
+    background-color: #0C3A3A;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: bold;
+    color: #fff;
+}
+
+.menuList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+    background-color: #094d4d;
+}
+
+.menuItem.selected {
+    background-color: #108484;
+}
+
+.menuItem img {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.menuFooter {
+    padding: 10px 15px;
+    border-top: 1px solid #e9ecef;
+    background-color: #0C3A3A;
+}
+
+.menuFooter .menuItem {
+    color: #fff;
+}
 }

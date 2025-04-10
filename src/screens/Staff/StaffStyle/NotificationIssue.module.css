@@ -1,5 +1,6 @@
+/* Main Content */
 .maiNContent {
-  padding: 20px;
+  padding: 15px;
   background-color: #f5f5f5;
   border-radius: 10px;
   font-family: Arial, sans-serif;
@@ -8,7 +9,7 @@
 /* Notification container */
 .contners {
   background: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -37,7 +38,7 @@
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 20px;
   color: #333;
   margin: 0;
 }
@@ -45,7 +46,8 @@ h2 {
 /* Search Bar */
 .searchBarContainers {
   position: relative;
-  width: 250px;
+  width: 100%; /* Full width for better responsiveness */
+  max-width: 300px; /* Prevents stretching on larger screens */
 }
 
 .searchInputs {
@@ -71,6 +73,7 @@ h2 {
 .navTabs {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap; /* Wrap tabs to fit smaller screens */
 }
 
 .navItem button {
@@ -80,6 +83,7 @@ h2 {
   background: #fff;
   color: #15959d;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .navItem button.active {
@@ -87,17 +91,13 @@ h2 {
   color: #fff;
 }
 
-/* Filter and Sort Buttons - Positioned at the Right */
-/* .filterSortButtons {
+/* Filter and Sort Buttons */
+.filterSortButtons {
   display: flex;
   gap: 10px;
-  position: absolute; /* Absolutely position the container */
-  /* right: 20px; Positioning it towards the right
-  top: 60px; Adjust the vertical positioning if necessary
-} */ 
+}
 
-/* Filter and Sort Buttons */
-/* .filterButton,
+.filterButton,
 .sortButton {
   background-color: transparent;
   border: 1px solid #ccc;
@@ -107,7 +107,7 @@ h2 {
   padding: 8px 12px;
   border-radius: 5px;
   transition: background 0.2s;
-} */
+}
 
 .filterButton:hover,
 .sortButton:hover {
@@ -139,8 +139,6 @@ h2 {
   font-size: 12px;
   border-radius: 5px;
   cursor: pointer;
-  pointer-events: all;
-  z-index: 1;
 }
 
 .markAsReadButton:hover {
@@ -156,17 +154,56 @@ h2 {
   .filterSortButtons {
     flex-direction: column;
     align-items: flex-end;
-    position: relative;
-    right: initial; /* Remove right positioning for smaller screens */
-    top: initial; /* Remove vertical positioning for smaller screens */
   }
 
   .filterButton,
   .sortButton {
-    width: 100%;  /* Make buttons full width on small screens */
+    width: 100%;
+    font-size: 12px;
   }
 
   .navTabs {
     flex-direction: column;
+    gap: 5px;
+  }
+
+  .notificationIcons {
+    font-size: 20px;
+  }
+
+  .searchInputs {
+    padding: 6px 30px 6px 12px;
+    font-size: 12px;
+  }
+
+  .markAsReadButton {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* Extra Small Screens (Phones) */
+@media (max-width: 480px) {
+  .maiNContent {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .filterSortButtons {
+    align-items: center;
+  }
+
+  .filterButton,
+  .sortButton {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .markAsReadButton {
+    padding: 5px 8px;
+    font-size: 10px;
   }
 }

@@ -40,6 +40,7 @@ const TechnicianDashboard = () => {
       }
 
       try {
+        // Fetch feedback for each logId assigned to the technician
         const feedbackLists = await Promise.all(
           logIds.map(async (logId) => {
             const response = await fetch(`https://localhost:44328/api/Feedback/GetFeedbackByLog/${logId}`);

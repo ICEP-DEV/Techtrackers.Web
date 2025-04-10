@@ -208,3 +208,133 @@ hr {
     height: 100%;
     background-color: #0C3A3A;
 }
+
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #0C4643; /* Progress bar color */
+  transition: width 0.3s ease;
+}
+
+.status-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.progress-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #0C4643; /* Progress bar color */
+    transition: width 0.3s ease;
+  }
+  
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .step h5 {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .step.active h5 {
+    color: #0C4643; /* Active step color */
+  }
+
+  .progress-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .step h5 {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .step.active h5 {
+    color: #0C4643; /* Active step color */
+  }
+  
+  .step.active.PENDING h5 {
+    color: #ffcc00; /* Pending step color */
+  }
+  
+  .step.active.INPROGRESS h5 {
+    color: #007bff; /* In Progress step color */
+  }
+  
+  .step.active.RESOLVED h5 {
+    color: #28a745; /* Resolved step color */
+  }
+  
+  .step.active.ESCALATED h5 {
+    color: #ff0000; /* Escalated step color */
+  }

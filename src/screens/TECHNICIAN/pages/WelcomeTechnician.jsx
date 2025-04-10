@@ -186,7 +186,7 @@ const WelcomeTechnician = () => {
                         : task.status === "INPROGRESS"
                           ? "70%"
                           : task.status === "PENDING"
-                            ? "50%"
+                            ? "25%"
                             : task.status === "RESOLVED"
                               ? "100%"
                               : "20%"}

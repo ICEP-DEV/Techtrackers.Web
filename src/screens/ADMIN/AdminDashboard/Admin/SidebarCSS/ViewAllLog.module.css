@@ -1,10 +1,11 @@
 .dashboardContainer {
   padding: 20px;
   background-color: white;
-  margin: 20px;
+  margin: 0 auto;
   margin-top: -10px;
   border-radius: 8px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  
 }
 
 .logsHeader {
@@ -12,6 +13,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  
 }
 
 .logsTitle {

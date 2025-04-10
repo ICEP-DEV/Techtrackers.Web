@@ -1,64 +1,132 @@
-/* MainContent.css */
+/* Main Content */
 .MmainContent {
-    padding: 20px;
-    background-color: #f0f0f0;
-    flex-grow: 1;
-    position: relative;
-    
-  }
-  
-  .statusHeader {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .issuesTable {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-  }
-  
-  .issuesTable th, .issuesTable td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .status {
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-  }
-  
-  .pending { background-color: #ffa007; }
-  .inprogress { background-color: #14788f; }
-  .resolved { background-color: #28a745; }
-  .onhold {background-color: #8f9396;}
-  .escalated { background-color: #f70000;}
-  
-  .viewButton {
-    background-color: #1a3c40;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  .controls {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  padding: 15px;
+  background-color: #f0f0f0;
+  flex-grow: 1;
+  position: relative;
+  overflow-x: auto; /* Prevents horizontal scrolling */
 }
 
-.searchInput, .filterSelect, .sortSelect {
-  padding: 0.5rem;
-  font-size: 1rem;
+/* Status Header */
+.statusHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+/* Table Styling */
+.issuesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  font-size: 14px; /* Slightly smaller font for better mobile readability */
+  transition: transform 0.5s ease-in-out; /* Smooth transition for tilt */
+}
+
+.issuesTable th,
+.issuesTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap; /* Prevents text from wrapping awkwardly */
+}
+
+/* Status Styling */
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px; /* Keeps status readable without taking too much space */
+}
+
+.pending {
+  background-color: #ffa007;
+}
+.inprogress {
+  background-color: #14788f;
+}
+.resolved {
+  background-color: #28a745;
+}
+.onhold {
+  background-color: #8f9396;
+}
+.escalated {
+  background-color: #f70000;
+}
+
+/* View Button */
+.viewButton {
+  background-color: #1a3c40;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.viewButton:hover {
+  background-color: #142b2e;
+}
+
+/* Controls (Search, Filter, Sort) */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.searchInput,
+.filterSelect,
+.sortSelect {
+  padding: 8px;
+  font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  flex: 1;
+  min-width: 120px; /* Ensures fields don’t shrink too much */
 }
 
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .MmainContent {
+    padding: 10px;
+  }
 
+  .statusHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 
+  .issuesTable {
+    font-size: 12px;
+  }
 
+  .issuesTable th,
+  .issuesTable td {
+    padding: 6px;
+  }
 
+  .viewButton {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .searchInput,
+  .filterSelect,
+  .sortSelect {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

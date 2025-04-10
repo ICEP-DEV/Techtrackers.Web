@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/NotificationPage.module.css"; // Assuming you have a CSS module for styling
 import AvatarIcon from "../adminIcons/avatarIcon.png";
@@ -7,13 +8,42 @@ const InProgressIssuesPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const inProgressData = location.state?.data || []; // Access data passed to this page
-
+  const [openIssues, setOpenIssues] = useState(0); // State to hold the total count of logs
   // Filter issues by status
   const filterIssuesByStatus = (statuses) =>
     inProgressData.filter((issue) => statuses.includes(issue.status));
 
-  // Pending issues (only "PENDING")
-  const pendingIssues = filterIssuesByStatus(["PENDING"]);
+  // // Pending issues (only "PENDING")
+  // const pendingIssues = filterIssuesByStatus(["PENDING"]);
+
+  // Fetch the total open logs
+  useEffect(() => {
+    const fetchOpenLogs = async () => {
+      try {
+        const response = await fetch("https://localhost:44328/api/ManageLogs/GetOpenLogs");
+        const data = await response.json();
+        
+        console.log("API Response:", data); // Debugging
+  
+        if (response.ok) {
+          if (data.isSuccess && typeof data.result === "number") {
+            console.log("Setting openIssues to:", data.result); // Debugging
+            setOpenIssues(data.result);
+          } else {
+            console.error("Unexpected API response:", data);
+          }
+        } else {
+          console.error("Failed to fetch open logs. Status:", response.status); // Added status
+          console.error("Failed to fetch open logs. Status text:", response.statusText); // Added status text
+        }
+      } catch (error) {
+        console.error("Error fetching open logs:", error);
+      }
+    };
+  
+    fetchOpenLogs();
+  });
+  
 
   return (
     <div className={styles.container}>
@@ -22,41 +52,21 @@ const InProgressIssuesPage = () => {
         ← Back
       </button>
 
-      <h2>Pending Issues</h2>
+
 
       {/* Display Pending Issues */}
-      {pendingIssues.length === 0 ? (
-        <div className={styles.noIssues}>
-          <strong>No pending issues found.</strong>
-        </div>
-      ) : (
-        pendingIssues.map((issue) => (
-          <div key={issue.id} className={styles.issueRow}>
-            <div className={styles.userInfo}>
-              <img
-                src={AvatarIcon}
-                alt="User Avatar"
-                width="44"
-                height="44"
-                className={styles.userIcon}
-              />
-              <div className={styles.issueDetails}>
-                <strong>{issue.assigned}</strong> is working on issue{" "}
-                <strong>{issue.id}</strong>: {issue.description}
-                <span className={styles.statusInProgress}>{issue.status}</span>
-              </div>
-            </div>
-            <div className={styles.time}>{issue.date}</div>
-          </div>
-        ))
-      )}
+      <div className={styles.noIssues}>
+        <h2>Pending Issues</h2>
+        <p className={styles.openIssues}>Open Issues: {openIssues}</p>
+      </div>
+
 
       {/* View All Button */}
       <div className={styles.IssueButton}>
         <button
           className={styles.viewAllButton}
           onClick={() => {
-            const activeIssues = filterIssuesByStatus(["PENDING", "ESCALATED", "ONHOLD"]);
+            const activeIssues = filterIssuesByStatus(["PENDING", "INPROGRESS"]);
             navigate("/admindashboard/viewAllLogs", { state: { data: activeIssues } });
           }}
         >

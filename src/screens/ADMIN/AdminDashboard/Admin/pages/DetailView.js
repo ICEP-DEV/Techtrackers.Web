@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Paperclip, MoreVertical, MessageCircle } from "lucide-react";
+import { Paperclip, MoreVertical } from "lucide-react";
 import EscalationPage from "./EscalationsAdmin"; // Import the EscalationPage component
 import styles from "../SidebarCSS/DetailView.module.css";
 import userAvatar from "../adminIcons/images/user.jpg";
+import { toast } from 'react-toastify';
 
 function DetailView({ log, onBack }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -12,23 +13,43 @@ function DetailView({ log, onBack }) {
   const [statusMessage, setStatusMessage] = useState(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(""); // State for department selection
   const [isEscalationVisible, setIsEscalationVisible] = useState(false); // State to control EscalationPage visibility
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(true); // State to control dropdown visibility
 
   const handleOpenPopup = (action) => {
     setActionType(action);
     setIsPopupVisible(true);
   };
 
-  const handleConfirm = () => {
-    if (actionType === "close") {
-      console.log("Log closed:", log.logId);
-      setStatusMessage("This issue has been closed.");
-    } else if (actionType === "reopen") {
-      console.log("Log reopened:", log.logId);
-      setStatusMessage("This issue has been reopened.");
-      log.status = "INPROGRESS"; 
+  const handleConfirm = async () => {
+    if (actionType === "reopen") {
+      console.log("Reopening log:", log.logId);
+
+      try {
+        const response = await fetch(`https://localhost:44328/api/ManageLogs/OpenLog/${log.logId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.IsSuccess) {
+          setStatusMessage(data.Message);
+          log.status = "PENDING"; // Update UI
+          toast.success("✅ Issue reopened! The technician has been notified.");
+        } else {
+          toast.error(`❌ Failed to reopen issue: ${data.Message}`);
+        }
+      } catch (error) {
+        console.error("Error reopening log:", error);
+        toast.error("❌ Network error! Could not reopen issue.");
+      }
     }
+
     setIsPopupVisible(false);
     setActionType(null);
     setIsConfirmed(true);
@@ -52,33 +73,34 @@ function DetailView({ log, onBack }) {
   const toggleEscalation = () => {
     setIsEscalationVisible((prevState) => !prevState); // Toggle the visibility of EscalationPage
   };
-  console.log("DetailView - Log ID passed to EscalationPage:", log.logId);
+
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+    setIsDropdownVisible(false); // Hide dropdown after selection
+  };
 
   const renderActionButtons = () => {
-    if (log.status && log.status.toLowerCase() != "resolved") {
+    if (log.status && log.status.toLowerCase() !== "resolved") {
       return (
-        <div className="action-buttons">
         <button className={styles["back-button-d"]} onClick={onBack}>
           BACK
         </button>
+      );
+    } else {
+      return (
+        <div className={styles["action-buttons"]}>
+          <button className={styles["back-button-d"]} onClick={onBack}>
+            BACK
+          </button>
+          <button
+            className={styles["reopen-button"]}
+            onClick={() => handleOpenPopup("reopen")}
+          >
+            RE-OPEN
+          </button>
         </div>
       );
     }
-    else 
-    return (
-      <div className={styles["action-buttons"]}>
-       
-        <button className={styles["back-button-d"]} onClick={onBack}>
-          BACK
-        </button>
-         <button
-          className={styles["reopen-button"]}
-          onClick={() => handleOpenPopup("reopen")}
-        >
-          RE-OPEN
-        </button>
-      </div>
-    );
   };
 
   return (
@@ -86,11 +108,51 @@ function DetailView({ log, onBack }) {
       <div className={styles["detail-header"]}>
         <h2>{log.issueId}</h2>
         <div className={styles["header-actions"]}>
+          {/* Department Dropdown (Visible) */}
+          {isDropdownVisible && (
+            <select
+              className={styles["department-dropdown"]}
+              value={selectedDepartment}
+              onChange={handleDepartmentChange}
+            >
+              <option value="">Select Department</option>
+              <option value="Facilities Management / Maintenance Department">
+                Facilities Management / Maintenance Department
+              </option>
+              <option value="Technical Services / IT Support">
+                Technical Services / IT Support
+              </option>
+              <option value="Engineering / Utilities Department">
+                Engineering / Utilities Department
+              </option>
+              <option value="Security & Surveillance">
+                Security & Surveillance
+              </option>
+              <option value="Customer Support / Helpdesk">
+                Customer Support / Helpdesk
+              </option>
+              <option value="Logistics & Fleet Management">
+                Logistics & Fleet Management
+              </option>
+              <option value="Housekeeping & Janitorial Services">
+                Housekeeping & Janitorial Services
+              </option>
+            </select>
+          )}
+
+          {/* Display selected department as label */}
+          {selectedDepartment && (
+            <div className={styles["department-label"]}>
+              {selectedDepartment}
+            </div>
+          )}
+
           <button className={styles["more-button"]} onClick={toggleEscalation}>
-            <MoreVertical size={20} /> More
+            <MoreVertical size={20} /> {isEscalationVisible ? "Back" : "More"}
           </button>
         </div>
       </div>
+
       <div className={styles["detail-content"]}>
         {isEscalationVisible ? (
           <EscalationPage logId={log.logId} /> // Render EscalationPage when isEscalationVisible is true
@@ -117,22 +179,17 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${
-                          styles[log.priority ? log.priority.toLowerCase() : ""]
-                        }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]}`}
                       >
                         {log.priority}
                       </span>
                     </p>
                   </div>
                   <div className={styles["issue-date"]}>
-                    <p>{new Intl.DateTimeFormat("en-US", { 
-                      dateStyle: "long", 
-                      timeStyle: "short" 
-                    }).format(new Date(log.issuedAt))}</p>
+                    <p>{new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeStyle: "short" }).format(new Date(log.issuedAt))}</p>
                   </div>
                 </div>
-                
+
                 <div className={styles["issue-location"]}>
                   <p>Department - {log.department}</p>
                   <p>Location - {log.location} </p>
@@ -142,17 +199,15 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${
-                        styles[log.status ? log.status.toLowerCase() : ""]
-                      }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]}`}
                     >
                       {log.status}
                     </span>
                   </p>
                 </div>
-                <div className= {styles["description"]}>
-                    <h3>Description</h3>
-                    <p>{log.description}</p>
+                <div className={styles["description"]}>
+                  <h3>Description</h3>
+                  <p>{log.description}</p>
                 </div>
                 <button className={styles["back-button-d"]} onClick={onBack}>
                   BACK
@@ -175,9 +230,7 @@ function DetailView({ log, onBack }) {
                     <p>
                       Priority:{" "}
                       <span
-                        className={`${styles["priority"]} ${
-                          styles[log.priority ? log.priority.toLowerCase() : ""]
-                        }`}
+                        className={`${styles["priority"]} ${styles[log.priority ? log.priority.toLowerCase() : ""]}`}
                       >
                         {log.priority}
                       </span>
@@ -193,14 +246,12 @@ function DetailView({ log, onBack }) {
                         : "Invalid Date"}
                     </p>
                   </div>
-
-
                 </div>
                 <div className={styles["issue-location"]}>
                   <p>Department - {log.department}</p>
                   <p>Location - {log.location} </p>
                 </div>
-                
+
                 <div className={styles["issue-description"]}>
                   <h3>Description</h3>
                   <p>{log.description}</p>
@@ -208,25 +259,20 @@ function DetailView({ log, onBack }) {
                 <div className={styles["issue-attachments"]}>
                   <h3>
                     <Paperclip className={styles["icon"]} />
-                     Attachments
+                    Attachments
                   </h3>
-                  {log.attachments && log.attachments.length > 0 ? (
-                    log.attachments.map((attachment) => (
-                      <div
-                        className={styles["attachment"]}
-                        key={attachment.filename}
-                        onClick={() =>
-                          handleOpenImageViewer(attachment.imageUrl)
-                        }
-                      >
-                        <img
-                          src={attachment.imageUrl}
-                          alt={attachment.filename}
-                        />
-                        <span>{attachment.filename}</span>
-                        <span className={styles["file-size"]}>12 KB</span>
-                      </div>
-                    ))
+                  {log.attachmentBase64 ? (
+                    <div
+                      className={styles["attachment"]}
+                      onClick={() => handleOpenImageViewer(`data:image/jpeg;base64,${log.attachmentBase64}`)}
+                    >
+                      <img
+                        src={`data:image/jpeg;base64,${log.attachmentBase64}`}
+                        alt="Uploaded Attachment"
+                        style={{ maxWidth: "50%", height: "auto", cursor: "pointer" }}
+                      />
+                      <span>Uploaded Attachment</span>
+                    </div>
                   ) : (
                     <p>No attachments available.</p>
                   )}
@@ -235,14 +281,13 @@ function DetailView({ log, onBack }) {
                   <p>
                     Status:{" "}
                     <span
-                      className={`${styles["status"]} ${
-                        styles[log.status ? log.status.toLowerCase() : ""]
-                      }`}
+                      className={`${styles["status"]} ${styles[log.status ? log.status.toLowerCase() : ""]}`}
                     >
                       {log.status}
                     </span>
                   </p>
                 </div>
+
                 {renderActionButtons()}
               </>
             )}
@@ -250,42 +295,25 @@ function DetailView({ log, onBack }) {
         )}
       </div>
 
+      {/* Confirmation Popup */}
       {isPopupVisible && (
-        <div className={styles["popup-overlay"]}>
+        <div className={styles["popup"]}>
           <div className={styles["popup-content"]}>
-            <p>
-              {actionType === "close"
-                ? "Are you sure you want to close this issue?"
-                : "Are you sure you want to reopen this issue?"}
-            </p>
+            <h3>Are you sure you want to {actionType} this log?</h3>
             <div className={styles["popup-buttons"]}>
-              <button onClick={handleConfirm}>Yes</button>
-              <button onClick={handleCancel}>No</button>
+              <button onClick={handleConfirm}>Confirm</button>
+              <button onClick={handleCancel}>Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      {isImageViewerOpen && (
-        <div
-          className={styles["image-viewer-overlay"]}
-          onClick={handleCloseImageViewer}
-        >
-          <div
-            className={styles["image-viewer-content"]}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={selectedImage}
-              alt="Attachment"
-              className={styles["viewed-image"]}
-            />
-            <button
-              className={styles["close-image-button"]}
-              onClick={handleCloseImageViewer}
-            >
-              Close
-            </button>
+      {/* Image Viewer */}
+      {isImageViewerOpen && selectedImage && (
+        <div className={styles["image-viewer"]}>
+          <div className={styles["viewer-content"]}>
+            <img src={selectedImage} alt="Selected Attachment" />
+            <button onClick={handleCloseImageViewer}>Close</button>
           </div>
         </div>
       )}
@@ -295,20 +323,16 @@ function DetailView({ log, onBack }) {
 
 DetailView.propTypes = {
   log: PropTypes.shape({
-    logId: PropTypes.number.isRequired, // Updated to match `log.logId`
     issueId: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    department: PropTypes.string,
-    assigned: PropTypes.string,
-    date: PropTypes.string,
-    attachments: PropTypes.arrayOf(
-      PropTypes.shape({
-        filename: PropTypes.string.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-      })
-    ),
+    logBy: PropTypes.string.isRequired,
+    issuedAt: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    department: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    attachmentBase64: PropTypes.string,
+    logId: PropTypes.number.isRequired, // Assuming logId is a number
   }).isRequired,
   onBack: PropTypes.func.isRequired,
 };

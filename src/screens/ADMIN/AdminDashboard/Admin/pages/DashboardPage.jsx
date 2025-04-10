@@ -41,7 +41,7 @@ const DashboardPage = () => {
         <div className={styles.cardContent}>
           <h2 className={styles.cardTitle}>Total Issues</h2>
           <p className={styles.cardDescription}>
-            These are the total number of issues present.
+            View total number of present issues.
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ const DashboardPage = () => {
         <div className={styles.cardContent}>
           <h2 className={styles.cardTitle}>Open Issues</h2>
           <p className={styles.cardDescription}>
-            These represent the total number of opened issues.
+            View the total number of opened issues.
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Manage Department Section */}
-      <div
+      {/* <div
         className={styles.dashboardCard}
         onClick={handleDepartmentsClick}
         style={{ cursor: "pointer" }}
@@ -92,10 +92,10 @@ const DashboardPage = () => {
         <div className={styles.cardContent}>
           <h2 className={styles.cardTitle}>Management Hub</h2>
           <p className={styles.cardDescription}>
-            {/* View and manage departments. */}
+           
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

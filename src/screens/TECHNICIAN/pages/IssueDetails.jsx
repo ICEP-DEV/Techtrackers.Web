@@ -27,6 +27,10 @@ const IssueDetails = ({ issues }) => {
   const issueIndex = issues.findIndex((i) => i.issueId === issueId);
   const issue = issues[issueIndex];
 
+  const loggedInTechnician = JSON.parse(localStorage.getItem("user_info"));
+ 
+ // console.log("Logged in Technician: ", loggedInTechnician);
+
   // Fetch technicians dynamically when the component mounts
   useEffect(() => {
     const fetchTechnicians = async () => {
@@ -48,7 +52,7 @@ const IssueDetails = ({ issues }) => {
     fetchTechnicians();
   }, []);
 
-  
+ 
 
   if (!issue) {
     return <div>Issue not found</div>;
@@ -64,12 +68,12 @@ const IssueDetails = ({ issues }) => {
       return;
     }
 
-    console.log("Issue Id to be updated: ", issueId);       
+    console.log("Issue Id to be updated: ", issueId);      
        
 
     console.log("Updating status to:", status);
 
-    
+   
 
     try {
       if (!issueId || issueId.trim() === "") {
@@ -137,26 +141,83 @@ const IssueDetails = ({ issues }) => {
     }
   };
 
-  const handleCollabArrowClick = () => {
-    if (selectedTechnician) {
-      setShowModal(false);
-      setShowSuccess(true);
-      toast.success(`Invitation sent to ${selectedTechnician}`);
-    } else {
+  // const handleCollabArrowClick = () => {
+  //   if (selectedTechnician) {
+  //     setShowModal(false);
+  //     setShowSuccess(true);
+  //     toast.success(`Invitation sent to ${selectedTechnician}`);
+  //   } else {
+  //     toast.error("Please select a technician to invite.");
+  //   }
+  // };
+  const handleCollabArrowClick = async () => {
+    if (!selectedTechnician) {
       toast.error("Please select a technician to invite.");
+      return;
+    }
+
+    const invitedTechnician = technicians.find(
+      (tech) => tech.surname === selectedTechnician.name
+    );
+ 
+    if (!invitedTechnician) {
+      toast.error("Selected technician not found.");
+      return;
+    }
+ 
+ 
+    // Prepare the request data
+    const requestDto = {
+      LogId: issue.logId,  // Assuming issueId is the LogId
+      RequestingTechnicianId: loggedInTechnician.userId, //{issue.assignedTo},  // Use the logged-in technician's ID
+      InvitedTechnicianId: invitedTechnician.userId,  // Use the selected technician's ID
+
+    };
+   
+   // console.log("Request Data: ", requestDto);
+ 
+    try {
+      const response = await fetch("https://localhost:44328/api/Collaboration/Request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestDto),
+      });
+
+    //  console.log(`Selected tech : ${selectedTechnician.surname}`);
+
+ 
+      const data = await response.json();
+ 
+      if (response.ok) {
+        setShowModal(false);
+        setShowSuccess(true);
+        //console.log(`Selected tech : ${selectedTechnician.surname}`);
+        toast.success(`Collaboration Invitation sent to ${selectedTechnician}`);
+      } else {
+        console.error("API Error:", data);
+        toast.error(data.message || "Failed to send invitation.");
+      }
+    } catch (error) {
+      console.error("Request Error:", error);
+      toast.error("An error occurred while sending the invitation.");
     }
   };
+ 
 
   const handleChat = () => {
     navigate("/techniciandashboard/staffChat");
   };
 
   const filteredTechnicians = technicians.filter((tech) =>
+ 
     tech.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleCheckboxChange = (tech) => {
     setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
+    console.log("Selected Technician: ", technicians);
   };
 
   const handleUpdateClick = () => {
@@ -174,12 +235,13 @@ const IssueDetails = ({ issues }) => {
 
       <div className={styles.issueHeader}>
         <div className={styles.issueRequestor}>
-          <p>Logged By:</p>
+          {/* <p>Logged By:</p> */}
           <div className={styles.profile}>
-            <img src={profile} width="50" height="50" alt="Profile Icon" />
+            {/* <img src={profile} width="50" height="50" alt="Profile Icon" /> */}
+            <h6 className={styles.name}>Issue ID: </h6>
             <p className={styles.name}>{issue.issueId}</p>
           </div>
-          <p className={styles.issueId}>{issue.issueId}</p>
+          {/* <p className={styles.issueId}>{issue.issueId}</p> */}
         </div>
 
         <div className={styles.issueInfo}>
@@ -212,16 +274,21 @@ const IssueDetails = ({ issues }) => {
         <p className={styles.descriptionText}>{issue.description}</p>
       </div>
 
-      <div className={styles.attachments}>
-        <h3>
-          <img src={attachme} width="15" height="25" alt="Attachment Icon" />
-          <h4>Attachments</h4>
-          <p>{issue.attachment}</p>
-        </h3>
-        <div className={styles.attachment}>
-          <img src={issue.attachment} width="30" height="25" alt="Image Attachment" />{" "}
-        </div>
-      </div>
+      {issue.attachmentBase64 && (
+  <div className={styles.attachments}>
+    <h3>
+      <img src={attachme} width="15" height="15" alt="Attachment Icon" />
+      <h4>Attachments</h4>
+    </h3>
+    <div className={styles.attachment}>
+      <img
+        src={`data:image/jpeg;base64,${issue.attachmentBase64}`}
+        alt="Uploaded Attachment"
+        style={{ maxWidth: "50%", height: "auto" }}
+      />
+    </div>
+  </div>
+)}
 
       <div className={styles.additionalInfo}>
         <p>Department - {issue.department}</p>
@@ -286,7 +353,7 @@ const IssueDetails = ({ issues }) => {
                       checked={selectedTechnician === tech.name}
                       onChange={() => handleCheckboxChange(tech)}
                     />
-                    <img src={profile} alt="User Icon" className="userIcon" />
+                    <img src={profile} alt="User Icon" className="userIcon" height={40}/>
                     <div className={styles.technicianDetails}>
                       <p>{tech.name}</p>
                       <p>{tech.role}</p>
@@ -308,7 +375,7 @@ const IssueDetails = ({ issues }) => {
 
 {showUpdateModal && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
+          <div className={styles.modalContent2}>
             <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>&times;</button>
             <h4>Update Issue Status</h4>
             <div className={styles.statusButtons}>
@@ -337,7 +404,7 @@ const IssueDetails = ({ issues }) => {
 
       {showAddNoteModal && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
+          <div className={styles.modalContent2}>
             <button className={styles.modalClose} onClick={() => setShowAddNoteModal(false)}>&times;</button>
             <h3>Add Note:</h3>
             <textarea

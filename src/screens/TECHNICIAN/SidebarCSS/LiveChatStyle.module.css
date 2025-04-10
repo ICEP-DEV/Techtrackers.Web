@@ -200,3 +200,13 @@ input {
     transform: scale(1.1);
     transition: 0.3s;
 }
+
+
+@media (max-width: 480px) {
+    .userMessage, .techMessage {
+        width: 100%;
+    }
+    .chatContainer {
+        width: 100%;
+    }
+}

@@ -12,11 +12,11 @@ const IssueRow = ({ log }) => {
 
   return (
     <tr>
-      <td>{log.id}</td>
-      <td>{log.title}</td>
+      <td>{log.issueId}</td>
+      <td>{log.issueTitle}</td>
       <td>{log.priority}</td>
       <td>{log.assignedTo}</td>
-      <td>{log.loggedDate}</td>
+      <td>{new Date(log.createdAt).toLocaleDateString()}</td>
       <td>
         <button className={styles["view-button"]}>View</button>
 

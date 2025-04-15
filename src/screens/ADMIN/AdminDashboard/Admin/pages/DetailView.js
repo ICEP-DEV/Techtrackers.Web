@@ -7,7 +7,6 @@ import userAvatar from "../adminIcons/images/user.jpg";
 import { toast } from 'react-toastify';
 
 function DetailView({ log, onBack }) {
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [actionType, setActionType] = useState(null);
   const [statusMessage, setStatusMessage] = useState(null);

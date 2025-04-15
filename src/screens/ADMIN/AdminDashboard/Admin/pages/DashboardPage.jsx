@@ -27,7 +27,7 @@ const DashboardPage = () => {
 
   return (
     <div className={styles.dashboardContainer}>
-      <h1 className={styles.welcomeMessage}>WELCOME, ADMIN!</h1>
+      <h1 className={styles.welcomeMessage}>WELCOME, HOD!</h1>
 
       {/* Total Issues Section */}
       <div className={styles.dashboardCard} onClick={handleTotalIssuesClick}>

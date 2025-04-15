@@ -42,15 +42,27 @@ function TechncianLiveChat() {
                 await newConnection.invoke("JoinLogChat", parseInt(logId));
 
                 newConnection.on("ReceiveMessage", (logId, senderId, message, timestamp) => {
-                    setChatLog(prevChat => [
-                        ...prevChat,
-                        {
+                    setChatLog(prevChat => {
+                      // Check if this message already exists
+                      const alreadyExists = prevChat.some(chat => 
+                        chat.text === message && 
+                        chat.senderId === senderId &&
+                        chat.time === new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                      );
+                      
+                      if (!alreadyExists) {
+                        return [
+                          ...prevChat,
+                          {
                             senderId,
                             text: message,
                             time: new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                        },
-                    ]);
-                });
+                          }
+                        ];
+                      }
+                      return prevChat; // Return unchanged if duplicate
+                    });
+                  });
 
                 setConnection(newConnection);
             } catch (err) {
@@ -93,36 +105,28 @@ function TechncianLiveChat() {
 
     const handleSendText = async () => {
         if (text.trim() === '') {
-            toast.warning("⚠️ Cannot send an empty message!");
-            return;
+          toast.warning("⚠️ Cannot send an empty message!");
+          return;
         }
-
+      
         try {
-            // Optimistically update the chat log with the new message
-            const newMessage = {
-                senderId: userId,
-                text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            };
-            setChatLog(prev => [...prev, newMessage]);
-            setText('');
-
-            // Send the message to the server
-            const response = await fetch("https://localhost:44328/api/LiveChat/SendMessage", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ logId: parseInt(logId, 10), senderId: parseInt(userId, 10), message: text }),
-            });
-
-            if (!response.ok) {
-                // If the message fails to send, remove it from the chat log
-                setChatLog(prev => prev.filter(msg => msg !== newMessage));
-                toast.error("Failed to send message.");
-            }
+          const response = await fetch("https://localhost:44328/api/LiveChat/SendMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ logId, senderId: userId, message: text }),
+          });
+      
+          if (response.ok) {
+            setText(''); // Only clear the input
+            toast.success("✅ Message sent!");
+          } else {
+            const errorData = await response.json();
+            toast.error(errorData.message || "Failed to send message.");
+          }
         } catch (error) {
-            toast.error("Network error.");
+          toast.error("Network error. Check your connection.");
         }
-    };
+      };
 
     return (
         <div className={styles.mainContainerChat}>

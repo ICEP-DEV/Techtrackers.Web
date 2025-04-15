@@ -142,9 +142,8 @@ function DetailView({ log, onBack }) {
           {/* Display selected department as label */}
           {selectedDepartment && (
             <div className={styles["department-label"]}>
-            <span> {selectedDepartment}</span>
-          </div>
-          
+              {selectedDepartment}
+            </div>
           )}
 
           <button className={styles["more-button"]} onClick={toggleEscalation}>
@@ -152,7 +151,7 @@ function DetailView({ log, onBack }) {
           </button>
         </div>
       </div>
-      
+
       <div className={styles["detail-content"]}>
         {isEscalationVisible ? (
           <EscalationPage logId={log.logId} /> // Render EscalationPage when isEscalationVisible is true
@@ -240,9 +239,9 @@ function DetailView({ log, onBack }) {
                     <p>
                       {log?.issuedAt && !isNaN(new Date(log.issuedAt).getTime())
                         ? new Intl.DateTimeFormat("en-US", {
-                          dateStyle: "long",
-                          timeStyle: "short",
-                        }).format(new Date(log.issuedAt))
+                            dateStyle: "long",
+                            timeStyle: "short",
+                          }).format(new Date(log.issuedAt))
                         : "Invalid Date"}
                     </p>
                   </div>
@@ -269,8 +268,9 @@ function DetailView({ log, onBack }) {
                       <img
                         src={`data:image/jpeg;base64,${log.attachmentBase64}`}
                         alt="Uploaded Attachment"
+                        style={{ maxWidth: "50%", height: "auto", cursor: "pointer" }}
                       />
-                      <span>Uploaded Image</span>
+                      <span>Uploaded Attachment</span>
                     </div>
                   ) : (
                     <p>No attachments available.</p>
@@ -310,9 +310,9 @@ function DetailView({ log, onBack }) {
       {/* Image Viewer */}
       {isImageViewerOpen && selectedImage && (
         <div className={styles["image-viewer"]}>
-          <div className={styles["image-viewer-content"]}>
+          <div className={styles["viewer-content"]}>
+            <img src={selectedImage} alt="Selected Attachment" />
             <button onClick={handleCloseImageViewer}>Close</button>
-            <img src={selectedImage} alt="Attachment" />
           </div>
         </div>
       )}
@@ -322,16 +322,16 @@ function DetailView({ log, onBack }) {
 
 DetailView.propTypes = {
   log: PropTypes.shape({
-    logId: PropTypes.number.isRequired,
     issueId: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     logBy: PropTypes.string.isRequired,
-    priority: PropTypes.string,
-    issuedAt: PropTypes.string,
+    issuedAt: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
     department: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     attachmentBase64: PropTypes.string,
-    status: PropTypes.string,
-    location: PropTypes.string,
+    logId: PropTypes.number.isRequired, // Assuming logId is a number
   }).isRequired,
   onBack: PropTypes.func.isRequired,
 };

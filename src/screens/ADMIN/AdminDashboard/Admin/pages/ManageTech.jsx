@@ -104,6 +104,7 @@ const ManageTechniciansTable = () => {
             <th>Specialization</th>
             <th>Contact</th>
             <th>Availability</th>
+            <th>No. Issues</th>
             <th>Active Issues</th>
             <th>Action</th>
           </tr>
@@ -116,7 +117,8 @@ const ManageTechniciansTable = () => {
               <td>{technician.specialization || "N/A"}</td>
               <td>{technician.contacts || "N/A"}</td>
               <td>{`${technician.fromTime || "N/A"} - ${technician.toTime || "N/A"}`}</td>
-              <td>{technician.activeIssues || 0}</td>
+              <td>{technician.noOfTask || 0}</td>
+              <td>{technician.activeTasks || 0}</td>
               <td>
                 <button
                   className={styles.viewButton}

@@ -64,8 +64,6 @@ const ManageTechniciansTable = () => {
     setSelectedTechnician(technician);
   };
 
-  console.log("Techs", technicians);
-
   const handleRemoveTechnician = async (technicianId) => {
     try {
       const response = await axios.delete(

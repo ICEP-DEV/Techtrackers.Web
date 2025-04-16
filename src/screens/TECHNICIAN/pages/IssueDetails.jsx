@@ -112,26 +112,55 @@ const IssueDetails = ({ issues }) => {
     setShowAddNoteModal(true);
   };
 
-  const handleNoteSubmit = () => {
+  const handleNoteSubmit = async () => {
     if (issue.status === "RESOLVED") {
       toast.error("Cannot update status. The issue is already RESOLVED.");
       return;
     }
-
+  
     if (!note.trim()) {
       toast.error("Please enter a note before submitting.");
       return;
     }
-
-    const updatedIssues = issues.map((item, index) =>
-      index === issueIndex ? { ...item, status: "ONHOLD" } : item
-    );
-
+  
+    const payload = {
+      issueId: issue.issueId,
+      note: note,
+      status: "ONHOLD", // not required by backend but safe to include
+    };
+  
+    try {
+      const response = await fetch(
+        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${payload.issueId}/${payload.status}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+  
+      const data = await response.json();
+  
+      if (response.ok && data.isSuccess) {
+        issue.status = "ONHOLD";
+        issue.note = note;
+        toast.success("Note submitted and status changed to ONHOLD.");
+      } else {
+        toast.error(data.message || "Failed to update status.");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error("An error occurred while submitting the note.");
+    }
+  
     setNote("");
     setShowAddNoteModal(false);
     setShowUpdateModal(false);
-    toast.success("Note successfully added and status updated to 'ONHOLD'!");
   };
+  
+  
 
   const handleBack = () => {
     if (window.history.length > 2) {

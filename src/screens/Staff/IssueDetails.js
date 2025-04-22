@@ -210,7 +210,7 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
           </button>{" "}
         </div>
         <div style={{ marginTop: '5px' }}>
-          <button className="view-note-btn" onClick={handleNoteClick}>View Technician Note</button>
+          <button className="view-note-btn" onClick={handleNoteClick}> View Technician Note</button>
         </div>
       </div>
       <div className="descrip-section">
@@ -346,7 +346,7 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
         <div className="note-popup">
           <div className="note-popup-content">
             <span className="close-popup-btn" onClick={closeNoteModal}>&times;</span>
-            <h3>Note</h3>
+            <h3>📋 Note</h3>
             <p className="note-text">{issue.note}</p>
           </div>
         </div>

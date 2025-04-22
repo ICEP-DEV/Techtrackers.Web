@@ -67,20 +67,21 @@ const IssueDetails = ({ issues }) => {
       toast.error("Cannot update status. The issue is already resolved.");
       return;
     }
-
-    console.log("Issue Id to be updated: ", issueId);      
-       
-
-    console.log("Updating status to:", status);
-
-   
-
+  
     try {
       if (!issueId || issueId.trim() === "") {
         toast.error("Invalid issue ID. Cannot update status.");
         return;
       }
-
+  
+      // For ONHOLD, open the note modal instead of making the request
+      if (status === "ONHOLD") {
+        setShowUpdateModal(false);
+        setShowAddNoteModal(true);
+        return;
+      }
+  
+      // For other statuses, make the request immediately
       const response = await fetch(
         `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issueId}/${status}`,
         {
@@ -88,18 +89,18 @@ const IssueDetails = ({ issues }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          // Send empty object as body to avoid null reference
+          body: JSON.stringify({}),
         }
       );
-
+  
       const data = await response.json();
-
-      console.log("Response: ", data);
-
-      if (response.ok) {
+  
+      if (response.ok && data.isSuccess) {
         issue.status = status;
         toast.success(`Status updated to ${status}!`);
+        setShowUpdateModal(false);
       } else {
-        console.error("API Error:", data);
         toast.error(data.message || "Failed to update status.");
       }
     } catch (error) {
@@ -123,21 +124,17 @@ const IssueDetails = ({ issues }) => {
       return;
     }
   
-    const payload = {
-      issueId: issue.issueId,
-      note: note,
-      status: "ONHOLD", // not required by backend but safe to include
-    };
-  
     try {
       const response = await fetch(
-        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${payload.issueId}/${payload.status}`,
+        `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issue.issueId}/ONHOLD`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({
+            Note: note
+          }),
         }
       );
   
@@ -146,7 +143,9 @@ const IssueDetails = ({ issues }) => {
       if (response.ok && data.isSuccess) {
         issue.status = "ONHOLD";
         issue.note = note;
-        toast.success("Note submitted and status changed to ONHOLD.");
+        toast.success("Status changed to ONHOLD with note.");
+        setShowAddNoteModal(false);
+        setShowUpdateModal(false);
       } else {
         toast.error(data.message || "Failed to update status.");
       }
@@ -156,8 +155,6 @@ const IssueDetails = ({ issues }) => {
     }
   
     setNote("");
-    setShowAddNoteModal(false);
-    setShowUpdateModal(false);
   };
   
   

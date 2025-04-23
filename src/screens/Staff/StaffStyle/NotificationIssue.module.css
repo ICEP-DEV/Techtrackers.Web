@@ -92,9 +92,9 @@ h2 {
   display: flex;
   gap: 10px;
   position: absolute; /* Absolutely position the container */
-  /* right: 20px; Positioning it towards the right
+/* right: 20px; Positioning it towards the right
   top: 60px; Adjust the vertical positioning if necessary
-} */ 
+} */
 
 /* Filter and Sort Buttons */
 /* .filterButton,
@@ -163,10 +163,55 @@ h2 {
 
   .filterButton,
   .sortButton {
-    width: 100%;  /* Make buttons full width on small screens */
+    width: 100%; /* Make buttons full width on small screens */
   }
 
   .navTabs {
     flex-direction: column;
   }
+
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .justify-content-between {
+    gap: 10px;
+  }
+
+  .contners {
+    padding: 15px;
+  }
+
+  .notificationRows {
+    padding: 8px 0;
+  }
+
+  .markAsReadButton {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
 }
+
+@media (max-width: 480px) {
+  .maiNContent {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .notificationIcons {
+    font-size: 20px;
+  }
+
+  .navItem button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .notificationTimestamps {
+    font-size: 10px;
+  }
+}
+

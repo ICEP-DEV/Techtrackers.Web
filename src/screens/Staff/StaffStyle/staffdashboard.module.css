@@ -1,9 +1,10 @@
 .cup {
   display: flex;
+  flex-direction: column;
 }
 
 .sidebar {
-  background-color: #0C3A3A; /* Dark background color */
+  background-color: #0c3a3a; /* Dark background color */
   color: white; /* White text for contrast */
   height: 100vh; /* Full height */
   width: 250px; /* Set a fixed width */
@@ -11,13 +12,15 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
   display: flex;
   flex-direction: column; /* Align items in a column */
+  position: fixed;
+  z-index: 100;
 }
 
 .topSection {
   display: flex;
   align-items: center;
   padding: 20px 15px;
-  background-color: #0C3A3A; /* Top section color */
+  background-color: #0c3a3a; /* Top section color */
 }
 
 .logo {
@@ -70,20 +73,11 @@
 main {
   flex: 1;
   padding: 20px; /* Main content padding */
+  margin-left: 60px; /* Default margin for collapsed sidebar */
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 60px);
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    z-index: 999;
-    width: 200px; /* Adjust width for mobile */
-  }
-  
-  main {
-    margin-left: 200px; /* Adjust main margin */
-  }
-}
 .staffTitle {
   font-size: 34px; /* Adjust this size as needed */
   font-weight: bold; /* Make the title bold for emphasis */
@@ -112,8 +106,61 @@ main {
   font-size: 18px; /* Adjust this size for navigation item text */
   white-space: nowrap; /* Prevent text from wrapping */
 }
+
 .sidebarIcons {
   width: 29px; /* Set width */
   height: 29px; /* Set height */
   margin-right: 10px; /* Space between icon and text */
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cup {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 60px !important; /* Force collapsed sidebar on mobile */
+    height: calc(100vh - 85px); /* Account for header height */
+    top: 85px; /* Position below header */
+  }
+
+  main {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    padding: 10px;
+    margin-top: 85px; /* Account for fixed header */
+  }
+
+  .NavItem {
+    display: none !important; /* Force hide text on mobile */
+  }
+
+  .Link {
+    padding: 10px;
+    margin: 10px 0;
+    justify-content: center;
+  }
+
+  .Icon {
+    margin-right: 0;
+  }
+
+  .topSection {
+    justify-content: center;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 769px) {
+  main {
+    margin-left: 225px; /* Expanded sidebar width */
+    width: calc(100% - 225px);
+  }
+
+  .cup main {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+}
+

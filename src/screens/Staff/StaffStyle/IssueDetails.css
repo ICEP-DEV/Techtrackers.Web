@@ -417,3 +417,82 @@
   margin: 0 0 10px; /* Add margin */
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .issue-deta {
+    padding: 15px;
+  }
+
+  .title {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .title h1,
+  .title span {
+    font-size: 20px;
+  }
+
+  .issue-in-fo {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .location-building {
+    flex-direction: column;
+    padding: 10px;
+    font-size: medium;
+  }
+
+  .close-btn {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+  }
+
+  .c-btn,
+  .Unresolved-btn,
+  .Resolved-btn {
+    width: 100%;
+  }
+
+  .feedback-popup-content,
+  .confirmation-popup-content,
+  .rating-popup-content,
+  .error-popup-content {
+    width: 90%;
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .attachment-modal-content {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .live-chat-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title h1,
+  .title span {
+    font-size: 18px;
+  }
+
+  .descrip-section h3,
+  .attach-section h3 {
+    font-size: 16px;
+  }
+
+  .attach {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .star-rating {
+    flex-wrap: wrap;
+  }
+}
+

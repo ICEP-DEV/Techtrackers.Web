@@ -274,4 +274,71 @@
     font-size: 12px;
     height: 30px;
   }
+
+  .scanButton {
+    /* min-width: 100%; */
+  }
+}
+
+
+.scanButton {
+  padding: 10px 15px;
+  /* background-color: #004d4e; */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* width: 32%; */
+  margin: 0;
+}
+
+.scanButton:hover {
+  /* background-color: #003c3d; */
+}
+
+.QRicon {
+  color: #003c3d;
+}
+
+.scannerModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.scannerContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.scannerContainer {
+  width: 100%;
+  height: 300px;
+  margin: 15px 0;
+  background: #f5f5f5;
+}
+
+.scannerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.secondaryButton {
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

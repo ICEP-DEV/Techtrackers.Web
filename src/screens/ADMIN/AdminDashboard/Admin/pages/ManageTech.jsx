@@ -93,6 +93,15 @@ const ManageTechniciansTable = () => {
     );
   }
 
+  const getTechnicianType = (technician) => {
+    // External technicians will have location/serviceType fields
+    if (technician.location || technician.serviceType) {
+      return 'External';
+    }
+    // Internal technicians will have specialization
+    return 'Internal';
+  };
+
   return (
     <div className={styles.tableContainer}>
       <ManageTechniciansHeader />
@@ -102,6 +111,7 @@ const ManageTechniciansTable = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Specialization</th>
+            <th>Type</th>
             <th>Contact</th>
             <th>Availability</th>
             <th>No. Issues</th>
@@ -115,6 +125,7 @@ const ManageTechniciansTable = () => {
               <td>{technician.name}</td>
               <td>{technician.emailAddress || "N/A"}</td>
               <td>{technician.specialization || "N/A"}</td>
+              <td>{getTechnicianType(technician)}</td>
               <td>{technician.contacts || "N/A"}</td>
               <td>{`${technician.fromTime || "N/A"} - ${technician.toTime || "N/A"}`}</td>
               <td>{technician.noOfTask || 0}</td>

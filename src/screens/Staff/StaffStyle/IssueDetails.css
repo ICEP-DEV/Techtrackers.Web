@@ -417,82 +417,56 @@
   margin: 0 0 10px; /* Add margin */
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .issue-deta {
-    padding: 15px;
-  }
-
-  .title {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .title h1,
-  .title span {
-    font-size: 20px;
-  }
-
-  .issue-in-fo {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .location-building {
-    flex-direction: column;
-    padding: 10px;
-    font-size: medium;
-  }
-
-  .close-btn {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 5px;
-  }
-
-  .c-btn,
-  .Unresolved-btn,
-  .Resolved-btn {
-    width: 100%;
-  }
-
-  .feedback-popup-content,
-  .confirmation-popup-content,
-  .rating-popup-content,
-  .error-popup-content {
-    width: 90%;
-    max-width: 90%;
-    padding: 15px;
-  }
-
-  .attachment-modal-content {
-    width: 95%;
-    padding: 10px;
-  }
-
-  .live-chat-btn {
-    width: 100%;
-  }
+/*  technician note  */
+.note-popup {
+  position: fixed;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-@media (max-width: 480px) {
-  .title h1,
-  .title span {
-    font-size: 18px;
-  }
-
-  .descrip-section h3,
-  .attach-section h3 {
-    font-size: 16px;
-  }
-
-  .attach {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .star-rating {
-    flex-wrap: wrap;
-  }
+.note-popup-content {
+  display: flex;
+  flex-direction: column;
 }
+
+.close-popup-btn {
+  align-self: flex-end;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.note-text {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+.view-note-btn {
+  margin-top: 8px;
+  margin-left: 0;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 4px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-note-btn:hover {
+  background-color: #7ee6a6;
+}
+
 

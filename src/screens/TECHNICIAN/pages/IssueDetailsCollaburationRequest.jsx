@@ -7,6 +7,7 @@ import profIcon from "../images/profileCollaborationRequest.png";
 import image from "../images/imageCollaborationRequest.png";
 import chat from "../images/chatCollaborationRequest.png";
 import acceptIcon from "../images/acceptIcon.png";
+import { toast } from 'react-toastify';
 import declineIcon from "../images/declineIcon.png";
 
 // Popup component for displaying message
@@ -30,6 +31,25 @@ const IssueDetails = () => {
   // Handle the Close button click
   const handleClose = () => {
     navigate("/techniciandashboard/collab"); // Navigate back to the table route
+  };
+
+  const handleRespondToCollab = async (collaborationId, status) => {
+    try {
+      const response = await fetch(`https://localhost:44328/api/Collaboration/Respond/${collaborationId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+  
+      if (response.ok) {
+        toast.success("Collaboration response updated!");
+      } else {
+        const data = await response.json();
+        toast.error(data.message || "Failed to update collaboration.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating collaboration.");
+    }
   };
 
   const handleChat = () => {

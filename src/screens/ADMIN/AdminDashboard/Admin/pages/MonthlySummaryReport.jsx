@@ -111,7 +111,7 @@ const MonthlyGenerateReport = () => {
                     <TableCell>{row.totalIssues}</TableCell>
                     <TableCell>{row.issuesClosed}</TableCell>
                     <TableCell>{row.issuesOpen}</TableCell>
-                    <TableCell>{row.avgResolution}</TableCell>
+                    <TableCell>{row.avgResolutionTime}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

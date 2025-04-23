@@ -4,6 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import styles from '../Staff/StaffStyle/logissue.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
+// import { Html5Qrcode } from 'html5-qrcode';
 
 const Logissueform = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -21,6 +24,8 @@ const Logissueform = () => {
   const [errors, setErrors] = useState({});
   const [filePreviews, setFilePreviews] = useState([]); // Previews for all files
   const navigate = useNavigate();
+  const [showScanner, setShowScanner] = useState(false);
+  const [scanResult, setScanResult] = useState('');
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("user_info"));
@@ -262,6 +267,40 @@ const Logissueform = () => {
             </select>
           </div>
         </div>
+        <div className={styles.formRow}>
+          <div className={styles.Box}>
+            <label>Or Scan for Location</label>
+            
+            <button 
+              type="button" 
+              className={styles.scanButton}
+              onClick={() => setShowScanner(true)}
+            >
+             <FontAwesomeIcon className={styles.QRicon} icon={faQrcode} size="2x" />
+            </button>
+          </div>
+        </div>
+
+        {/* QR Scanner Modal */}
+        {showScanner && (
+          <div className={styles.scannerModal}>
+            <div className={styles.scannerContent}>
+              <h3>Scan QR Code</h3>
+              <div id="qrScanner" className={styles.scannerContainer}></div>
+              <div className={styles.scannerResult}>
+                {scanResult && <p>Scanned: {scanResult}</p>}
+              </div>
+              <div className={styles.scannerActions}>
+                <button 
+                  className={styles.secondaryButton}
+                  onClick={() => setShowScanner(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className={styles.fileInputWrapper}>
           <label>Attachments (include screenshots, photos, documents, etc.):</label>

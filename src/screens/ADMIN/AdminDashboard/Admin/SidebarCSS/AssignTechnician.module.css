@@ -6,6 +6,7 @@
   border-radius: 8px;
   box-shadow: 10px 2px 6px rgba(0, 0, 0, 0.1);
   margin-top: -10px;
+  
 }
 
 .btnDisabled {
@@ -31,6 +32,7 @@
 /* Table */
 .table {
   width: 100%;
+  
   margin-bottom: 20px;
   border-collapse: collapse;
   background-color: #ffffff; /* Add a white background for clarity */
@@ -238,9 +240,46 @@ input[type="checkbox"] {
 /* Table Controls (Search and Sort) */
 .tableControls {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+}
+.tableControls input,
+.tableControls select {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.tableControls .dropdownGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.tableControls input {
+  max-width: 200px;
+}
+
+.tableControls select {
+  max-width: 150px;
+}
+
+@media (max-width: 768px) {
+  .tableControls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tableControls input,
+  .tableControls select {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .tableControls .dropdownGroup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 /* 
 .searchInput {

@@ -237,66 +237,108 @@
   box-shadow: inset 0 1px 3px rgba(255, 0, 0, 0.1); /* Subtle red shadow */
 }
 
-/* Mobile Responsiveness */
+/* Responsive behavior */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
   .logIssueForm {
+    width: 100%;
     padding: 15px;
   }
 
-  .formRow {
+  .logIssueForm .formRow {
     flex-direction: column;
   }
 
-  .Box {
-    width: 100% !important;
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-
-  .logIssueForm input[type="file"] {
+  .logIssueForm .Box {
     width: 100%;
   }
 
   .logIssueForm .FformButons {
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .logIssueForm .FformButons button {
-    width: 100%;
-  }
-
-  #issue-title {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .logIssueForm h2 {
-    font-size: 16px;
-  }
-
-  .logIssueForm h2 svg {
-    font-size: 24px;
-  }
-
-  .logIssueForm label {
-    font-size: 14px;
+    align-items: stretch;
   }
 
   .logIssueForm input,
   .logIssueForm select,
   .logIssueForm textarea {
-    font-size: 12px;
+    font-size: 13px;
     padding: 8px;
   }
 
-  .fileInputWrapper .fileFormatHint {
-    font-size: 10px;
+  .header {
+    padding: 10px;
+    height: 50px;
+    font-size: 14px;
+  }
+
+  #issue-title {
+    font-size: 12px;
+    height: 30px;
+  }
+
+  .scanButton {
+    /* min-width: 100%; */
   }
 }
 
+
+.scanButton {
+  padding: 10px 15px;
+  /* background-color: #004d4e; */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* width: 32%; */
+  margin: 0;
+}
+
+.scanButton:hover {
+  /* background-color: #003c3d; */
+}
+
+.QRicon {
+  color: #003c3d;
+}
+
+.scannerModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.scannerContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.scannerContainer {
+  width: 100%;
+  height: 300px;
+  margin: 15px 0;
+  background: #f5f5f5;
+}
+
+.scannerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.secondaryButton {
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

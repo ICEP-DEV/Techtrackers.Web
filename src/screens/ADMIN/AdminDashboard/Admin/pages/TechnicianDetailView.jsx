@@ -4,16 +4,33 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../SidebarCSS/DetailView.module.css';
 
-const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added onRemove prop
+const TechnicianDetailView = ({ technician, onBack, onRemove }) => {
   const [formData, setFormData] = useState(technician);
+  const [technicianType, setTechnicianType] = useState(technician.technicianType || 'external'); // Track selected type
   const [isVisible, setIsVisible] = useState(true);
   const [isRemoved, setIsRemoved] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  // Handle technician type change
+  const handleTechTypeChange = (e) => {
+    const newType = e.target.value;
+    setTechnicianType(newType);
+
+    // Reset fields based on the selected type
+    setFormData((prevData) => ({
+      ...prevData,
+      name: newType === 'external' ? '' : prevData.name, // Clear for Company Name
+      specialization: newType === 'internal' ? prevData.specialization : '', // Hide for external
+      location: newType === 'external' ? '' : prevData.location, // Show only for external
+      serviceType: newType === 'external' ? '' : prevData.serviceType, // Show only for external
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -26,7 +43,6 @@ const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added on
     console.log('Updated Technician Info:', formData);
     toast.success('Technician information updated successfully!');
 
-    // Delay the navigation back by 2 seconds (2000 milliseconds)
     setTimeout(() => {
       setShowModal(false);
       onBack();
@@ -42,10 +58,8 @@ const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added on
     console.log(`Technician ${technician.technicianId} removed`);
     toast.success('Technician removed successfully!');
 
-    // Use the onRemove function passed as a prop
-    onRemove(technician.technicianId); // Call onRemove with the technician ID
+    onRemove(technician.technicianId);
 
-    // Delay the visibility update by 2 seconds (2000 milliseconds)
     setTimeout(() => {
       setIsRemoved(true);
       setIsVisible(false);
@@ -54,7 +68,7 @@ const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added on
     }, 2000);
   };
 
-  const cancelAction = () => setShowModal(false); // Close modal without action
+  const cancelAction = () => setShowModal(false);
 
   if (isRemoved) {
     return <div className={styles.removedMessage}>Technician has been successfully removed.</div>;
@@ -68,36 +82,137 @@ const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added on
       <form onSubmit={handleSubmit} className={styles.detailForm}>
         <div className={styles.leftColumn}>
           <div className={styles.formGroup}>
-            <label htmlFor="name">Name:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            <label>Technician Type:</label>
+            <div className={styles.radioBtns}>
+              <input
+                type="radio"
+                id="internal"
+                name="techType"
+                value="internal"
+                checked={technicianType === 'internal'}
+                onChange={handleTechTypeChange}
+                disabled
+              />
+              <label htmlFor="internal">Internal</label>
+
+              <input
+                type="radio"
+                id="external"
+                name="techType"
+                value="external"
+                checked={technicianType === 'external'}
+                onChange={handleTechTypeChange}
+                disabled
+              />
+              <label htmlFor="external">External</label>
+            </div>
           </div>
+
+          {/* Dynamic Fields */}
+          <div className={styles.formGroup}>
+            <label htmlFor="name">
+              {technicianType === 'external' ? 'Company Name:' : 'Name:'}
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="email">Email:</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input
+              type="email"
+              name="emailAddress"
+              value={formData.emailAddress}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="specialization">Specialization:</label>
-            <input type="text" name="specialization" value={formData.specialization} onChange={handleChange} required />
-          </div>
+
+          {/* Show Specialization only for Internal, Show Location + Service Type for External */}
+          {technicianType === 'internal' && (
+            <div className={styles.formGroup}>
+              <label htmlFor="specialization">Specialization:</label>
+              <input
+                type="text"
+                name="specialization"
+                value={formData.specialization}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
+
+          {technicianType === 'external' && (
+            <>
+              <div className={styles.formGroup}>
+                <label htmlFor="location">Location:</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="serviceType">Service Type:</label>
+                <input
+                  type="text"
+                  name="serviceType"
+                  value={formData.serviceType}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </>
+          )}
         </div>
+
         <div className={styles.rightColumn}>
           <div className={styles.formGroup}>
             <label htmlFor="contact">Contact:</label>
-            <input type="text" name="contact" value={formData.contact} onChange={handleChange} required />
+            <input
+              type="text"
+              name="contacts"
+              value={formData.contacts}
+              onChange={handleChange}
+              required
+            />
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="fromTime">From Time:</label>
-            <input type="time" name="fromTime" value={formData.fromTime} onChange={handleChange} required />
+            <input
+              type="time"
+              name="fromTime"
+              value={formData.fromTime}
+              onChange={handleChange}
+              required
+            />
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="toTime">To Time:</label>
-            <input type="time" name="toTime" value={formData.toTime} onChange={handleChange} required />
+            <input
+              type="time"
+              name="toTime"
+              value={formData.toTime}
+              onChange={handleChange}
+              required
+            />
           </div>
         </div>
+
         <div className={styles.buttonsContainer}>
           <button type="submit" className={styles.submitButton}>Update Technician</button>
           <button type="button" onClick={handleRemove} className={styles.removeButton}>Remove Technician</button>
-          <button type="button" onClick={onBack} className={styles.backButton}>Back</button> {/* Back Button */}
+          <button type="button" onClick={onBack} className={styles.backButton}>Back</button>
         </div>
       </form>
 
@@ -122,24 +237,15 @@ const TechnicianDetailView = ({ technician, onBack, onRemove }) => { // Added on
         </div>
       )}
 
-      <ToastContainer /> {/* Add ToastContainer to render the toasts */}
+      <ToastContainer />
     </div>
   );
 };
 
 TechnicianDetailView.propTypes = {
-  technician: PropTypes.shape({
-    technicianId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    specialization: PropTypes.string.isRequired,
-    contact: PropTypes.string.isRequired,
-    fromTime: PropTypes.string.isRequired,
-    toTime: PropTypes.string.isRequired,
-    activeIssues: PropTypes.number.isRequired,
-  }).isRequired,
+  technician: PropTypes.object.isRequired,
   onBack: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired, // Add this line to define onRemove prop type
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default TechnicianDetailView;

@@ -1,184 +1,131 @@
 /* Container for the whole welcome section */
 .WelcomeContainer {
-    background-color: #f5f5f5; /* Light grey background */
-    padding: 20px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the start */
-    justify-content: center;
-    width: 80%; /* Set width to crop the content */
-    max-width: 900px; /* Maximum width */
-    height: 50vh; /* Set height to auto */
-    margin: 0 auto; /* Center the container horizontally */
-    position: absolute;
+  background-color: #f5f5f5; /* Light grey background */
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start */
+  justify-content: center;
+  width: 90%; /* Adjusted width for better mobile fit */
+  max-width: 900px; /* Maximum width */
+  height: auto; /* Allow height to adjust */
+  margin: 0 auto; /* Center the container horizontally */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Welcome Title */
+.titles {
+  font-size: 1.8rem; /* Slightly smaller font for mobile */
+  color: white;
+  margin-bottom: 20px;
+  text-align: center; /* Center title for better mobile readability */
+  margin-left: 0; /* Reset margin */
+}
+
+/* Card container to align cards in a grid */
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%; /* Adjust to full width */
+  margin: auto;
+}
+
+/* Individual cards styling */
+.cards {
+  background: linear-gradient(135deg, #0c3a3a, #108484);
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.cardsContent h2 {
+  color: white; /* Change text color to white */
+}
+
+/* Hover effect for cards */
+.cards:hover {
+  transform: translateY(-5px);
+}
+
+/* Card icon styling */
+.cardsIcon {
+  font-size: 2.5rem; /* Adjusted for mobile */
+  margin-right: 15px;
+}
+
+/* Card content */
+.cardsContent h2 {
+  font-size: 1.3rem; /* Slightly smaller for better fit */
+  margin: 0;
+}
+
+.cardsContent p {
+  font-size: 0.9rem; /* Adjusted font size */
+  margin: 0;
+  margin-top: 5px;
+}
+
+/* Different background colors for the cards */
+.logIssue {
+  background: linear-gradient(135deg, #0c3a3a, #108484);
+}
+
+.cardn {
+  background: linear-gradient(135deg, #0c3a3a, #108484);
+  grid-column: span 2; /* Span across two columns */
+}
+
+/* Responsive Design for Mobile */
+@media screen and (max-width: 768px) {
+  .WelcomeContainer {
+    width: 95%; /* Make it fit smaller screens */
+    padding: 15px;
+    height: auto; /* Adjust height automatically */
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
   }
-  
-  /* Welcome Title */
+
   .titles {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-    margin-left: 10%;
+    font-size: 1.5rem; /* Smaller title */
+    text-align: center;
   }
-  
-  /* Card container to align cards in a grid */
+
   .cardsContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    width: 80%;
-    height: 50vh;
-    margin: auto;
+    grid-template-columns: 1fr; /* Change to single column */
+    gap: 15px;
   }
-  
-  /* Individual cards styling */
+
   .cards {
-    background: linear-gradient(135deg, #0c3a3a, #108484);
-    color: white;
-    padding: 40px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    padding: 20px; /* Reduce padding for smaller screens */
+    justify-content: center; /* Center the content */
+    text-align: center; /* Align text properly */
+    flex-direction: column;
   }
-  .cardsContent h2 {
-    color: white; /* Change text color to white */
-  }
-  
-  /* Hover effect for cards */
-  .cards:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Card icon styling */
+
   .cardsIcon {
-    font-size: 3rem;
-    margin-right: 20px;
+    font-size: 2rem; /* Adjust icon size */
+    margin-right: 0; /* Remove margin */
+    margin-bottom: 10px; /* Add spacing */
   }
-  
-  /* Card content */
+
   .cardsContent h2 {
-    font-size: 1.5rem;
-    margin: 0;
+    font-size: 1.2rem;
   }
-  
+
   .cardsContent p {
-    font-size: 1rem;
-    margin: 0;
-    margin-top: 5px;
+    font-size: 0.85rem;
   }
-  
-  /* Different background colors for the cards */
-  .logIssue {
-    background: linear-gradient(135deg, #0c3a3a, #108484); /* Blue */
-  }
-  
+
   .cardn {
-    background: linear-gradient(135deg, #0c3a3a, #108484);
-    grid-column: span 2; /* Span across two columns */
+    grid-column: span 1; /* Keep it as a single column */
   }
-  
-  /* Responsive styles for tablets */
-  @media (max-width: 768px) {
-    .WelcomeContainer {
-      width: 90%;
-      height: auto;
-      padding: 15px;
-      position: relative;
-      top: 0;
-      left: 0;
-      transform: none;
-      margin: 20px auto;
-    }
-  
-    .titles {
-      font-size: 1.8rem;
-      margin-left: 5%;
-      text-align: center;
-    }
-  
-    .cardsContainer {
-      width: 100%;
-      height: auto;
-      gap: 20px;
-    }
-  
-    .cards {
-      padding: 20px;
-    }
-  
-    .cardsIcon {
-      font-size: 2.5rem;
-    }
-  
-    .cardsContent h2 {
-      font-size: 1.3rem;
-    }
-  
-    .cardsContent p {
-      font-size: 0.9rem;
-    }
-  }
-  
-  /* Responsive styles for mobile phones */
-  @media (max-width: 480px) {
-    .WelcomeContainer {
-      width: 95%;
-      padding: 10px;
-    }
-  
-    .titles {
-      font-size: 1.5rem;
-      margin-left: 0;
-      text-align: center;
-      width: 100%;
-    }
-  
-    .cardsContainer {
-      grid-template-columns: 1fr;
-      gap: 15px;
-    }
-  
-    .cardn {
-      grid-column: span 1; /* Reset to span only one column on mobile */
-    }
-  
-    .cards {
-      padding: 15px;
-    }
-  
-    .cardsIcon {
-      font-size: 2rem;
-      margin-right: 15px;
-    }
-  
-    .cardsContent h2 {
-      font-size: 1.2rem;
-    }
-  
-    .cardsContent p {
-      font-size: 0.8rem;
-    }
-  }
-  
-  /* For very small screens */
-  @media (max-width: 320px) {
-    .cards {
-      padding: 10px;
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .cardsIcon {
-      margin-right: 0;
-      margin-bottom: 10px;
-    }
-  }
-  
-  
+}

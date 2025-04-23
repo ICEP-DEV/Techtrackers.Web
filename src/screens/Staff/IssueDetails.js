@@ -9,7 +9,7 @@ import { toast, ToastContainer } from "react-toastify"
 
 export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
   // Initialize with an empty object if issue is undefined
-
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false)
   const [isAttachmentOpen, setIsAttachmentOpen] = useState(false)
   const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false)
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false)
@@ -156,6 +156,20 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
     setIsRatingPopupOpen(true)
   }
 
+  const handleNoteClick = () => {
+    if (issue.note) {
+      setIsNoteModalOpen(true)
+    } else {
+      toast.info("No technician note available.")
+    }
+  }
+
+  const closeNoteModal = () => {
+    setIsNoteModalOpen(false)
+  };
+
+
+
   // Check if issue is undefined or null
   if (!issue) {
     return (
@@ -194,6 +208,9 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
           <button className="live-chat-btn" onClick={onOpenChat}>
             Live Chat
           </button>{" "}
+        </div>
+        <div style={{ marginTop: '5px' }}>
+          <button className="view-note-btn" onClick={handleNoteClick}> View Technician Note</button>
         </div>
       </div>
       <div className="descrip-section">
@@ -324,6 +341,17 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
           </div>
         </div>
       )}
+
+      {isNoteModalOpen && (
+        <div className="note-popup">
+          <div className="note-popup-content">
+            <span className="close-popup-btn" onClick={closeNoteModal}>&times;</span>
+            <h3>📋 Note</h3>
+            <p className="note-text">{issue.note}</p>
+          </div>
+        </div>
+      )}
+
 
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
     </main>

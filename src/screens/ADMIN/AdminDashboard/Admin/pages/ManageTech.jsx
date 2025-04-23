@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../SidebarCSS/Table.module.css";
 import TechnicianDetailView from "./TechnicianDetailView";
-import VectorIcon from "../adminIcons/Vector.png"
+import VectorIcon from "../adminIcons/Vector.png";
 import axios from "axios";
 
 const ManageTechniciansHeader = () => {
@@ -16,7 +16,7 @@ const ManageTechniciansHeader = () => {
     <div className={styles.headerContainer}>
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-        <img src={VectorIcon} className={styles.manageicons} alt="Technicians Icon" />
+          <img src={VectorIcon} className={styles.manageicons} alt="Technicians Icon" />
           <div className={styles.headerText}>
             <h2>Manage Technicians</h2>
           </div>
@@ -49,6 +49,7 @@ const ManageTechniciansTable = () => {
           ...technician,
           name: `${technician.surname} ${technician.initials}`, // Combine name
         }));
+
         setTechnicians(technicianData);
       } catch (error) {
         console.error("Error fetching technicians:", error.message);
@@ -92,6 +93,15 @@ const ManageTechniciansTable = () => {
     );
   }
 
+  const getTechnicianType = (technician) => {
+    // External technicians will have location/serviceType fields
+    if (technician.location || technician.serviceType) {
+      return 'External';
+    }
+    // Internal technicians will have specialization
+    return 'Internal';
+  };
+
   return (
     <div className={styles.tableContainer}>
       <ManageTechniciansHeader />
@@ -101,8 +111,10 @@ const ManageTechniciansTable = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Specialization</th>
+            <th>Type</th>
             <th>Contact</th>
             <th>Availability</th>
+            <th>No. Issues</th>
             <th>Active Issues</th>
             <th>Action</th>
           </tr>
@@ -113,11 +125,11 @@ const ManageTechniciansTable = () => {
               <td>{technician.name}</td>
               <td>{technician.emailAddress || "N/A"}</td>
               <td>{technician.specialization || "N/A"}</td>
+              <td>{getTechnicianType(technician)}</td>
               <td>{technician.contacts || "N/A"}</td>
-              <td>{`${technician.fromTime || "N/A"} - ${
-                technician.toTime || "N/A"
-              }`}</td>
-              <td>{technician.activeIssues || 0}</td>
+              <td>{`${technician.fromTime || "N/A"} - ${technician.toTime || "N/A"}`}</td>
+              <td>{technician.noOfTask || 0}</td>
+              <td>{technician.activeTasks || 0}</td>
               <td>
                 <button
                   className={styles.viewButton}
@@ -125,7 +137,6 @@ const ManageTechniciansTable = () => {
                 >
                   Manage
                 </button>
-                
               </td>
             </tr>
           ))}

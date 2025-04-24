@@ -59,11 +59,12 @@
   background-color: rgb(137, 4, 4);
 }
 
-.technicianName, .staffName {
+.technicianName,
+.staffName {
   color: rgb(0, 0, 0);
   font-weight: 600;
   font-size: 20px;
-  font-family: Tahoma ;
+  font-family: Tahoma;
 }
 
 .name {
@@ -72,19 +73,19 @@
 }
 
 .chatBox {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  background-color: #EEF9F9;
+  background-color: #eef9f9;
   border-radius: 4px;
   height: 60vh;
-  padding: 10px; 
+  padding: 10px;
 }
 
 .texts {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .texts div {
@@ -98,12 +99,12 @@
 .userMessage {
   position: relative;
   color: #fff;
-  background-color: #15959D;
+  background-color: #15959d;
   padding: 15px;
   border-radius: 8px;
   max-width: 80%;
   min-width: 20%;
-  margin: 10px 0; 
+  margin: 10px 0;
   word-wrap: break-word;
   align-self: flex-end;
   margin-left: auto;
@@ -112,16 +113,16 @@
 
 .techMessage {
   position: relative;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   display: inline-block;
   color: black;
   padding: 15px;
   border-radius: 8px;
-  margin: 10px 0; 
+  margin: 10px 0;
   min-width: 20%;
   word-wrap: break-word;
-  align-self: flex-start; 
-  max-width: 80%; 
+  align-self: flex-start;
+  max-width: 80%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -153,9 +154,8 @@ input {
   background-color: #fff;
 }
 
-
 .sendButton {
-  background-color: #15959D;
+  background-color: #15959d;
   padding: 10px 30px;
   color: #fff;
   border: none;
@@ -170,5 +170,68 @@ input {
 }
 
 .sendButton:hover {
-  background-color: #0C3A3A; 
+  background-color: #0c3a3a;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .chatContainer {
+    width: 95%;
+    height: 90vh;
+    padding: 10px;
+  }
+
+  .chatHeader {
+    padding: 0px 8px;
+  }
+
+  .issueProfile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .technicianName,
+  .staffName {
+    font-size: 16px;
+  }
+
+  .texts div {
+    max-width: 85%;
+  }
+
+  .messageField {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .sendButton {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatContainer {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .chatBox {
+    height: 70vh;
+  }
+
+  .userMessage,
+  .techMessage {
+    max-width: 90%;
+  }
+
+  .timeStamp {
+    font-size: 0.7rem;
+  }
+}
+

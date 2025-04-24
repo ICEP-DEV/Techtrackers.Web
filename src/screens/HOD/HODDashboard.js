@@ -81,7 +81,7 @@ const HODDashboard = ({ isSidebarOpen }) => {
 
   return (
     <div className={`dashboard-content ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      <h1>Welcome, HOD!</h1>
+      <h1>Welcome, ADMIN!</h1>
 
       <div className="overview">
         <div className="stats-card">

@@ -202,3 +202,55 @@ main {
     margin-left: 0; /* No sidebar pushing content */
   }
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cup {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 60px !important; /* Force collapsed sidebar on mobile */
+    height: calc(100vh - 85px); /* Account for header height */
+    top: 85px; /* Position below header */
+  }
+
+  main {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    padding: 10px;
+    margin-top: 85px; /* Account for fixed header */
+  }
+
+  .NavItem {
+    display: none !important; /* Force hide text on mobile */
+  }
+
+  .Link {
+    padding: 10px;
+    margin: 10px 0;
+    justify-content: center;
+  }
+
+  .Icon {
+    margin-right: 0;
+  }
+
+  .topSection {
+    justify-content: center;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 769px) {
+  main {
+    margin-left: 225px; /* Expanded sidebar width */
+    width: calc(100% - 225px);
+  }
+
+  .cup main {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+}
+

@@ -41,14 +41,26 @@ function LiveChat({ onClose, selectedIssue }) {
 
         // Listen for incoming messages
         newConnection.on("ReceiveMessage", (logId, senderId, message, timestamp) => {
-          setChatLog(prevChat => [
-            ...prevChat,
-            {
-              senderId,
-              text: message,
-              time: new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            },
-          ]);
+          setChatLog(prevChat => {
+            // Check if this message already exists
+            const alreadyExists = prevChat.some(chat => 
+              chat.text === message && 
+              chat.senderId === senderId &&
+              chat.time === new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            );
+            
+            if (!alreadyExists) {
+              return [
+                ...prevChat,
+                {
+                  senderId,
+                  text: message,
+                  time: new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                }
+              ];
+            }
+            return prevChat; // Return unchanged if duplicate
+          });
         });
 
         setConnection(newConnection);
@@ -97,40 +109,22 @@ function LiveChat({ onClose, selectedIssue }) {
       toast.warning("⚠️ Cannot send an empty message!");
       return;
     }
-
-    // const token = userInfo?.token; // Ensure token is stored in user_info
-
+  
     try {
       const response = await fetch("https://localhost:44328/api/LiveChat/SendMessage", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          logId: logId,
-          senderId: userId,
-          message: text,
-        }),
-
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ logId, senderId: userId, message: text }),
       });
-
-      console.log();
-
+  
       if (response.ok) {
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        setChatLog(prev => [
-          ...prev,
-          { logId, senderId: userId, message: text, currentTime },
-        ]);
-        setText('');
+        setText(''); // Only clear the input
         toast.success("✅ Message sent!");
       } else {
         const errorData = await response.json();
-        console.error("Server Error:", errorData);
         toast.error(errorData.message || "Failed to send message.");
       }
     } catch (error) {
-      console.error("❌ Error sending message:", error);
       toast.error("Network error. Check your connection.");
     }
   };
@@ -168,6 +162,7 @@ function LiveChat({ onClose, selectedIssue }) {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Type a message..."
+            onKeyPress={(e) => e.key === 'Enter' && handleSendText()}
           />
           <button className={styles.sendButton} onClick={handleSendText}>📩</button>
 

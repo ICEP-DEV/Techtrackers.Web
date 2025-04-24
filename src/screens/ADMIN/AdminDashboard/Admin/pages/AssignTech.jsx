@@ -14,10 +14,13 @@ const AssignTech = () => {
   const [filteredIssues, setFilteredIssues] = useState([]);
   const [selectedIssueId, setSelectedIssueId] = useState(null);
   const [assignedIssues, setAssignedIssues] = useState([]);
-  const [assignedTechnicians, setAssignedTechnicians] = useState({}); // New state to track technician assignments
+  const [assignedTechnicians, setAssignedTechnicians] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("date-asc");
   const [priorityFilter, setPriorityFilter] = useState("All");
+  const [showTechDetails, setShowTechDetails] = useState(false);
+  const [selectedTechIndex, setSelectedTechIndex] = useState(null);
+  const [technicianIssueCounts, setTechnicianIssueCounts] = useState({});
 
   useEffect(() => {
     const fetchTechnicians = async () => {
@@ -49,9 +52,18 @@ const AssignTech = () => {
 
           setAssignedIssues(assigned);
 
-          // Load persisted assignments from localStorage
           const persistedAssignments = JSON.parse(localStorage.getItem("assignedTechnicians")) || {};
           setAssignedTechnicians(persistedAssignments);
+
+          // Calculate initial assigned issue counts
+          const initialCounts = {};
+          sortedIssues.forEach(issue => {
+            if (issue.technicianId) {
+              initialCounts[issue.technicianId] = (initialCounts[issue.technicianId] || 0) + 1;
+            }
+          });
+          setTechnicianIssueCounts(initialCounts);
+
         } else {
           console.error("Failed to fetch issues.");
         }
@@ -83,14 +95,38 @@ const AssignTech = () => {
         if (response.ok) {
           toast.success(`You have assigned ${assignedTech.name} to the task!`);
           setShowModal(false);
+          setShowTechDetails(false);
+          setSelectedTechIndex(null);
           setAssignedIssues((prev) => [...prev, selectedIssueId]);
 
-          // Persist the assignment in localStorage
           setAssignedTechnicians((prevAssignments) => {
             const newAssignments = { ...prevAssignments, [selectedIssueId]: assignedTech.name };
             localStorage.setItem("assignedTechnicians", JSON.stringify(newAssignments));
             return newAssignments;
           });
+
+          setIssues((prevIssues) =>
+            prevIssues.map((issue) =>
+              issue.logId === parseInt(selectedIssueId, 10)
+                ? { ...issue, assignedTo: assignedTech.name, technicianId: assignedTech.userId }
+                : issue
+            )
+          );
+
+          setFilteredIssues((prevFilteredIssues) =>
+            prevFilteredIssues.map((issue) =>
+              issue.logId === parseInt(selectedIssueId, 10)
+                ? { ...issue, assignedTo: assignedTech.name, technicianId: assignedTech.userId }
+                : issue
+            )
+          );
+
+          // Update technician issue counts
+          setTechnicianIssueCounts(prevCounts => ({
+            ...prevCounts,
+            [assignedTech.userId]: (prevCounts[assignedTech.userId] || 0) + 1,
+          }));
+
         } else {
           if (responseData.message?.includes("technician has already been assigned")) {
             toast.error("Technician already assigned to this task.");
@@ -108,8 +144,16 @@ const AssignTech = () => {
   };
 
   const handleChevronClick = (index) => {
-    setSelectedTech((prev) => (prev === technicians[index] ? null : technicians[index]));
-    setSelectedCheckbox(index);
+    if (selectedTechIndex === index && showTechDetails) {
+      // Click on the same chevron when details are open: close it
+      setShowTechDetails(false);
+      setSelectedTechIndex(null);
+    } else {
+      // Click on a different chevron or the same one when closed: open it
+      setSelectedTech(technicians[index]);
+      setShowTechDetails(true);
+      setSelectedTechIndex(index);
+    }
   };
 
   const handleSearchChange = (event) => {
@@ -138,7 +182,7 @@ const AssignTech = () => {
     }
 
     if (query) {
-      filtered = filtered.filter((issue) => 
+      filtered = filtered.filter((issue) =>
         issue.issueTitle.toLowerCase().includes(query) ||
         issue.logId.toString().toLowerCase().includes(query) ||
         issue.department.toLowerCase().includes(query) ||
@@ -155,6 +199,13 @@ const AssignTech = () => {
     }
 
     setFilteredIssues(filtered);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setShowTechDetails(false);
+    setSelectedTechIndex(null);
+    setSelectedCheckbox(null);
   };
 
   return (
@@ -222,7 +273,7 @@ const AssignTech = () => {
                 })}
               </td>
               <td>{issue.department}</td>
-              <td>{issue.assignedTo || "Not Assigned"}</td> {/* Display technician name from local state */}
+              <td>{issue.assignedTo || "Not Assigned"}</td>
               <td>{issue.priority}</td>
               <td>
                 <button
@@ -273,13 +324,20 @@ const AssignTech = () => {
                 >
                   &#8250;
                 </div>
+                {showTechDetails && selectedTechIndex === index && (
+                  <div className={styles.techDetailsDropdown}>
+                    <p>Role: {technicians[index].role}</p>
+                    <p>Email: {technicians[index].email}</p>
+                    <p>Time: {technicians[index].time}</p>
+                  </div>
+                )}
               </div>
             ))}
 
             <div className={styles.buttonContainer}>
               <button
                 className={styles.btnClose}
-                onClick={() => setShowModal(false)}
+                onClick={closeModal}
               >
                 CLOSE
               </button>
@@ -287,38 +345,6 @@ const AssignTech = () => {
                 Assign
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {selectedTech && (
-        <div
-          className={`${styles.modalOverlay} ${styles.techDetailsModalOverlay}`}
-        >
-          <div className={`${styles.modalContent} ${styles.techDetailsModal}`}>
-            <img src={logo} alt="User Icon" className={styles.userIcon} />
-            <h3>{selectedTech.name}</h3>
-            <div className={styles.technicianDetails}>
-              <div className={styles.detailItem}>
-                <p>{selectedTech.role}</p>
-              </div>
-              <div className={styles.detailItem}>
-                <p>{selectedTech.cell}</p>
-              </div>
-              <div className={styles.detailItem}>
-                <p>{selectedTech.email}</p>
-              </div>
-              <div className={styles.detailItem}>
-                <p>{selectedTech.time}</p>
-              </div>
-            </div>
-
-            <button
-              className={styles.btnClose}
-              onClick={() => setSelectedTech(null)}
-            >
-              CLOSE
-            </button>
           </div>
         </div>
       )}

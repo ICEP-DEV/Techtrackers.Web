@@ -14,7 +14,7 @@ import CollabArrow from "../images/CollabArrow.png";
 const IssueDetails = ({ issues }) => {
   const { issueId } = useParams();
   const navigate = useNavigate();
-  const [technicians, setTechnicians] = useState([]); // Fetch technicians dynamically
+  const [technicians, setTechnicians] = useState([]);
   const [selectedTech, setSelectedTech] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -23,15 +23,15 @@ const IssueDetails = ({ issues }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
   const [note, setNote] = useState("");
+  const [isMaterialPopupVisible, setIsMaterialPopupVisible] = useState(false);
+  const [materialsInput, setMaterialsInput] = useState("");
+  const [materialsList, setMaterialsList] = useState([]);
 
   const issueIndex = issues.findIndex((i) => i.issueId === issueId);
   const issue = issues[issueIndex];
 
   const loggedInTechnician = JSON.parse(localStorage.getItem("user_info"));
- 
- // console.log("Logged in Technician: ", loggedInTechnician);
 
-  // Fetch technicians dynamically when the component mounts
   useEffect(() => {
     const fetchTechnicians = async () => {
       try {
@@ -52,8 +52,6 @@ const IssueDetails = ({ issues }) => {
     fetchTechnicians();
   }, []);
 
- 
-
   if (!issue) {
     return <div>Issue not found</div>;
   }
@@ -62,26 +60,46 @@ const IssueDetails = ({ issues }) => {
     setShowModal(true);
   };
 
+  const handleMaterialClick = () => {
+    setIsMaterialPopupVisible(true);
+  };
+
+  const handleCloseMaterialPopup = () => {
+    setIsMaterialPopupVisible(false);
+    setMaterialsInput("");
+  };
+
+  const handleMaterialsInputChange = (event) => {
+    setMaterialsInput(event.target.value);
+  };
+
+  const handleSaveMaterials = () => {
+    const materialsArray = materialsInput.split('\n').filter(item => item.trim() !== '');
+    setMaterialsList(materialsArray);
+    setIsMaterialPopupVisible(false);
+    setMaterialsInput("");
+    console.log('Saved Materials:', materialsArray);
+    // Here you would typically send the materialsList to your backend
+  };
+
   const handleUpdateStatus = async (status) => {
     if (issue.status === "RESOLVED") {
       toast.error("Cannot update status. The issue is already resolved.");
       return;
     }
-  
+
     try {
       if (!issueId || issueId.trim() === "") {
         toast.error("Invalid issue ID. Cannot update status.");
         return;
       }
-  
-      // For ONHOLD, open the note modal instead of making the request
+
       if (status === "ONHOLD") {
         setShowUpdateModal(false);
         setShowAddNoteModal(true);
         return;
       }
-  
-      // For other statuses, make the request immediately
+
       const response = await fetch(
         `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issueId}/${status}`,
         {
@@ -89,13 +107,12 @@ const IssueDetails = ({ issues }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          // Send empty object as body to avoid null reference
           body: JSON.stringify({}),
         }
       );
-  
+
       const data = await response.json();
-  
+
       if (response.ok && data.isSuccess) {
         issue.status = status;
         toast.success(`Status updated to ${status}!`);
@@ -118,12 +135,12 @@ const IssueDetails = ({ issues }) => {
       toast.error("Cannot update status. The issue is already RESOLVED.");
       return;
     }
-  
+
     if (!note.trim()) {
       toast.error("Please enter a note before submitting.");
       return;
     }
-  
+
     try {
       const response = await fetch(
         `https://localhost:44328/api/ManageLogs/ChangeLogStatus/${issue.issueId}/ONHOLD`,
@@ -137,9 +154,9 @@ const IssueDetails = ({ issues }) => {
           }),
         }
       );
-  
+
       const data = await response.json();
-  
+
       if (response.ok && data.isSuccess) {
         issue.status = "ONHOLD";
         issue.note = note;
@@ -153,11 +170,9 @@ const IssueDetails = ({ issues }) => {
       console.error("Submit error:", error);
       toast.error("An error occurred while submitting the note.");
     }
-  
+
     setNote("");
   };
-  
-  
 
   const handleBack = () => {
     if (window.history.length > 2) {
@@ -167,15 +182,6 @@ const IssueDetails = ({ issues }) => {
     }
   };
 
-  // const handleCollabArrowClick = () => {
-  //   if (selectedTechnician) {
-  //     setShowModal(false);
-  //     setShowSuccess(true);
-  //     toast.success(`Invitation sent to ${selectedTechnician}`);
-  //   } else {
-  //     toast.error("Please select a technician to invite.");
-  //   }
-  // };
   const handleCollabArrowClick = async () => {
     if (!selectedTechnician) {
       toast.error("Please select a technician to invite.");
@@ -183,25 +189,20 @@ const IssueDetails = ({ issues }) => {
     }
 
     const invitedTechnician = technicians.find(
-      (tech) => tech.surname === selectedTechnician.name
+      (tech) => tech.surname === selectedTechnician
     );
- 
+
     if (!invitedTechnician) {
       toast.error("Selected technician not found.");
       return;
     }
- 
- 
-    // Prepare the request data
-    const requestDto = {
-      LogId: issue.logId,  // Assuming issueId is the LogId
-      RequestingTechnicianId: loggedInTechnician.userId, //{issue.assignedTo},  // Use the logged-in technician's ID
-      InvitedTechnicianId: invitedTechnician.userId,  // Use the selected technician's ID
 
+    const requestDto = {
+      LogId: issue.logId,
+      RequestingTechnicianId: loggedInTechnician.userId,
+      InvitedTechnicianId: invitedTechnician.userId,
     };
-   
-   // console.log("Request Data: ", requestDto);
- 
+
     try {
       const response = await fetch("https://localhost:44328/api/Collaboration/Request", {
         method: "POST",
@@ -211,15 +212,11 @@ const IssueDetails = ({ issues }) => {
         body: JSON.stringify(requestDto),
       });
 
-    //  console.log(`Selected tech : ${selectedTechnician.surname}`);
-
- 
       const data = await response.json();
- 
+
       if (response.ok) {
         setShowModal(false);
         setShowSuccess(true);
-        //console.log(`Selected tech : ${selectedTechnician.surname}`);
         toast.success(`Collaboration Invitation sent to ${selectedTechnician}`);
       } else {
         console.error("API Error:", data);
@@ -230,19 +227,17 @@ const IssueDetails = ({ issues }) => {
       toast.error("An error occurred while sending the invitation.");
     }
   };
- 
 
   const handleChat = () => {
     navigate("/techniciandashboard/staffChat");
   };
 
   const filteredTechnicians = technicians.filter((tech) =>
- 
     tech.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleCheckboxChange = (tech) => {
-    setSelectedTechnician(tech.name === selectedTechnician ? null : tech.name);
+    setSelectedTechnician(selectedTechnician === tech.name ? null : tech.name);
     console.log("Selected Technician: ", technicians);
   };
 
@@ -261,13 +256,10 @@ const IssueDetails = ({ issues }) => {
 
       <div className={styles.issueHeader}>
         <div className={styles.issueRequestor}>
-          {/* <p>Logged By:</p> */}
           <div className={styles.profile}>
-            {/* <img src={profile} width="50" height="50" alt="Profile Icon" /> */}
             <h6 className={styles.name}>Issue ID: </h6>
             <p className={styles.name}>{issue.issueId}</p>
           </div>
-          {/* <p className={styles.issueId}>{issue.issueId}</p> */}
         </div>
 
         <div className={styles.issueInfo}>
@@ -301,20 +293,20 @@ const IssueDetails = ({ issues }) => {
       </div>
 
       {issue.attachmentBase64 && (
-  <div className={styles.attachments}>
-    <h3>
-      <img src={attachme} width="15" height="15" alt="Attachment Icon" />
-      <h4>Attachments</h4>
-    </h3>
-    <div className={styles.attachment}>
-      <img
-        src={`data:image/jpeg;base64,${issue.attachmentBase64}`}
-        alt="Uploaded Attachment"
-        style={{ maxWidth: "50%", height: "auto" }}
-      />
-    </div>
-  </div>
-)}
+        <div className={styles.attachments}>
+          <h3>
+            <img src={attachme} width="15" height="15" alt="Attachment Icon" />
+            <h4>Attachments</h4>
+          </h3>
+          <div className={styles.attachment}>
+            <img
+              src={`data:image/jpeg;base64,${issue.attachmentBase64}`}
+              alt="Uploaded Attachment"
+              style={{ maxWidth: "50%", height: "auto" }}
+            />
+          </div>
+        </div>
+      )}
 
       <div className={styles.additionalInfo}>
         <p>Department - {issue.department}</p>
@@ -336,6 +328,30 @@ const IssueDetails = ({ issues }) => {
         <button className={styles.inviteButton} onClick={handleInviteClick}>
           Invite
         </button>
+        <button className={styles.materialButton} onClick={handleMaterialClick}>
+          Add Materials
+        </button>
+        {isMaterialPopupVisible && (
+          <div className={styles.materialsModalOverlay}>
+            <div className={styles.materialsModalContent}>
+              <button className={styles.modalClose} onClick={handleCloseMaterialPopup}>
+                &times;
+              </button>
+              <h3>Add Materials</h3>
+              <textarea
+                className={styles.materialsTextarea}
+                value={materialsInput}
+                onChange={handleMaterialsInputChange}
+                placeholder="Enter each material on a new line"
+                rows="4"
+              />
+              <div className={styles.materialsModalActions}>
+                <button className={styles.cancelButton} onClick={handleCloseMaterialPopup}>Cancel</button>
+                <button className={styles.updateButton} onClick={handleSaveMaterials}>Save</button>
+              </div>
+            </div>
+          </div>
+        )}
         <div className={styles.rightActions}>
           <div className={styles.buttonContainer}>
             <button className={styles.updateButton} onClick={handleUpdateClick}>
@@ -347,6 +363,17 @@ const IssueDetails = ({ issues }) => {
           </div>
         </div>
       </div>
+
+      {materialsList.length > 0 && (
+        <div className={styles.materialsDisplay}>
+          <h3>Materials Added:</h3>
+          <ul>
+            {materialsList.map((material, index) => (
+              <li key={index}>{material}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {showModal && (
         <div className={styles.modalOverlay}>
@@ -377,7 +404,7 @@ const IssueDetails = ({ issues }) => {
                       type="checkbox"
                       className={styles.technicianCheckbox}
                       checked={selectedTechnician === tech.name}
-                      onChange={() => handleCheckboxChange(tech)}
+                      onChange={() => handleCheckboxChange(tech.name)}
                     />
                     <img src={profile} alt="User Icon" className="userIcon" height={40}/>
                     <div className={styles.technicianDetails}>
@@ -399,7 +426,7 @@ const IssueDetails = ({ issues }) => {
         </div>
       )}
 
-{showUpdateModal && (
+      {showUpdateModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent2}>
             <button className={styles.modalClose} onClick={() => setShowUpdateModal(false)}>&times;</button>

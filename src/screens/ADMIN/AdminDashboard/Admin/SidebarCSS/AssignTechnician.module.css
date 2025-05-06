@@ -6,7 +6,8 @@
   border-radius: 8px;
   box-shadow: 10px 2px 6px rgba(0, 0, 0, 0.1);
   margin-top: -10px;
-  
+  /* Responsive adjustments */
+  overflow-x: auto; /* Enable horizontal scrolling for content if needed */
 }
 
 .btnDisabled {
@@ -327,4 +328,18 @@ input[type="checkbox"] {
   position: absolute;
   color: #6c757d;
   margin-left: 170px;
+}
+/* AssignTechnician.module.css */
+.techDetailsDropdown {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  position:relative
+}
+
+.techDetailsDropdown p {
+  margin-bottom: 5px;
 }

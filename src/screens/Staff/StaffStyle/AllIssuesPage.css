@@ -77,6 +77,11 @@
   border: none;
   padding: 10px 15px; /* Larger button size */
   cursor: pointer;
+  min-height: 44px; /* Better touch target */
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-chat-button {
@@ -85,6 +90,11 @@
   color: white;
   font-size: 1.5em; /* Larger close button */
   cursor: pointer;
+  min-height: 44px; /* Better touch target */
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .status-header {
@@ -99,6 +109,9 @@
   width: 100%;
   border-collapse: collapse;
   background-color: white;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .issues-table th,
@@ -112,6 +125,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   color: white;
+  display: inline-block;
 }
 
 .status.pending {
@@ -139,6 +153,11 @@
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Chat Button Styling */
@@ -152,6 +171,11 @@
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Issue Details Styling */
@@ -183,6 +207,14 @@
 
 .priority.high {
   color: red;
+}
+
+.priority.medium {
+  color: orange; /* Color for Medium priority */
+}
+
+.priority.low {
+  color: green; /* Color for Low priority */
 }
 
 .description-section,
@@ -220,6 +252,11 @@
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Unresolved-button {
@@ -229,6 +266,11 @@
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Resolved-button {
@@ -238,6 +280,11 @@
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .live-chat-container {
   display: flex;
@@ -310,17 +357,11 @@
   border: none;
   cursor: pointer;
   color: #1a3c40;
-}
-.priority.high {
-  color: red; /* Color for High priority */
-}
-
-.priority.medium {
-  color: orange; /* Color for Medium priority */
-}
-
-.priority.low {
-  color: green; /* Color for Low priority */
+  min-height: 44px; /* Better touch target */
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*popup styling*/
@@ -344,6 +385,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+  width: 90%;
+  max-width: 400px;
 }
 
 .popup-close {
@@ -353,6 +396,11 @@
   color: white;
   border: none;
   cursor: pointer;
+  min-height: 44px; /* Better touch target */
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup-close:hover {
@@ -476,4 +524,3 @@
     height: 30px;
   }
 }
-

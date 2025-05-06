@@ -242,44 +242,117 @@
   .logIssueForm {
     width: 100%;
     padding: 15px;
+    margin: 0;
   }
 
   .logIssueForm .formRow {
     flex-direction: column;
+    margin-bottom: 10px;
   }
 
   .logIssueForm .Box {
     width: 100%;
-  }
-
-  .logIssueForm .FformButons {
-    flex-direction: column;
-    align-items: stretch;
+    margin-right: 0;
+    margin-bottom: 15px;
   }
 
   .logIssueForm input,
   .logIssueForm select,
   .logIssueForm textarea {
-    font-size: 13px;
-    padding: 8px;
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 12px 10px;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .logIssueForm input[type="file"] {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .logIssueForm .FformButons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .logIssueForm .FformButons button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    min-height: 44px; /* Better touch target */
   }
 
   .header {
     padding: 10px;
-    height: 50px;
+    height: auto;
+    min-height: 50px;
     font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .container {
+    margin-top: 50px; /* Adjust for smaller header */
   }
 
   #issue-title {
-    font-size: 12px;
-    height: 30px;
+    font-size: 16px; /* Prevent zoom on iOS */
+    height: auto;
+    min-height: 40px;
+    max-width: 100%;
   }
 
   .scanButton {
-    /* min-width: 100%; */
+    width: 100%;
+    margin-bottom: 10px;
+    min-height: 44px;
+  }
+
+  /* Improve scanner modal for mobile */
+  .scannerContent {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .scannerContainer {
+    height: 250px;
+  }
+
+  .scannerActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .scannerActions button {
+    width: 100%;
+    min-height: 44px;
   }
 }
 
+/* Extra small devices */
+@media (max-width: 480px) {
+  .logIssueForm {
+    padding: 10px;
+  }
+
+  .logIssueForm h2 {
+    font-size: 16px;
+  }
+
+  .logIssueForm h2 svg {
+    font-size: 24px;
+  }
+
+  .logIssueForm input,
+  .logIssueForm select,
+  .logIssueForm textarea {
+    font-size: 14px;
+    padding: 10px 8px;
+  }
+
+  .fileInputWrapper .fileFormatHint {
+    font-size: 11px;
+  }
+}
 
 .scanButton {
   padding: 10px 15px;

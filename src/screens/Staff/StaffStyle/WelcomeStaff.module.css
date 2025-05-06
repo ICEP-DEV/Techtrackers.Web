@@ -20,7 +20,7 @@
 /* Welcome Title */
 .titles {
   font-size: 1.8rem; /* Slightly smaller font for mobile */
-  color: white;
+  color: #0c3a3a;;
   margin-bottom: 20px;
   text-align: center; /* Center title for better mobile readability */
   margin-left: 0; /* Reset margin */

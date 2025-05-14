@@ -1,159 +1,209 @@
 .dashboard-container {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #fff;
-  margin-top: 10px;
-}
-
-.detailForm {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
 }
 
-.formGroup {
-  margin-bottom: 1rem;
-  width: 97%;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 4px;
-}
-
-.radioBtns {
+.detail-header {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.radioBtns label {
-  margin: 5px;
+.header-actions {
+  display: flex;
+  gap: 10px;
 }
 
-.department-dropdown {
-  display: block;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #0c3a3a;
-  margin-right: 10px;
+.more-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  justify-content: center;
-}
-
-.department-dropdown:focus {
-  outline: none;
-  border-color: #0c3a3a;
-  border-radius: 8px;
-}
-
-.department-label {
-  font-size: 20px;
-  color: #000000;
-  margin-left: 10px;
-  font-weight: 500;
-  font-weight: bold;
-  text-align: center; 
-  justify-content: center;
-}
-.leftColumn {
   display: flex;
-  flex-direction: column;
-  width: 55%;
-}
-
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  margin-top: 9vh;
-}
-
-.formGroup label {
-  font-weight: 500;
-  margin-bottom: 5px;
-  display: block;
+  align-items: center;
   font-weight: bold;
 }
 
-.formGroup input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.more-button:hover {
+  background-color: #0056b3;
 }
 
-input[type="radio"] {
-  margin: 10px;
-  width: 20px;
-  height: 20px;
-  /* align-items: center; */
-  border-radius: none;
+.detail-content {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.submitButton,
-.removeButton {
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  cursor: pointer;
+.issue-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.issue-logged-by {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.issue-priority {
+  font-weight: bold;
+}
+
+.priority {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.priority.high {
+  background-color: red;
+}
+
+.priority.medium {
+  background-color: orange;
+}
+
+.priority.low {
+  background-color: green;
+}
+
+.issue-status {
+  margin-top: 15px;
+}
+
+.status {
+  font-weight: bold;
+  padding: 5px 10px;
   border-radius: 5px;
 }
 
-.submitButton {
-  background-color: #209fb6;
+.status.pending {
+  background-color: orange;
   color: white;
 }
 
-.removeButton {
-  background-color: #c82333;
+.status.closed {
+  background-color: #000000;
   color: white;
 }
 
-.buttonsContainer {
+.status.resolved {
+  background-color: green;
+  color: white;
+}
+
+.action-buttons {
   display: flex;
   gap: 10px;
   margin-top: 20px;
 }
 
-.popup-overlay {
+.back-button-d {
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-button-d:hover {
+  background-color: darkgray;
+}
+
+.reopen-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.reopen-button:hover {
+  background-color: #218838;
+}
+
+/* New CLOSE-LOG button */
+.close-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-button:hover {
+  background-color: #c82333;
+}
+
+/* Popup styles */
+.popup {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .popup-content {
-  background: white;
+  background-color: white;
   padding: 20px;
-  border-radius: 8px;
-  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
 }
 
 .popup-buttons {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
 .popup-buttons button {
-  flex: 1;
-  padding: 8px;
-  font-size: 0.9rem;
   border: none;
-  border-radius: 4px;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .popup-buttons button:first-child {
-  background-color: #28a745;
+  background-color: gray;
   color: white;
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: darkgray;
 }
 
 .popup-buttons button:last-child {
@@ -161,345 +211,11 @@ input[type="radio"] {
   color: white;
 }
 
-.popup-buttons button:first-child:hover {
-  background-color: #218838;
-}
-
 .popup-buttons button:last-child:hover {
   background-color: #c82333;
 }
-/* DetailView.module.css */
-.modalBackdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.buttonGroup {
-  margin-top: 15px;
-}
-
-.confirmButton,
-.cancelButton {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.confirmButton {
-  background-color: #ff4d4d;
-  color: white;
-}
-
-.cancelButton {
-  background-color: #0b8292;
-  color: rgb(255, 255, 255);
-}
-.dashboard-container {
-  padding: 20px;
-  background-color: #f8f9fa; /* Light background */
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-.detail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
-.close-button {
-  background-color: #ff0800; /* Primary color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.reopen-button {
-  background-color: #20930D; /* Primary color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 12px;
-  margin-left: 40px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.live-chat-button,
-.more-button {
-  background-color: #0c3a3a;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.action-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.back-button-d {
-  background-color: #108484; /* Primary color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 25px;
-  margin-left: auto;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* .reopen-button,
-.back-button-d{
-  margin-left: 70px;
-
-} */
-
-.live-chat-button:hover,
-.more-button:hover,
-.close-button:hover,
-.reopen-button:hover,
-.back-button-d:hover {
-  background-color: #232724; /* Darker shade on hover */
-}
-
-.detail-content {
-  background-color: white; /* White background for content area */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.issue-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  font-weight: 700;
-  color: #2c2c2c;
-}
-
-.issue-logged-by {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  color: #2c2c2c;
-}
-.issue-status{
-  margin-left: 85%;
-  font-size: 19px;
-}
-
-.issue-location, .issue-status {
-  font-weight: 700;
-  color: #2c2c2c;
-  padding: 20px;
-}
-
-.avatar {
-  width: 40px; /* Adjust width as needed */
-  height: 40px; /* Adjust height as needed */
-  border-radius: 50%; /* Makes it circular */
-  margin-right: 10px; /* Space between avatar and text */
-}
-
-.priority {
-  font-weight: bold;
-}
-
-.status-label {
-  color: green; /* Color for confirmed status */
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.issue-description, .description {
-  background-color: #f9f9f9;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-.issue-description h3, .issue-attachments h3, .description{
-  font-weight: 700;
-  color: #2c2c2c;
-}
-
-.issue-attachments {
-  margin-bottom: 20px;
-  cursor: pointer;
-  background-color: #f9f9f9;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-.attachment {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  /* background-color: gray; */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: fit-content;
-}
-
-.attachment img {
-  width: 40px; /* Thumbnail size for attachments */
-  height: 40px;
-  margin-right: 10px;
-}
-
-.file-size {
-  font-size: 0.9em;
-  color: #6c757d; /* Muted color for file size */
-}
-.backButton {
-  background-color: gray;
-  color: white;
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Ensures the popup is on top */
-}
-
-.popup-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
-}
-
-.popup-buttons button {
-  background-color: #007bff; /* Primary color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.popup-buttons button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
-.priority {
-  font-weight: bold;
-}
-
-.priority.low {
-  color: green; /* Color for low priority */
-}
-
-.priority.medium, .pending{
-  color: #ffa007;
-}
-
-/* DetailView.module.css */
-.status {
-  font-weight: bold;
-}
-
-.onhold {
-  color: #8f9396; /* On hold status */
-}
-
-.escalated, .priority.high {
-  color: red;
-}
-
-.resolved {
-  color:  #28a745;
-}
-.inprogress {
-  color: #14788f;
-}
-
-/* In DetailView.module.css */
-
-.image-viewer-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Ensure it overlays above other content */
-}
-
-.image-viewer-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: hidden;
-}
-
-.viewed-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.close-image-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 16px;
-  color: #000;
+.pending-note{
+  font-size: 0.9rem;
+  color: #cc8800;
+  margin-top: 4px;
 }

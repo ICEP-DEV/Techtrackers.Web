@@ -84,6 +84,8 @@ const Escalations = ({ logId }) => {
         return 100; // 100% for Resolved
       case "ESCALATED":
         return 100; // 100% for Escalated
+      case "CLOSED":
+        return 100;
       default:
         return 0; // Default to 0%
     }
@@ -100,6 +102,8 @@ const Escalations = ({ logId }) => {
         return "#28a745"; // Green for Resolved
       case "ESCALATED":
         return "#ff0000"; // Red for Escalated
+      case "CLOSED":
+         return "#48494B";
       default:
         return "#0C4643"; // Default color
     }
@@ -151,41 +155,49 @@ const Escalations = ({ logId }) => {
             ></div>
           </div>
 
-          {/* Progress Steps */}
-          <div className="progress-steps">
-            <div className={`step ${logStatus === "PENDING" ? "active" : ""}`}>
-              <img
-                src={logStatus === "PENDING" ? checkedIcon : incompleteIcon}
-                alt={logStatus === "PENDING" ? "Completed" : "Incomplete"}
-              />
-              <h5>Pending</h5>
-            </div>
-            <div className={`step ${logStatus === "INPROGRESS" ? "active" : ""}`}>
-              <img
-                src={logStatus === "INPROGRESS" ? checkedIcon : incompleteIcon}
-                alt={logStatus === "INPROGRESS" ? "Completed" : "Incomplete"}
-              />
-              <h5>In Progress</h5>
-            </div>
-            <div className={`step ${logStatus === "RESOLVED" ? "active" : ""}`}>
-              <img
-                src={logStatus === "RESOLVED" ? checkedIcon : incompleteIcon}
-                alt={logStatus === "RESOLVED" ? "Completed" : "Incomplete"}
-              />
-              <h5>Resolved</h5>
-            </div>
-            {/* Conditionally render Escalated step */}
-            {logStatus === "ESCALATED" && (
-              <div className="step active">
-                <img src={checkedIcon} alt="Completed" />
-                <h5>Escalated</h5>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+         {/* Progress Steps */}
+<div className="progress-steps">
+  <div className={`step ${logStatus === "PENDING" ? "active" : ""}`}>
+    <img
+      src={logStatus === "PENDING" ? checkedIcon : incompleteIcon}
+      alt={logStatus === "PENDING" ? "Completed" : "Incomplete"}
+    />
+    <h5>Pending</h5>
+  </div>
 
+  <div className={`step ${logStatus === "INPROGRESS" ? "active" : ""}`}>
+    <img
+      src={logStatus === "INPROGRESS" ? checkedIcon : incompleteIcon}
+      alt={logStatus === "INPROGRESS" ? "Completed" : "Incomplete"}
+    />
+    <h5>In Progress</h5>
+  </div>
 
+  <div className={`step ${logStatus === "RESOLVED" ? "active" : ""}`}>
+    <img
+      src={logStatus === "RESOLVED" ? checkedIcon : incompleteIcon}
+      alt={logStatus === "RESOLVED" ? "Completed" : "Incomplete"}
+    />
+    <h5>Resolved</h5>
+  </div>
+
+  {/* Conditionally render Escalated step */}
+  {logStatus === "ESCALATED" && (
+    <div className="step active">
+      <img src={checkedIcon} alt="Completed" />
+      <h5>Escalated</h5>
+    </div>
+  )}
+
+  {/* Conditionally render Closed step */}
+  {logStatus === "CLOSED" && (
+    <div className="step active">
+      <img src={checkedIcon} alt="Completed" />
+      <h5>Closed</h5>
+    </div>
+  )}
+  
+</div> 
 
       {/* Tabs Section */}
       <div className="tabs">
@@ -316,6 +328,8 @@ const Escalations = ({ logId }) => {
           </div>
         </div>
       )}
+    </div>
+    </div>
     </div>
   );
 };

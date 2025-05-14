@@ -12,6 +12,8 @@ function SignIn() {
 
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
+    // console.log("logging in to system");
+
 
     // Function to handle the login process by calling the API
     const login = async () => {
@@ -26,17 +28,20 @@ function SignIn() {
                     password: Password,
                 }),
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
-                
+
                 // Save the user details in localStorage
                 localStorage.setItem('user_info', JSON.stringify(data.user));
-    
+                // console.log("user logged in");
+
+
+
                 // Check roles and navigate to respective dashboards
                 const roles = data.user.roles;
                 if (roles && roles.length > 0) {
-                    const userRole = roles.find(role => ['staff', 'technician', 'admin', 'hod'].includes(role.toLowerCase()));
+                    const userRole = roles.find(role => ['staff', 'technician', 'admin', 'hod', 'external technician'].includes(role.toLowerCase()));
                     switch (userRole.toLowerCase()) {
                         case 'staff':
                             navigate('/staffdashboard/WelcomeStaff');
@@ -49,6 +54,9 @@ function SignIn() {
                             break;
                         case 'hod':
                             navigate('/headdepartment/hod-dashboard');
+                            break;
+                        case 'external technician':
+                            navigate('/techniciandashboard/dashboard');
                             break;
                         default:
                             toast.error("Unknown role.");
@@ -66,7 +74,7 @@ function SignIn() {
             toast.error("An error occurred while trying to log in.");
         }
     };
-    
+
 
     return (
         <div className="signin-cup">

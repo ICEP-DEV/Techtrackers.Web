@@ -338,3 +338,6 @@ hr {
   .step.active.ESCALATED h5 {
     color: #ff0000; /* Escalated step color */
   }
+  .step.active.CLOSED h5 {
+    color: #48494B;
+  }

@@ -1,13 +1,10 @@
 /* Main Content */
 .MmainContent {
-  padding: 20px;
+  padding: 15px;
   background-color: #f0f0f0;
   flex-grow: 1;
   position: relative;
-  overflow-x: hidden; /* Changed from auto to hidden to prevent horizontal scrolling of the container */
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0; /* Remove any margin */
+  overflow-x: auto; /* Prevents horizontal scrolling */
 }
 
 /* Status Header */
@@ -15,26 +12,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   flex-wrap: wrap;
-}
-
-.statusHeader h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-  color: #333;
-}
-
-/* Table Container - Add this new class */
-.tableContainer {
-  width: 100%;
-  overflow-x: auto; /* Allow horizontal scrolling for the table container */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  margin-bottom: 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: white; /* Ensure white background */
 }
 
 /* Table Styling */
@@ -42,37 +21,16 @@
   width: 100%;
   border-collapse: collapse;
   background-color: white;
-  font-size: 14px;
-  transition: transform 0.5s ease-in-out;
-  min-width: 800px; /* Ensure table has a minimum width to prevent squishing */
+  font-size: 14px; /* Slightly smaller font for better mobile readability */
+  transition: transform 0.5s ease-in-out; /* Smooth transition for tilt */
 }
 
 .issuesTable th,
 .issuesTable td {
-  padding: 12px 8px; /* Increased padding for better readability */
+  padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  white-space: nowrap; /* Prevent text wrapping in cells */
-}
-
-/* Table header styling */
-.issuesTable th {
-  background-color: #f5f5f5;
-  font-weight: 600;
-  color: #333;
-  border-bottom: 2px solid #ddd;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-/* Alternating row colors for better readability */
-.issuesTable tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.issuesTable tbody tr:hover {
-  background-color: #f0f0f0;
+  white-space: nowrap; /* Prevents text from wrapping awkwardly */
 }
 
 /* Status Styling */
@@ -80,54 +38,40 @@
   padding: 5px 10px;
   border-radius: 5px;
   color: white;
-  font-size: 12px;
-  display: inline-block; /* Ensure proper display */
-  margin: 2px 0; /* Add some vertical spacing */
-  min-width: 80px; /* Minimum width for status badges */
-  text-align: center;
-  font-weight: bold;
-  text-transform: uppercase; /* Make status uppercase to match screenshot */
+  font-size: 12px; /* Keeps status readable without taking too much space */
 }
 
 .pending {
-  background-color: #ffa007; /* Orange for pending */
+  background-color: #ffa007;
 }
-
 .inprogress {
   background-color: #14788f;
 }
-
 .resolved {
   background-color: #28a745;
 }
-
 .onhold {
   background-color: #8f9396;
 }
-
 .escalated {
   background-color: #f70000;
 }
-
-/* Ensure the view button is properly styled */
+.closed {
+  background-color: #000000;
+}
+/* View Button */
 .viewButton {
-  background-color: #0c3a3a;
+  background-color: #1a3c40;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 5px 10px;
   cursor: pointer;
   font-size: 12px;
   border-radius: 4px;
-  min-height: 36px;
-  min-width: 70px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
 }
 
 .viewButton:hover {
-  background-color: #105656;
+  background-color: #142b2e;
 }
 
 /* Controls (Search, Filter, Sort) */
@@ -135,51 +79,23 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   justify-content: space-between;
 }
 
 .searchInput,
 .filterSelect,
 .sortSelect {
-  padding: 10px; /* Increased padding */
+  padding: 8px;
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
   flex: 1;
-  min-width: 120px;
-  height: 40px; /* Consistent height */
-}
-
-/* Pagination Controls */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.paginationButton {
-  padding: 8px 12px;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  min-height: 40px;
-  min-width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.paginationButton.active {
-  background-color: #1a3c40;
-  color: white;
-  border-color: #1a3c40;
+  min-width: 120px; /* Ensures fields don’t shrink too much */
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .MmainContent {
     padding: 10px;
   }
@@ -196,12 +112,12 @@
 
   .issuesTable th,
   .issuesTable td {
-    padding: 10px 6px; /* Adjusted padding */
+    padding: 6px;
   }
 
   .viewButton {
-    padding: 8px 10px;
-    font-size: 12px;
+    padding: 4px 8px;
+    font-size: 11px;
   }
 
   .controls {
@@ -212,48 +128,7 @@
   .searchInput,
   .filterSelect,
   .sortSelect {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px 8px;
-  }
-
-  /* Improve table scrolling hint */
-  .tableContainer::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05));
-    pointer-events: none;
-    opacity: 0.7;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-  .MmainContent {
-    padding: 8px;
-  }
-
-  .issuesTable {
-    font-size: 11px;
-  }
-
-  .status {
-    font-size: 10px;
-    padding: 4px 8px;
-    min-width: 70px;
-  }
-
-  .viewButton {
-    font-size: 11px;
-    padding: 6px 8px;
-  }
-
-  .pagination {
-    flex-wrap: wrap;
-    justify-content: center;
+    font-size: 12px;
+    padding: 6px;
   }
 }

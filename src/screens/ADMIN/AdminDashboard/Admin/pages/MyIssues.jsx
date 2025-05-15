@@ -51,7 +51,9 @@ const Table = ({ adminId }) => {
       case "ONHOLD":
         return "#0a4d4d";
       case "PENDING":
-        return '#ffa007';
+        return "#ffa007";
+      case "CLOSED":
+        return "#f70000";
       default:
         return "black";
     }
@@ -140,6 +142,7 @@ const Table = ({ adminId }) => {
             <option value="INPROGRESS">In Progress</option>
             <option value="ONHOLD">On Hold</option>
             <option value="ESCALATED">Escalated</option>
+            <option value="CLOSED">Closed</option>
           </select>
           <select
             className={styles.sortDropdown}

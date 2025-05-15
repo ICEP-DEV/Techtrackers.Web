@@ -30,6 +30,7 @@ const WelcomeTechnician = () => {
     const fetchStatusCounts = async () => {
       try {
         const userInfo = JSON.parse(localStorage.getItem('user_info'));
+        
         const technicianId = userInfo ? userInfo.userId : null;
 
         if (!technicianId) {
@@ -162,6 +163,8 @@ const WelcomeTechnician = () => {
                           ? "100%"
                           : task.status === "INPROGRESS"
                             ? "50%"
+                            : task.status === "CLOSED"
+                              ? "100%"
                             : task.status === "PENDING"
                               ? "25%"
                               : task.status === "RESOLVED"
@@ -172,6 +175,8 @@ const WelcomeTechnician = () => {
                           ? "red"
                           : task.status === "INPROGRESS"
                             ? "#14788f"
+                            : task.status === "CLOSED"
+                              ? "#808080"
                             : task.status === "PENDING"
                               ? "#ffa007"
                               : task.status === "RESOLVED"
@@ -185,6 +190,8 @@ const WelcomeTechnician = () => {
                         ? "100%"
                         : task.status === "INPROGRESS"
                           ? "70%"
+                          : task.status === "CLOSED"
+                            ? "100%"
                           : task.status === "PENDING"
                             ? "25%"
                             : task.status === "RESOLVED"

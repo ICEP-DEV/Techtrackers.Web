@@ -166,12 +166,12 @@ const AddTechnician = () => {
               <input type="radio" id="internal" name="techType" value="internal" 
                 checked = {technicianType == "internal"} 
                 onChange={handleTechnicianTypeChange}/>
-              <label for="internal">Internal</label>
+              <label htmlFor="internal">Internal</label>
 
               <input type="radio" id="external" name="techType" value="external" 
                 checked = {technicianType == "external"} 
                 onChange={handleTechnicianTypeChange}/>
-              <label for="external">External</label>
+              <label htmlFor="external">External</label>
             </div>
           </div>
         <div className="mb-3">

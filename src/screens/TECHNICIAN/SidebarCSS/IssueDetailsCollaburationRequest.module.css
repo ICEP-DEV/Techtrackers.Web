@@ -251,8 +251,10 @@
 }
 
 .collabBtns {
+  display: flex;
   gap: 10px;
-  margin-right: 10%;
+  margin-right: 1%;
+
 }
 
 .acceptButton,

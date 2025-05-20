@@ -9,10 +9,11 @@ import { sortUsers } from "./sortUsersCollaburationRequest"; // Import the sort 
 import useIssues from "./useIssuesCollaburationRequest"; // Import the useIssues hook
 import DeclineIcon from "../images/declineIcon.png";
 import AcceptIcon from "../images/acceptIcon.png";
+import { toast } from "react-toastify";
 
 const Table = () => {
 
-  const { issues } = useIssues(); // Access issues from useIssues
+  //const { issues } = useIssues(); // Access issues from useIssues
 
   const navigate = useNavigate();
 
@@ -24,9 +25,68 @@ const Table = () => {
   const [isSortOpen, setIsSortOpen] = useState(false); // Track sort dropdown visibility
   const [popupMessage, setPopupMessage] = useState(""); // State for popup message visibility
 
+  const [issues, setIssues] = useState([]);
+
   const filterRef = useRef(null); // Ref for filter dropdown
   const sortRef = useRef(null); // Ref for sort dropdown
 
+  useEffect(() => {
+    const fetchRequests = async () => {
+      const technician = JSON.parse(localStorage.getItem("user_info"));
+      const localIssues = JSON.parse(localStorage.getItem("Tech Issues")) || [];
+  
+      if (!technician?.userId) return;
+  
+      try {
+        const response = await fetch(`https://localhost:44328/api/Collaboration/Pending/${technician.userId}`);
+        if (response.ok) {
+          const data = await response.json();
+  
+          const mapped = data.map((item) => {
+            const match = localIssues.find(issue => issue.logId === item.logId);
+  
+            return {
+              collaborationId: item.collaboratedId,
+              name: `${item.requestingTechnician?.surname}`,
+              title: "Technician",
+              issueTitle: `${match?.issueTitle} - ID: ${item.logId}`,
+              issueDetails: match?.description || "Collaboration request received.",
+              time: new Date(item.createdAt).toLocaleTimeString(),
+              date: new Date(item.createdAt).toLocaleDateString(),
+            };
+          });
+  
+          setIssues(mapped);
+        }
+      } catch (error) {
+        toast.error("Failed to load collaboration requests.");
+      }
+    };
+  
+    fetchRequests();
+  }, []);
+  
+
+   // Accept or Decline collaboration request
+   const handleRespondToCollab = async (collaborationId, status) => {
+    try {
+      const response = await fetch(`https://localhost:44328/api/Collaboration/Respond/${collaborationId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+
+      if (response.ok) {
+        toast.success(`Request ${status.toLowerCase()}!`);
+        setIssues((prev) => prev.filter((i) => i.collaborationId !== collaborationId));
+      } else {
+        const error = await response.json();
+        toast.error(error.message || "Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("Network error occurred.");
+    }
+  };
   // Function to handle sorting
   const handleSort = (type) => {
     const sortedIssues = sortUsers(issues, type); // Use the imported sort function
@@ -43,19 +103,34 @@ const Table = () => {
     setFilterTime(e.target.value); // Update time filter value
   };
 
-  const handleIssueClick = (issue) => {
-    navigate(`/techniciandashboard/issue/${issue.id}`, { state: issue }); // Pass the issue data
-  };
+  /*const handleIssueClick = (issue) => {
+    navigate(`/techniciandashboard/issue/${issue.collaborationId}`, { state: issue }); // Pass the issue data
+  };*/
 
-  // Handle Accept button click
-  const handleAccept = () => {
-    setPopupMessage("Accepts collaboration request");
-  };
+  /*const handleRespondToCollab = async (collaborationId, status) => {
+    try {
+      const response = await fetch(`https://localhost:44328/api/Collaboration/Respond/${collaborationId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
 
-  // Handle Decline button click
-  const handleDecline = () => {
-    setPopupMessage("Declines collaboration request");
-  };
+      if (response.ok) {
+        toast.success(`Request ${status.toLowerCase()}!`);
+        setIssues((prevIssues) =>
+          prevIssues.filter((issue) => issue.collaborationId !== collaborationId)
+        );
+      } else {
+        const error = await response.json();
+        toast.error(error.message || "Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("Network error occurred.");
+    }
+  };*/
+
 
   // Filter issues based on filter criteria
   const filteredIssues = issues.filter((issue) => {
@@ -83,6 +158,9 @@ const Table = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
+    
+    
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -110,6 +188,10 @@ const Table = () => {
       </div>
     </div>
   );
+
+  const handleIssueClick = (issue) => {
+    navigate(`/techniciandashboard/issue/${issue.collaborationId}`, { state: issue });
+  };
 
   return (
     <div className={styles.collabTableContainer}>
@@ -198,10 +280,10 @@ const Table = () => {
         <div className={styles.collabButtons}>
           <div className={styles.collabTime}>{issue.time}</div>
           <div className={styles.collabBtns}>
-            <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`} onClick={handleDecline}>
+            <button className={`${styles.collabBtn} ${styles.collabBtnDecline}`} onClick={() => handleRespondToCollab(issue.collaborationId, "DECLINED")}>
                 Decline
             </button>
-            <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`} onClick={handleAccept}>
+            <button className={`${styles.collabBtn} ${styles.collabBtnAccept}`} onClick={() => handleRespondToCollab(issue.collaborationId, "ACCEPTED")}>
                 Accept
             </button>
             </div>

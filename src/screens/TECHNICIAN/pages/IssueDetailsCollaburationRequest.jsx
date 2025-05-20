@@ -126,7 +126,7 @@ const IssueDetails = () => {
           <h4><img src={descIcon} width="25" height="30" alt="Description Icon"/> Description</h4>
         </h3>
         <p className={styles.descriptionText}>
-        I'm experiencing an issue where I cannot log into the system. After entering my username and password and hitting the login button, the system either displays an error message saying "Invalid credentials" or simply reloads the login page without any notification. I've double-checked my credentials and even tried resetting my password, but the problem persists. This issue is preventing access to the main dashboard and all features tied to the user account.
+        {issue.Description}
         </p>
       </div>
 

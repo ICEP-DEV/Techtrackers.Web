@@ -53,6 +53,11 @@ const IssueDetails = ({ issues }) => {
   }, []);
 
  
+  useEffect(() => {
+    if (issues && issues.length > 0) {
+      localStorage.setItem("Tech Issues", JSON.stringify(issues));
+    }
+  }, [issues]);
 
   if (!issue) {
     return <div>Issue not found</div>;

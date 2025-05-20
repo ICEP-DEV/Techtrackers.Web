@@ -224,6 +224,16 @@ function ViewAllLogs() {
                   onChange={() => handleFilter("resolved")}
                 />
                 <label htmlFor="resolved">Resolved</label>
+
+                <input 
+                type="radio"
+                id="closed"
+                name="status"
+                value="closed"
+                checked={filterStatus === "closed"}
+                onChange={() => handleFilter("closed")}
+                />
+                <label htmlFor="closed">Closed</label>
               </div>
             </div>
           )}

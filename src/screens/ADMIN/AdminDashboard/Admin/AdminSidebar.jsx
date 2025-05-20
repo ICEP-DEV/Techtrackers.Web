@@ -50,7 +50,7 @@ const Sidebar = () => {
   return (
     <div className={`sidebarContainer ${isMenuOpen ? "open" : ""}`}>
       <div className="menu-icon" onClick={toggleMenu}>
-        {isMenuOpen && <span className="admin-name">Admin</span>}
+        {isMenuOpen && <span className="admin-name">HOD</span>}
         <FaBars />
       </div>
       <ul>

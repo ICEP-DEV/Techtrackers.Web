@@ -37,6 +37,8 @@ export default function IssueDetails({ issue = {}, onClose, onOpenChat }) {
         return "status-escalated"
       case "onhold":
         return "status-onhold"
+      case "closed":
+         return "status-closed"
       default:
         return ""
     }

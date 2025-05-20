@@ -34,7 +34,7 @@
   border-radius: 20px;
   background-color: white;
   padding-left: 20px;
-  width: 200px;
+  width: 100px;
 }
 
 .searchInput:focus {
@@ -46,13 +46,13 @@
 .searchIcon {
   position: absolute;
   color: #6c757d;
-  margin-left: 170px;
+  margin-left: 80px;
 }
 
 .filterSort {
   display: flex;
   justify-content: flex-end;
-  margin-top: -50px;
+  margin-top: -10px;
 }
 
 .filterButtonContainer,
@@ -164,6 +164,10 @@
   color: #8f9396;
 }
 
+.statusClosed{
+  background-color: #000000;
+  color: white;
+}
 
 .viewButton {
   background-color: #17a2b8;

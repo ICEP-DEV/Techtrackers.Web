@@ -56,7 +56,9 @@
 .escalated {
   background-color: #f70000;
 }
-
+.closed {
+  background-color: #000000;
+}
 /* View Button */
 .viewButton {
   background-color: #1a3c40;

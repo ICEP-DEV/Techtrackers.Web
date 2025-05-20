@@ -8,7 +8,7 @@ import addCircle from "../adminIcons/addCircle.png";
 
 const AddTechnician = () => {
   const navigate = useNavigate();
-
+  const [technicianType, setTechnicianType] = useState("internal"); // Default to internal
   // State for form inputs and error messages
   const [formData, setFormData] = useState({
     fullName: "",
@@ -18,7 +18,9 @@ const AddTechnician = () => {
     password: "",
     fromTime: "",
     toTime: "",
+    location: "",
   });
+
   const [errors, setErrors] = useState({});
 
   const handleExit = () => {
@@ -39,6 +41,7 @@ const AddTechnician = () => {
         toTime: formData.toTime,
         specialization: formData.specialization,
         contacts: formData.contact,
+        technicianType: technicianType,
       };
   
       try {
@@ -139,6 +142,17 @@ const AddTechnician = () => {
     }
   };
 
+  const handleTechnicianTypeChange = (e) => {
+    setTechnicianType(e.target.value);
+
+    setFormData({
+      ...formData,
+      fullName: "",
+      serviceType: "Computer Repair Technician",
+      location: "",
+    });
+  };
+
   return (
     <div className="dashboard-container">
       <div className="headerx">
@@ -146,9 +160,23 @@ const AddTechnician = () => {
         <h1 className="header-title">Add Technician</h1>
       </div>
       <form>
+          <div className="formGroup">
+            <label>Technician Type:</label>
+            <div className= "radioBtns">
+              <input type="radio" id="internal" name="techType" value="internal" 
+                checked = {technicianType == "internal"} 
+                onChange={handleTechnicianTypeChange}/>
+              <label htmlFor="internal">Internal</label>
+
+              <input type="radio" id="external" name="techType" value="external" 
+                checked = {technicianType == "external"} 
+                onChange={handleTechnicianTypeChange}/>
+              <label htmlFor="external">External</label>
+            </div>
+          </div>
         <div className="mb-3">
           <label htmlFor="fullName" className="form-label">
-            Full Name
+          {technicianType === "internal" ? "Full Name" : "Company Name"}
           </label>
           <input
             type="text"
@@ -161,6 +189,22 @@ const AddTechnician = () => {
           {errors.fullName && (
             <div className="error-message">{errors.fullName}</div>
           )}
+
+        {technicianType === "external" && (
+          <div className="mb-3">
+            <label htmlFor="location" className="form-label">Location</label>
+            <input
+              type="text"
+              className="form-control"
+              id="location"
+              placeholder="Enter location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+            {errors.location && <div className="error-message">{errors.location}</div>}
+          </div>
+        )}
+
         </div>
         <div className="mb-3">
           <label className="form-label">Email</label>
@@ -175,13 +219,13 @@ const AddTechnician = () => {
           {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
         <div className="mb-3">
-          <label htmlFor="specialization" className="form-label">
-            Specialization
+          <label htmlFor="serviceType" className="form-label">
+            {technicianType === "internal" ? "Specialization" : "Service Type"}
           </label>
           <select
-            id="specialization"
+            id="serviceType"
             className="specialization-control"
-            value={formData.specialization}
+            value={formData.serviceType}
             onChange={handleChange}
           >
             <option>Computer Repair Technician</option>

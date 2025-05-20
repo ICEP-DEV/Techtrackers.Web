@@ -30,7 +30,7 @@
   max-width: 1200px;
   height: 175px;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   padding: 20px;
   color: white;
   gap: 20px;

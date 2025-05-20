@@ -24,6 +24,11 @@
   font-weight: 600;
 }
 
+.radioBtns label {
+  margin: 5px;
+}
+
+
 form {
   background-color: #fff;
   padding: 20px;

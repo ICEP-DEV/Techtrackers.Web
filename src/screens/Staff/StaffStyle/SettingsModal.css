@@ -10,10 +10,10 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-}
-
-/* Modal content box */
-.settings-modal {
+  }
+  
+  /* Modal content box */
+  .settings-modal {
     background: #123d5a;
     padding: 20px;
     border-radius: 8px;
@@ -21,40 +21,40 @@
     width: 100%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-}
-
-/* Modal header */
-.modal-header {
+  }
+  
+  /* Modal header */
+  .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.close-button {
+  }
+  
+  .close-button {
     background: transparent;
     border: none;
     font-size: 20px;
     cursor: pointer;
-}
-
-.settings-option {
+  }
+  
+  .settings-option {
     margin: 15px 0;
-}
-
-/* Font size buttons */
-.settings-option button {
+  }
+  
+  /* Font size buttons */
+  .settings-option button {
     margin-right: 10px;
     padding: 5px 10px;
     border: 1px solid #ccc;
     background-color: #28c0db;
     cursor: pointer;
-}
-
-.settings-option button:hover {
+  }
+  
+  .settings-option button:hover {
     background-color: #ddd;
-}
-
-.close-modal-button {
+  }
+  
+  .close-modal-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -62,18 +62,65 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-}
-
-.close-modal-button:hover {
+  }
+  
+  .close-modal-button:hover {
     background-color: #0056b3;
-}
-body {
+  }
+  body {
     background-color: white;
     color: black;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode {
+  }
+  
+  body.dark-mode {
     background-color: #3f3131; /* Dark background */
     color: rgb(16, 16, 17); /* Light text color */
-}
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .settings-modal {
+      max-width: 90%;
+      padding: 15px;
+    }
+  
+    .settings-option button {
+      margin-right: 5px;
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+  
+    .close-modal-button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .settings-modal {
+      max-width: 95%;
+      padding: 10px;
+    }
+  
+    .modal-header {
+      margin-bottom: 10px;
+    }
+  
+    .settings-option {
+      margin: 10px 0;
+    }
+  
+    .settings-option button {
+      margin-right: 3px;
+      padding: 3px 6px;
+      font-size: 12px;
+    }
+  
+    .close-modal-button {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
+  
+  

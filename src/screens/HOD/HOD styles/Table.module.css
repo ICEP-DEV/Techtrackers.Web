@@ -127,7 +127,7 @@
 .filterSortContainer {
   display: flex;
   align-items: center;
-  justify-content:end;
+  justify-content:end-start;
   margin: 20px 0;
 }
 

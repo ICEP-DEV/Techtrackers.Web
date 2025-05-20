@@ -9,6 +9,7 @@ import collaborationRequests from './TechnicianIcons/collaborationRequests.png';
 import reviews from './TechnicianIcons/reviews.png';
 import logIcon from './TechnicianIcons/logIcon.png';
 
+
 const Sidebar = () => {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +28,10 @@ const Sidebar = () => {
 
         if (option === "logout") {
             const confirmLogout = window.confirm("Are you sure you want to log out?");
+
+
             if (!confirmLogout) return; // Stop if user cancels
+            // console.log("user logged out");
         }
 
         navigate(path);
@@ -42,12 +46,15 @@ const Sidebar = () => {
             return newValue;
         });
     };
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    // console.log("------------welcome page");
+    console.log("user_info ====================", userInfo?.roles);
 
     return (
         <div className={`sidebar-container ${isMenuOpen ? 'open' : ''}`}>
             <div className="menu-icon" onClick={toggleMenu}>
                 {isMenuOpen && <span className="admin-name">Technician</span>}
-                <FaBars className='icon-menu'/>
+                <FaBars className='icon-menu' />
             </div>
             <ul>
                 <li onClick={() => handleOptionClick("dashboard", "/techniciandashboard/dashboard")} className={`list ${selectedOption === 'dashboard' ? 'selected' : ''}`}>
@@ -64,10 +71,22 @@ const Sidebar = () => {
                     {isMenuOpen && <span>ALL ISSUES</span>}
                 </li>
 
-                <li onClick={() => handleOptionClick("collab", "/techniciandashboard/collab")} className={`list ${selectedOption === 'collab' ? 'selected' : ''}`}>
-                    <img src={collaborationRequests} alt="Collaboration" className="sidebar-container-icon" height={40} />
-                    {isMenuOpen && <span>COLLABORATION REQUESTS</span>}
-                </li>
+                {userInfo?.roles?.includes('User') && (
+                    <li onClick={() => handleOptionClick("collab", "/techniciandashboard/collab")} className={`list ${selectedOption === 'collab' ? 'selected' : ''}`}>
+                        <img src={collaborationRequests} alt="Collaboration" className="sidebar-container-icon" height={40} />
+                        {isMenuOpen && <span>COLLABORATION REQUESTS</span>}
+                    </li>
+                )}
+
+{!userInfo?.roles?.includes('External-Technician') && (
+    <li onClick={() => handleOptionClick("collab", "/techniciandashboard/collab")} className={`list ${selectedOption === 'collab' ? 'selected' : ''}`}>
+        <img src={collaborationRequests} alt="Collaboration" className="sidebar-container-icon" height={40} />
+        {isMenuOpen && <span>COLLABORATION REQUESTS</span>}
+    </li>
+)}
+
+
+
                 <li onClick={() => handleOptionClick("reviews", "/techniciandashboard/reviews")} className={`list ${selectedOption === 'reviews' ? 'selected' : ''}`}>
                     <img src={reviews} alt="Reviews" className="sidebar-container-icon" />
                     {isMenuOpen && <span>REVIEWS</span>}

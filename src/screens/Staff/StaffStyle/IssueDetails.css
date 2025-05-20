@@ -96,7 +96,9 @@
 .status-onhold {
   background-color: #8f9396; /* Gray - OnHold */
 }
-
+.status-closed {
+  background-color: #000000; /* Black - closed */
+}
 .descrip-section,
 .attach-section {
   background-color: #f9f9f9;

@@ -1,8 +1,10 @@
+"use client"
+
 import React, { useState } from 'react'
 import MainContent from './MainContent'
 import IssueDetails from './IssueDetails'
 import LiveChat from './LiveChat'
-
+//import styles from './StaffStyle/MainContent.module.css'
 
 export default function IssueDisplay() {
   const [selectedIssue, setSelectedIssue] = useState(null)

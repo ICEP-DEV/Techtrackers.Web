@@ -16,6 +16,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
   border-radius: 10px; /* Optional: Add rounded corners for a smoother look */
   margin-top: -10px;
+  overflow-x: auto;
 }
 
 /* Header styles */
